@@ -1,0 +1,61 @@
+title: Alph_Idle
+tags: 
+colorID: 0
+position: 540,261
+---
+(He seems busy.)
+===
+title: Alph_Dock
+tags: 
+colorID: 0
+position: 799,248
+---
+...
+Another quiet day, wouldn't you say?
+    -> It's a little too quiet for me here.
+        Yes. It would be nice to see a little something change.
+    -> I like the quiet.
+        Well, I can't argue with that.
+===
+title: Alph_ShowOddSeed_UNUSED
+tags: 
+colorID: 0
+position: 1022,68
+---
+With those seeds, I could grow something pretty interesting in the fields.
+Would you mind giving them to me?
+    -> Yes, you can have them.
+        <<TakeItemFromPlayerInventory GameManager Odd Seeds>>
+        <<SetGlobalVariable AlphNPC schedulePhase, int, 2>>
+        Wonderful! I'll make plans to plant them in the morning.
+    -> No, I think I'd like to hold onto them.
+        Alright. Well, good luck with your quest.
+===
+title: Alph_ShowOddSeed
+tags: 
+colorID: 0
+position: 1106,409
+---
+Why, thank you!
+With these strange little seeds, I think I can grow something rather fantastical in my fields.
+I'll begin planting them in the morning.
+Thank you, friend!
+===
+title: Alph_Field
+tags: 
+colorID: 0
+position: 1354,204
+---
+Thanks for helping me get my hands on these seeds.
+These plants are going to be really special once they start to bloom.
+===
+title: Alph_Dock02
+tags: 
+colorID: 0
+position: 1379,428
+---
+Nice evening, isn't it.
+...
+I'm sorry you're stuck here.
+But, it's nice to have some company.
+===

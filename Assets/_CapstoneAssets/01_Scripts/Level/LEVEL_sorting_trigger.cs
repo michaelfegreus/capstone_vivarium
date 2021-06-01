@@ -1,0 +1,22 @@
+﻿using UnityEngine;
+
+public class LEVEL_sorting_trigger : MonoBehaviour
+{
+    [Tooltip("Sprites to change the sorting order of.")]
+    [SerializeField]
+    SpriteRenderer[] spriteToOrder;
+
+    [SerializeField]
+    int targetSortLevel;
+
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.tag.Trim().Equals("Player".Trim()))
+        {
+            for (int i = 0; i < spriteToOrder.Length; i++)
+            {
+                spriteToOrder[i].sortingOrder = targetSortLevel;
+            }
+        }
+    }
+}
