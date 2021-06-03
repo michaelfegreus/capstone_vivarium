@@ -23,8 +23,8 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 	public float inputDeadzoneThreshold = .01f; // How far you need to move the stick to get this script to register it as movement.
 	public bool directionInput; // Is the player moving the analog stick?
     float inputAngle; // Calculated angle of input from the analog stick or keys.
-	// Button input
-	bool dashInput;
+    // Button input
+    [System.NonSerialized] public bool dashInput;
 
     // Movespeed values
     public float walkStartupSpeed;
