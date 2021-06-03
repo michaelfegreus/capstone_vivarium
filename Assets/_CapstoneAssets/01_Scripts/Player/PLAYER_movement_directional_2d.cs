@@ -9,6 +9,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		I think this is still a good character controller, but it would be nice if everything was a bit less spread out. */
 
 	public GameObject playerMovementModule;
+    public PLAYER_collision_delegate playerMovementDelegateScript;
 
     // Use a reference because the animation script gets called a lot.
     PLAYER_animation playerAnimation;
@@ -63,6 +64,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
     // Disable and enable based on when you're dashing.
     public ParticleSystem dashParticles;
+
 
 	void Start () {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
@@ -367,4 +369,5 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         currentMoveSpeed = 0f;
         targetMoveSpeed = 0f;
     }
+
 }
