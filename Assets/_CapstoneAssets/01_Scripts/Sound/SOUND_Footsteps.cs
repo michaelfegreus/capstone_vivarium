@@ -20,8 +20,12 @@ public class SOUND_Footsteps : MonoBehaviour
                 case LEVEL_surfaceType.surface.Carpet:
                     MasterAudio.PlaySound3DAtVector3("Carpet_Run_Tip", targetTransform.position);
                     break;
+                case LEVEL_surfaceType.surface.Tile:
+                    MasterAudio.PlaySound3DAtVector3("Tile_Run_Tip", targetTransform.position);
+                    break;
             }
-        } else //Play walking sound
+        }
+        else //Play walking sound
         {
             switch (PLAYER_manager.Instance.playerMovement.playerMovementDelegateScript.currentSurface)
             {
@@ -30,6 +34,9 @@ public class SOUND_Footsteps : MonoBehaviour
                     break;
                 case LEVEL_surfaceType.surface.Carpet:
                     MasterAudio.PlaySound3DAtVector3("Carpet_Walk_Tip", targetTransform.position);
+                    break;
+                case LEVEL_surfaceType.surface.Tile:
+                    MasterAudio.PlaySound3DAtVector3("Tile_Walk_Tip", targetTransform.position);
                     break;
             }
         }
@@ -48,6 +55,9 @@ public class SOUND_Footsteps : MonoBehaviour
                 case LEVEL_surfaceType.surface.Carpet:
                     MasterAudio.PlaySound3DAtVector3("Carpet_Run_Tap", targetTransform.position);
                     break;
+                case LEVEL_surfaceType.surface.Tile:
+                    MasterAudio.PlaySound3DAtVector3("Tile_Run_Tap", targetTransform.position);
+                    break;
             }
         }
         else //Play walking sound
@@ -60,8 +70,27 @@ public class SOUND_Footsteps : MonoBehaviour
                 case LEVEL_surfaceType.surface.Carpet:
                     MasterAudio.PlaySound3DAtVector3("Carpet_Walk_Tap", targetTransform.position);
                     break;
+                case LEVEL_surfaceType.surface.Tile:
+                    MasterAudio.PlaySound3DAtVector3("Tile_Walk_Tap", targetTransform.position);
+                    break;
             }
         }
     }
 
+    public void SkidSound()
+    {
+        switch (PLAYER_manager.Instance.playerMovement.playerMovementDelegateScript.currentSurface)
+        {
+            case LEVEL_surfaceType.surface.Wood:
+                MasterAudio.PlaySound3DAtVector3("Wood_Skid", targetTransform.position);
+                break;
+            case LEVEL_surfaceType.surface.Carpet:
+                MasterAudio.PlaySound3DAtVector3("Carpet_Skid", targetTransform.position);
+                break;
+            case LEVEL_surfaceType.surface.Tile:
+                MasterAudio.PlaySound3DAtVector3("Tile_Skid", targetTransform.position);
+                break;
+        }
+
+    }
 }
