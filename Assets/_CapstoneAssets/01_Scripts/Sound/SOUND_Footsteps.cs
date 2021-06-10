@@ -28,6 +28,9 @@ public class SOUND_Footsteps : MonoBehaviour
                 case LEVEL_surfaceType.surface.Tile:
                     MasterAudio.PlaySound3DAtVector3("Tile_Run_Tip", targetTransform.position);
                     break;
+                case LEVEL_surfaceType.surface.Dirt:
+                    MasterAudio.PlaySound3DAtVector3("Dirt_Run_Tip", targetTransform.position);
+                    break;
             }
         }
         else //Play walking sound
@@ -42,6 +45,9 @@ public class SOUND_Footsteps : MonoBehaviour
                     break;
                 case LEVEL_surfaceType.surface.Tile:
                     MasterAudio.PlaySound3DAtVector3("Tile_Walk_Tip", targetTransform.position);
+                    break;
+                case LEVEL_surfaceType.surface.Dirt:
+                    MasterAudio.PlaySound3DAtVector3("Dirt_Walk_Tip", targetTransform.position);
                     break;
             }
         }
@@ -66,6 +72,9 @@ public class SOUND_Footsteps : MonoBehaviour
                 case LEVEL_surfaceType.surface.Tile:
                     MasterAudio.PlaySound3DAtVector3("Tile_Run_Tap", targetTransform.position);
                     break;
+                case LEVEL_surfaceType.surface.Dirt:
+                    MasterAudio.PlaySound3DAtVector3("Dirt_Run_Tap", targetTransform.position);
+                    break;
             }
         }
         else //Play walking sound
@@ -80,6 +89,9 @@ public class SOUND_Footsteps : MonoBehaviour
                     break;
                 case LEVEL_surfaceType.surface.Tile:
                     MasterAudio.PlaySound3DAtVector3("Tile_Walk_Tap", targetTransform.position);
+                    break;
+                case LEVEL_surfaceType.surface.Dirt:
+                    MasterAudio.PlaySound3DAtVector3("Dirt_Walk_Tap", targetTransform.position);
                     break;
             }
         }
@@ -100,6 +112,9 @@ public class SOUND_Footsteps : MonoBehaviour
                 break;
             case LEVEL_surfaceType.surface.Tile:
                 MasterAudio.PlaySound3DAtVector3("Tile_Skid", targetTransform.position);
+                break;
+            case LEVEL_surfaceType.surface.Dirt:
+                MasterAudio.PlaySound3DAtVector3("Dirt_Skid", targetTransform.position);
                 break;
         }
 
@@ -128,6 +143,10 @@ public class SOUND_Footsteps : MonoBehaviour
         if (currSurf.Equals("Tile"))
         {
             currentSurface = LEVEL_surfaceType.surface.Tile;
+        }
+        if (currSurf.Equals("Dirt"))
+        {
+            currentSurface = LEVEL_surfaceType.surface.Dirt;
         }
     }
 
