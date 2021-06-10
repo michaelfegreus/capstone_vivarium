@@ -8,7 +8,8 @@ public class LEVEL_surfaceType
         Wood,
         Tile,
         Carpet,
-        Grass
+        Grass,
+        Dirt
     }
 
 }
