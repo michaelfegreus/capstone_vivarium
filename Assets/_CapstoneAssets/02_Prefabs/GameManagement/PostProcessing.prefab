@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5931095235818479085}
-  - component: {fileID: 5931095235818479086}
   - component: {fileID: 5931095235818479084}
+  - component: {fileID: 3110538874042887855}
   - component: {fileID: 5931095235818478992}
   - component: {fileID: 5931095235818478993}
   - component: {fileID: 5931095235818478994}
@@ -36,23 +36,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5931095235818479086
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5931095235818479087}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isGlobal: 1
-  priority: 0
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 248b7308859c628419751c8c582bad06, type: 2}
 --- !u!114 &5931095235818479084
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,9 +50,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   daylightProfiles:
   - startTime:
-      inGameTime: 02:30
-      hour: 2
-      minute: 30
+      inGameTime: 04:00
+      hour: 4
+      minute: 0
     peakStartTime:
       inGameTime: 05:00
       hour: 5
@@ -79,9 +62,9 @@ MonoBehaviour:
       hour: 7
       minute: 0
     endTime:
-      inGameTime: 11:30
+      inGameTime: 11:00
       hour: 11
-      minute: 30
+      minute: 0
     activeHours: 0
     rolloverClock: 0
     rolloverPeak: 0
@@ -146,7 +129,27 @@ MonoBehaviour:
     rolloverClock: 0
     rolloverPeak: 0
     postVolume: {fileID: 5931095235818478995}
---- !u!114 &5931095235818478992
+  - startTime:
+      inGameTime: 18:30
+      hour: 18
+      minute: 30
+    peakStartTime:
+      inGameTime: 19:30
+      hour: 19
+      minute: 30
+    peakEndTime:
+      inGameTime: 02:30
+      hour: 2
+      minute: 30
+    endTime:
+      inGameTime: 06:00
+      hour: 6
+      minute: 0
+    activeHours: 0
+    rolloverClock: 0
+    rolloverPeak: 0
+    postVolume: {fileID: 5931095235818478995}
+--- !u!114 &3110538874042887855
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -163,6 +166,23 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 3bd3edcb34a7e6a40b10722a8c5d516d, type: 2}
+--- !u!114 &5931095235818478992
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5931095235818479087}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 29f392d04daaf28449be663f846a130e, type: 2}
 --- !u!114 &5931095235818478993
 MonoBehaviour:
   m_ObjectHideFlags: 0
