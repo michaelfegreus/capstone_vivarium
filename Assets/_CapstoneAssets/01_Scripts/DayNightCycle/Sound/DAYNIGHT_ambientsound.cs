@@ -8,19 +8,31 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
-            for (int i = 0; i < timeProfiles.Length; i++)
+            for (int i = 0; i < ambientLoops.Length; i++)
             {
-                timeProfiles[i].startTime.OnValidate();
-                timeProfiles[i].peakStartTime.OnValidate();
-                timeProfiles[i].peakEndTime.OnValidate();
-                timeProfiles[i].endTime.OnValidate();
+                ambientLoops[i].startTime.OnValidate();
+                ambientLoops[i].peakStartTime.OnValidate();
+                ambientLoops[i].peakEndTime.OnValidate();
+                ambientLoops[i].endTime.OnValidate();
             }
 
         }
     }
 
+    // Subscribe to minute tick updates.
+    private void OnEnable()
+    {
+        GAME_clock_manager.OnMinuteTick += DaylightMinuteUpdate;
+    }
+
+    private void OnDisable()
+    {
+        GAME_clock_manager.OnMinuteTick -= DaylightMinuteUpdate;
+    }
+
+
     // NOTE: I'm coding this in a way that's not super scalable right now. So you may want to create a more generic way to affect or override post. Anyway, let us begin.
-    public DayCycleRangePostProfile[] timeProfiles;
+    public DayCycleAmbientSound[] ambientLoops;
 
     // Floats to divide as a proportion to find the weight of the profile.
     float start;
@@ -33,54 +45,44 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
     {
         //Debug.Log("Post script delegate called.");
 
-        for (int i = 0; i < timeProfiles.Length; i++)
+        for (int i = 0; i < ambientLoops.Length; i++)
         {
-            if (timeProfiles[i].IsActiveHours())
+            if (ambientLoops[i].IsActiveHours())
             {
                 // Debug.Log(daylightProfiles[i].postVolume.sharedProfile.name + " profile is active");
 
-                if (timeProfiles[i].IsCurrentlyPeakTime())
+                if (ambientLoops[i].IsCurrentlyPeakTime())
                 {
-                    timeProfiles[i].postVolume.weight = 1f;
+                    ambientLoops[i].ambientGroup.groupMasterVolume = 1f;
                 }
                 else
                 {
-                    if (timeProfiles[i].IsRisingHours())
+                    if (ambientLoops[i].IsRisingHours())
                     {
                         // Set up proportion based on Peak Time
                         // ((CURRENT - START) / (GOAL - START))
-                        start = start = timeProfiles[i].startTime.ThisTimeInMinutes();
-                        goal = timeProfiles[i].peakStartTime.ThisTimeInMinutes();
+                        start = start = ambientLoops[i].startTime.ThisTimeInMinutes();
+                        goal = ambientLoops[i].peakStartTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        timeProfiles[i].postVolume.weight = (current - start) / (goal - start);
+                        ambientLoops[i].ambientGroup.groupMasterVolume = (current - start) / (goal - start);
                         
                     }
-                    else if (timeProfiles[i].IsFallingHours())
+                    else if (ambientLoops[i].IsFallingHours())
                     {
                         // Set up proportion based on End Time
                         // 1- ((CURRENT - START) / (GOAL - START))
-                        start = timeProfiles[i].peakEndTime.ThisTimeInMinutes();
-                        goal = timeProfiles[i].endTime.ThisTimeInMinutes();
+                        start = ambientLoops[i].peakEndTime.ThisTimeInMinutes();
+                        goal = ambientLoops[i].endTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        timeProfiles[i].postVolume.weight = 1 - (current - start) / (goal - start);
+                        ambientLoops[i].ambientGroup.groupMasterVolume = 1 - (current - start) / (goal - start);
                     }
                 }
             }
             else
             {
-                timeProfiles[i].postVolume.weight = 0f;
-            }
-
-            // Disable the Volume component if its weight is zero.
-            if (timeProfiles[i].postVolume.weight == 0f)
-            {
-                timeProfiles[i].postVolume.enabled = false;
-            }
-            else
-            {
-                timeProfiles[i].postVolume.enabled = true;
+                ambientLoops[i].ambientGroup.groupMasterVolume = 0f;
             }
         }
     }
