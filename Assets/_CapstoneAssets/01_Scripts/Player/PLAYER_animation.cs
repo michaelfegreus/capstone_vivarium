@@ -18,6 +18,7 @@ public class PLAYER_animation : MonoBehaviour {
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
 	void Start(){
 		spriteModuleOffset = spriteModule.localPosition;
+        animReflectY.fireEvents = false; // Disable animation events on the floor-reflection animator.
 	}
 	void Update(){
 		// Offset the module
