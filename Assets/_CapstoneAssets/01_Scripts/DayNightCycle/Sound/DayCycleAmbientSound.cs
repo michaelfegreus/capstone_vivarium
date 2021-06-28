@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DarkTonic.MasterAudio;
 using System;
 
 [Serializable]
@@ -9,5 +10,5 @@ public class DayCycleAmbientSound : DayCycleRange
 
     }
 
-
+    public MasterAudioGroup ambientGroup;
 }

@@ -44,7 +44,7 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
 	public float secondsElapsed = 0f;
 
     //public MonoBehaviour postProcessingBehavior;
-    public DAYNIGHT_posteffect daylightPostScript;
+    //public DAYNIGHT_posteffect daylightPostScript;
 
 	//public Text clockText;
 	public TextMeshProUGUI clockTextMesh;
@@ -74,7 +74,7 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
         //inGameTime = new GameTime(myFlowchart.GetIntegerVariable(gameHourGlobal), myFlowchart.GetIntegerVariable(gameMinuteGlobal));
 
         // Setup daylight post script delegate for the minute tick.
-        OnMinuteTick += daylightPostScript.DaylightMinuteUpdate;
+        //OnMinuteTick += daylightPostScript.DaylightMinuteUpdate;
 
         // Run delegate methods for starting a new day.
         if(OnDayStart != null) { 

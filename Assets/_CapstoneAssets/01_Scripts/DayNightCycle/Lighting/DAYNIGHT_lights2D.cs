@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
-public class DAYNIGHT_ambientsound : MonoBehaviour
+public class DAYNIGHT_lights2D : MonoBehaviour
 {
     // Format DayTimePostProfile properly in the inspector by running the custom class' own validation code.
     [ExecuteInEditMode]
@@ -8,19 +9,19 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
-            for (int i = 0; i < ambientLoops.Length; i++)
+            for (int i = 0; i < lights.Length; i++)
             {
-                ambientLoops[i].startTime.OnValidate();
-                ambientLoops[i].peakStartTime.OnValidate();
-                ambientLoops[i].peakEndTime.OnValidate();
-                ambientLoops[i].endTime.OnValidate();
+                lights[i].startTime.OnValidate();
+                lights[i].peakStartTime.OnValidate();
+                lights[i].peakEndTime.OnValidate();
+                lights[i].endTime.OnValidate();
             }
 
         }
     }
 
     // Subscribe to minute tick updates.
-    private void OnEnable()
+    private void OnEnable ()
     {
         GAME_clock_manager.OnMinuteTick += DaylightMinuteUpdate;
     }
@@ -30,9 +31,8 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
         GAME_clock_manager.OnMinuteTick -= DaylightMinuteUpdate;
     }
 
-
     // NOTE: I'm coding this in a way that's not super scalable right now. So you may want to create a more generic way to affect or override post. Anyway, let us begin.
-    public DayCycleAmbientSound[] ambientLoops;
+    public DayCycleRangeLights2D[] lights;
 
     // Floats to divide as a proportion to find the weight of the profile.
     float start;
@@ -45,44 +45,56 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
     {
         //Debug.Log("Post script delegate called.");
 
-        for (int i = 0; i < ambientLoops.Length; i++)
+        for (int i = 0; i < lights.Length; i++)
         {
-            if (ambientLoops[i].IsActiveHours())
+            if (lights[i].IsActiveHours())
             {
                 // Debug.Log(daylightProfiles[i].postVolume.sharedProfile.name + " profile is active");
 
-                if (ambientLoops[i].IsCurrentlyPeakTime())
+                if (lights[i].IsCurrentlyPeakTime())
                 {
-                    ambientLoops[i].ambientGroup.groupMasterVolume = 1f;
+                    foreach(Light2D item in lights[i].roomLights)
+                    {
+                        item.intensity = 1f;
+                    }
                 }
                 else
                 {
-                    if (ambientLoops[i].IsRisingHours())
+                    if (lights[i].IsRisingHours())
                     {
                         // Set up proportion based on Peak Time
                         // ((CURRENT - START) / (GOAL - START))
-                        start = start = ambientLoops[i].startTime.ThisTimeInMinutes();
-                        goal = ambientLoops[i].peakStartTime.ThisTimeInMinutes();
+                        start = start = lights[i].startTime.ThisTimeInMinutes();
+                        goal = lights[i].peakStartTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        ambientLoops[i].ambientGroup.groupMasterVolume = (current - start) / (goal - start);
-                        
+                        foreach (Light2D item in lights[i].roomLights)
+                        {
+                            item.intensity = (current - start) / (goal - start);
+                        }
+
                     }
-                    else if (ambientLoops[i].IsFallingHours())
+                    else if (lights[i].IsFallingHours())
                     {
                         // Set up proportion based on End Time
                         // 1- ((CURRENT - START) / (GOAL - START))
-                        start = ambientLoops[i].peakEndTime.ThisTimeInMinutes();
-                        goal = ambientLoops[i].endTime.ThisTimeInMinutes();
+                        start = lights[i].peakEndTime.ThisTimeInMinutes();
+                        goal = lights[i].endTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        ambientLoops[i].ambientGroup.groupMasterVolume = 1 - (current - start) / (goal - start);
+                        foreach (Light2D item in lights[i].roomLights)
+                        {
+                            item.intensity = 1 - (current - start) / (goal - start);
+                        }
                     }
                 }
             }
             else
             {
-                ambientLoops[i].ambientGroup.groupMasterVolume = 0f;
+                foreach (Light2D item in lights[i].roomLights)
+                {
+                    item.intensity = 0f;
+                }
             }
         }
     }

@@ -19,6 +19,17 @@ public class DAYNIGHT_posteffect : MonoBehaviour
         }
     }
 
+    // Subscribe to minute tick updates.
+    private void OnEnable()
+    {
+        GAME_clock_manager.OnMinuteTick += DaylightMinuteUpdate;
+    }
+
+    private void OnDisable()
+    {
+        GAME_clock_manager.OnMinuteTick -= DaylightMinuteUpdate;
+    }
+
     // NOTE: I'm coding this in a way that's not super scalable right now. So you may want to create a more generic way to affect or override post. Anyway, let us begin.
     public DayCycleRangePostProfile[] daylightProfiles;
 
