@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using DarkTonic.MasterAudio;
 
 public class DAYNIGHT_ambientsound : MonoBehaviour
 {
@@ -47,13 +48,14 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
 
         for (int i = 0; i < ambientLoops.Length; i++)
         {
+            string BusName = ambientLoops[i].ambientGroup.BusForGroup.busName;
             if (ambientLoops[i].IsActiveHours())
             {
                 // Debug.Log(daylightProfiles[i].postVolume.sharedProfile.name + " profile is active");
 
                 if (ambientLoops[i].IsCurrentlyPeakTime())
                 {
-                    ambientLoops[i].ambientGroup.groupMasterVolume = 1f;
+                    MasterAudio.SetBusVolumeByName(BusName, 1f);
                 }
                 else
                 {
@@ -65,7 +67,7 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
                         goal = ambientLoops[i].peakStartTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        ambientLoops[i].ambientGroup.groupMasterVolume = (current - start) / (goal - start);
+                        MasterAudio.SetBusVolumeByName(BusName, (current - start) / (goal - start));
                         
                     }
                     else if (ambientLoops[i].IsFallingHours())
@@ -76,13 +78,13 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
                         goal = ambientLoops[i].endTime.ThisTimeInMinutes();
                         current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
 
-                        ambientLoops[i].ambientGroup.groupMasterVolume = 1 - (current - start) / (goal - start);
+                        MasterAudio.SetBusVolumeByName(BusName, 1 - (current - start) / (goal - start));
                     }
                 }
             }
             else
             {
-                ambientLoops[i].ambientGroup.groupMasterVolume = 0f;
+                MasterAudio.SetBusVolumeByName(BusName, 0f);
             }
         }
     }
