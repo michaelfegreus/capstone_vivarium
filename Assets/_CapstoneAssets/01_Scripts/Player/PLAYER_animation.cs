@@ -106,4 +106,9 @@ public class PLAYER_animation : MonoBehaviour {
         animReflectY.SetFloat("TurnAngle", angleDifference);
 
     }
+
+    public void SetFreeStateBool(bool freeState)
+    {
+        anim.SetBool("FreeState", freeState);
+    }
 }
