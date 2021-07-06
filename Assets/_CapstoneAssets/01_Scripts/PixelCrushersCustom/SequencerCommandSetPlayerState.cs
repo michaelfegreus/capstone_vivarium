@@ -23,7 +23,7 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                     PLAYER_manager.Instance.EnterMenuState();
                     break;
             }
-
+            Stop();
         }
 
     }
