@@ -5,15 +5,6 @@ using Fungus;
 
 public class GAME_clock_manager : Singleton<GAME_clock_manager> {
 
-	//public Flowchart myFlowchart; -- Phasing out Fungus as the time keeper. I think this script should just hold the time variables as a part of the WORLD_manager singleton.
-
-	// Fungus variables
-	//static readonly string gameHourGlobal = "gameHour";
-	//static readonly string gameMinuteGlobal = "gameMinute";
-	//static readonly string gameDayGlobal = "gameDay";
-
-    
-
 	// Event message to send to Fungus flowcharts on the increment of the day counter and the start of a new day.
 	string newDayEventMessage = "DayStart";
 
@@ -30,10 +21,6 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
         }
     }
 
-    /*[Tooltip("How many hours have elapsed this day.")]
-	public int gameHour = 0;
-	[Tooltip("How many minutes have elapsed since the turn of the last hour.")]
-	public int gameMinute = 0;*/
     [Tooltip("How many real-world seconds there are in an in-game minute.")]
 	public float secondsInGameMinute = 1f;
 
@@ -42,9 +29,6 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
 
     [HideInInspector]
 	public float secondsElapsed = 0f;
-
-    //public MonoBehaviour postProcessingBehavior;
-    //public DAYNIGHT_posteffect daylightPostScript;
 
 	//public Text clockText;
 	public TextMeshProUGUI clockTextMesh;
@@ -61,44 +45,24 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
     public delegate void MinuteTick();
     public static event MinuteTick OnMinuteTick;
 
+    // Day time periods to reference for lighting, post processing, ambient sound, and more.
+    public DayCycleRange morning;
+    public DayCycleRange midday;
+    public DayCycleRange evening;
+    public DayCycleRange night;
+
     void Start () {
-
-        // If you set either the hourOfTime, or minuteOfHour variables in the Fungus Global Variables
-        // then overwrite the local corresponding variables with those. Useful as a testing option.
-        /*if (myFlowchart.GetIntegerVariable (gameHourGlobal) != 0 || myFlowchart.GetIntegerVariable (gameMinuteGlobal) != 0) {
-			inGameTime = new GameTime (myFlowchart.GetIntegerVariable (gameHourGlobal), myFlowchart.GetIntegerVariable (gameMinuteGlobal));
-		} else {
-			inGameTime = new GameTime (debugTime.x, debugTime.y);
-		}*/
-
-        //inGameTime = new GameTime(myFlowchart.GetIntegerVariable(gameHourGlobal), myFlowchart.GetIntegerVariable(gameMinuteGlobal));
-
-        // Setup daylight post script delegate for the minute tick.
-        //OnMinuteTick += daylightPostScript.DaylightMinuteUpdate;
 
         // Run delegate methods for starting a new day.
         if(OnDayStart != null) { 
             OnDayStart();
         }
     }
-
-
 	
 	void Update () {
 		RunGameClock ();
 		// TimeOfDayColor(); // Set a post processing profile on the camera to recolor the screen depending on time of deay.
 	}
-    /*
-	void TimeOfDayColor(){
-		if (postProcessingBehavior != null) {
-			// Between 9pm and 6am, make it dark.
-			if (inGameTime.hour < 7 || inGameTime.hour > 19) {
-				postProcessingBehavior.enabled = true;
-			} else {
-				postProcessingBehavior.enabled = false;
-			}
-		}
-	}*/
 
 	void RunGameClock (){
 		// Change this if there is an update to time that needs to be reflected in articy:draft global variables and the HUD
@@ -144,30 +108,19 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
 	StringBuilder clockTimeBuilder;
 
 	void UpdateClockValues(){
-		//myFlowchart.SetIntegerVariable (gameHourGlobal, inGameTime.hour);
-		//myFlowchart.SetIntegerVariable (gameMinuteGlobal, inGameTime.minute);
 
 		clockTimeBuilder = new StringBuilder ();
 
 		if (clockTextMesh != null) {
 			clockTimeBuilder.Append (inGameTime.hour.ToString ("D2")).Append (" : ").Append (inGameTime.minute.ToString ("D2"));
 			clockTextMesh.text = clockTimeBuilder.ToString();
-			//clockTextMesh.text = gameHour.ToString("D2") + " : " + gameMinute.ToString("D2");
 		}
 	}
 
 	void IncrementDay(){
-		// Here, this should increment the Flowchart day counter variable.
 		
-        //int currentDayCount = 1 + myFlowchart.GetIntegerVariable(gameDayGlobal);
-		//myFlowchart.SetIntegerVariable (gameDayGlobal, currentDayCount);
-		
-        // Broadcast event message for new day
-		Flowchart.BroadcastFungusMessage (newDayEventMessage);
 		Debug.Log ("End of day.");
-		// Notify articy:draft global variable about the end of day.
 		gameEndOfDay = true;
-        //ArticyDatabase.DefaultGlobalVariables.SetVariableByString("World.endOfDay", gameEndOfDay);
 
         // Run delegate methods for starting a new day.
         if (OnDayStart != null)

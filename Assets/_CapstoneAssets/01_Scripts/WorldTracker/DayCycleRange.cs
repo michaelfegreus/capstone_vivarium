@@ -1,7 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+using System;
 
+[Serializable]
 public class DayCycleRange
 {
     //This is the first constructor for the class
@@ -10,17 +10,6 @@ public class DayCycleRange
     {
 
     }
-    /*
-    //This is the second constructor for the Fruit class
-    //and is not inherited by any derived classes.
-    public DayCycleRange(GameTime setStartTime, GameTime setPeakStartTime, GameTime setPeakEndTime, GameTime setEndTime)
-    {
-        startTime = setStartTime;
-        peakStartTime = setPeakStartTime;
-        peakEndTime = setPeakEndTime;
-        endTime = setEndTime;
-    }*/
-    
 
     public GameTime startTime;
     public GameTime peakStartTime;
