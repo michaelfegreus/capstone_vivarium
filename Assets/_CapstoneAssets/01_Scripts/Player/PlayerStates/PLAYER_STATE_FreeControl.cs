@@ -21,6 +21,8 @@ public class PLAYER_STATE_FreeControl : IState {
 		// Now go ahead and enable the scripts that the player should have when they are free to move around.
 		movementScript.enabled = true;
 		interactionScript.enabled = true;
+
+        animationScript.SetFreeStateBool(true);
 	}
 
 	public void Execute(){
@@ -54,6 +56,7 @@ public class PLAYER_STATE_FreeControl : IState {
 		movementScript.SetMovementInput(0f, 0f, 0f, 0f);
 		movementScript.SetDashInput (false);
         movementScript.StopMomentum();
-	}
+        animationScript.SetFreeStateBool(false);
+    }
 
 }
