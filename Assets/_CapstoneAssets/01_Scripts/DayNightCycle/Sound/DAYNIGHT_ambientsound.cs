@@ -3,6 +3,18 @@ using DarkTonic.MasterAudio;
 
 public class DAYNIGHT_ambientsound : MonoBehaviour
 {
+    [Header("Morning")]
+    public MasterAudioGroup morningGroup;
+
+    [Header("Midday")]
+    public MasterAudioGroup middayGroup;
+
+    [Header("Evening")]
+    public MasterAudioGroup eveningGroup;
+
+    [Header("Night")]
+    public MasterAudioGroup nightGroup;
+
     // Format DayTimePostProfile properly in the inspector by running the custom class' own validation code.
     [ExecuteInEditMode]
     void OnValidate()

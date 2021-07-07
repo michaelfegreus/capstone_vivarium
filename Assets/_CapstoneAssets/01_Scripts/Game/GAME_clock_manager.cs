@@ -18,6 +18,29 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
         if (!Application.isPlaying)
         {
             inGameTime.OnValidate();
+
+            // Day Cycle range validates
+            {
+                morning.startTime.OnValidate();
+                morning.peakStartTime.OnValidate();
+                morning.peakEndTime.OnValidate();
+                morning.endTime.OnValidate();
+
+                midday.startTime.OnValidate();
+                midday.peakStartTime.OnValidate();
+                midday.peakEndTime.OnValidate();
+                midday.endTime.OnValidate();
+
+                evening.startTime.OnValidate();
+                evening.peakStartTime.OnValidate();
+                evening.peakEndTime.OnValidate();
+                evening.endTime.OnValidate();
+
+                night.startTime.OnValidate();
+                night.peakStartTime.OnValidate();
+                night.peakEndTime.OnValidate();
+                night.endTime.OnValidate();
+            }
         }
     }
 
@@ -57,6 +80,12 @@ public class GAME_clock_manager : Singleton<GAME_clock_manager> {
         if(OnDayStart != null) { 
             OnDayStart();
         }
+
+        // Setup delegate methods for each of the day cycle ranges.
+        morning.SubscribeToMinuteTick();
+        midday.SubscribeToMinuteTick();
+        evening.SubscribeToMinuteTick();
+        night.SubscribeToMinuteTick();
     }
 	
 	void Update () {
