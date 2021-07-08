@@ -61,9 +61,6 @@ public class DayCycleRange
     {
         activeHours = false;
 
-        Debug.Log("Hour:" + startTime.hour + " Minute:" + startTime.minute);
-
-
         // To check if the start to end rolls over midnight
         if (!endTime.TimeMet(startTime))
         {

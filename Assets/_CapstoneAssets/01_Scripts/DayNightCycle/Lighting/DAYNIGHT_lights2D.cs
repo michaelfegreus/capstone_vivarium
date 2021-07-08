@@ -33,35 +33,43 @@ public class DAYNIGHT_lights2D : MonoBehaviour
     }
 
 
-    [Header("Morning")]
     public Light2D[] morningLights;
 
-    [Header("Midday")]
     public Light2D[] middayLights;
 
-    [Header("Evening")]
     public Light2D[] eveningLights;
 
-    [Header("Night")]
     public Light2D[] nightLights;
 
     void DaylightMinuteUpdate()
     {
-        foreach(Light2D light in morningLights)
+        if (morningLights[0] != null)
         {
-            light.intensity = GAME_manager.Instance.clockManager.morning.GetCurrentVolume();
+            foreach (Light2D light in morningLights)
+            {
+                light.intensity = GAME_manager.Instance.clockManager.morning.GetCurrentVolume();
+            }
         }
-        foreach (Light2D light in middayLights)
+        if (middayLights[0] != null)
         {
-            light.intensity = GAME_manager.Instance.clockManager.midday.GetCurrentVolume();
+            foreach (Light2D light in middayLights)
+            {
+                light.intensity = GAME_manager.Instance.clockManager.midday.GetCurrentVolume();
+            }
         }
-        foreach (Light2D light in eveningLights)
+        if (eveningLights[0] != null)
         {
-            light.intensity = GAME_manager.Instance.clockManager.evening.GetCurrentVolume();
+            foreach (Light2D light in eveningLights)
+            {
+                light.intensity = GAME_manager.Instance.clockManager.evening.GetCurrentVolume();
+            }
         }
-        foreach (Light2D light in nightLights)
+        if (nightLights[0] != null)
         {
-            light.intensity = GAME_manager.Instance.clockManager.night.GetCurrentVolume();
+            foreach (Light2D light in nightLights)
+            {
+                light.intensity = GAME_manager.Instance.clockManager.night.GetCurrentVolume();
+            }
         }
     }
 

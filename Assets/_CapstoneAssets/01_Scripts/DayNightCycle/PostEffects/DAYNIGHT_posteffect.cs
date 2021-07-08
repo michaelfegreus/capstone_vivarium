@@ -3,16 +3,12 @@ using UnityEngine.Rendering;
 
 public class DAYNIGHT_posteffect : MonoBehaviour
 {
-    [Header("Morning")]
     public Volume morningVolume;
 
-    [Header("Midday")]
     public Volume middayVolume;
 
-    [Header("Evening")]
     public Volume eveningVolume;
 
-    [Header("Night")]
     public Volume nightVolume;
 
     // Subscribe to minute tick updates.
