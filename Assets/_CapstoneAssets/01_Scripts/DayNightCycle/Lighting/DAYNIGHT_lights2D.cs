@@ -22,6 +22,7 @@ public class DAYNIGHT_lights2D : MonoBehaviour
     }*/
 
     // Subscribe to minute tick updates.
+    
     private void OnEnable()
     {
         GAME_clock_manager.OnMinuteTick += DaylightMinuteUpdate;
@@ -33,38 +34,48 @@ public class DAYNIGHT_lights2D : MonoBehaviour
     }
 
 
-    public Light2D[] morningLights;
+    Light2D[] morningLights;
+    Light2D[] middayLights;
+    Light2D[] eveningLights;
+    Light2D[] nightLights;
 
-    public Light2D[] middayLights;
+    public Transform morningLightParent;
+    public Transform middayLightParent;
+    public Transform eveningLightParent;
+    public Transform nightLightParent;
 
-    public Light2D[] eveningLights;
-
-    public Light2D[] nightLights;
+    private void Start()
+    {
+        morningLights = morningLightParent.GetComponentsInChildren<Light2D>();
+        middayLights = middayLightParent.GetComponentsInChildren<Light2D>();
+        eveningLights = eveningLightParent.GetComponentsInChildren<Light2D>();
+        nightLights = nightLightParent.GetComponentsInChildren<Light2D>();
+    }
 
     void DaylightMinuteUpdate()
     {
-        if (morningLights[0] != null)
+        if (morningLights.Length != 0)
         {
             foreach (Light2D light in morningLights)
             {
                 light.intensity = GAME_manager.Instance.clockManager.morning.GetCurrentVolume();
             }
         }
-        if (middayLights[0] != null)
+        if (middayLights.Length != 0)
         {
             foreach (Light2D light in middayLights)
             {
                 light.intensity = GAME_manager.Instance.clockManager.midday.GetCurrentVolume();
             }
         }
-        if (eveningLights[0] != null)
+        if (eveningLights.Length != 0)
         {
             foreach (Light2D light in eveningLights)
             {
                 light.intensity = GAME_manager.Instance.clockManager.evening.GetCurrentVolume();
             }
         }
-        if (nightLights[0] != null)
+        if (nightLights.Length != 0)
         {
             foreach (Light2D light in nightLights)
             {
