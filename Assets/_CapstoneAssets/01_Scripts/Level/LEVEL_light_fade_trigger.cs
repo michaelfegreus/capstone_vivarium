@@ -13,15 +13,19 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
 
     [Tooltip("Enable this to fade up and down lights when the player enters this trigger volume. Otherwise, you can just call the public methods on this to fade up and down lights.")]
     public bool affectOnPlayerTrigger = true;
-    public float fadeDuration = .25f;
+    float fadeDuration = .25f;
 
-    public Light2D[] fadeLights;
-    public Light2D[] enableDisableLights;
+    Light2D[] fadeLights;
+    Light2D[] enableDisableLights;
 
     bool firstFrame; //Used to check if it's the first frame, and if collider fucntions should immediately take effect.
 
     void Start()
     {
+        // Initialize arrays to avoid errors. Remove this if you end up putting these arrays as editable in the inspector for any reason.
+        fadeLights = new Light2D[0];
+        enableDisableLights = new Light2D[0];
+
         //fadeLights = fadeLightsParent.GetComponentsInChildren<Light2D>();
         enableDisableLights = enableDisableLightsParent.GetComponentsInChildren<Light2D>();
 
@@ -30,14 +34,20 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
         // Start with setting off all disable / fading sprites
 
         // Disabling
-        for (int i = 0; i < enableDisableLights.Length; i++)
+        if (enableDisableLights.Length > 0)
         {
-            enableDisableLights[i].enabled = false;
+            for (int i = 0; i < enableDisableLights.Length; i++)
+            {
+                enableDisableLights[i].enabled = false;
+            }
         }
         // Fading
-        for (int i = 0; i < fadeLights.Length; i++)
+        if (fadeLights.Length > 0)
         {
-            fadeLights[i].intensity = 0f;
+            for (int i = 0; i < fadeLights.Length; i++)
+            {
+                fadeLights[i].intensity = 0f;
+            }
         }
 
         // Then, wait for the first frame of collision checks to enable and fade up what should be on screen.
@@ -63,9 +73,12 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
             if (firstFrame)
             {
                 // On first frame, immediately fade up all the sprites in associated with this script if the player is standing here.
-                for (int i = 0; i < fadeLights.Length; i++)
+                if (fadeLights.Length > 0)
                 {
-                    fadeLights[i].intensity = 1f;
+                    for (int i = 0; i < fadeLights.Length; i++)
+                    {
+                        fadeLights[i].intensity = 1f;
+                    }
                 }
             }
             else
@@ -81,9 +94,12 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
     {
         if (gameObject.activeInHierarchy)
         {
-            for (int i = 0; i < enableDisableLights.Length; i++)
+            if (enableDisableLights.Length > 0)
             {
-                enableDisableLights[i].enabled = false;
+                for (int i = 0; i < enableDisableLights.Length; i++)
+                {
+                    enableDisableLights[i].enabled = false;
+                }
             }
 
 

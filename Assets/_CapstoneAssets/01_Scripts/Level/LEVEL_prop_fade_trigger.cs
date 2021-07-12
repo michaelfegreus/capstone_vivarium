@@ -15,15 +15,20 @@ public class LEVEL_prop_fade_trigger : MonoBehaviour
     public bool affectOnPlayerTrigger = true;
     public float fadeDuration = .25f;
     [Tooltip("Fade up and down the alpha of sprites via coroutine.")]
-    public SpriteRenderer[] spritesToFade;
+    SpriteRenderer[] spritesToFade;
     [Tooltip("Simply disable or enable the Sprite Rendered components instead of fading them via coroutine. The script will automatically take the items you put in this array out of the fader array above.")]
-    public SpriteRenderer[] spritesToEnableDisable;
+    SpriteRenderer[] spritesToEnableDisable;
 
     bool firstFrame; //Used to check if it's the first frame, and if collider fucntions should immediately take effect.
 
     void Start()
     {
         // *** If you wanted to, you could streamline this by only adding children from the fade and disable enable parent objects, and not give an option to manually add stuff in the inspector.
+        // ^^^ I ended up doing this for now.
+
+        // Initialize arrays to avoid errors. Remove this if you end up putting these arrays as editable in the inspector for any reason.
+        spritesToFade = new SpriteRenderer[0];
+        spritesToEnableDisable = new SpriteRenderer[0];
 
         // Get sprites from the fade sprite parent "folder" and add them to the existing spritesToFade array
         if (fadeSpritesParent != null)
