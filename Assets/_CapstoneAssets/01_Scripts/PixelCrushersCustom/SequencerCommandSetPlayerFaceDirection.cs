@@ -41,6 +41,8 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
                     break;
 
             }
+            Debug.Log("Sequencer Forcing Direction " + direction);
+            Stop();
         }
     }
 }
