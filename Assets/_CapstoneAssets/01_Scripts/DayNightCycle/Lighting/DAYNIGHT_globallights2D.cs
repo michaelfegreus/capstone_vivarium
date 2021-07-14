@@ -24,7 +24,8 @@ public class DAYNIGHT_globallights2D : MonoBehaviour
     {
         globalLight.color = (morning * GAME_manager.Instance.clockManager.morning.GetCurrentVolume()) +
                             (day * GAME_manager.Instance.clockManager.midday.GetCurrentVolume()) +
-                            (evening * GAME_manager.Instance.clockManager.evening.GetCurrentVolume()) +
+                            (evening * GAME_manager.Instance.clockManager.evening.GetCurrentVolume()
+                            ) +
                             (night * GAME_manager.Instance.clockManager.night.GetCurrentVolume());
     }
 
