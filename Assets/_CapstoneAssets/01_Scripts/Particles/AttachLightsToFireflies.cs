@@ -10,6 +10,7 @@ public class AttachLightsToFireflies : MonoBehaviour
     private ParticleSystem m_ParticleSystem;
     private List<GameObject> m_Instances = new List<GameObject>();
     private ParticleSystem.Particle[] m_Particles;
+    [SerializeField] private float intensityMultiplier;
     // TODO: VV This is probably how you should start to fix the problem below! VV
     // private List<Light2D>m_Lights = new List<Light2D>();
 
@@ -32,10 +33,11 @@ public class AttachLightsToFireflies : MonoBehaviour
         bool worldSpace = (m_ParticleSystem.main.simulationSpace == ParticleSystemSimulationSpace.World);
         for (int i = 0; i < m_Instances.Count; i++)
         {
+            Light2D thisLight = m_Instances[i].GetComponent<Light2D>();
             //This scales the light with the particle size
-            m_Instances[i].transform.localScale = new Vector3(m_Particles[i].startSize, m_Particles[i].startSize, m_Particles[i].startSize);
+            thisLight.pointLightOuterRadius = m_Particles[i].startSize;
             // TODO: THIS IS VERY BAD PRACTICE AND SHOULD BE CHANGED - WE SHOULD BE STORING AN ARRAY OF THE LIGHT COMPONENTS INSTEAD OF RUNNING GETCOMPONENT<>() EVERY LOOP
-            m_Instances[i].GetComponent<Light2D>().intensity = m_Particles[i].GetCurrentColor(m_ParticleSystem).a/369f;
+            thisLight.intensity = m_Particles[i].GetCurrentColor(m_ParticleSystem).a/intensityMultiplier;
 
             if (i < count)
             {
