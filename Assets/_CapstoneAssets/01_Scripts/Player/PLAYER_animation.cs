@@ -81,7 +81,17 @@ public class PLAYER_animation : MonoBehaviour {
         animReflectY.Play(animationStateName, 0);
     }
 
+    [Tooltip("Sprites affiliated with the Player Character, including the main sprite, the shadow, and reflections.")]
+    [SerializeField] SpriteRenderer[] characterSprites;
 
+    // Hide affiliated sprites for cutscenes, interactables, and other non-player controlled situations.
+    public void EnableDisableCharacterSprite(bool enable)
+    {
+        foreach(SpriteRenderer sprite in characterSprites)
+        {
+            sprite.enabled = enable;
+        }
+    }
 
 
 
