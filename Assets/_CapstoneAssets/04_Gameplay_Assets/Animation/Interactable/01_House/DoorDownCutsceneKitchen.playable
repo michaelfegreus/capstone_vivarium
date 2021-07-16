@@ -53,9 +53,10 @@ MonoBehaviour:
   m_Name: PlaySequenceClip
   m_EditorClassIdentifier: 
   template:
-    sequence: 'required MoveTo(DoorMoveToDown, PlayerMovement);
+    sequence: 'required MoveTo(DoorMoveToDownKitchen, PlayerMovement);
 
-      required SetPlayerFaceDirection(SW);'
+      required
+      SetPlayerFaceDirection(SE);'
     listener: {fileID: 0}
   listener:
     exposedName: 
@@ -409,7 +410,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bfda56da833e2384a9677cd3c976a436, type: 3}
-  m_Name: DoorDownCutscene
+  m_Name: DoorDownCutsceneKitchen
   m_EditorClassIdentifier: 
   m_Version: 0
   m_Tracks:
@@ -714,29 +715,6 @@ MonoBehaviour:
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
     m_DisplayName: PlaySequenceClip
-  m_Markers:
-    m_Objects: []
---- !u!114 &4874645797122842099
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 15e0374501f39d54eb30235764636e0e, type: 3}
-  m_Name: Control Track
-  m_EditorClassIdentifier: 
-  m_Version: 3
-  m_AnimClip: {fileID: 0}
-  m_Locked: 0
-  m_Muted: 0
-  m_CustomPlayableFullTypename: 
-  m_Curves: {fileID: 0}
-  m_Parent: {fileID: -6508439959369257462}
-  m_Children: []
-  m_Clips: []
   m_Markers:
     m_Objects: []
 --- !u!114 &8820765089003549849
