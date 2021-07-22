@@ -25,13 +25,9 @@ public class DAYNIGHT_ambientsound : MonoBehaviour
 
     void DaylightMinuteUpdate()
     {
-        MasterAudio.SetBusVolumeByName(morningGroup.BusForGroup.busName, GAME_manager.Instance.clockManager.morning.GetCurrentVolume());
-        Debug.Log(GAME_manager.Instance.clockManager.morning.GetCurrentVolume() + " Morning Volume");
-        MasterAudio.SetBusVolumeByName(middayGroup.BusForGroup.busName, GAME_manager.Instance.clockManager.midday.GetCurrentVolume());
-        Debug.Log(GAME_manager.Instance.clockManager.midday.GetCurrentVolume() + " Midday Volume");
-        MasterAudio.SetBusVolumeByName(eveningGroup.BusForGroup.busName, GAME_manager.Instance.clockManager.evening.GetCurrentVolume());
-        Debug.Log(GAME_manager.Instance.clockManager.evening.GetCurrentVolume() + " Evening Volume");
-        MasterAudio.SetBusVolumeByName(nightGroup.BusForGroup.busName, GAME_manager.Instance.clockManager.night.GetCurrentVolume());
-        Debug.Log(GAME_manager.Instance.clockManager.night.GetCurrentVolume() + " Night Volume");
+        MasterAudio.SetBusVolumeByName(morningGroup.name, GAME_manager.Instance.clockManager.morning.GetCurrentVolume());
+        MasterAudio.SetBusVolumeByName(middayGroup.name, GAME_manager.Instance.clockManager.midday.GetCurrentVolume());
+        MasterAudio.SetBusVolumeByName(eveningGroup.name, GAME_manager.Instance.clockManager.evening.GetCurrentVolume());
+        MasterAudio.SetBusVolumeByName(nightGroup.name, GAME_manager.Instance.clockManager.night.GetCurrentVolume());
     }
 }
