@@ -105,7 +105,7 @@ MonoBehaviour:
     m_PreExtrapolationMode: 1
     m_PostExtrapolationTime: 0
     m_PreExtrapolationTime: 0
-    m_DisplayName: bathroomdoor_down
+    m_DisplayName: kitchendoor_down
   - m_Version: 1
     m_Start: 1.625
     m_ClipIn: 0
@@ -322,22 +322,6 @@ MonoBehaviour:
   m_OpenClipOffsetRotation: {x: 0, y: 0, z: 0, w: 1}
   m_Rotation: {x: 0, y: 0, z: 0, w: 1}
   m_ApplyOffsets: 0
---- !u!114 &-5682624443194526585
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db16c09b62fb11a4e98be0d29ee227e9, type: 3}
-  m_Name: Player State Marker
-  m_EditorClassIdentifier: 
-  m_Time: 1.1666666666666667
-  setPlayerState: 0
-  retroactive: 0
-  emitOnce: 0
 --- !u!114 &-5293640884306693661
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -360,10 +344,7 @@ MonoBehaviour:
   m_Children: []
   m_Clips: []
   m_Markers:
-    m_Objects:
-    - {fileID: 5253473181309567511}
-    - {fileID: 1306598928503351920}
-    - {fileID: -5682624443194526585}
+    m_Objects: []
 --- !u!114 &-3942582040840234831
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -388,7 +369,7 @@ MonoBehaviour:
   m_Markers:
     m_Objects:
     - {fileID: -3571233355273662986}
-    - {fileID: -6455912138365222961}
+    - {fileID: 932592838483814857}
 --- !u!114 &-3571233355273662986
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -507,7 +488,7 @@ MonoBehaviour:
     m_Framerate: 60
   m_DurationMode: 0
   m_MarkerTrack: {fileID: -5293640884306693661}
---- !u!114 &1306598928503351920
+--- !u!114 &932592838483814857
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
@@ -519,8 +500,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db16c09b62fb11a4e98be0d29ee227e9, type: 3}
   m_Name: Player State Marker
   m_EditorClassIdentifier: 
-  m_Time: 0
-  setPlayerState: 1
+  m_Time: 1.6333333333333333
+  setPlayerState: 0
   retroactive: 0
   emitOnce: 0
 --- !u!114 &2240436361952105839
@@ -614,22 +595,6 @@ MonoBehaviour:
   m_Clips: []
   m_Markers:
     m_Objects: []
---- !u!114 &5253473181309567511
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1a1ee156f2e95ae4ba198bacbc8d7576, type: 3}
-  m_Name: Player Direction Marker
-  m_EditorClassIdentifier: 
-  m_Time: 0.06666666666666667
-  setPlayerDirection: 4
-  retroactive: 0
-  emitOnce: 0
 --- !u!114 &5811503156208256344
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -681,7 +646,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 030f85c3f73729f4f976f66ffb23b875, type: 3}
   m_Name: AnimationPlayableAsset
   m_EditorClassIdentifier: 
-  m_Clip: {fileID: 7400000, guid: ec030e75f2c582d46bee280f56ef987c, type: 2}
+  m_Clip: {fileID: 7400000, guid: bc28c2ab24d3bdf4d872b59c393ba293, type: 2}
   m_Position: {x: 0, y: 0, z: 0}
   m_EulerAngles: {x: 0, y: 0, z: 0}
   m_UseTrackMatchFields: 1
