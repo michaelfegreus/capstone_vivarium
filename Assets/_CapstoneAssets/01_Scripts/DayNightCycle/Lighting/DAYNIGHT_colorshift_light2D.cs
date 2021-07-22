@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
-public class DAYNIGHT_globallights2D : MonoBehaviour
+public class DAYNIGHT_colorshift_light2D : MonoBehaviour
 {
-    [SerializeField] Light2D globalLight;
+    [SerializeField] Light2D[] lights;
 
     [SerializeField] Color morning;
     [SerializeField] Color day;
@@ -22,11 +22,14 @@ public class DAYNIGHT_globallights2D : MonoBehaviour
 
     void DaylightMinuteUpdate()
     {
-        globalLight.color = (morning * GAME_manager.Instance.clockManager.morning.GetCurrentVolume()) +
-                            (day * GAME_manager.Instance.clockManager.midday.GetCurrentVolume()) +
-                            (evening * GAME_manager.Instance.clockManager.evening.GetCurrentVolume()
-                            ) +
-                            (night * GAME_manager.Instance.clockManager.night.GetCurrentVolume());
+        foreach (Light2D currentLight in lights)
+        {
+            currentLight.color = (morning * GAME_manager.Instance.clockManager.morning.GetCurrentVolume()) +
+                                (day * GAME_manager.Instance.clockManager.midday.GetCurrentVolume()) +
+                                (evening * GAME_manager.Instance.clockManager.evening.GetCurrentVolume()
+                                ) +
+                                (night * GAME_manager.Instance.clockManager.night.GetCurrentVolume());
+        }
     }
 
 
