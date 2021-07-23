@@ -3,7 +3,7 @@ using System.Collections;
 using System.Linq;
 using UnityEditor;
 
-public class LEVEL_prop_fade_trigger : MonoBehaviour
+public class LEVEL_prop_fade_trigger : MonoBehaviour, IRoomTrigger
 {
     [Tooltip("Setting this will cause the script to automatically add the children of this object to the fade array.")]
     public Transform fadeSpritesParent;
@@ -192,5 +192,14 @@ public class LEVEL_prop_fade_trigger : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    public void OnEnterRoom()
+    {
+        FadeUp();
+    }
+    public void OnExitRoom()
+    {
+        FadeDown();
     }
 }
