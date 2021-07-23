@@ -17,7 +17,7 @@ public class MainMenuFunctions : MonoBehaviour
     {
         if (scene.name == sceneName)
         {
-            fadeAnim.SetTrigger("FadeAway");
+            StartCoroutine("WaitForPopIn");
         }
     }
 
@@ -31,7 +31,12 @@ public class MainMenuFunctions : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         LoadGameScene();
+    }
 
+    IEnumerator WaitForPopIn()
+    {
+        yield return new WaitForSeconds(2f);
+        fadeAnim.SetTrigger("FadeAway");
     }
 
     public void LoadGameScene()
