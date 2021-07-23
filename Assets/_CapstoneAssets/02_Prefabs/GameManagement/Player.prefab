@@ -665,6 +665,7 @@ GameObject:
   - component: {fileID: 2393786709365995851}
   - component: {fileID: 2393786709365995844}
   - component: {fileID: 6619141325963461217}
+  - component: {fileID: 9146648728208779628}
   m_Layer: 0
   m_Name: PlayerMovement
   m_TagString: Player
@@ -734,6 +735,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c503119cefccc46419c44460bfedf393, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &9146648728208779628
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393786709365995855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8a5f00f367fc1e4c97da2f49ae6d306, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2393786709766913223
@@ -918,6 +931,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerMovementModule: {fileID: 2393786709365995855}
+  playerMovementDelegateScript: {fileID: 0}
   inputDeadzoneThreshold: 0.01
   directionInput: 0
   walkStartupSpeed: 40
@@ -948,6 +962,7 @@ MonoBehaviour:
   animReflectY: {fileID: 657386106}
   spriteModule: {fileID: 2393786708999056898}
   targetTransform: {fileID: 2393786709365995850}
+  characterSprites: []
 --- !u!1 &2465563752525673104
 GameObject:
   m_ObjectHideFlags: 0

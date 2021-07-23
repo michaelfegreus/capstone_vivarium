@@ -2,7 +2,7 @@
 using UnityEngine.Experimental.Rendering.Universal;
 using System.Collections;
 
-public class LEVEL_light_fade_trigger : MonoBehaviour
+public class LEVEL_light_fade_trigger : MonoBehaviour, IRoomTrigger
 {
     //[Tooltip("Setting this will cause the script to automatically add the children of this object to the fade array.")]
     // Temporarily edited out, since I'll try using only disable/enable for simplicity
@@ -110,7 +110,7 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
             }
         }
     }
-
+    
     private void OnTriggerEnter2D(Collider2D col)
     {
         if (affectOnPlayerTrigger)
@@ -132,7 +132,7 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
             }
         }
     }
-
+    
     public IEnumerator SpriteFade(Light2D[] lights, float endValue, float duration)
     {
         float startValue = lights[0].intensity;
@@ -149,4 +149,13 @@ public class LEVEL_light_fade_trigger : MonoBehaviour
         }
     }
 
+    public void OnEnterRoom()
+    {
+        FadeUp();
+    }
+
+    public void OnExitRoom()
+    {
+        FadeDown();
+    }
 }
