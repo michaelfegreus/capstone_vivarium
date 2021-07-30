@@ -8,7 +8,7 @@ public class SOUND_PlayAwakeDelay : MonoBehaviour
     public float secondsDelayed;
 
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         myAudio.PlayDelayed(secondsDelayed);
     }

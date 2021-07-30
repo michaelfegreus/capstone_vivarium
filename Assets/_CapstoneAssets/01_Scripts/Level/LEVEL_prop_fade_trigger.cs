@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Linq;
-using UnityEditor;
+//using UnityEditor;
 
 public class LEVEL_prop_fade_trigger : MonoBehaviour, IRoomTrigger
 {
@@ -43,7 +43,7 @@ public class LEVEL_prop_fade_trigger : MonoBehaviour, IRoomTrigger
             SpriteRenderer[] spriteParentArray = enableDisableSpriteParent.GetComponentsInChildren<SpriteRenderer>();
             spritesToEnableDisable = spritesToEnableDisable.Concat(spriteParentArray).ToArray();
         }
-
+        /* HAD TO REMOVE THIS BECAUSE it wasn't working in builds. Apparently you can't use array utility because it's a Unity Editor functionality.
         // Also remove any disable/enable array from the fade array that might have got added. They will conflict otherwise.
         for (int i = 0; i < spritesToEnableDisable.Length; i++)
         {
@@ -51,7 +51,7 @@ public class LEVEL_prop_fade_trigger : MonoBehaviour, IRoomTrigger
             {
                 ArrayUtility.Remove(ref spritesToFade, spritesToEnableDisable[i]);
             }
-        }
+        }*/
 
         firstFrame = true;
 
