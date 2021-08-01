@@ -5,14 +5,10 @@ public class CAMERA_vcam_trigger : MonoBehaviour, IRoomTrigger
 {
 
     public CinemachineVirtualCamera myCam;
-    /*
-    [Tooltip("Enable if the script should return to the previous camera on exiting the trigger collider.")]
-    public bool returnToLastCam;
-    */
 
-    [Tooltip("Enable if you just want to activate a camera separate from the room system, using this separate from the room system. It will automatically return to the last camera when you exit the volume. ")]
+    /*[Tooltip("Enable if you just want to activate a camera separate from the room system, using this separate from the room system. It will turn on the camera ")]
     [SerializeField] bool affectOnPlayerTrigger = false;
-
+    
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.tag == ("Player"))
@@ -33,8 +29,8 @@ public class CAMERA_vcam_trigger : MonoBehaviour, IRoomTrigger
                 GAME_manager.Instance.cameraManager.SwapToLastLevelCamera();
             }
         }
-    }
-    
+    }*/
+
     public void OnEnterRoom()
     {
         GAME_manager.Instance.cameraManager.SetNewLevelCamera(myCam);
