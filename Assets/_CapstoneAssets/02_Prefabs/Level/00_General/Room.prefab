@@ -165,7 +165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1237a524b5344f739d12a07b7e44419, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myCam: {fileID: 8633774302057837369}
+  myCam: {fileID: 1070595333287537233}
+  affectOnPlayerTrigger: 0
 --- !u!114 &2423542680844985681
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -859,6 +860,7 @@ GameObject:
   - component: {fileID: 6358858461319024581}
   - component: {fileID: 1070595333287537233}
   - component: {fileID: 1789775573338505456}
+  - component: {fileID: 4543157724280255164}
   m_Layer: 0
   m_Name: Room VCam
   m_TagString: Untagged
@@ -933,6 +935,18 @@ MonoBehaviour:
   m_BoundingShape2D: {fileID: 325321286111718541}
   m_ConfineScreenEdges: 1
   m_Damping: 0
+--- !u!114 &4543157724280255164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8633774302057837369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87291d89c1a86a849951c1689a265aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8889285612293034538
 GameObject:
   m_ObjectHideFlags: 0
