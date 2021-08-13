@@ -1,0 +1,224 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 36baaa8bdcb9d8b49b9199833965d2c3, type: 3}
+  m_Name: VivariumCameras
+  m_EditorClassIdentifier: 
+  m_CustomBlends:
+  - m_From: '**ANY CAMERA**'
+    m_To: '**ANY CAMERA**'
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Hallway VCam
+    m_To: Porch VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.75
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Porch VCam
+    m_To: Hallway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.45
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Bathroom VCam
+    m_To: Hallway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Hallway VCam
+    m_To: Bathroom VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Hallway VCam
+    m_To: Kitchen VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Kitchen VCam
+    m_To: Workshop VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Workshop VCam
+    m_To: Kitchen VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Kitchen VCam
+    m_To: Hallway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.7
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Hallway VCam
+    m_To: Driveway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Driveway VCam
+    m_To: Hallway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Driveway VCam
+    m_To: Lawn VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 1.2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Lawn VCam
+    m_To: Driveway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 1.2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Garden VCam
+    m_To: Driveway VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Driveway VCam
+    m_To: Garden VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.5
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Workshop VCam
+    m_To: Garden VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: Garden VCam
+    m_To: Workshop VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 0.8
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: TeahouseSteps VCam
+    m_To: TeahouseSteps Wide VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0
+  - m_From: TeahouseSteps Wide VCam
+    m_To: TeahouseSteps VCam
+    m_Blend:
+      m_Style: 1
+      m_Time: 2
+      m_CustomCurve:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 0
+        m_PostInfinity: 0
+        m_RotationOrder: 0

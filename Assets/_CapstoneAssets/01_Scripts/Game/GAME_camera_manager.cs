@@ -3,8 +3,8 @@ using Cinemachine;
 
 public class GAME_camera_manager : MonoBehaviour {
 
-    GameObject currentLevelVCam;
-    GameObject lastLevelVCam;
+    CinemachineVirtualCamera currentLevelVCam;
+    CinemachineVirtualCamera lastLevelVCam;
 
     public CinemachineBrain mainCamBrain;
 
@@ -20,15 +20,15 @@ public class GAME_camera_manager : MonoBehaviour {
         }
     }
 
-    public void SetNewLevelCamera(GameObject newCamera)
+    public void SetNewLevelCamera(CinemachineVirtualCamera newCamera)
     {
         if (currentLevelVCam != null)
         {
             lastLevelVCam = currentLevelVCam;
-            lastLevelVCam.SetActive(false);
+            lastLevelVCam.gameObject.SetActive(false);
         }
         currentLevelVCam = newCamera;
-        currentLevelVCam.SetActive(true);
+        currentLevelVCam.gameObject.SetActive(true);
         if (OnLevelScreenChange != null)
         {
             OnLevelScreenChange();
@@ -39,9 +39,9 @@ public class GAME_camera_manager : MonoBehaviour {
     {
         if (lastLevelVCam != null)
         {
-            currentLevelVCam.SetActive(false);
-            lastLevelVCam.SetActive(true);
-            GameObject swappingCam = currentLevelVCam;
+            currentLevelVCam.gameObject.SetActive(false);
+            lastLevelVCam.gameObject.SetActive(true);
+            CinemachineVirtualCamera swappingCam = currentLevelVCam;
             currentLevelVCam = lastLevelVCam;
             lastLevelVCam = swappingCam;
             if (OnLevelScreenChange != null)
