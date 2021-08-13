@@ -44,7 +44,7 @@ public class PLAYER_animation : MonoBehaviour {
 		}*/
     }
 
-	public void SetMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
+	public void SetAnimationMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
 
 		moving = playerMoving;
 		running = _running;

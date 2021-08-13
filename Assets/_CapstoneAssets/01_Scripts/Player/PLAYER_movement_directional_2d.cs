@@ -11,6 +11,9 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 	public GameObject playerMovementModule;
     public PLAYER_collision_delegate playerMovementDelegateScript;
 
+    public GameObject playerWallModule;
+    public PLAYER_wallcheck wallCheckScript;
+
     // Use a reference because the animation script gets called a lot.
     PLAYER_animation playerAnimation;
 
@@ -115,13 +118,21 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
         if (!skid)
         {
-            playerAnimation.SetMovement(directionInput, new Vector2(inputX, inputY), inputDeadzoneThreshold, dashInput);
+            if (!wallCheckScript.stickingWall)
+            {
+                playerAnimation.SetAnimationMovement(directionInput, new Vector2(inputX, inputY), inputDeadzoneThreshold, dashInput);
+            }
+            else
+            {
+                playerAnimation.SetAnimationMovement(false, new Vector2(0f, 0f), inputDeadzoneThreshold, dashInput);
+                StopMomentum();
+            }
         }
     }
 
 	void FixedUpdate (){
 		// Move input that pushes the character forward towards the direction faced
-		if (directionInput) {
+		if (directionInput && !wallCheckScript.stickingWall) {
 			// Apply force to begin moving!
 			rb.AddForce ((playerMovementModule.transform.up * -1f) * (currentMoveSpeed /*substract based on yMovementForshortenMod, if player is drawn from a camera angle needing compensation for moving in perspective*/ - Mathf.Abs(yMovementForshortenModifier * inputY * targetMoveSpeed)));
 		}
@@ -141,7 +152,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
         if (directionInput)
         {
-            if (dashInput)
+            if (dashInput && !wallCheckScript.stickingWall)
             {
                 targetMoveSpeed = dashSpeed;
             }
@@ -183,6 +194,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		//movementVector = new Vector3 (inputX, inputY, 0.0f);
 		//float inputAngle = Mathf.Atan2 (inX, inY) * Mathf.Rad2Deg; // Calculate angle of analog stick input.
 		desiredRotation = Quaternion.Euler(new Vector3(0f, 0f, -1f * inputAngle + 180f));
+        WallCheck(desiredRotation);
 
         float deltaAngle = Quaternion.Angle(playerMovementModule.transform.rotation, desiredRotation); // Degree of change between current rotation and desired rotation.
 
@@ -192,7 +204,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         if (Mathf.Abs(deltaAngle) > skidAngle && directionInput && skidResetTimer < timeBetweenSkidReset)
         {
             WalkTurnCheck(inputAngle, false);
-            Debug.Log(deltaAngle);
+            //Debug.Log(deltaAngle);
             playerMovementModule.transform.rotation = desiredRotation;
 
             
@@ -213,6 +225,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         {
             skid = false;
         }
+
 	}
 
     void WalkTurnCheck(float inAngle, bool animateNow)
@@ -227,7 +240,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
             playerAnimation.SetTurnAngle(angleDiff);
         }
 
-        Debug.Log(angleDiff);
+        //Debug.Log(angleDiff);
 
         if (animateNow)
         {
@@ -255,6 +268,12 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
                 }
             }
         }
+    }
+
+    void WallCheck(Quaternion _desiredRotation)
+    {
+        playerWallModule.transform.rotation = _desiredRotation;
+        playerWallModule.transform.position = playerMovementModule.transform.position;
     }
 
 	public void SetDashInput(bool input){
@@ -350,7 +369,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		// Set the player rotation.
 		DirectionInputCheck(dirFaceX, dirFaceY);
 		playerMovementModule.transform.rotation = desiredRotation;
-		playerAnimation.SetMovement(true, new Vector2(dirFaceX, dirFaceY), inputDeadzoneThreshold, dashInput);
+		playerAnimation.SetAnimationMovement(true, new Vector2(dirFaceX, dirFaceY), inputDeadzoneThreshold, dashInput);
 	}
 
     // Just set the direction the player is facing, but don't move them. Use this with Animator, or for things like cutscenes.
