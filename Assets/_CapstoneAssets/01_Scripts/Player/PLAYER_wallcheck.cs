@@ -36,4 +36,10 @@ public class PLAYER_wallcheck : MonoBehaviour
             stickingWall = false;
         }
     }
+
+    private void OnDisable()
+    {
+        stickingWall = false;
+        collidingWall = null;
+    }
 }

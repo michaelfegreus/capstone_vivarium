@@ -290,22 +290,21 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         if (directionInput && wallCheckScript.stickingWall)
         {
             wallActionTimeElapsed += Time.fixedDeltaTime;
-            if (wallActionTimeElapsed > wallActionTimer)
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
             {
-
-                if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()))
+                if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
                 {
-                    if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
-                    {
-                        SetFaceDirection(inputX, 1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
-                        playerAnimation.PlayAnimationState("Climb Ledge");
-                    }
-                    else
-                    {
-                        wallActionTimeElapsed = 0f;
-                    }
+                    SetFaceDirection(inputX, 1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                    StopMomentum();
+                    playerAnimation.PlayAnimationState("Climb Ledge");
                 }
-                
+                else
+                {
+                    wallActionTimeElapsed = 0f;
+                }
+            }
+            if (wallActionTimeElapsed > wallActionTimer)
+            {                
                 wallActionTimeElapsed = 0f;
             }
         }
@@ -430,5 +429,12 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         currentMoveSpeed = 0f;
         targetMoveSpeed = 0f;
     }
-
+    private void OnEnable()
+    {
+        wallCheckScript.enabled = true;
+    }
+    private void OnDisable()
+    {
+        wallCheckScript.enabled = false;
+    }
 }
