@@ -65,8 +65,15 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
     [Tooltip("Adjust diagonal input as it feeds into Desired Rotation. Try to get it to move her along the perspective grid.")]
     public float diagonalVerticalAdjust = .6f;
 
+    [Tooltip("How long a player has to move towards a wall to initiate special wall actions.")]
+    public float wallActionTimer = .25f;
+    float wallActionTimeElapsed = 0f; // How many seconds the player has been moving towards the wall to perform a special wall action.
+
     // Disable and enable based on when you're dashing.
     public ParticleSystem dashParticles;
+
+    [Tooltip("How far to adjust the Player Movement's position by after climbing a ledge.")]
+    public Vector2 diagonalLedgeClimbDistance;
 
 
 	void Start () {
@@ -121,11 +128,13 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
             if (!wallCheckScript.stickingWall)
             {
                 playerAnimation.SetAnimationMovement(directionInput, new Vector2(inputX, inputY), inputDeadzoneThreshold, dashInput);
+                wallActionTimeElapsed = 0f;
             }
             else
             {
                 playerAnimation.SetAnimationMovement(false, new Vector2(0f, 0f), inputDeadzoneThreshold, dashInput);
                 StopMomentum();
+                WallStickAction();
             }
         }
     }
@@ -276,7 +285,40 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         playerWallModule.transform.position = playerMovementModule.transform.position;
     }
 
-	public void SetDashInput(bool input){
+    void WallStickAction()
+    {
+        if (directionInput && wallCheckScript.stickingWall)
+        {
+            wallActionTimeElapsed += Time.fixedDeltaTime;
+            if (wallActionTimeElapsed > wallActionTimer)
+            {
+
+                if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()))
+                {
+                    if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
+                    {
+                        SetFaceDirection(inputX, 1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                        playerAnimation.PlayAnimationState("Climb Ledge");
+                    }
+                    else
+                    {
+                        wallActionTimeElapsed = 0f;
+                    }
+                }
+                
+                wallActionTimeElapsed = 0f;
+            }
+        }
+    }
+
+    public void LedgeReposition()
+    {
+        // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeClimbDistance.x * xSign, diagonalLedgeClimbDistance.y, 0f);// Add to the player's position to get the new placement.
+    }
+
+    public void SetDashInput(bool input){
 		dashInput = input;
 	}
 

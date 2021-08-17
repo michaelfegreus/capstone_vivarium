@@ -4,7 +4,7 @@ public class PLAYER_animation : MonoBehaviour {
 
 	public Animator anim;
     public Animator animReflectY; // Y Axis reflection Animator. Used for things like reflective floors, puddles, etc.
-	Vector2 lastMove;
+	[HideInInspector] public Vector2 lastMove;
 
 	bool moving;
 	bool running;

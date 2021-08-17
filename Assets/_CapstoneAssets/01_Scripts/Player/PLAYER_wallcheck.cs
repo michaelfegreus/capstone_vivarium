@@ -2,6 +2,7 @@
 
 public class PLAYER_wallcheck : MonoBehaviour
 {
+    [SerializeField]
     float rayLength = 2f;
 
     int layermask;
@@ -9,7 +10,7 @@ public class PLAYER_wallcheck : MonoBehaviour
     Ray ray;
     RaycastHit2D rayHit;
 
-    GameObject collidingWall;
+    public GameObject collidingWall;
 
     public bool stickingWall;
 
@@ -26,7 +27,7 @@ public class PLAYER_wallcheck : MonoBehaviour
 
         if (hit)
         {
-            Debug.Log("Hit something: " + hit.collider.name);
+            //Debug.Log("Hit something: " + hit.collider.name);
             collidingWall = hit.collider.gameObject;
             stickingWall = true;
         }
