@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PLAYER_movement_directional_2d : MonoBehaviour {
 
@@ -10,6 +11,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
 	public GameObject playerMovementModule;
     public PLAYER_collision_delegate playerMovementDelegateScript;
+    public Collider2D playerMovementModuleCollider;
 
     public GameObject playerWallModule;
     public PLAYER_wallcheck wallCheckScript;
@@ -74,9 +76,15 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
     [Tooltip("How far to adjust the Player Movement's position by after climbing a ledge.")]
     public Vector2 diagonalLedgeClimbDistance;
+    [Tooltip("How far to adjust the Player Movement's position by after jumping a ledge.")]
+    public Vector2 diagonalLedgeJumpDistance;
+    //float currentLedgeFallDistance = 0f; // How far the player has fallen from a ledge jump
+    //Vector3 ledgeFallTargetPosition;
+    [SerializeField] float ledgeFallSpeed = .8f;
+    [SerializeField] float ledgeFallForwardMomentum = .1f;
+    float ledgeFallDistance;
 
-
-	void Start () {
+    void Start () {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
         playerAnimation = PLAYER_manager.Instance.playerAnimation;
 		targetMoveSpeed = walkSpeed;
@@ -303,6 +311,22 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
                     wallActionTimeElapsed = 0f;
                 }
             }
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeJump".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
+            {
+                if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
+                {
+                    SetFaceDirection(inputX, -1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                    ledgeFallDistance = wallCheckScript.collidingWall.GetComponent<Ledge>().ledgeFallDistance;
+                    StopMomentum();
+                    PLAYER_manager.Instance.EnterBespokeActionState();
+                    playerMovementModuleCollider.enabled = false;
+                    playerAnimation.PlayAnimationState("Jump Ledge");
+                }
+                else
+                {
+                    wallActionTimeElapsed = 0f;
+                }
+            }
             if (wallActionTimeElapsed > wallActionTimer)
             {                
                 wallActionTimeElapsed = 0f;
@@ -310,11 +334,44 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         }
     }
 
-    public void LedgeReposition()
+    public void InitiateLedgeFall()
+    {
+        StartCoroutine(LedgeFall());
+    }
+    
+    IEnumerator LedgeFall()
+    {
+        float targetYPos = playerMovementModule.transform.position.y - ledgeFallDistance;
+
+        // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        while (playerMovementModule.transform.position.y > targetYPos)
+        {
+            playerMovementModule.transform.position -= new Vector3(xSign * ledgeFallForwardMomentum, ledgeFallSpeed, 0f);
+            yield return null;
+        }
+        //yield return new WaitForSeconds(1f);
+        //PLAYER_manager.Instance.EnterFreeState();
+
+        //StopMomentum();
+        //Debug.Log("Landed");
+        playerAnimation.PlayAnimationState("Land");
+        playerMovementModuleCollider.enabled = true;
+
+    }
+
+    public void LedgeClimbReposition()
     {
         // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
         float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
         playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeClimbDistance.x * xSign, diagonalLedgeClimbDistance.y, 0f);// Add to the player's position to get the new placement.
+    }
+    public void LedgeJumpReposition()
+    {
+        // NOTE: Add functionality if you need to have the character jump ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeJumpDistance.x * xSign, diagonalLedgeJumpDistance.y, 0f);// Add to the player's position to get the new placement.
+
     }
 
     public void SetDashInput(bool input){

@@ -15,6 +15,8 @@ public class PLAYER_animation : MonoBehaviour {
 	public Transform targetTransform;
 	Vector3 spriteModuleOffset;
 
+    public GameObject playerShadow;
+
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
 	void Start(){
 		spriteModuleOffset = spriteModule.localPosition;
@@ -120,5 +122,14 @@ public class PLAYER_animation : MonoBehaviour {
     public void SetFreeStateBool(bool freeState)
     {
         anim.SetBool("FreeState", freeState);
+    }
+
+    public void DisablePlayerShadow()
+    {
+        playerShadow.SetActive(false);
+    }
+    public void EnablePlayerShadow()
+    {
+        playerShadow.SetActive(true);
     }
 }
