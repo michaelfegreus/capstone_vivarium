@@ -1,12 +1,8 @@
 ﻿using TMPro;
 using System.Text;
 using UnityEngine;
-using Fungus;
 
 public class GAME_clock_manager : Singleton<GAME_clock_manager> {
-
-	// Event message to send to Fungus flowcharts on the increment of the day counter and the start of a new day.
-	string newDayEventMessage = "DayStart";
 
 	//[Header("Time of Day")]
 	public GameTime inGameTime;

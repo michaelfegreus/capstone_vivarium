@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 [RequireComponent(typeof(GAME_input_manager))]
-[RequireComponent(typeof(GAME_inventory_manager))]
 [RequireComponent(typeof(GAME_clock_manager))]
 /*[RequireComponent(typeof(GAME_menu_manager))]
 [RequireComponent(typeof(GAME_event_manager))]
@@ -23,7 +22,6 @@ public class GAME_manager : Singleton/*Persistant*/<GAME_manager> {
 		//base.Awake ();
         // Can add more awake stuff below.
         inputManager = GetComponent<GAME_input_manager>();
-        inventoryManager = GetComponent<GAME_inventory_manager>();
         cameraManager = GetComponent<GAME_camera_manager>();
         clockManager = GetComponent<GAME_clock_manager>();
         /*menuManager = GetComponent<GAME_menu_manager>();
@@ -40,8 +38,6 @@ public class GAME_manager : Singleton/*Persistant*/<GAME_manager> {
     [System.NonSerialized]
 	public GAME_input_manager inputManager;
 	[System.NonSerialized]
-	public GAME_inventory_manager inventoryManager;
-    [System.NonSerialized]
     public GAME_camera_manager cameraManager;
     [System.NonSerialized]
     public GAME_clock_manager clockManager;
