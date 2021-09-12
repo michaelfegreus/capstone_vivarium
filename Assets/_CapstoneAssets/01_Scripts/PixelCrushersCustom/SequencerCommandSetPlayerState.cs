@@ -17,10 +17,10 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             switch (state)
             {
                 case "FREE":
-                    PLAYER_manager.Instance.EnterFreeState();
+                    PlayerManager.Instance.EnterFreeState();
                     break;
                 case "MENU":
-                    PLAYER_manager.Instance.EnterMenuState();
+                    PlayerManager.Instance.EnterMenuState();
                     break;
             }
             Stop();

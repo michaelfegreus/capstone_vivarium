@@ -16,28 +16,28 @@ namespace PixelCrushers.DialogueSystem.SequencerCommands
             switch (direction)
             {
                 case "N":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(0f, 1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(0f, 1f);
                     break;
                 case "NE":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(1f, 1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(1f, 1f);
                     break;
                 case "E":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(1f, 0f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(1f, 0f);
                     break;
                 case "SE":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(1f, -1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(1f, -1f);
                     break;
                 case "S":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(0f, -1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(0f, -1f);
                     break;
                 case "SW":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(-1f, -1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(-1f, -1f);
                     break;
                 case "W":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(-1f, 0f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(-1f, 0f);
                     break;
                 case "NW":
-                    PLAYER_manager.Instance.playerMovement.SetFaceDirection(-1f, 1f);
+                    PlayerManager.Instance.playerMovement.SetFaceDirection(-1f, 1f);
                     break;
 
             }

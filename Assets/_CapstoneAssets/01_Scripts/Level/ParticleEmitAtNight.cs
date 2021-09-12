@@ -11,19 +11,19 @@ public class ParticleEmitAtNight : MonoBehaviour
 
     private void OnEnable()
     {
-        GAME_clock_manager.OnMinuteTick += DaylightMinuteUpdate;
+        ClockManager.OnMinuteTick += DaylightMinuteUpdate;
     }
 
     private void OnDisable()
     {
-        GAME_clock_manager.OnMinuteTick -= DaylightMinuteUpdate;
+        ClockManager.OnMinuteTick -= DaylightMinuteUpdate;
     }
 
     void DaylightMinuteUpdate()
     {
         if (!disableAtNight)
         {
-            if (GAME_manager.Instance.clockManager.night.GetCurrentVolume() == 1)
+            if (GameManager.Instance.clockManager.night.GetCurrentVolume() == 1)
             {
                 var emission = myParticle.emission;
                 emission.enabled = true;
@@ -36,7 +36,7 @@ public class ParticleEmitAtNight : MonoBehaviour
         }
         else
         {
-            if (GAME_manager.Instance.clockManager.night.GetCurrentVolume() == 1)
+            if (GameManager.Instance.clockManager.night.GetCurrentVolume() == 1)
             {
                 var emission = myParticle.emission;
                 emission.enabled = false;
