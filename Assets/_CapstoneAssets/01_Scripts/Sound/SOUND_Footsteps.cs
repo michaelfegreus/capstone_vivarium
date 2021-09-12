@@ -8,7 +8,7 @@ public class SOUND_Footsteps : MonoBehaviour
 {
     [SerializeField] private Transform targetTransform;
     public LEVEL_surfaceType.surface currentSurface;
-    private string currSurf;
+    private string currSurf = "Wood"; // Setting this to default to stop throwing errors.
 
     public void Step_Tip()
     {

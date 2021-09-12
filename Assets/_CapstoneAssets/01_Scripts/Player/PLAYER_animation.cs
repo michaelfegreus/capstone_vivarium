@@ -4,7 +4,7 @@ public class PLAYER_animation : MonoBehaviour {
 
 	public Animator anim;
     public Animator animReflectY; // Y Axis reflection Animator. Used for things like reflective floors, puddles, etc.
-	Vector2 lastMove;
+	[HideInInspector] public Vector2 lastMove;
 
 	bool moving;
 	bool running;
@@ -14,6 +14,8 @@ public class PLAYER_animation : MonoBehaviour {
 	public Transform spriteModule;
 	public Transform targetTransform;
 	Vector3 spriteModuleOffset;
+
+    public GameObject playerShadow;
 
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
 	void Start(){
@@ -44,7 +46,7 @@ public class PLAYER_animation : MonoBehaviour {
 		}*/
     }
 
-	public void SetMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
+	public void SetAnimationMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
 
 		moving = playerMoving;
 		running = _running;
@@ -120,5 +122,14 @@ public class PLAYER_animation : MonoBehaviour {
     public void SetFreeStateBool(bool freeState)
     {
         anim.SetBool("FreeState", freeState);
+    }
+
+    public void DisablePlayerShadow()
+    {
+        playerShadow.SetActive(false);
+    }
+    public void EnablePlayerShadow()
+    {
+        playerShadow.SetActive(true);
     }
 }

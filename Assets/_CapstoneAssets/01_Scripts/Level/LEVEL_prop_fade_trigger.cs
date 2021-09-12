@@ -152,7 +152,7 @@ public class LEVEL_prop_fade_trigger : MonoBehaviour, IRoomTrigger
             if (col.tag.Trim().Equals("Player".Trim()))
             {
                 FadeUp();
-                Debug.Log("Trigger fade up on " + this.gameObject.name);
+                //Debug.Log("Trigger fade up on " + this.gameObject.name);
 
             }
         }

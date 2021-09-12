@@ -175,13 +175,13 @@ public class DayCycleRange
                     start = start = startTime.ThisTimeInMinutes();
                     goal = peakStartTime.ThisTimeInMinutes();
                     current = GAME_clock_manager.Instance.inGameTime.ThisTimeInMinutes();
-                    Debug.Log(current);
+                   // Debug.Log(current);
 
                     currentDaytimeVolume = (current - start) / (goal - start);
                 }
                 else if (IsFallingHours())
                 {
-                    Debug.Log("Falliong hours");
+                    //Debug.Log("Falliong hours");
 
                     // Set up proportion based on End Time
                     // 1- ((CURRENT - START) / (GOAL - START))
