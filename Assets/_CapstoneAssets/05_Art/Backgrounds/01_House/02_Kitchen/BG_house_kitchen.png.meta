@@ -3,11 +3,17 @@ guid: b8f0d97142d8c1b4baf04826319cee15
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 6152593061512645016
-    second: BG_house_kitchen_doorcutout
-  - first:
       213: -1987868846887748660
     second: BG_house_kitchen
+  - first:
+      213: -8883150664749306127
+    second: BG_house_kitchen_workshopdoor_L
+  - first:
+      213: -4860783676650899454
+    second: BG_house_kitchen_workshopdoor_R
+  - first:
+      213: -1686806285124693976
+    second: BG_house_kitchen_counter
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -37,9 +43,9 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: -1
-    aniso: -1
-    mipBias: -100
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
     wrapU: 1
     wrapV: 1
     wrapW: 1
@@ -53,7 +59,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 115
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -93,13 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: BG_house_kitchen_doorcutout
+      name: BG_house_kitchen_cutout
       rect:
         serializedVersion: 2
-        x: 3771
-        y: 0
-        width: 912
-        height: 2277
+        x: 3846
+        y: 173
+        width: 802
+        height: 2275
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -130,6 +136,48 @@ TextureImporter:
       bones: []
       spriteID: ccbb031e0dba964e0800000000000000
       internalID: -1987868846887748660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG_house_kitchen_workshopdoor_L
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2323
+        width: 430
+        height: 2818
+      alignment: 8
+      pivot: {x: 1, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fea75d0985b8b480800000000000000
+      internalID: -8883150664749306127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG_house_kitchen_workshopdoor_R
+      rect:
+        serializedVersion: 2
+        x: 426
+        y: 4127
+        width: 637
+        height: 1364
+      alignment: 9
+      pivot: {x: 1.0024295, y: 0.0036965741}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 208b437eff60b8cb0800000000000000
+      internalID: -4860783676650899454
       vertices: []
       indices: 
       edges: []

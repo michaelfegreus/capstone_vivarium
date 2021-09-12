@@ -25,6 +25,7 @@ public class PLAYER_STATE_BespokeAction : IState {
         // Disable free movement and control.
         movementScript.enabled = false;
         interactionScript.enabled = false;
+        // Disable Wall Script check as well.
     }
 
 	public void Execute(){

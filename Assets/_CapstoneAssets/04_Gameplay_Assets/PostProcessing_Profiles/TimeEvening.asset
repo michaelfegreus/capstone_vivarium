@@ -16,15 +16,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 1.1
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 5.8
     min: 0
   scatter:
-    m_OverrideState: 0
-    m_Value: 0.7
+    m_OverrideState: 1
+    m_Value: 0.799
     min: 0
     max: 1
   clamp:
@@ -33,7 +33,7 @@ MonoBehaviour:
     min: 0
   tint:
     m_OverrideState: 1
-    m_Value: {r: 1, g: 0.6766837, b: 0.3726415, a: 1}
+    m_Value: {r: 1, g: 0.740566, b: 0.7912887, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -47,46 +47,7 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
     min: 0
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
-  m_Name: TimeEvening
-  m_EditorClassIdentifier: 
-  components:
-  - {fileID: -3108658945777908570}
-  - {fileID: 1868652151028903227}
-  - {fileID: 1273825559824554506}
---- !u!114 &1273825559824554506
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
-  m_Name: LiftGammaGain
-  m_EditorClassIdentifier: 
-  active: 1
-  m_AdvancedMode: 0
-  lift:
-    m_OverrideState: 1
-    m_Value: {x: 0.77794874, y: 0.8132753, z: 1, w: 0.009424999}
-  gamma:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.8371212, z: 0.6952003, w: -0.16965128}
-  gain:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 1, z: 1, w: 0.16965131}
---- !u!114 &1868652151028903227
+--- !u!114 &-1886933214200733483
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -102,7 +63,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.5471698, g: 0.3143877, b: 0.2710039, a: 1}
+    m_Value: {r: 0.14139336, g: 0.13581344, b: 0.26415092, a: 1}
     hdr: 0
     showAlpha: 0
     showEyeDropper: 1
@@ -111,14 +72,53 @@ MonoBehaviour:
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.23
+    m_Value: 0.483
     min: 0
     max: 1
   smoothness:
     m_OverrideState: 1
-    m_Value: 0.827
+    m_Value: 0.15
     min: 0.01
     max: 1
   rounded:
     m_OverrideState: 1
-    m_Value: 1
+    m_Value: 0
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: TimeEvening
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: -3108658945777908570}
+  - {fileID: -1886933214200733483}
+  - {fileID: 3239121554655801018}
+--- !u!114 &3239121554655801018
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5485954d14dfb9a4c8ead8edb0ded5b1, type: 3}
+  m_Name: LiftGammaGain
+  m_EditorClassIdentifier: 
+  active: 1
+  m_AdvancedMode: 0
+  lift:
+    m_OverrideState: 1
+    m_Value: {x: 0.9873489, y: 0.98812693, z: 1, w: 0}
+  gamma:
+    m_OverrideState: 1
+    m_Value: {x: 0.98199975, y: 0.9163891, z: 1, w: -0.144}
+  gain:
+    m_OverrideState: 1
+    m_Value: {x: 1, y: 0.9658459, z: 0.7218622, w: 0.096}

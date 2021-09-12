@@ -4,7 +4,7 @@ public class PLAYER_animation : MonoBehaviour {
 
 	public Animator anim;
     public Animator animReflectY; // Y Axis reflection Animator. Used for things like reflective floors, puddles, etc.
-	Vector2 lastMove;
+	[HideInInspector] public Vector2 lastMove;
 
 	bool moving;
 	bool running;
@@ -15,9 +15,12 @@ public class PLAYER_animation : MonoBehaviour {
 	public Transform targetTransform;
 	Vector3 spriteModuleOffset;
 
+    public GameObject playerShadow;
+
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
 	void Start(){
 		spriteModuleOffset = spriteModule.localPosition;
+        animReflectY.fireEvents = false; // Disable animation events on the floor-reflection animator.
 	}
 	void Update(){
 		// Offset the module
@@ -43,7 +46,7 @@ public class PLAYER_animation : MonoBehaviour {
 		}*/
     }
 
-	public void SetMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
+	public void SetAnimationMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
 
 		moving = playerMoving;
 		running = _running;
@@ -80,7 +83,17 @@ public class PLAYER_animation : MonoBehaviour {
         animReflectY.Play(animationStateName, 0);
     }
 
+    [Tooltip("Sprites affiliated with the Player Character, including the main sprite, the shadow, and reflections.")]
+    [SerializeField] SpriteRenderer[] characterSprites;
 
+    // Hide affiliated sprites for cutscenes, interactables, and other non-player controlled situations.
+    public void EnableDisableCharacterSprite(bool enable)
+    {
+        foreach(SpriteRenderer sprite in characterSprites)
+        {
+            sprite.enabled = enable;
+        }
+    }
 
 
 
@@ -104,5 +117,19 @@ public class PLAYER_animation : MonoBehaviour {
 
         animReflectY.SetFloat("TurnAngle", angleDifference);
 
+    }
+
+    public void SetFreeStateBool(bool freeState)
+    {
+        anim.SetBool("FreeState", freeState);
+    }
+
+    public void DisablePlayerShadow()
+    {
+        playerShadow.SetActive(false);
+    }
+    public void EnablePlayerShadow()
+    {
+        playerShadow.SetActive(true);
     }
 }

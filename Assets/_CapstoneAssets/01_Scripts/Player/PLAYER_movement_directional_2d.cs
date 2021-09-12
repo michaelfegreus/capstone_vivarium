@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PLAYER_movement_directional_2d : MonoBehaviour {
 
@@ -9,6 +10,11 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		I think this is still a good character controller, but it would be nice if everything was a bit less spread out. */
 
 	public GameObject playerMovementModule;
+    public PLAYER_collision_delegate playerMovementDelegateScript;
+    public Collider2D playerMovementModuleCollider;
+
+    public GameObject playerWallModule;
+    public PLAYER_wallcheck wallCheckScript;
 
     // Use a reference because the animation script gets called a lot.
     PLAYER_animation playerAnimation;
@@ -23,8 +29,8 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 	public float inputDeadzoneThreshold = .01f; // How far you need to move the stick to get this script to register it as movement.
 	public bool directionInput; // Is the player moving the analog stick?
     float inputAngle; // Calculated angle of input from the analog stick or keys.
-	// Button input
-	bool dashInput;
+    // Button input
+    [System.NonSerialized] public bool dashInput;
 
     // Movespeed values
     public float walkStartupSpeed;
@@ -61,10 +67,24 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
     [Tooltip("Adjust diagonal input as it feeds into Desired Rotation. Try to get it to move her along the perspective grid.")]
     public float diagonalVerticalAdjust = .6f;
 
+    [Tooltip("How long a player has to move towards a wall to initiate special wall actions.")]
+    public float wallActionTimer = .25f;
+    float wallActionTimeElapsed = 0f; // How many seconds the player has been moving towards the wall to perform a special wall action.
+
     // Disable and enable based on when you're dashing.
     public ParticleSystem dashParticles;
 
-	void Start () {
+    [Tooltip("How far to adjust the Player Movement's position by after climbing a ledge.")]
+    public Vector2 diagonalLedgeClimbDistance;
+    [Tooltip("How far to adjust the Player Movement's position by after jumping a ledge.")]
+    public Vector2 diagonalLedgeJumpDistance;
+    //float currentLedgeFallDistance = 0f; // How far the player has fallen from a ledge jump
+    //Vector3 ledgeFallTargetPosition;
+    [SerializeField] float ledgeFallSpeed = .8f;
+    [SerializeField] float ledgeFallForwardMomentum = .1f;
+    float ledgeFallDistance;
+
+    void Start () {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
         playerAnimation = PLAYER_manager.Instance.playerAnimation;
 		targetMoveSpeed = walkSpeed;
@@ -113,13 +133,23 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
         if (!skid)
         {
-            playerAnimation.SetMovement(directionInput, new Vector2(inputX, inputY), inputDeadzoneThreshold, dashInput);
+            if (!wallCheckScript.stickingWall)
+            {
+                playerAnimation.SetAnimationMovement(directionInput, new Vector2(inputX, inputY), inputDeadzoneThreshold, dashInput);
+                wallActionTimeElapsed = 0f;
+            }
+            else
+            {
+                playerAnimation.SetAnimationMovement(false, new Vector2(0f, 0f), inputDeadzoneThreshold, dashInput);
+                StopMomentum();
+                WallStickAction();
+            }
         }
     }
 
 	void FixedUpdate (){
 		// Move input that pushes the character forward towards the direction faced
-		if (directionInput) {
+		if (directionInput && !wallCheckScript.stickingWall) {
 			// Apply force to begin moving!
 			rb.AddForce ((playerMovementModule.transform.up * -1f) * (currentMoveSpeed /*substract based on yMovementForshortenMod, if player is drawn from a camera angle needing compensation for moving in perspective*/ - Mathf.Abs(yMovementForshortenModifier * inputY * targetMoveSpeed)));
 		}
@@ -139,7 +169,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 
         if (directionInput)
         {
-            if (dashInput)
+            if (dashInput && !wallCheckScript.stickingWall)
             {
                 targetMoveSpeed = dashSpeed;
             }
@@ -181,6 +211,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		//movementVector = new Vector3 (inputX, inputY, 0.0f);
 		//float inputAngle = Mathf.Atan2 (inX, inY) * Mathf.Rad2Deg; // Calculate angle of analog stick input.
 		desiredRotation = Quaternion.Euler(new Vector3(0f, 0f, -1f * inputAngle + 180f));
+        WallCheck(desiredRotation);
 
         float deltaAngle = Quaternion.Angle(playerMovementModule.transform.rotation, desiredRotation); // Degree of change between current rotation and desired rotation.
 
@@ -190,7 +221,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         if (Mathf.Abs(deltaAngle) > skidAngle && directionInput && skidResetTimer < timeBetweenSkidReset)
         {
             WalkTurnCheck(inputAngle, false);
-            Debug.Log(deltaAngle);
+            //Debug.Log(deltaAngle);
             playerMovementModule.transform.rotation = desiredRotation;
 
             
@@ -211,6 +242,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         {
             skid = false;
         }
+
 	}
 
     void WalkTurnCheck(float inAngle, bool animateNow)
@@ -225,7 +257,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
             playerAnimation.SetTurnAngle(angleDiff);
         }
 
-        Debug.Log(angleDiff);
+        //Debug.Log(angleDiff);
 
         if (animateNow)
         {
@@ -255,7 +287,94 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         }
     }
 
-	public void SetDashInput(bool input){
+    void WallCheck(Quaternion _desiredRotation)
+    {
+        playerWallModule.transform.rotation = _desiredRotation;
+        playerWallModule.transform.position = playerMovementModule.transform.position;
+    }
+
+    void WallStickAction()
+    {
+        if (directionInput && wallCheckScript.stickingWall)
+        {
+            wallActionTimeElapsed += Time.fixedDeltaTime;
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
+            {
+                if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
+                {
+                    SetFaceDirection(inputX, 1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                    StopMomentum();
+                    playerAnimation.PlayAnimationState("Climb Ledge");
+                }
+                else
+                {
+                    wallActionTimeElapsed = 0f;
+                }
+            }
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeJump".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
+            {
+                if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
+                {
+                    SetFaceDirection(inputX, -1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                    ledgeFallDistance = wallCheckScript.collidingWall.GetComponent<Ledge>().ledgeFallDistance;
+                    StopMomentum();
+                    PLAYER_manager.Instance.EnterBespokeActionState();
+                    playerMovementModuleCollider.enabled = false;
+                    playerAnimation.PlayAnimationState("Jump Ledge");
+                }
+                else
+                {
+                    wallActionTimeElapsed = 0f;
+                }
+            }
+            if (wallActionTimeElapsed > wallActionTimer)
+            {                
+                wallActionTimeElapsed = 0f;
+            }
+        }
+    }
+
+    public void InitiateLedgeFall()
+    {
+        StartCoroutine(LedgeFall());
+    }
+    
+    IEnumerator LedgeFall()
+    {
+        float targetYPos = playerMovementModule.transform.position.y - ledgeFallDistance;
+
+        // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        while (playerMovementModule.transform.position.y > targetYPos)
+        {
+            playerMovementModule.transform.position -= new Vector3(xSign * ledgeFallForwardMomentum, ledgeFallSpeed, 0f);
+            yield return null;
+        }
+        //yield return new WaitForSeconds(1f);
+        //PLAYER_manager.Instance.EnterFreeState();
+
+        //StopMomentum();
+        //Debug.Log("Landed");
+        playerAnimation.PlayAnimationState("Land");
+        playerMovementModuleCollider.enabled = true;
+
+    }
+
+    public void LedgeClimbReposition()
+    {
+        // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeClimbDistance.x * xSign, diagonalLedgeClimbDistance.y, 0f);// Add to the player's position to get the new placement.
+    }
+    public void LedgeJumpReposition()
+    {
+        // NOTE: Add functionality if you need to have the character jump ledges that are not upward-diagonals
+        float xSign = Mathf.Sign(PLAYER_manager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
+        playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeJumpDistance.x * xSign, diagonalLedgeJumpDistance.y, 0f);// Add to the player's position to get the new placement.
+
+    }
+
+    public void SetDashInput(bool input){
 		dashInput = input;
 	}
 
@@ -348,7 +467,7 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
 		// Set the player rotation.
 		DirectionInputCheck(dirFaceX, dirFaceY);
 		playerMovementModule.transform.rotation = desiredRotation;
-		playerAnimation.SetMovement(true, new Vector2(dirFaceX, dirFaceY), inputDeadzoneThreshold, dashInput);
+		playerAnimation.SetAnimationMovement(true, new Vector2(dirFaceX, dirFaceY), inputDeadzoneThreshold, dashInput);
 	}
 
     // Just set the direction the player is facing, but don't move them. Use this with Animator, or for things like cutscenes.
@@ -366,5 +485,13 @@ public class PLAYER_movement_directional_2d : MonoBehaviour {
         rb.angularVelocity = 0f;
         currentMoveSpeed = 0f;
         targetMoveSpeed = 0f;
+    }
+    private void OnEnable()
+    {
+        wallCheckScript.enabled = true;
+    }
+    private void OnDisable()
+    {
+        wallCheckScript.enabled = false;
     }
 }

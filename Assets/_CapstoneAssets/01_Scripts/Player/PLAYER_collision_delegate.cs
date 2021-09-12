@@ -2,6 +2,7 @@
 
 public class PLAYER_collision_delegate : MonoBehaviour
 {
+
     // Event delegate system for OnTriggerEnter. This is used to send signals to the event system in Fungus.
     public delegate void TriggerEnterDelegate(Collider2D otherCollider);
     public static event TriggerEnterDelegate OnTriggerEnterEvent;
@@ -25,4 +26,7 @@ public class PLAYER_collision_delegate : MonoBehaviour
             OnTriggerExitEvent(col);
         }
     }
-}
+
+    }
+
+

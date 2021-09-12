@@ -14,6 +14,12 @@ TagManager:
   - DialogueInteractable
   - NonInteractable
   - Pinball
+  - Carpet
+  - Wood
+  - Tile
+  - Dirt
+  - LedgeClimb
+  - LedgeJump
   layers:
   - Default
   - TransparentFX
@@ -24,15 +30,15 @@ TagManager:
   - 
   - 
   - CharacterMesh
-  - CameraZone
+  - CameraZones
   - PathfindingObstacles
   - NoSelectSprites
   - NoSelectChildObjects
   - ParallaxFG
-  - 
-  - 
-  - 
-  - 
+  - Surfaces
+  - Rooms
+  - Player
+  - LevelCollision
   - 
   - 
   - 
@@ -48,6 +54,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: FarBackground
+    uniqueID: 20307809
+    locked: 0
   - name: Background
     uniqueID: 457614403
     locked: 0

@@ -7,7 +7,20 @@ public class LEVEL_sorting_trigger : MonoBehaviour
     SpriteRenderer[] spriteToOrder;
 
     [SerializeField]
-    int targetSortLevel;
+    int enterTargetSortLevel;
+    [SerializeField]
+    int exitTargetSortLevel = 0;
+
+    private void OnTriggerExit2D(Collider2D col)
+    {
+        if (col.tag.Trim().Equals("Player".Trim()))
+        {
+            for (int i = 0; i < spriteToOrder.Length; i++)
+            {
+                spriteToOrder[i].sortingOrder = exitTargetSortLevel;
+            }
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D col)
     {
@@ -15,7 +28,7 @@ public class LEVEL_sorting_trigger : MonoBehaviour
         {
             for (int i = 0; i < spriteToOrder.Length; i++)
             {
-                spriteToOrder[i].sortingOrder = targetSortLevel;
+                spriteToOrder[i].sortingOrder = enterTargetSortLevel;
             }
         }
     }
