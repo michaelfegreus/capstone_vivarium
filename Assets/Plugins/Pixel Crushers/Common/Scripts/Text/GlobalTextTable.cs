@@ -65,8 +65,8 @@ namespace PixelCrushers
         /// </summary>
         public static string currentLanguage
         {
-            get { return UILocalizationManager.instance.currentLanguage; }
-            set { UILocalizationManager.instance.currentLanguage = value; }
+            get { return (UILocalizationManager.instance != null) ? UILocalizationManager.instance.currentLanguage : string.Empty; }
+            set { if (UILocalizationManager.instance != null) UILocalizationManager.instance.currentLanguage = value; }
         }
 
         /// <summary>
