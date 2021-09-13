@@ -1,6 +1,3 @@
-// Recompile at 1/18/2021 10:30:32 AM
-
-
 #if USE_TIMELINE
 #if UNITY_2017_1_OR_NEWER
 // Copyright (c) Pixel Crushers. All rights reserved.
@@ -38,7 +35,15 @@ namespace PixelCrushers.DialogueSystem
                     {
                         if (input.useConversation)
                         {
-                            DialogueManager.Bark(input.conversation, trackBinding.transform, input.listener);
+                            if (input.barkSpecificEntry)
+                            {
+                                var subtitle = GetBarkSubtitle(input.conversation, input.entryID, trackBinding.transform, input.listener);
+                                DialogueManager.instance.StartCoroutine(BarkController.Bark(subtitle));
+                            }
+                            else
+                            {
+                                DialogueManager.Bark(input.conversation, trackBinding.transform, input.listener);
+                            }
                         }
                         else
                         {
@@ -57,6 +62,20 @@ namespace PixelCrushers.DialogueSystem
                     played.Remove(i);
                 }
             }
+        }
+
+        protected Subtitle GetBarkSubtitle(string conversationTitle, int entryID, Transform speaker, Transform listener)
+        {
+            var conversation = DialogueManager.masterDatabase.GetConversation(conversationTitle);
+            if (conversation == null) return null;
+            var entry = conversation.GetDialogueEntry(entryID);
+            if (entry == null) return null;
+            var conversationModel = new ConversationModel(DialogueManager.masterDatabase, conversationTitle, speaker, listener, true, null);
+            var speakerInfo = conversationModel.GetCharacterInfo(entry.ActorID, speaker);
+            var listenerInfo = conversationModel.GetCharacterInfo(entry.ConversantID, listener);
+            var formattedText = FormattedText.Parse(entry.currentDialogueText);
+            Lua.Run(entry.userScript);
+            return new Subtitle(speakerInfo, listenerInfo, formattedText, entry.Sequence, string.Empty, entry);
         }
 
         public override void OnGraphStart(Playable playable)

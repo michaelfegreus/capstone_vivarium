@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
 using PixelCrushers.DialogueSystem;
+using UnityEngine.InputSystem;
 
-public class PlayerInteraction : MonoBehaviour {
+public class PlayerInteraction : MonoBehaviour
+{
 
     // At the moment you could just ditch this script and toggle the module from the State machine directly, but I'll leave it in for now
     // since it's architected and incase I need to play with any other setups using interaction later.
@@ -9,17 +11,6 @@ public class PlayerInteraction : MonoBehaviour {
     public SpriteRenderer selectorUI;
     public Transform playerMovementModule; // Also get a reference to the movement module to help set the direction the player is facing on interact.
     public ProximitySelector playerSelector;
-
-    private void Update()
-    {
-        if(playerSelector.CurrentUsable != null)
-        {
-            if(Input.GetKeyDown(playerSelector.useKey) || Input.GetButtonDown(playerSelector.useButton))
-            {
-                InteractionFaceDirection(playerSelector.CurrentUsable.transform);
-            }
-        }
-    }
 
     private void OnEnable()
     {
@@ -33,29 +24,36 @@ public class PlayerInteraction : MonoBehaviour {
     }
 
     // You could move this to PLAYER_movement_directional_2d if you decide to get rid of the PLAYER_interaction script
-    public void InteractionFaceDirection(Transform interactedObject)
+    public void InteractionFaceDirection()
     {
-        // Also, cause the player character to face what's being interacted with.
-        float dirX;
-        float dirY;
-        if (playerMovementModule.position.x < interactedObject.transform.position.x)
+        if (playerSelector.CurrentUsable != null)
         {
-            dirX = 1f;
+
+            Transform interactedObject = playerSelector.CurrentUsable.transform;
+            Debug.Log(interactedObject.name);
+            // Also, cause the player character to face what's being interacted with.
+            float dirX;
+            float dirY;
+            if (playerMovementModule.position.x < interactedObject.transform.position.x)
+            {
+                dirX = 1f;
+            }
+            else
+            {
+                dirX = -1f;
+            }
+            if (playerMovementModule.position.y < interactedObject.transform.position.y)
+            {
+                dirY = 1f;
+            }
+            else
+            {
+                dirY = -1f;
+            }
+            PlayerManager.Instance.playerMovement.SetFaceDirection(dirX, dirY);
         }
-        else
-        {
-            dirX = -1f;
-        }
-        if (playerMovementModule.position.y < interactedObject.transform.position.y)
-        {
-            dirY = 1f;
-        }
-        else
-        {
-            dirY = -1f;
-        }
-        PlayerManager.Instance.playerMovement.SetFaceDirection(dirX, dirY);
     }
+}
 
 
     /* Alright fellas pack it up I'm in therapy now and I'm making some changes in my life
@@ -223,4 +221,3 @@ public class PlayerInteraction : MonoBehaviour {
 	}*/
 
 
-}

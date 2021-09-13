@@ -78,12 +78,20 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorGUI.BeginChangeCheck();
             GUI.SetNextControlName(nameControl);
             actorName = EditorGUI.TextField(new Rect(rect.x, rect.y + 2, fieldWidth, EditorGUIUtility.singleLineHeight), GUIContent.none, actorName);
-            if (EditorGUI.EndChangeCheck()) actor.Name = actorName;
+            if (EditorGUI.EndChangeCheck())
+            {
+                actor.Name = actorName;
+                SetDatabaseDirty("Actor Name");
+            }
             var description = actor.Description;
             EditorGUI.BeginChangeCheck();
             GUI.SetNextControlName(descriptionControl);
             description = EditorGUI.TextField(new Rect(rect.x + fieldWidth + 2, rect.y + 2, 3 * fieldWidth - 2, EditorGUIUtility.singleLineHeight), GUIContent.none, description);
-            if (EditorGUI.EndChangeCheck()) actor.Description = description;
+            if (EditorGUI.EndChangeCheck())
+            {
+                actor.Description = description;
+                SetDatabaseDirty("Actor Description");
+            }
             EditorGUI.EndDisabledGroup();
             var focusedControl = GUI.GetNameOfFocusedControl();
             if (string.Equals(nameControl, focusedControl) || string.Equals(descriptionControl, focusedControl))
@@ -233,6 +241,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     {
                         actor.portrait = newPortrait;
                         ClearActorInfoCaches();
+                        SetDatabaseDirty("Actor Portrait");
                     }
                 }
                 catch (NullReferenceException)
@@ -267,7 +276,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
                         try
                         {
+                            EditorGUI.BeginChangeCheck();
                             actor.alternatePortraits[i] = EditorGUILayout.ObjectField(actor.alternatePortraits[i], typeof(Texture2D), false, GUILayout.Width(64), GUILayout.Height(64)) as Texture2D;
+                            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty("Actor Portrait");
                         }
                         catch (NullReferenceException)
                         {
@@ -310,6 +321,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     {
                         actor.spritePortrait = newPortrait;
                         ClearActorInfoCaches();
+                        SetDatabaseDirty("Actor Portrait");
                     }
                 }
                 catch (NullReferenceException)
@@ -344,7 +356,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
                         try
                         {
+                            EditorGUI.BeginChangeCheck();
                             actor.spritePortraits[i] = EditorGUILayout.ObjectField(actor.spritePortraits[i], typeof(Sprite), false, GUILayout.Width(64), GUILayout.Height(64)) as Sprite;
+                            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty("Actor Portrait");
                         }
                         catch (NullReferenceException)
                         {
@@ -377,7 +391,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             // The rest: node color, Is Player, etc.
             DrawActorNodeColor(actor);
 
+            EditorGUI.BeginChangeCheck();
             actor.IsPlayer = EditorGUILayout.Toggle(new GUIContent("Is Player", ""), actor.IsPlayer);
+            if (EditorGUI.EndChangeCheck()) SetDatabaseDirty("IsPlayer");
 
             DrawActorPrimaryFields(actor);
         }
@@ -390,9 +406,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 var fieldTitle = field.title;
                 if (string.IsNullOrEmpty(fieldTitle)) continue;
                 if (!template.actorPrimaryFieldTitles.Contains(field.title)) continue;
-                EditorGUILayout.BeginHorizontal();
-                DrawField(field, false, false);
-                EditorGUILayout.EndHorizontal();
+                DrawMainSectionField(field);
             }
         }
 
@@ -416,6 +430,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                         actor.fields.Remove(actor.fields.Find(x => string.Equals(x.title, NodeColorFieldTitle)));
                         break;
                 }
+                SetDatabaseDirty("Actor Node Color");
             }
             if (toggleValue == true)
             {
@@ -436,6 +451,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     if (EditorGUI.EndChangeCheck())
                     {
                         nodeColorField.value = Tools.ToWebColor(nodeColor);
+                        SetDatabaseDirty("Actor Node Color");
                     }
 
                     //---Was: (Used to use Unity's built-in node style, but it had limited color options.)

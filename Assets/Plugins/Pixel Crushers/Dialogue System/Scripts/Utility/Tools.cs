@@ -347,7 +347,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (!s.Contains("<")) return s;
             return Regex.Replace(s, @"<b>|</b>|<i>|</i>|<color=[#]?\w+>|<color=""\w+"">|</color>|" +
-                @"<align=\w+>|</align>|<font=\w+>|</font>|<indent=\w+\%>|<indent=\w+>|</indent>|" +
+                @"<align=\w+>|</align>|<font=[^>]+>|</font>|<indent=\w+\%>|<indent=\w+>|</indent>|" +
                 @"<line-height=\w+%>|<line-height=\w+>|</line-height>|<line-indent=\w+\%>|<line-ident=\w+>|</line-ident>|" +
                 @"<link=""[^""]+"">|</link>|<lowercase>|</lowercase>|<uppercase>|</uppercase>|" +
                 @"<smallcaps>|</smallcaps>|<margin=.+>|</margin>|<mark=#\w+>|</mark>|" +

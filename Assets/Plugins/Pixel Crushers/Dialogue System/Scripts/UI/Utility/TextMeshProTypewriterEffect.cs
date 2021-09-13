@@ -1,6 +1,4 @@
-// Recompile at 1/18/2021 11:44:23 PM
-
-// Copyright (c) Pixel Crushers. All rights reserved.
+﻿// Copyright (c) Pixel Crushers. All rights reserved.
 
 using System.Collections;
 using System.Collections.Generic;
@@ -166,7 +164,7 @@ namespace PixelCrushers.DialogueSystem
 
         public override void OnDisable()
         {
-            base.OnEnable();
+            base.OnDisable();
             Stop();
         }
 
@@ -420,13 +418,11 @@ namespace PixelCrushers.DialogueSystem
             HandleAutoScroll();
         }
 
-        protected void HandleAutoScroll()
+        protected virtual void HandleAutoScroll()
         {
             if (!autoScrollSettings.autoScrollEnabled) return;
 
-            var layoutElement = textComponent.GetComponent<LayoutElement>();
-            if (layoutElement == null) layoutElement = textComponent.gameObject.AddComponent<LayoutElement>();
-            layoutElement.preferredHeight = textComponent.textBounds.size.y;
+            layoutElement.preferredHeight = Mathf.Max(0, textComponent.textBounds.size.y);
             if (autoScrollSettings.scrollRect != null)
             {
                 autoScrollSettings.scrollRect.normalizedPosition = new Vector2(0, 0);

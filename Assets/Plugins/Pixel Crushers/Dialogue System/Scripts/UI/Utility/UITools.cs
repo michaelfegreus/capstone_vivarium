@@ -89,7 +89,11 @@ namespace PixelCrushers.DialogueSystem
         /// Gives preference to the Texture2D.
         public static Sprite GetSprite(Texture2D texture, Sprite sprite)
         {
-            return (texture != null) ? UITools.CreateSprite(texture) : sprite;
+            return (sprite != null) 
+                ? sprite 
+                : (texture != null) 
+                    ? UITools.CreateSprite(texture) 
+                    : null;
         }
 
         public static Texture2D GetTexture2D(Sprite sprite)

@@ -1,6 +1,4 @@
-// Recompile at 1/18/2021 11:44:23 PM
-
-// Copyright (c) Pixel Crushers. All rights reserved.
+﻿// Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
 using System.Collections.Generic;
@@ -85,7 +83,7 @@ namespace PixelCrushers
         {
             if (!started) return;
             var textTable = this.textTable;
-            var language = UILocalizationManager.instance.currentLanguage;
+            var language = (UILocalizationManager.instance != null) ? UILocalizationManager.instance.currentLanguage : string.Empty;
 
             // Skip if no text table or language set:
             if (textTable == null)
@@ -97,7 +95,7 @@ namespace PixelCrushers
             if (!textTable.HasLanguage(language))
             {
                 Debug.LogWarning("Text table " + textTable.name + " does not have a language '" + language + "'.", textTable);
-                return;
+                //return; //--- Allow to continue and use default language value.
             }
 
             // Make sure we have localizable UI components:

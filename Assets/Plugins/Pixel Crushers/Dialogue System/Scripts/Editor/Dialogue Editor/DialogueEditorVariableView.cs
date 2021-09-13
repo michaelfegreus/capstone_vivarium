@@ -297,6 +297,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private Variable CreateNewVariable(string group)
         {
+            if (template == null) template = TemplateTools.LoadFromEditorPrefs();
             var id = template.GetNextVariableID(database);
             var newVariableName = "New Variable " + id;
             var addGroup = !(string.IsNullOrEmpty(group) || group == UngroupedVariableGroup);
