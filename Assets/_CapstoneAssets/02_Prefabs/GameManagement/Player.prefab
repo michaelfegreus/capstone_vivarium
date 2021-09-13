@@ -387,8 +387,9 @@ GameObject:
   - component: {fileID: 2393786708250511737}
   - component: {fileID: 2393786708250511743}
   - component: {fileID: 38175571}
-  - component: {fileID: 38175570}
   - component: {fileID: 2247212631028242606}
+  - component: {fileID: 864644952}
+  - component: {fileID: 864644957}
   m_Layer: 16
   m_Name: PlayerInteraction
   m_TagString: Untagged
@@ -461,87 +462,6 @@ CircleCollider2D:
   m_Offset: {x: 0, y: -2}
   serializedVersion: 2
   m_Radius: 1
---- !u!114 &38175570
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393786708250511740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 963d6358c55a0f44d8de57bee560f184, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useDefaultGUI: 0
-  guiSkin: {fileID: 0}
-  guiStyleName: label
-  alignment: 1
-  color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  textStyle: 1
-  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
-  defaultUseMessage: (spacebar to interact)
-  useKey: 122
-  useButton: Interact
-  enableTouch: 0
-  touchArea:
-    origin: 0
-    alignment: 0
-    x:
-      scale: 0
-      value: 0
-    y:
-      scale: 0
-      value: 0
-    width:
-      scale: 0
-      value: 0
-    height:
-      scale: 0
-      value: 0
-    minPixelWidth: 0
-    minPixelHeight: 0
-  broadcastToChildren: 1
-  actorTransform: {fileID: 0}
-  onSelectedUsable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491649212}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1491649213}
-        m_MethodName: Play
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: selector_appear
-          m_BoolArgument: 1
-        m_CallState: 2
-  onDeselectedUsable:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1491649212}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2247212631028242606
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -558,17 +478,6 @@ MonoBehaviour:
     onConversationStart:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 38175570}
-          m_MethodName: set_enabled
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
         - m_Target: {fileID: 2393786709830514605}
           m_MethodName: EnterMenuState
           m_Mode: 1
@@ -583,17 +492,6 @@ MonoBehaviour:
     onConversationEnd:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 38175570}
-          m_MethodName: set_enabled
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
         - m_Target: {fileID: 2393786709830514605}
           m_MethodName: EnterFreeState
           m_Mode: 1
@@ -674,6 +572,113 @@ MonoBehaviour:
     onDialogueSystemUnpause:
       m_PersistentCalls:
         m_Calls: []
+--- !u!114 &864644952
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393786708250511740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8aef71908a30e84bbbf24806d9b13c0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useDefaultGUI: 0
+  guiSkin: {fileID: 0}
+  guiStyleName: label
+  alignment: 1
+  color: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
+  textStyle: 1
+  textStyleColor: {r: 0, g: 0, b: 0, a: 1}
+  defaultUseMessage: 
+  useKey: 0
+  useButton: Interact
+  enableTouch: 0
+  touchArea:
+    origin: 0
+    alignment: 0
+    x:
+      scale: 0
+      value: 0
+    y:
+      scale: 0
+      value: 0
+    width:
+      scale: 0
+      value: 0
+    height:
+      scale: 0
+      value: 0
+    minPixelWidth: 0
+    minPixelHeight: 0
+  broadcastToChildren: 1
+  actorTransform: {fileID: 0}
+  onSelectedUsable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1491649212}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
+      - m_Target: {fileID: 1491649213}
+        m_MethodName: Play
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onDeselectedUsable:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1491649212}
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  onUse:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 2393786709830514607}
+        m_MethodName: InteractionFaceDirection
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+--- !u!114 &864644957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393786708250511740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5804fbcf1bd57364587aca32fc765f23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2393786708999056903
 GameObject:
   m_ObjectHideFlags: 0
@@ -994,7 +999,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2393786709830514604}
   - component: {fileID: 2393786709830514605}
-  - component: {fileID: 2393786709830514606}
   - component: {fileID: 2393786709830514607}
   - component: {fileID: 2393786709830514600}
   - component: {fileID: 2393786709830514601}
@@ -1035,29 +1039,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32047a8a8213e424986a5c8002d938f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &2393786709830514606
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393786709830514611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 82632ed2655f1804faa77d53c5ab43e1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  itemsHeld:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
 --- !u!114 &2393786709830514607
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1072,7 +1053,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectorUI: {fileID: 1491649214}
   playerMovementModule: {fileID: 2393786709365995850}
-  playerSelector: {fileID: 38175570}
+  playerSelector: {fileID: 864644952}
 --- !u!114 &2393786709830514600
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1087,6 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerMovementModule: {fileID: 2393786709365995855}
   playerMovementDelegateScript: {fileID: 6619141325963461217}
+  playerMovementModuleCollider: {fileID: 2393786709365995844}
   playerWallModule: {fileID: 6212762178952061769}
   wallCheckScript: {fileID: 6782100272014841592}
   inputDeadzoneThreshold: 0.01
@@ -1105,6 +1087,9 @@ MonoBehaviour:
   wallActionTimer: 0.25
   dashParticles: {fileID: 3916374}
   diagonalLedgeClimbDistance: {x: 1.45, y: 3.68}
+  diagonalLedgeJumpDistance: {x: 3, y: 0}
+  ledgeFallSpeed: 0.8
+  ledgeFallForwardMomentum: -0.3
 --- !u!114 &2393786709830514601
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1122,6 +1107,7 @@ MonoBehaviour:
   lastMove: {x: 0, y: 0}
   spriteModule: {fileID: 2393786708999056898}
   targetTransform: {fileID: 2393786709365995850}
+  playerShadow: {fileID: 2393786709766913223}
   characterSprites:
   - {fileID: 770619279}
   - {fileID: 2393786709766913217}
