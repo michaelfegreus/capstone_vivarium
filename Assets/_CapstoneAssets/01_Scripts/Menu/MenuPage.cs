@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using BookCurlPro;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class MenuPage : MonoBehaviour
 {
@@ -37,6 +38,11 @@ public class MenuPage : MonoBehaviour
             DeselectTab();
         }
     }
+
+    /// <summary>
+    /// On Page Opened invocation list, called when this page is flipped to.
+    /// </summary>
+    public UnityEvent OnPageOpen;
 
     private void SelectTab()
     {
