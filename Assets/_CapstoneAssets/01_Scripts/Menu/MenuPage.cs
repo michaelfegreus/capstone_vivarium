@@ -9,6 +9,7 @@ public class MenuPage : MonoBehaviour
 {
     public BookPro menuBook;
     public Image myTab;
+    public Outline tabOutline;
 
     float tabStartYPos;
 
@@ -31,11 +32,15 @@ public class MenuPage : MonoBehaviour
     {
         if (menuBook.papers[menuBook.CurrentPaper].Front == gameObject)
         {
-            SelectTab();
+            //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos - tabSelectOffset, myTab.rectTransform.localPosition.z);
+            StartCoroutine(MoveTab(tabStartYPos - tabSelectOffset, tabMoveDuration, true));
+            tabOutline.enabled = true;
         }
         else
         {
-            DeselectTab();
+            //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos, myTab.rectTransform.localPosition.z);
+            StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
+            tabOutline.enabled = false;
         }
     }
 
@@ -43,19 +48,6 @@ public class MenuPage : MonoBehaviour
     /// On Page Opened invocation list, called when this page is flipped to.
     /// </summary>
     public UnityEvent OnPageOpen;
-
-    private void SelectTab()
-    {
-        //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos - tabSelectOffset, myTab.rectTransform.localPosition.z);
-        StartCoroutine(MoveTab(tabStartYPos - tabSelectOffset, tabMoveDuration, true));
-
-    }
-    private void DeselectTab()
-    {
-        //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos, myTab.rectTransform.localPosition.z);
-        StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
-
-    }
 
     public IEnumerator MoveTab(float endPosY, float duration, bool overShoot)
     {

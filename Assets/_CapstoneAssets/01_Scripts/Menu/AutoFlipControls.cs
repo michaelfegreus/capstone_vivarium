@@ -10,7 +10,12 @@ public class AutoFlipControls : MonoBehaviour
 
     public MenuInput menuInput;
 
-    public AutoFlip autoFlipScript;
+    AutoFlip autoFlipScript;
+
+    // For clicking on a tab.
+    [SerializeField] float flipTimeFast = .1f;
+    // For regular paging through with keys / shoulder buttons.
+    [SerializeField] float flipTimeNormal = .28f;
 
     // Start is called before the first frame update
     void Awake()
@@ -18,6 +23,9 @@ public class AutoFlipControls : MonoBehaviour
         menuInput = new MenuInput();
         menuInput.Enable();
 
+        autoFlipScript = GetComponent<AutoFlip>();
+
+        SetFlipTimeNormal();
     }
 
     private void OnEnable()
@@ -38,12 +46,26 @@ public class AutoFlipControls : MonoBehaviour
 
     void flipLeft(InputAction.CallbackContext obj)
     {
+        SetFlipTimeNormal();
         autoFlipScript.FlipLeftPage();
     }
 
     void flipRight(InputAction.CallbackContext obj)
     {
+        SetFlipTimeNormal();
         autoFlipScript.FlipRightPage();
     }
 
+    public void SetFlipTimeNormal()
+    {
+        autoFlipScript.PageFlipTime = flipTimeNormal;
+    }
+
+    /// <summary>
+    /// Use this to jump to a tab quickly when the player clicks on one rather than paging through.
+    /// </summary>
+    public void SetFlipTimeFast()
+    {
+        autoFlipScript.PageFlipTime = flipTimeFast;
+    }
 }
