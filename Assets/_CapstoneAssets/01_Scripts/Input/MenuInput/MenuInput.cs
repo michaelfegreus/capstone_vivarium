@@ -969,6 +969,52 @@ public class @MenuInput : IInputActionCollection, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""NotebookNavigation"",
+            ""id"": ""9799364d-a1fd-45cc-9c60-6e8e242f7f59"",
+            ""actions"": [
+                {
+                    ""name"": ""FlipRight"",
+                    ""type"": ""Button"",
+                    ""id"": ""18e4cb6a-4761-4997-a41c-cb93465148f8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""FlipLeft"",
+                    ""type"": ""Button"",
+                    ""id"": ""0ed0a8eb-d83a-4e28-9c4d-7d42f00fa5d3"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""f53057d8-e4d9-4739-a4dc-dd367332bd8b"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlipRight"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3b33db2-7744-4947-9dd0-7ec952fcd229"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlipLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -1002,6 +1048,10 @@ public class @MenuInput : IInputActionCollection, IDisposable
         m_InventoryEngine_NextInv = m_InventoryEngine.FindAction("Next Inv", throwIfNotFound: true);
         m_InventoryEngine_PrevInv = m_InventoryEngine.FindAction("Prev Inv", throwIfNotFound: true);
         m_InventoryEngine_Hotbar = m_InventoryEngine.FindAction("Hotbar", throwIfNotFound: true);
+        // NotebookNavigation
+        m_NotebookNavigation = asset.FindActionMap("NotebookNavigation", throwIfNotFound: true);
+        m_NotebookNavigation_FlipRight = m_NotebookNavigation.FindAction("FlipRight", throwIfNotFound: true);
+        m_NotebookNavigation_FlipLeft = m_NotebookNavigation.FindAction("FlipLeft", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1306,6 +1356,47 @@ public class @MenuInput : IInputActionCollection, IDisposable
         }
     }
     public InventoryEngineActions @InventoryEngine => new InventoryEngineActions(this);
+
+    // NotebookNavigation
+    private readonly InputActionMap m_NotebookNavigation;
+    private INotebookNavigationActions m_NotebookNavigationActionsCallbackInterface;
+    private readonly InputAction m_NotebookNavigation_FlipRight;
+    private readonly InputAction m_NotebookNavigation_FlipLeft;
+    public struct NotebookNavigationActions
+    {
+        private @MenuInput m_Wrapper;
+        public NotebookNavigationActions(@MenuInput wrapper) { m_Wrapper = wrapper; }
+        public InputAction @FlipRight => m_Wrapper.m_NotebookNavigation_FlipRight;
+        public InputAction @FlipLeft => m_Wrapper.m_NotebookNavigation_FlipLeft;
+        public InputActionMap Get() { return m_Wrapper.m_NotebookNavigation; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(NotebookNavigationActions set) { return set.Get(); }
+        public void SetCallbacks(INotebookNavigationActions instance)
+        {
+            if (m_Wrapper.m_NotebookNavigationActionsCallbackInterface != null)
+            {
+                @FlipRight.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipRight;
+                @FlipRight.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipRight;
+                @FlipRight.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipRight;
+                @FlipLeft.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
+                @FlipLeft.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
+                @FlipLeft.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
+            }
+            m_Wrapper.m_NotebookNavigationActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @FlipRight.started += instance.OnFlipRight;
+                @FlipRight.performed += instance.OnFlipRight;
+                @FlipRight.canceled += instance.OnFlipRight;
+                @FlipLeft.started += instance.OnFlipLeft;
+                @FlipLeft.performed += instance.OnFlipLeft;
+                @FlipLeft.canceled += instance.OnFlipLeft;
+            }
+        }
+    }
+    public NotebookNavigationActions @NotebookNavigation => new NotebookNavigationActions(this);
     public interface IPlayerActions
     {
         void OnMove(InputAction.CallbackContext context);
@@ -1337,5 +1428,10 @@ public class @MenuInput : IInputActionCollection, IDisposable
         void OnNextInv(InputAction.CallbackContext context);
         void OnPrevInv(InputAction.CallbackContext context);
         void OnHotbar(InputAction.CallbackContext context);
+    }
+    public interface INotebookNavigationActions
+    {
+        void OnFlipRight(InputAction.CallbackContext context);
+        void OnFlipLeft(InputAction.CallbackContext context);
     }
 }
