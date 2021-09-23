@@ -19,7 +19,10 @@ public class MenuPage : MonoBehaviour
 
     private void Start()
     {
-        tabStartYPos = myTab.rectTransform.localPosition.y;
+        if (myTab != null)
+        {
+            tabStartYPos = myTab.rectTransform.localPosition.y;
+        }
         PageFlipCheck();
 
         menuBook.OnFlip.AddListener(PageFlipCheck);
@@ -32,15 +35,23 @@ public class MenuPage : MonoBehaviour
     {
         if (menuBook.papers[menuBook.CurrentPaper].Front == gameObject)
         {
-            //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos - tabSelectOffset, myTab.rectTransform.localPosition.z);
-            StartCoroutine(MoveTab(tabStartYPos - tabSelectOffset, tabMoveDuration, true));
-            tabOutline.enabled = true;
+            if (myTab != null)
+            {
+                //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos - tabSelectOffset, myTab.rectTransform.localPosition.z);
+                StartCoroutine(MoveTab(tabStartYPos - tabSelectOffset, tabMoveDuration, true));
+                tabOutline.enabled = true;
+            }
+
+            OnPageOpen.Invoke();
         }
         else
         {
-            //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos, myTab.rectTransform.localPosition.z);
-            StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
-            tabOutline.enabled = false;
+            if (myTab != null)
+            {
+                //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos, myTab.rectTransform.localPosition.z);
+                StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
+                tabOutline.enabled = false;
+            }
         }
     }
 

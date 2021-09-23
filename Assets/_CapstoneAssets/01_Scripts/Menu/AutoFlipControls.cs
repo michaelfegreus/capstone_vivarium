@@ -9,8 +9,9 @@ public class AutoFlipControls : MonoBehaviour
 {
 
     public MenuInput menuInput;
-
+    
     AutoFlip autoFlipScript;
+    BookPro myBook;
 
     // For clicking on a tab.
     [SerializeField] float flipTimeFast = .1f;
@@ -24,6 +25,7 @@ public class AutoFlipControls : MonoBehaviour
         menuInput.Enable();
 
         autoFlipScript = GetComponent<AutoFlip>();
+        myBook = GetComponent<BookPro>();
 
         SetFlipTimeNormal();
     }
@@ -47,13 +49,21 @@ public class AutoFlipControls : MonoBehaviour
     void flipLeft(InputAction.CallbackContext obj)
     {
         SetFlipTimeNormal();
-        autoFlipScript.FlipLeftPage();
+        // Don't bother trying to flip if it's at the end.
+        if (myBook.CurrentPaper > 0)
+        {
+            autoFlipScript.FlipLeftPage();
+        }
     }
 
     void flipRight(InputAction.CallbackContext obj)
     {
         SetFlipTimeNormal();
-        autoFlipScript.FlipRightPage();
+        // Don't bother trying to flip if it's at the end.
+        if (myBook.CurrentPaper < myBook.papers.Length - 1)
+        {
+            autoFlipScript.FlipRightPage();
+        }
     }
 
     public void SetFlipTimeNormal()
