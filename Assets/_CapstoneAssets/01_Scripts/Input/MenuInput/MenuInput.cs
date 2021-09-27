@@ -619,7 +619,7 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""9e4225b0-f8b9-46e7-aee0-681d6116a21a"",
-                    ""path"": ""*/{Submit}"",
+                    ""path"": ""<Keyboard>/z"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
