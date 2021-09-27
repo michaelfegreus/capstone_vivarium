@@ -59,7 +59,9 @@ namespace BookCurlPro
                     else
                     {
                         float x = xc - (0.5f - elapsedTime / duration) * 2 * (pageWidth);
-                        float y = (-pageHeight / (pageWidth * pageWidth)) * (x - xc) * (x - xc);
+                        // ORIGINAL SCRIPT: float y = (-pageHeight / (pageWidth * pageWidth)) * (x - xc) * (x - xc);
+                        // The following line was provided by plugin creator Abdullah Aldandarawy to give me the angle I'm trying to get on the page flip.
+                        float y = -pageHeight * 0.85f;
                         book.UpdateBookLTRToPoint(new Vector3(x, y, 0));
                     }
 
