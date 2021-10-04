@@ -870,7 +870,7 @@
                 {
                     "name": "",
                     "id": "e488401b-26e5-4f36-97bf-12d87e65c598",
-                    "path": "<Keyboard>/insert",
+                    "path": "<Keyboard>/m",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -976,6 +976,22 @@
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
+                },
+                {
+                    "name": "OpenNotebookMenu",
+                    "type": "Button",
+                    "id": "3266daf7-ce89-48ae-ab19-79ee9cf6a8be",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "CloseNotebookMenu",
+                    "type": "Button",
+                    "id": "4fd9363b-8793-4efe-a501-263c51167532",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
                 }
             ],
             "bindings": [
@@ -998,6 +1014,39 @@
                     "processors": "",
                     "groups": "",
                     "action": "FlipLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8bea7868-ae84-4dcd-b576-bd2d9449a034",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseNotebookMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "d6238fe3-50a5-4139-b7c7-ac8506a08e63",
+                    "path": "<Keyboard>/i",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenNotebookMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a3180032-6b45-4110-b7c8-4795a8dc536c",
+                    "path": "<Keyboard>/i",
+                    "interactions": "Press",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseNotebookMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

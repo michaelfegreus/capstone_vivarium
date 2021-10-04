@@ -883,7 +883,7 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""e488401b-26e5-4f36-97bf-12d87e65c598"",
-                    ""path"": ""<Keyboard>/insert"",
+                    ""path"": ""<Keyboard>/m"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
@@ -989,6 +989,22 @@ public class @MenuInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""OpenNotebookMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""3266daf7-ce89-48ae-ab19-79ee9cf6a8be"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CloseNotebookMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""4fd9363b-8793-4efe-a501-263c51167532"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1011,6 +1027,39 @@ public class @MenuInput : IInputActionCollection, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""FlipLeft"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8bea7868-ae84-4dcd-b576-bd2d9449a034"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseNotebookMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d6238fe3-50a5-4139-b7c7-ac8506a08e63"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenNotebookMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a3180032-6b45-4110-b7c8-4795a8dc536c"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": ""Press"",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseNotebookMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1052,6 +1101,8 @@ public class @MenuInput : IInputActionCollection, IDisposable
         m_NotebookNavigation = asset.FindActionMap("NotebookNavigation", throwIfNotFound: true);
         m_NotebookNavigation_FlipRight = m_NotebookNavigation.FindAction("FlipRight", throwIfNotFound: true);
         m_NotebookNavigation_FlipLeft = m_NotebookNavigation.FindAction("FlipLeft", throwIfNotFound: true);
+        m_NotebookNavigation_OpenNotebookMenu = m_NotebookNavigation.FindAction("OpenNotebookMenu", throwIfNotFound: true);
+        m_NotebookNavigation_CloseNotebookMenu = m_NotebookNavigation.FindAction("CloseNotebookMenu", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1362,12 +1413,16 @@ public class @MenuInput : IInputActionCollection, IDisposable
     private INotebookNavigationActions m_NotebookNavigationActionsCallbackInterface;
     private readonly InputAction m_NotebookNavigation_FlipRight;
     private readonly InputAction m_NotebookNavigation_FlipLeft;
+    private readonly InputAction m_NotebookNavigation_OpenNotebookMenu;
+    private readonly InputAction m_NotebookNavigation_CloseNotebookMenu;
     public struct NotebookNavigationActions
     {
         private @MenuInput m_Wrapper;
         public NotebookNavigationActions(@MenuInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @FlipRight => m_Wrapper.m_NotebookNavigation_FlipRight;
         public InputAction @FlipLeft => m_Wrapper.m_NotebookNavigation_FlipLeft;
+        public InputAction @OpenNotebookMenu => m_Wrapper.m_NotebookNavigation_OpenNotebookMenu;
+        public InputAction @CloseNotebookMenu => m_Wrapper.m_NotebookNavigation_CloseNotebookMenu;
         public InputActionMap Get() { return m_Wrapper.m_NotebookNavigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1383,6 +1438,12 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 @FlipLeft.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
                 @FlipLeft.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
                 @FlipLeft.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnFlipLeft;
+                @OpenNotebookMenu.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenNotebookMenu;
+                @OpenNotebookMenu.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenNotebookMenu;
+                @OpenNotebookMenu.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenNotebookMenu;
+                @CloseNotebookMenu.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
+                @CloseNotebookMenu.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
+                @CloseNotebookMenu.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
             }
             m_Wrapper.m_NotebookNavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -1393,6 +1454,12 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 @FlipLeft.started += instance.OnFlipLeft;
                 @FlipLeft.performed += instance.OnFlipLeft;
                 @FlipLeft.canceled += instance.OnFlipLeft;
+                @OpenNotebookMenu.started += instance.OnOpenNotebookMenu;
+                @OpenNotebookMenu.performed += instance.OnOpenNotebookMenu;
+                @OpenNotebookMenu.canceled += instance.OnOpenNotebookMenu;
+                @CloseNotebookMenu.started += instance.OnCloseNotebookMenu;
+                @CloseNotebookMenu.performed += instance.OnCloseNotebookMenu;
+                @CloseNotebookMenu.canceled += instance.OnCloseNotebookMenu;
             }
         }
     }
@@ -1433,5 +1500,7 @@ public class @MenuInput : IInputActionCollection, IDisposable
     {
         void OnFlipRight(InputAction.CallbackContext context);
         void OnFlipLeft(InputAction.CallbackContext context);
+        void OnOpenNotebookMenu(InputAction.CallbackContext context);
+        void OnCloseNotebookMenu(InputAction.CallbackContext context);
     }
 }

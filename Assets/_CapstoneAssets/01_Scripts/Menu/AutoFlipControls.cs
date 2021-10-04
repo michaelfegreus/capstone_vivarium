@@ -13,6 +13,8 @@ public class AutoFlipControls : MonoBehaviour
     AutoFlip autoFlipScript;
     BookPro myBook;
 
+    // For opening/closing notebook
+    [SerializeField] float flipTimeVeryFast = .03f;
     // For clicking on a tab.
     [SerializeField] float flipTimeFast = .1f;
     // For regular paging through with keys / shoulder buttons.
@@ -77,5 +79,13 @@ public class AutoFlipControls : MonoBehaviour
     public void SetFlipTimeFast()
     {
         autoFlipScript.PageFlipTime = flipTimeFast;
+    }
+
+    /// <summary>
+    /// Use this speed for when opening and closing the book.
+    /// </summary>
+    public void SetFlipTimeVeryFast()
+    {
+        autoFlipScript.PageFlipTime = flipTimeVeryFast;
     }
 }

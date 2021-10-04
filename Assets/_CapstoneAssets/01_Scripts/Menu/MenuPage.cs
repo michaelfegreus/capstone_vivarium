@@ -17,6 +17,8 @@ public class MenuPage : MonoBehaviour
 
     float tabMoveDuration = .1f;
 
+    [SerializeField] bool currentlyOnThisPage;
+
     private void Start()
     {
         if (myTab != null)
@@ -37,20 +39,27 @@ public class MenuPage : MonoBehaviour
         {
             if (myTab != null)
             {
-                //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos - tabSelectOffset, myTab.rectTransform.localPosition.z);
                 StartCoroutine(MoveTab(tabStartYPos - tabSelectOffset, tabMoveDuration, true));
                 tabOutline.enabled = true;
             }
 
             OnPageOpen.Invoke();
+
+            currentlyOnThisPage = true;
         }
         else
         {
-            if (myTab != null)
+            if (currentlyOnThisPage)
             {
-                //myTab.rectTransform.localPosition = new Vector3(myTab.rectTransform.localPosition.x, tabStartYPos, myTab.rectTransform.localPosition.z);
-                StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
-                tabOutline.enabled = false;
+                if (myTab != null)
+                {
+                    StartCoroutine(MoveTab(tabStartYPos, tabMoveDuration, false));
+                    tabOutline.enabled = false;
+                }
+
+                //Invoke the OnPageClose events if the player was previously on this page and is moving away now.
+                OnPageChange.Invoke();
+                currentlyOnThisPage = false;
             }
         }
     }
@@ -59,6 +68,11 @@ public class MenuPage : MonoBehaviour
     /// On Page Opened invocation list, called when this page is flipped to.
     /// </summary>
     public UnityEvent OnPageOpen;
+
+    /// <summary>
+    /// On Page Closed invocation list, called when this page is flippped away from.
+    /// </summary>
+    public UnityEvent OnPageChange;
 
     public IEnumerator MoveTab(float endPosY, float duration, bool overShoot)
     {
