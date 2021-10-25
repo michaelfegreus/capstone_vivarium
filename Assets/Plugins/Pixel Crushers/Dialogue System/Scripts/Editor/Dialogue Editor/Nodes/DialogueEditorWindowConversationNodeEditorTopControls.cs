@@ -49,12 +49,25 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             multinodeSelection.nodes.Clear();
             currentHoveredEntry = null;
             currentHoverGUIContent = null;
+            ValidateConversationMenuTitleIndex();
         }
 
         private void ValidateConversationMenuTitleIndex()
         {
             UpdateConversationTitles();
             if (database != null && conversationIndex >= database.conversations.Count) conversationIndex = -1;
+            if (conversationIndex == -1 && currentConversation != null)
+            {
+                var currentTitle = currentConversation.Title;
+                for (int i = 0; i < conversationTitles.Length; i++)
+                {
+                    if (conversationTitles[i] == currentTitle)
+                    {
+                        conversationIndex = i;
+                        break;
+                    }
+                }
+            }
         }
 
         private void SetShowNodeEditor(bool value)
@@ -146,6 +159,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 menu.AddItem(new GUIContent("Sort/By ID"), false, SortConversationsByID);
                 menu.AddItem(new GUIContent("Sort/Reorder IDs/This Conversation"), false, ConfirmReorderIDsThisConversation);
                 menu.AddItem(new GUIContent("Sort/Reorder IDs/All Conversations"), false, ConfirmReorderIDsAllConversations);
+                menu.AddItem(new GUIContent("Sort/Reorder IDs/Depth First Reordering"), reorderIDsDepthFirst, () => { reorderIDsDepthFirst = !reorderIDsDepthFirst; });
                 menu.AddItem(new GUIContent("Show/Show All Actor Names"), showAllActorNames, ToggleShowAllActorNames);
                 menu.AddItem(new GUIContent("Show/Show Non-Primary Actor Names"), showOtherActorNames, ToggleShowOtherActorNames);
                 menu.AddItem(new GUIContent("Show/Show Actor Portraits"), showActorPortraits, ToggleShowActorPortraits);
@@ -179,6 +193,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     menu.AddItem(new GUIContent("Refresh"), false, RefreshConversation);
                 }
                 AddRelationsInspectorMenuItems(menu);
+                if (customNodeMenuSetup != null) customNodeMenuSetup(database, menu);
                 menu.ShowAsContext();
             }
         }
@@ -236,7 +251,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void ToggleAddNewNodesToRight()
         {
-           addNewNodesToRight = !addNewNodesToRight;
+            addNewNodesToRight = !addNewNodesToRight;
         }
 
         private void ToggleAutoArrangeOnCreate()
@@ -269,15 +284,41 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private string[] GetConversationTitles()
         {
-            List<string> titles = new List<string>();
+            int numDuplicates = 0;
+            var titles = new List<string>();
+            var titlesWithoutAmpersand = new List<string>();
             if (database != null)
             {
                 foreach (var conversation in database.conversations)
                 {
-                    titles.Add(conversation.Title.Replace("&", "<AMPERSAND>"));
+                    // Make sure titles will work with GUI popup menus:
+                    var title = conversation.Title;
+                    if (title.StartsWith("/"))
+                    {
+                        title = "?" + title;
+                        conversation.Title = title;
+                    }
+                    if (title.EndsWith("/"))
+                    {
+                        title += "?";
+                        conversation.Title = title;
+                    }
+                    if (title.Contains("//"))
+                    {
+                        title = title.Replace("//", "/");
+                        conversation.Title = title;
+                    }
+                    if (titles.Contains(title))
+                    {
+                        numDuplicates++;
+                        title += " " + numDuplicates;
+                        conversation.Title = title;
+                    }
+                    titles.Add(title);
+                    titlesWithoutAmpersand.Add(title.Replace("&", "<AMPERSAND>"));
                 }
             }
-            return titles.ToArray();
+            return titlesWithoutAmpersand.ToArray();
         }
 
         private int GetCurrentConversationIndex()

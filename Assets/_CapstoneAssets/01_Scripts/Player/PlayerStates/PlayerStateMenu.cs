@@ -21,7 +21,7 @@ public class PlayerStateMenu : IState {
 	}
 
 	public void Execute(){
-		movementScript.SetMovementInput(0f, 0f, 0f, 0f);
+		movementScript.SetMovementAxes(0f, 0f);
 	}
 
 	public void Exit(){

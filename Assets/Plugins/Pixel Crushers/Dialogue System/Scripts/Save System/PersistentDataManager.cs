@@ -257,6 +257,7 @@ namespace PixelCrushers.DialogueSystem
             if (!string.IsNullOrEmpty(saveData))
             {
                 EnsureConversationTablesExistForAllSimX(saveData);
+                EnsureQuestsExist(saveData);
                 Lua.Run(saveData, DialogueDebug.LogInfo);
                 ExpandCompressedSimStatusData();
                 RefreshRelationshipAndStatusTablesFromLua();
@@ -270,6 +271,58 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+#if USE_NLUA
+
+        /// <summary>
+        /// If using SimStatus, make sure Conversation[#] elements exist for all onversations in
+        /// the saved game data.
+        /// </summary>
+        /// <param name="saveData"></param>
+        private static void EnsureConversationTablesExistForAllSimX(string saveData)
+        {
+            if (!(includeSimStatus && DialogueManager.Instance.includeSimStatus)) return;
+
+            var conversationTable = Lua.Run("return Conversation").asTable;
+            if (conversationTable == null) return;
+            var keysHashSet = new HashSet<string>(conversationTable.keys);
+
+            var preLength = "Conversation[".Length;
+            foreach (Match match in Regex.Matches(saveData, @"Conversation\[\d+\]"))
+            {
+                var idString = match.Value.Substring(preLength, match.Value.Length - (preLength + 1));
+                if (!keysHashSet.Contains(idString)) Lua.Run("Conversation[" + idString + "] = {}");
+            }
+        }
+
+        /// <summary>
+        /// If only saving quest states (and not all item/quest data), make sure Item["x"] elements
+        /// exist for all quests in the saved game data.
+        /// </summary>
+        /// <param name="saveData"></param>
+        private static void EnsureQuestsExist(string saveData)
+        {
+            if (includeAllItemData || DialogueManager.Instance.persistentDataSettings.includeAllItemData) return;
+
+            var itemTable = Lua.Run("return Item").asTable;
+            if (itemTable == null) return;
+            var keysHashSet = new HashSet<string>(itemTable.keys);
+
+            var preLength = "Item[".Length;
+            var postLength = "].State".Length;
+            foreach (Match match in Regex.Matches(saveData, @"Item\[[^\]]+\].State"))
+            {
+                var s = match.Value.Substring(preLength + 1, match.Value.Length - (preLength + postLength + 2));
+                if (!keysHashSet.Contains(s)) Lua.Run("Item[" + s + "] = { Name='" + s.Replace("\"", "\\\"") + "', State='unassigned' }");
+            }
+        }
+
+#else
+
+        /// <summary>
+        /// If using SimStatus, make sure Conversation[#] elements exist for all onversations in
+        /// the saved game data.
+        /// </summary>
+        /// <param name="saveData"></param>
         private static void EnsureConversationTablesExistForAllSimX(string saveData)
         {
             if (!(includeSimStatus && DialogueManager.Instance.includeSimStatus)) return;
@@ -286,8 +339,37 @@ namespace PixelCrushers.DialogueSystem
                     conversationTable.SetKeyValue(key, new Language.Lua.LuaTable());
                 }
             }
-
         }
+
+        /// <summary>
+        /// If only saving quest states (and not all item/quest data), make sure Item["x"] elements
+        /// exist for all quests in the saved game data.
+        /// </summary>
+        /// <param name="saveData"></param>
+        private static void EnsureQuestsExist(string saveData)
+        {
+            if (includeAllItemData || DialogueManager.Instance.persistentDataSettings.includeAllItemData) return;
+            var itemTable = Lua.Environment.GetValue("Item") as Language.Lua.LuaTable;
+            if (itemTable == null) return;
+
+            var preLength = "Item[".Length;
+            var postLength = "].State".Length;
+            foreach (Match match in Regex.Matches(saveData, @"Item\[[^\]]+\].State"))
+            {
+                var s = match.Value.Substring(preLength + 1, match.Value.Length - (preLength + postLength + 2));
+                if (itemTable.GetKey(s) == Language.Lua.LuaNil.Nil)
+                {
+                    var questKey = new Language.Lua.LuaString(s);
+                    var table = new Language.Lua.LuaTable();
+                    table.RawSetValue("Name", new Language.Lua.LuaString(s));
+                    table.RawSetValue("State", new Language.Lua.LuaString("unassigned"));
+                    itemTable.SetKeyValue(questKey, table);
+                }
+            }
+        }
+
+
+#endif
 
         /// <summary>
         /// Saves a game by retrieving the Lua environment and returning it as a saved-game string. 
@@ -425,7 +507,9 @@ namespace PixelCrushers.DialogueSystem
                     foreach (var key in fields.Keys)
                     {
                         var value = fields[key.ToString()];
-                        sb.AppendFormat("{0}={1}, ", new System.Object[] { GetFieldKeyString(key), GetFieldValueString(value) });
+                        var valueString = GetFieldValueString(value);
+                        if (string.Equals(key, "Pictures")) valueString = valueString.Replace("\\", "/"); // Sanitize backslashes in Pictures.
+                        sb.AppendFormat("{0}={1}, ", new System.Object[] { GetFieldKeyString(key), valueString });
                     }
                 }
             }
@@ -685,7 +769,7 @@ namespace PixelCrushers.DialogueSystem
         /// Appends SimStatus for all conversations.
         /// </summary>
         private static void AppendSimStatus(StringBuilder sb)
-        { 
+        {
             try
             {
                 var useConversationID = string.IsNullOrEmpty(saveConversationSimStatusWithField);
@@ -702,7 +786,9 @@ namespace PixelCrushers.DialogueSystem
                         if (string.IsNullOrEmpty(fieldValue)) fieldValue = conversation.id.ToString();
                         sb.AppendFormat("Variable[\"Conversation_SimX_{0}\"]=\"", fieldValue);
                     }
-                    var dialogTable = Lua.Run("return Conversation[" + conversation.id + "].Dialog").AsLuaTable;
+
+                    var dialogTable = Lua.Run("return Conversation[" + conversation.id + "].Dialog").asTable;
+
                     var first = true;
                     for (int i = 0; i < conversation.dialogueEntries.Count; i++)
                     {
@@ -1162,6 +1248,67 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+#if USE_NLUA 
+
+        /// <summary>
+        /// Adds any new actors or actor fields that were not in the saved data.
+        /// </summary>
+        public static void InitializeNewActorFieldsFromDatabase()
+        {
+            try
+            {
+                var database = DialogueManager.MasterDatabase;
+                if (database == null) return;
+
+                var actorTable = Lua.Run("return Actor").asTable;
+                if (actorTable == null || !actorTable.IsValid) throw new System.Exception("Internal error: Can't access Actor table");
+
+                for (int i = 0; i < database.actors.Count; i++)
+                {
+                    var dbActor = database.actors[i];
+                    var actorName = dbActor.Name;
+                    var actorNameTableIndex = DialogueLua.StringToTableIndex(actorName);
+
+                    var actorRecord = Lua.Run("return Actor[\"" + actorNameTableIndex + "\"]");
+                    if (!actorRecord.isTable)
+                    {
+                        // This is a new actor not in the save data. Add it:
+                        var newActorLuaCode = "Actor[\"" + actorNameTableIndex + "\"] = {";
+                        for (int j = 0; j < dbActor.fields.Count; j++)
+                        {
+                            var field = dbActor.fields[j];
+                            var fieldIndex = DialogueLua.StringToTableIndex(field.title);
+                            newActorLuaCode += fieldIndex + DialogueLua.FieldValueAsString(field) + ", ";
+                        }
+                        newActorLuaCode += "}";
+                        Lua.Run(newActorLuaCode);
+                    }
+                    else
+                    {
+                        // Existing actor. Add any missing fields:
+                        var fieldTable = actorRecord.asTable;
+                        if (fieldTable == null) continue;
+                        var existingFields = new HashSet<string>(fieldTable.keys);
+                        for (int j = 0; j < dbActor.fields.Count; j++)
+                        {
+                            var field = dbActor.fields[j];
+                            var fieldTableIndex = DialogueLua.StringToTableIndex(field.title);
+                            if (!existingFields.Contains(fieldTableIndex))
+                            {
+                                Lua.Run("Actor[\"" + actorNameTableIndex + "\"]." + fieldTableIndex + " = " + DialogueLua.FieldValueAsString(field));
+                            }
+                        }
+                    }
+                }
+            }
+            catch (System.Exception e)
+            {
+                Debug.LogError(string.Format("{0}: InitializeNewActorFieldsFromDatabase() failed to get actor data: {1}", new System.Object[] { DialogueDebug.Prefix, e.Message }));
+            }
+        }
+
+#else
+
         /// <summary>
         /// Adds any new actors or actor fields that were not in the saved data.
         /// </summary>
@@ -1220,6 +1367,9 @@ namespace PixelCrushers.DialogueSystem
                 Debug.LogError(string.Format("{0}: InitializeNewActorFieldsFromDatabase() failed to get actor data: {1}", new System.Object[] { DialogueDebug.Prefix, e.Message }));
             }
         }
+
+
+#endif
 
         /// <summary>
         /// Instructs the Dialogue System to add any missing quests and entries that are in the master 
@@ -1434,7 +1584,7 @@ namespace PixelCrushers.DialogueSystem
                         if (string.IsNullOrEmpty(fieldValue)) fieldValue = conversation.id.ToString();
                         sb.AppendFormat("Variable[\"Conversation_SimX_{0}\"]=\"", fieldValue);
                     }
-                    var dialogTable = Lua.Run("return Conversation[" + conversation.id + "].Dialog").AsLuaTable;
+                    var dialogTable = Lua.Run("return Conversation[" + conversation.id + "].Dialog").asTable;
                     var first = true;
                     for (int i = 0; i < conversation.dialogueEntries.Count; i++)
                     {
@@ -1502,7 +1652,22 @@ namespace PixelCrushers.DialogueSystem
 
         #region Raw Dump
 
-#if !USE_NLUA
+#if USE_NLUA
+
+        // Note: NLua doesn't implement raw dump. It just does a passthrough to the regular save technique.
+
+        public static byte[] GetRawData()
+        {
+            return Encoding.UTF8.GetBytes(GetSaveData());
+        }
+
+        public static void ApplyRawData(byte[] bytes)
+        {
+            string s = Encoding.UTF8.GetString(bytes);
+            ApplySaveData(s);
+        }
+
+#else
 
         // Note: Raw dump is only implemented for LuaInterpreter (the default Lua implementation).
 

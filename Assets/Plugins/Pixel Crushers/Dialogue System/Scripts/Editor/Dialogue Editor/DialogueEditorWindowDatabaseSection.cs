@@ -47,6 +47,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private bool mergeProperties = true;
         [SerializeField]
+        private bool mergeEmphases = true;
+        [SerializeField]
         private bool mergeActors = true;
         [SerializeField]
         private bool mergeItems = true;
@@ -57,13 +59,15 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private bool mergeConversations = true;
 
-        private enum ExportFormat { ChatMapperXML, CSV, VoiceoverScript, LanguageText, Screenplay };
+        private enum ExportFormat { ChatMapperXML, JSON, CSV, VoiceoverScript, LanguageText, Screenplay };
         [SerializeField]
         private ExportFormat exportFormat = ExportFormat.ChatMapperXML;
         [SerializeField]
         private string chatMapperExportPath = string.Empty;
         [SerializeField]
         private string csvExportPath = string.Empty;
+        [SerializeField]
+        private string jsonExportPath = string.Empty;
         [SerializeField]
         private string voiceoverExportPath = string.Empty;
         [SerializeField]
@@ -124,6 +128,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             database.globalUserScript = EditorGUILayout.TextArea(database.globalUserScript);
             databaseFoldouts.emphasisSettings = EditorGUILayout.Foldout(databaseFoldouts.emphasisSettings, new GUIContent("Emphasis Settings", "Settings to use for [em#] tags in dialogue text."));
             if (databaseFoldouts.emphasisSettings) DrawEmphasisSettings();
+            database.baseID = EditorGUILayout.IntField(new GUIContent("Base ID", "Assign internal IDs to actors, variables, conversations, etc., starting from this base value. Useful when working with multiple databases."), database.baseID);
             EditorGUILayout.EndVertical();
             EditorWindowTools.EndIndentedSection();
         }
@@ -254,12 +259,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 var result = globalSearchSpecificConversation ? "Conversation '" + specificConversation + "' matches for '" + globalSearchText + "': (click this log entry to see full report)"
                     : "Database matches for '" + globalSearchText + "': (click this log entry to see full report)";
 
-                if (!globalSearchSpecificConversation && database.globalUserScript.Contains(globalSearchText))
+                if (!globalSearchSpecificConversation && !string.IsNullOrEmpty(database.globalUserScript) && database.globalUserScript.Contains(globalSearchText))
                 {
                     result += "\nGlobal User Script: " + database.globalUserScript;
                 }
 
-                if (!globalSearchSpecificConversation && database.description.Contains(globalSearchText))
+                if (!globalSearchSpecificConversation && !string.IsNullOrEmpty(database.description) && database.description.Contains(globalSearchText))
                 {
                     result += "\nDescription: " + database.description;
                 }
@@ -352,7 +357,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 var specificConversation = globalSearchSpecificConversation ? conversationTitles[globalSearchConversationIndex] : string.Empty;
 
                 bool cancel = false;
-                if (!globalSearchSpecificConversation && database.globalUserScript.Contains(globalSearchText))
+                if (!globalSearchSpecificConversation && !string.IsNullOrEmpty(database.globalUserScript) && database.globalUserScript.Contains(globalSearchText))
                 {
                     matches++;
                     var confirmed = !interactive || ConfirmReplacement("Global User Script:\n" + database.globalUserScript, out cancel);
@@ -363,7 +368,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     }
                 }
 
-                if (!globalSearchSpecificConversation && database.description.Contains(globalSearchText))
+                if (!globalSearchSpecificConversation && !string.IsNullOrEmpty(database.description) && database.description.Contains(globalSearchText))
                 {
                     matches++;
                     var confirmed = !interactive || ConfirmReplacement("Description:\n" + database.description, out cancel);
@@ -404,7 +409,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     {
                         matches += RunGlobalSearchAndReplaceFieldList(entry.fields, null, interactive, out cancel);
                         if (cancel) return;
-                        if (entry.conditionsString.Contains(globalSearchText))
+                        if (!string.IsNullOrEmpty(entry.conditionsString) && entry.conditionsString.Contains(globalSearchText))
                         {
                             matches++;
                             var confirmed = !interactive || ConfirmReplacement("Dialogue Entry Conditions:\n" + entry.conditionsString, out cancel);
@@ -414,7 +419,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                                 entry.conditionsString = entry.conditionsString.Replace(globalSearchText, globalReplaceText);
                             }
                         }
-                        if (entry.userScript.Contains(globalSearchText))
+                        if (!string.IsNullOrEmpty(entry.userScript) && entry.userScript.Contains(globalSearchText))
                         {
                             matches++;
                             var confirmed = !interactive || ConfirmReplacement("Dialogue Entry Script:\n" + entry.userScript, out cancel);
@@ -508,6 +513,10 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             databaseToMerge = EditorGUILayout.ObjectField(databaseToMerge, typeof(DialogueDatabase), false) as DialogueDatabase;
             EditorGUILayout.EndHorizontal();
             mergeProperties = EditorGUILayout.Toggle("Merge DB Properties", mergeProperties);
+            if (mergeProperties)
+            {
+                mergeEmphases = EditorGUILayout.Toggle("  Merge [em#] Settings", mergeEmphases);
+            }
             mergeActors = EditorGUILayout.Toggle("Merge Actors", mergeActors);
             mergeItems = EditorGUILayout.Toggle("Merge Items", mergeItems);
             mergeLocations = EditorGUILayout.Toggle("Merge Locations", mergeLocations);
@@ -551,7 +560,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (databaseToMerge != null)
             {
-                DatabaseMerger.Merge(database, databaseToMerge, conflictingIDRule, mergeProperties, mergeActors, mergeItems, mergeLocations, mergeVariables, mergeConversations);
+                DatabaseMerger.Merge(database, databaseToMerge, conflictingIDRule, mergeProperties, mergeEmphases, mergeActors, mergeItems, mergeLocations, mergeVariables, mergeConversations);
                 Debug.Log(string.Format("{0}: Merged contents of {1} into {2}.", DialogueDebug.Prefix, databaseToMerge.name, database.name));
                 databaseToMerge = null;
                 SetDatabaseDirty("Merge Database");
@@ -574,6 +583,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 case ExportFormat.CSV:
                     EditorGUILayout.HelpBox("Use this feature to export your database to external text-based formats.\nYou can import CSV format into spreadsheet programs such as Excel and Google Sheets. To reimport into the Dialogue System, use Tools > Pixel Crushers > Dialogue System > Import > CSV.", MessageType.None);
                     break;
+                case ExportFormat.JSON:
+                    EditorGUILayout.HelpBox("Use this feature to export your database to external JSON text-based format.\nTo reimport back into the Dialogue System, use Tools > Pixel Crushers > Dialogue System > Import > JSON.", MessageType.None);
+                    break;
                 case ExportFormat.ChatMapperXML:
                     EditorGUILayout.HelpBox("Use this feature to export your database to external text-based formats.\nIf exporting to Chat Mapper format for import into Chat Mapper, you must also prepare a Chat Mapper template project that contains all the fields defined in this database. You can use the Dialogue System Chat Mapper template project as a base. To reimport into the Dialogue System, use Tools > Pixel Crushers > Dialogue System > Import > Chat Mapper.", MessageType.None);
                     break;
@@ -587,7 +599,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     EditorGUILayout.HelpBox("Use this feature to export your database to external text-based formats.\nThe screenplay script option will export a separate text file for each language.", MessageType.None);
                     break;
             }
-            if (exportFormat != ExportFormat.LanguageText && exportFormat != ExportFormat.Screenplay)
+            if (exportFormat != ExportFormat.LanguageText && exportFormat != ExportFormat.Screenplay && exportFormat != ExportFormat.JSON)
             {
                 exportActors = EditorGUILayout.Toggle("Export Actors", exportActors);
                 exportItems = EditorGUILayout.Toggle("Export Items/Quests", exportItems);
@@ -615,6 +627,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                         break;
                     case ExportFormat.CSV:
                         TryExportToCSV();
+                        break;
+                    case ExportFormat.JSON:
+                        TryExportToJSON();
                         break;
                     case ExportFormat.VoiceoverScript:
                         TryExportToVoiceoverScript();
@@ -712,6 +727,21 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 }
                 CSVExporter.Export(database, csvExportPath, exportActors, exportItems, exportLocations, exportVariables, exportConversations, exportConversationsAfterEntries, entrytagFormat);
                 EditorUtility.DisplayDialog("Export Complete", "The dialogue database was exported to CSV (comma-separated values) format. ", "OK");
+            }
+        }
+
+        private void TryExportToJSON()
+        {
+            string newJSONExportPath = EditorUtility.SaveFilePanel("Save JSON", EditorWindowTools.GetDirectoryName(jsonExportPath), jsonExportPath, "json");
+            if (!string.IsNullOrEmpty(newJSONExportPath))
+            {
+                jsonExportPath = newJSONExportPath;
+                if (Application.platform == RuntimePlatform.WindowsEditor)
+                {
+                    jsonExportPath = csvExportPath.Replace("/", "\\");
+                }
+                System.IO.File.WriteAllText(newJSONExportPath, JsonUtility.ToJson(database), System.Text.Encoding.UTF8);
+                EditorUtility.DisplayDialog("Export Complete", "The dialogue database was exported to JSON format. ", "OK");
             }
         }
 

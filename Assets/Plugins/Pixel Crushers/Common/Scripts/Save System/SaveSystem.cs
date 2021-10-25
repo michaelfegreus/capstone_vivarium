@@ -34,6 +34,8 @@ namespace PixelCrushers
         [SerializeField]
         private bool m_debug = false;
 
+        private bool m_isLoadingAdditiveScene = false;
+
         private static SaveSystem m_instance = null;
 
         private static List<Saver> m_savers = new List<Saver>();
@@ -211,6 +213,7 @@ namespace PixelCrushers
         public static SavedGameData currentSavedGameData
         {
             get { return m_savedGameData; }
+            set { m_savedGameData = value; }
         }
 
         /// <summary>
@@ -376,6 +379,24 @@ namespace PixelCrushers
             }
         }
 
+        public static void UnloadAdditiveSceneInternal(string sceneName)
+        {
+#if UNITY_5_3 || UNITY_5_4
+            UnityEngine.SceneManagement.SceneManager.UnloadScene(sceneName);
+#else
+            var scene = UnityEngine.SceneManagement.SceneManager.GetSceneByName(sceneName);
+            if (scene.IsValid())
+            {
+                var rootGOs = scene.GetRootGameObjects();
+                for (int i = 0; i < rootGOs.Length; i++)
+                {
+                    RecursivelyInformBeforeSceneChange(rootGOs[i].transform);
+                }
+            }
+            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
+#endif
+        }
+
         /// <summary>
         /// Tells all saver components on the transform and its children to retrieve their states from the current saved game data.
         /// </summary>
@@ -391,15 +412,24 @@ namespace PixelCrushers
             }
         }
 
-        public static void UnloadAdditiveSceneInternal(string sceneName)
+        /// <summary>
+        /// Calls BeforeSceneChange on all saver components on the transform and its children.
+        /// Used when unloading an additive scene.
+        /// </summary>
+        /// <param name="t"></param>
+        public static void RecursivelyInformBeforeSceneChange(Transform t)
         {
-#if UNITY_5_3 || UNITY_5_4
-            UnityEngine.SceneManagement.SceneManager.UnloadScene(sceneName);
-#else
-            UnityEngine.SceneManagement.SceneManager.UnloadSceneAsync(sceneName);
-#endif
+            if (t == null) return;
+            var saver = t.GetComponent<Saver>();
+            if (saver != null) saver.OnBeforeSceneChange();
+            foreach (Transform child in t)
+            {
+                RecursivelyInformBeforeSceneChange(child);
+            }
         }
+
 #else
+
         public static string GetCurrentSceneName()
         {
             return Application.loadedLevelName;
@@ -759,7 +789,11 @@ namespace PixelCrushers
         private void FinishedLoadingScene(string sceneName, int sceneIndex)
         {
             m_currentSceneIndex = sceneIndex;
-            m_savedGameData.DeleteObsoleteSaveData(sceneIndex);
+            if (!m_isLoadingAdditiveScene)
+            { // Don't delete other non-cross-scene data if loading additive scene:
+                m_savedGameData.DeleteObsoleteSaveData(sceneIndex);
+            }
+            m_isLoadingAdditiveScene = false;
             sceneLoaded(sceneName, sceneIndex);
         }
 
@@ -771,6 +805,7 @@ namespace PixelCrushers
         {
             if (string.IsNullOrEmpty(sceneName) || m_addedScenes.Contains(sceneName)) return;
             m_addedScenes.Add(sceneName);
+            instance.m_isLoadingAdditiveScene = true;
             instance.StartCoroutine(LoadAdditiveSceneInternal(sceneName));
         }
 

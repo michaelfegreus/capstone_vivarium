@@ -62,6 +62,12 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Clear text when closing panel, including when hiding using SetDialoguePanel().")]
         public bool clearTextOnClose = true;
 
+        [Tooltip("Clear text when any conversation starts.")]
+        public bool clearTextOnConversationStart = false;
+
+        [Tooltip("If Subtitle Text doesn't have a typewriter effect, to enable scroll to bottom add UIScrollbarEnabler to Scroll Rect and assign it here.")]
+        public UIScrollbarEnabler scrollbarEnabler;
+
         /// <summary>
         /// Invoked when the subtitle panel gains focus.
         /// </summary>
@@ -108,7 +114,7 @@ namespace PixelCrushers.DialogueSystem
         private string m_accumulatedText = string.Empty;
         public string accumulatedText { get { return m_accumulatedText; } set { m_accumulatedText = value; } }
         private Animator m_animator = null;
-        protected Animator animator { get { if (m_animator == null && portraitImage != null) m_animator = portraitImage.GetComponent<Animator>(); return m_animator; } }
+        protected virtual Animator animator { get { if (m_animator == null && portraitImage != null) m_animator = portraitImage.GetComponent<Animator>(); return m_animator; } set { m_animator = value; } }
         private bool m_isDefaultNPCPanel = false;
         public bool isDefaultNPCPanel { get { return m_isDefaultNPCPanel; } set { m_isDefaultNPCPanel = value; } }
         private bool m_isDefaultPCPanel = false;
@@ -117,16 +123,26 @@ namespace PixelCrushers.DialogueSystem
         public int panelNumber { get { return m_panelNumber; } set { m_panelNumber = value; } }
         public Transform m_actorOverridingPanel = null;
         public Transform actorOverridingPanel { get { return m_actorOverridingPanel; } set { m_actorOverridingPanel = value; } }
+        private int m_lastActorID = -1;
+        protected int lastActorID { get { return m_lastActorID; } set { m_lastActorID = value; } }
         protected int frameLastSetContent = -1; // Frame when we last set this panel's content.
         protected bool shouldShowContinueButton = false;
         protected const float WaitForCloseTimeoutDuration = 8f;
         private StandardDialogueUI m_dialogueUI = null;
-        protected StandardDialogueUI dialogueUI
+        public StandardDialogueUI dialogueUI
         {
             get
             {
-                if (m_dialogueUI == null) m_dialogueUI = GetComponentInParent<StandardDialogueUI>();
+                if (m_dialogueUI == null)
+                { 
+                    m_dialogueUI = GetComponentInParent<StandardDialogueUI>();
+                    if (m_dialogueUI == null) m_dialogueUI = DialogueManager.dialogueUI as StandardDialogueUI;
+                }
                 return m_dialogueUI;
+            }
+            set
+            {
+                m_dialogueUI = value;
             }
         }
 
@@ -211,7 +227,7 @@ namespace PixelCrushers.DialogueSystem
 
         public virtual void OnConversationStart(Transform actor)
         {
-            if (frameLastSetContent < (Time.frameCount - 1)) // If we just set content, don't clear the text.
+            if (clearTextOnConversationStart && (frameLastSetContent < (Time.frameCount - 1))) // If we just set content, don't clear the text.
             {
                 ClearText();
             }
@@ -222,8 +238,11 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void ShowSubtitle(Subtitle subtitle)
         {
-            if (waitForClose && dialogueUI.AreAnyPanelsClosing())
+            var supercedeOnActorChange = waitForClose && isOpen && visibility == UIVisibility.UntilSupercededOrActorChange &&
+                subtitle != null && lastActorID != subtitle.speakerInfo.id;
+            if ((waitForClose && dialogueUI.AreAnyPanelsClosing()) || supercedeOnActorChange)
             {
+                if (supercedeOnActorChange) Close();
                 DialogueManager.instance.StartCoroutine(ShowSubtitleAfterClosing(subtitle));
             }
             else
@@ -274,7 +293,7 @@ namespace PixelCrushers.DialogueSystem
         protected override void OnHidden()
         {
             base.OnHidden();
-            DeactivateUIElements();
+            if (deactivateOnHidden) DeactivateUIElements();
         }
 
         /// <summary>
@@ -442,8 +461,6 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public virtual void OnContinue()
         {
-            var dialogueUI = GetComponentInParent<AbstractDialogueUI>();
-            if (dialogueUI == null) dialogueUI = DialogueManager.dialogueUI as AbstractDialogueUI;
             if (dialogueUI != null) dialogueUI.OnContinueConversation();
         }
 
@@ -454,6 +471,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (subtitle == null) return;
             currentSubtitle = subtitle;
+            lastActorID = subtitle.speakerInfo.id;
             CheckSubtitleAnimator(subtitle);
             if (!onlyShowNPCPortraits || subtitle.speakerInfo.isNPC)
             {                
@@ -464,15 +482,22 @@ namespace PixelCrushers.DialogueSystem
                     Tools.SetGameObjectActive(portraitImage, sprite != null);
                 }
                 portraitActorName = subtitle.speakerInfo.nameInDatabase;
-                portraitName.text = subtitle.speakerInfo.Name;
-                UITools.SendTextChangeMessage(portraitName);
+                if (portraitName.text != subtitle.speakerInfo.Name)
+                {
+                    portraitName.text = subtitle.speakerInfo.Name;
+                    UITools.SendTextChangeMessage(portraitName);
+                }
             }
             TypewriterUtility.StopTyping(subtitleText);
             var previousText = accumulateText ? m_accumulatedText : string.Empty;
             var previousChars = accumulateText ? UITools.StripRPGMakerCodes(Tools.StripTextMeshProTags(Tools.StripRichTextCodes(previousText))).Length : 0;
             SetFormattedText(subtitleText, previousText, subtitle.formattedText);
             if (accumulateText) m_accumulatedText = subtitleText.text + "\n";
-            if (delayTypewriterUntilOpen && !hasFocus)
+            if (scrollbarEnabler != null && !HasTypewriter())
+            {
+                scrollbarEnabler.CheckScrollbarWithResetValue(0);
+            }
+            else if (delayTypewriterUntilOpen && !hasFocus)
             {
                 StartCoroutine(StartTypingWhenFocused(subtitleText, subtitleText.text, previousChars));
             }
@@ -515,7 +540,7 @@ namespace PixelCrushers.DialogueSystem
             Tools.SetGameObjectActive(portraitImage, sprite != null);
         }
 
-        public void CheckSubtitleAnimator(Subtitle subtitle)
+        public virtual void CheckSubtitleAnimator(Subtitle subtitle)
         {
             if (subtitle != null && useAnimatedPortraits && animator != null)
             {
@@ -541,7 +566,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        protected void CheckDialogueActorAnimator(DialogueActor dialogueActor)
+        protected virtual void CheckDialogueActorAnimator(DialogueActor dialogueActor)
         {
             if (dialogueActor != null && useAnimatedPortraits && animator != null &&
                 dialogueActor.standardDialogueUISettings.portraitAnimatorController != null)
@@ -550,16 +575,24 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private IEnumerator SetAnimatorAtEndOfFrame(RuntimeAnimatorController animatorController)
+        protected virtual IEnumerator SetAnimatorAtEndOfFrame(RuntimeAnimatorController animatorController)
         {
             if (animator.runtimeAnimatorController != animatorController)
             {
                 animator.runtimeAnimatorController = animatorController;
             }
+            if (animatorController != null)
+            {
+                Tools.SetGameObjectActive(portraitImage, portraitImage.sprite != null);
+            }
             yield return new WaitForEndOfFrame();
             if (animator.runtimeAnimatorController != animatorController)
             {
                 animator.runtimeAnimatorController = animatorController;
+            }
+            if (animatorController != null)
+            {
+                Tools.SetGameObjectActive(portraitImage, portraitImage.sprite != null);
             }
         }
 

@@ -378,63 +378,63 @@ public class PlayerMovement : MonoBehaviour {
 		dashInput = input;
 	}
 
-	// The below could probably be...a lot slimmer in terms of lines of code.
-	// But leave it unless it causes an issue, or you plan on adding more depth to input, because it works for now.
+    //The below code was used with the old input system. v
+    /*
+        // For use in fixing digital (keys or dpad) diagonal movement.
+        bool digitalDiagonalMovement = false; // Is the player moving diagonally
+        int digitalDiagonalCheckFrames = 4;
+        int digitalDiagonalCheckCurrentFrame;
+        float digitalDiagonalStoredInputX;
+        float digitalDiagonalStoredInputY;
 
-	// For use in fixing digital (keys or dpad) diagonal movement.
-	bool digitalDiagonalMovement = false; // Is the player moving diagonally
-	int digitalDiagonalCheckFrames = 4;
-	int digitalDiagonalCheckCurrentFrame;
-	float digitalDiagonalStoredInputX;
-	float digitalDiagonalStoredInputY;
 
-	public void SetMovementInput(float anX, float anY, float digX, float digY){
+        public void SetMovementInput(float anX, float anY, float digX, float digY){
 
-		float analogX = anX;
-		float analogY = anY;
+            float analogX = anX;
+            float analogY = anY;
 
-		// Set player movement with digital input:
-		float digitalX = digX;
-		float digitalY = digY;
+            // Set player movement with digital input:
+            float digitalX = digX;
+            float digitalY = digY;
 
-		// Set player movement with digital input:
-		SetMovementAxes (digitalX, digitalY);
+            // Set player movement with digital input:
+            SetMovementAxes (digitalX, digitalY);
 
-		// Priorizite with analog stick input, if there is movement on the stick:
-		if (analogX != 0f || analogY != 0f) {
+            // Priorizite with analog stick input, if there is movement on the stick:
+            if (analogX != 0f || analogY != 0f) {
 
-			// Set the player movement with analog input:
-			SetMovementAxes (analogX, analogY);
-		}
-		else {
-			// The below fixes the digital diagonal movement error where the player character cannot standle in idle
-			// at a diagonal angle. The reason for this is because when releasing diagonals on the keyboard,
-			// the player will generally release one key a frame or two apart from the other. Using a frame timer,
-			// the diagonal input can be stored and used.
+                // Set the player movement with analog input:
+                SetMovementAxes (analogX, analogY);
+            }
+            else {
+                // The below fixes the digital diagonal movement error where the player character cannot standle in idle
+                // at a diagonal angle. The reason for this is because when releasing diagonals on the keyboard,
+                // the player will generally release one key a frame or two apart from the other. Using a frame timer,
+                // the diagonal input can be stored and used.
 
-			if (digitalX != 0f && digitalY != 0f) {
-				digitalDiagonalMovement = true;
-				digitalDiagonalCheckCurrentFrame = 0;
-				digitalDiagonalStoredInputX = digitalX;
-				digitalDiagonalStoredInputY = digitalY;
-			}
+                if (digitalX != 0f && digitalY != 0f) {
+                    digitalDiagonalMovement = true;
+                    digitalDiagonalCheckCurrentFrame = 0;
+                    digitalDiagonalStoredInputX = digitalX;
+                    digitalDiagonalStoredInputY = digitalY;
+                }
 
-			if (digitalDiagonalMovement) {
-				digitalDiagonalCheckCurrentFrame++;
-			}
-			if ((digitalX == 0f || digitalY == 0f) && (digitalDiagonalCheckCurrentFrame >= digitalDiagonalCheckFrames)) {
-				digitalDiagonalMovement = false;  
-			}
-			if (digitalDiagonalMovement && digitalDiagonalCheckCurrentFrame < digitalDiagonalCheckFrames) {
-				SetMovementAxes (digitalDiagonalStoredInputX, digitalDiagonalStoredInputY);
-			}
+                if (digitalDiagonalMovement) {
+                    digitalDiagonalCheckCurrentFrame++;
+                }
+                if ((digitalX == 0f || digitalY == 0f) && (digitalDiagonalCheckCurrentFrame >= digitalDiagonalCheckFrames)) {
+                    digitalDiagonalMovement = false;  
+                }
+                if (digitalDiagonalMovement && digitalDiagonalCheckCurrentFrame < digitalDiagonalCheckFrames) {
+                    SetMovementAxes (digitalDiagonalStoredInputX, digitalDiagonalStoredInputY);
+                }
 
-		}
+            }
 
-	}
+        }*/
 
-	// Convert all movement controls to digital input, and send those to the player movement script.
-	void SetMovementAxes(float horzInput, float vertInput){
+    // Convert all movement controls to digital input, and send those to the player movement script.
+    public void SetMovementAxes(float horzInput, float vertInput){
 
 		inputX = 0f;
 		inputY = 0f;
