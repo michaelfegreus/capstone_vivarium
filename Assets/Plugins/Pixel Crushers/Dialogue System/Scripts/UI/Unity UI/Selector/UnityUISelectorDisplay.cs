@@ -67,8 +67,6 @@ namespace PixelCrushers.DialogueSystem
 
         private Animator animator = null;
 
-        private bool previousUseDefaultGUI;
-
         private bool started = false;
 
         protected float CurrentDistance
@@ -148,7 +146,6 @@ namespace PixelCrushers.DialogueSystem
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                previousUseDefaultGUI = selector.useDefaultGUI;
                 selector.useDefaultGUI = false;
                 selector.SelectedUsableObject += OnSelectedUsable;
                 selector.DeselectedUsableObject += OnDeselectedUsable;
@@ -157,7 +154,6 @@ namespace PixelCrushers.DialogueSystem
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                previousUseDefaultGUI = proximitySelector.useDefaultGUI;
                 proximitySelector.useDefaultGUI = false;
                 proximitySelector.SelectedUsableObject += OnSelectedUsable;
                 proximitySelector.DeselectedUsableObject += OnDeselectedUsable;
@@ -170,14 +166,14 @@ namespace PixelCrushers.DialogueSystem
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                selector.useDefaultGUI = previousUseDefaultGUI;
+                selector.useDefaultGUI = true;
                 selector.SelectedUsableObject -= OnSelectedUsable;
                 selector.DeselectedUsableObject -= OnDeselectedUsable;
             }
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                proximitySelector.useDefaultGUI = previousUseDefaultGUI;
+                proximitySelector.useDefaultGUI = true;
                 proximitySelector.SelectedUsableObject -= OnSelectedUsable;
                 proximitySelector.DeselectedUsableObject -= OnDeselectedUsable;
             }

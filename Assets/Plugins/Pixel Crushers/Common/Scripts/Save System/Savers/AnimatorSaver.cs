@@ -20,14 +20,6 @@ namespace PixelCrushers
             public float time;
         }
 
-        // Credit: Trigger saving contributed by Magique.
-        [Serializable]
-        public class TriggerData
-        {
-            public string name;
-            public bool isTriggered;
-        }
-
         [Serializable]
         public class Data
         {
@@ -35,8 +27,6 @@ namespace PixelCrushers
             public List<bool> bools = new List<bool>();
             public List<float> floats = new List<float>();
             public List<int> ints = new List<int>();
-            public List<string> strings = new List<string>();
-            public List<TriggerData> triggers = new List<TriggerData>();
         }
 
         private Data m_data = new Data();
@@ -122,10 +112,6 @@ namespace PixelCrushers
                         }
                         numInts++;
                         break;
-                    case AnimatorControllerParameterType.Trigger:
-                        var triggerValue = animator.GetCurrentAnimatorStateInfo(0).IsName(parameter.name);
-                        m_data.triggers.Add(new TriggerData() { isTriggered = triggerValue, name = parameter.name });
-                        break;
                 }
             }
             return SaveSystem.Serialize(m_data);
@@ -134,7 +120,7 @@ namespace PixelCrushers
         public override void ApplyData(string s)
         {
             if (string.IsNullOrEmpty(s) || animator == null) return;
-            m_data = SaveSystem.Deserialize<Data>(s, m_data);
+            SaveSystem.Deserialize<Data>(s, m_data);
             if (m_data == null)
             {
                 m_data = new Data();
@@ -147,19 +133,6 @@ namespace PixelCrushers
                     if (i < m_data.layers.Length)
                     {
                         animator.Play(m_data.layers[i].hash, i, m_data.layers[i].time);
-                    }
-                }
-
-                // Set or Reset triggers
-                foreach (var trigger in m_data.triggers)
-                {
-                    if (trigger.isTriggered)
-                    {
-                        animator.SetTrigger(trigger.name);
-                    }
-                    else
-                    {
-                        animator.ResetTrigger(trigger.name);
                     }
                 }
 

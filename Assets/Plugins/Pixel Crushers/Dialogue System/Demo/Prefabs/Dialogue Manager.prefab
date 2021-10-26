@@ -27,7 +27,6 @@ GameObject:
   - component: {fileID: 114160787819640068}
   - component: {fileID: 114791677188177214}
   - component: {fileID: 114974341299790918}
-  - component: {fileID: 114561334627962148}
   m_Layer: 0
   m_Name: Dialogue Manager
   m_TagString: Untagged
@@ -303,17 +302,6 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &114561334627962148
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1003643122459378}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dd6025e599c3a3409abb6c91a48f1b4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114613399014831548
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -447,7 +435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_saveCurrentScene: 1
-  m_framesToWaitBeforeApplyData: 1
+  m_framesToWaitBeforeApplyData: 0
   m_debug: 1
 --- !u!114 &114937748117785014
 MonoBehaviour:
@@ -487,7 +475,6 @@ MonoBehaviour:
         key: 27
         buttonName: 
     dialogueUI: {fileID: 161038, guid: 5c56f58e2d14e894c96171a7540a6a1d, type: 2}
-    defaultCanvas: {fileID: 223944997660514316}
     localizationSettings:
       language: 
       useSystemLanguage: 0
@@ -550,7 +537,6 @@ MonoBehaviour:
     asyncDialogueEntryBatchSize: 100
     initializeNewVariables: 1
   allowSimultaneousConversations: 0
-  interruptActiveConversations: 0
   includeSimStatus: 0
   instantiateDatabase: 0
   preloadResources: 1

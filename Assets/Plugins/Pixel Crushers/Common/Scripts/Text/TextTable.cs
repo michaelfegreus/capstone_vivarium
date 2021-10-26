@@ -691,7 +691,7 @@ namespace PixelCrushers
 
         public bool HasTextForLanguage(int languageID)
         {
-            return texts.ContainsKey(languageID) && !string.IsNullOrEmpty(texts[languageID]);
+            return texts.ContainsKey(languageID);
         }
 
         public string GetTextForLanguage(int languageID)

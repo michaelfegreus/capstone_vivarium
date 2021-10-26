@@ -15,23 +15,18 @@ public class PlayerManager : Singleton<PlayerManager> {
 	public PlayerAnimation playerAnimation;
     [System.NonSerialized]
     public PlayerCollisionModule collisionDelegateScript;
-    [System.NonSerialized]
-    public PlayerInput playerInput;
 
 	void Awake(){
+		EnterFreeState ();
+
 		playerMovement = GetComponent<PlayerMovement> ();
 		playerInteraction = GetComponent<PlayerInteraction> ();
 		playerAnimation = GetComponent<PlayerAnimation> ();
 
         collisionDelegateScript = playerMovement.playerMovementModule.GetComponent<PlayerCollisionModule>();
-
-        playerInput = new PlayerInput();
-        playerInput.Enable();
-
-        EnterFreeState();
-    }
-
-    void Update(){
+	}
+    
+	void Update(){
 		this.playerStateMachine.ExecuteStateUpdate ();
 	}
 

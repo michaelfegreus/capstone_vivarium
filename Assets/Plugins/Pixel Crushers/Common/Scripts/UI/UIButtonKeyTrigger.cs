@@ -34,20 +34,19 @@ namespace PixelCrushers
         public float simulateButtonDownDuration = 0.1f;
 
         private UnityEngine.UI.Selectable m_selectable;
-        protected UnityEngine.UI.Selectable selectable { get { return m_selectable; } set { m_selectable = value; } }
 
         /// <summary>
         /// Set false to prevent all UIButtonKeyTrigger components from listening for input.
         /// </summary>
         public static bool monitorInput = true;
 
-        protected virtual void Awake()
+        private void Awake()
         {
             m_selectable = GetComponent<UnityEngine.UI.Selectable>();
             if (m_selectable == null) enabled = false;
         }
 
-        protected void Update()
+        private void Update()
         {
             if (!monitorInput) return;
             if (InputDeviceManager.IsKeyDown(key) || 
@@ -55,11 +54,18 @@ namespace PixelCrushers
                 (anyKeyOrButton && InputDeviceManager.IsAnyKeyDown()))
             {
                 if (skipIfBeingClickedBySubmit && IsBeingClickedBySubmit()) return;
-                Click();
+                if (simulateButtonClick)
+                {
+                    StartCoroutine(SimulateButtonClick());
+                }
+                else
+                {
+                    ExecuteEvents.Execute(m_selectable.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
+                }
             }
         }
 
-        protected virtual bool IsBeingClickedBySubmit()
+        private bool IsBeingClickedBySubmit()
         {
             return EventSystem.current != null &&
                 EventSystem.current.currentSelectedGameObject == m_selectable.gameObject &&
@@ -67,19 +73,7 @@ namespace PixelCrushers
                 InputDeviceManager.IsButtonDown(InputDeviceManager.instance.submitButton);
         }
 
-        protected virtual void Click()
-        {
-            if (simulateButtonClick)
-            {
-                StartCoroutine(SimulateButtonClick());
-            }
-            else
-            {
-                ExecuteEvents.Execute(m_selectable.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
-            }
-        }
-
-        protected IEnumerator SimulateButtonClick()
+        IEnumerator SimulateButtonClick()
         {
             m_selectable.OnPointerDown(new PointerEventData(EventSystem.current));
             var timeLeft = simulateButtonDownDuration;
@@ -88,7 +82,6 @@ namespace PixelCrushers
                 yield return null;
                 timeLeft -= Time.unscaledDeltaTime;
             }
-            m_selectable.OnPointerUp(new PointerEventData(EventSystem.current));
             m_selectable.OnDeselect(null);
             ExecuteEvents.Execute(m_selectable.gameObject, new PointerEventData(EventSystem.current), ExecuteEvents.submitHandler);
         }

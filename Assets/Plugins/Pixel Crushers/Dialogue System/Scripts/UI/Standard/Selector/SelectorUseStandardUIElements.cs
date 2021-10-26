@@ -45,7 +45,6 @@ namespace PixelCrushers.DialogueSystem
         private AbstractUsableUI usableUI = null;
         private bool started = false;
         private string originalDefaultUseMessage;
-        private bool previousUseDefaultGUI;
 
         protected float CurrentDistance
         {
@@ -55,12 +54,7 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        private StandardUISelectorElements m_elements = null;
-        public StandardUISelectorElements elements
-        {
-            get { return m_elements; }
-            protected set { m_elements = value; }
-        }
+        private StandardUISelectorElements elements = null;
 
         private void Start()
         {
@@ -97,7 +91,6 @@ namespace PixelCrushers.DialogueSystem
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                previousUseDefaultGUI = selector.useDefaultGUI;
                 selector.useDefaultGUI = false;
                 selector.SelectedUsableObject += OnSelectedUsable;
                 selector.DeselectedUsableObject += OnDeselectedUsable;
@@ -106,7 +99,6 @@ namespace PixelCrushers.DialogueSystem
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                previousUseDefaultGUI = proximitySelector.useDefaultGUI;
                 proximitySelector.useDefaultGUI = false;
                 proximitySelector.SelectedUsableObject += OnSelectedUsable;
                 proximitySelector.DeselectedUsableObject += OnDeselectedUsable;
@@ -120,14 +112,14 @@ namespace PixelCrushers.DialogueSystem
             selector = GetComponent<Selector>();
             if (selector != null)
             {
-                selector.useDefaultGUI = previousUseDefaultGUI;
+                selector.useDefaultGUI = true;
                 selector.SelectedUsableObject -= OnSelectedUsable;
                 selector.DeselectedUsableObject -= OnDeselectedUsable;
             }
             proximitySelector = GetComponent<ProximitySelector>();
             if (proximitySelector != null)
             {
-                proximitySelector.useDefaultGUI = previousUseDefaultGUI;
+                proximitySelector.useDefaultGUI = true;
                 proximitySelector.SelectedUsableObject -= OnSelectedUsable;
                 proximitySelector.DeselectedUsableObject -= OnDeselectedUsable;
             }
@@ -143,7 +135,7 @@ namespace PixelCrushers.DialogueSystem
                 if (usable != null && usable.CompareTag(tagInfo.tag))
                 {
                     defaultUseMessage = tagInfo.defaultUseMessage;
-                    elements = tagInfo.UIElements ?? StandardUISelectorElements.instance;
+                    elements = tagInfo.UIElements;
                     return;
                 }
             }
@@ -155,7 +147,7 @@ namespace PixelCrushers.DialogueSystem
                 if (usable != null && ((1 << usable.gameObject.layer) & layerInfo.layerMask.value) != 0)
                 {
                     defaultUseMessage = layerInfo.defaultUseMessage;
-                    elements = layerInfo.UIElements ?? StandardUISelectorElements.instance;
+                    elements = layerInfo.UIElements;
                     return;
                 }
             }
@@ -234,7 +226,6 @@ namespace PixelCrushers.DialogueSystem
             Tools.SetGameObjectActive(elements.reticleOutOfRange, !IsUsableInRange());
             if (CanTriggerAnimations() && !string.IsNullOrEmpty(elements.animationTransitions.showTrigger))
             {
-                elements.animator.ResetTrigger(elements.animationTransitions.hideTrigger);
                 elements.animator.SetTrigger(elements.animationTransitions.showTrigger);
             }
         }
@@ -243,7 +234,6 @@ namespace PixelCrushers.DialogueSystem
         {
             if (CanTriggerAnimations() && elements != null && !string.IsNullOrEmpty(elements.animationTransitions.hideTrigger))
             {
-                elements.animator.ResetTrigger(elements.animationTransitions.showTrigger);
                 elements.animator.SetTrigger(elements.animationTransitions.hideTrigger);
             }
             else

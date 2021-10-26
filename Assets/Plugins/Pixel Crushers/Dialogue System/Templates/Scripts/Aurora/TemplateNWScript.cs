@@ -22,7 +22,7 @@ namespace PixelCrushers.DialogueSystem
 
         void Start()
         {
-            Lua.RegisterFunction("NWScript", this, this.GetType().GetMethod("NWScript"));
+            NWNUtility.RegisterNWScriptFunction(this, this.GetType().GetMethod("NWScript"));
         }
 
         public bool NWScript(string scriptName)
@@ -49,6 +49,8 @@ namespace PixelCrushers.DialogueSystem
         //	// Call the method:
         //	return (bool) methodInfo.Invoke(this, null);
         //}
+
+
 
     }
 

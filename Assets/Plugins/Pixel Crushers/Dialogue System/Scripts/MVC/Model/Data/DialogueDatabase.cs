@@ -47,12 +47,6 @@ namespace PixelCrushers.DialogueSystem
         public EmphasisSetting[] emphasisSettings = new EmphasisSetting[NumEmphasisSettings];
 
         /// <summary>
-        /// Assign IDs of assets (actors, items, conversations, etc.) from this base value.
-        /// Useful for multiple databases.
-        /// </summary>
-        public int baseID = 1;
-
-        /// <summary>
         /// The actors in the database.
         /// </summary>
         public List<Actor> actors = new List<Actor>();

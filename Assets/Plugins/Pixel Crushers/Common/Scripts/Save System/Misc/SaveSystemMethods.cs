@@ -44,14 +44,6 @@ namespace PixelCrushers
         }
 
         /// <summary>
-        /// Resets all saved game data.
-        /// </summary>
-        public void ResetGameState()
-        {
-            SaveSystem.ResetGameState();
-        }
-
-        /// <summary>
         /// Resets all saved game data and restarts the game at the specified scene.
         /// </summary>
         /// <param name="startingSceneName">Scene to restart at.</param>

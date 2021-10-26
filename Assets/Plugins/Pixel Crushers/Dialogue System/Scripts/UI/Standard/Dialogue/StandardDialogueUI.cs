@@ -1,7 +1,6 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace PixelCrushers.DialogueSystem
@@ -32,8 +31,6 @@ namespace PixelCrushers.DialogueSystem
         public override AbstractUIQTEControls qteControls { get { return QTEIndicatorElements; } }
 
         protected Queue<QueuedUIAlert> alertQueue { get { return m_alertQueue; } }
-
-        protected Coroutine closeCoroutine = null;
 
         #endregion
 
@@ -90,45 +87,27 @@ namespace PixelCrushers.DialogueSystem
 
         public override void Open()
         {
-            if (closeCoroutine != null)
-            {
-                StopCoroutine(closeCoroutine);
-                closeCoroutine = null;
-            }
             base.Open();
-            conversationUIElements.OpenSubtitlePanelsOnStart(this);
+            conversationUIElements.OpenSubtitlePanelsOnStart();
         }
 
         public override void Close()
         {
-            if (conversationUIElements.waitForClose && AreAnyPanelsClosing())
-            {
-                closeCoroutine = StartCoroutine(CloseAfterPanelsAreClosed());
-            }
-            else
-            {
-                CloseNow();
-            }
-        }
-
-        protected virtual void CloseNow()
-        {
             base.Close();
-            conversationUIElements.ClearCaches();
-        }
-
-        protected IEnumerator CloseAfterPanelsAreClosed()
-        {
-            while (AreAnyPanelsClosing())
-            {
-                yield return null;
-            }
-            CloseNow();
+            conversationUIElements.standardMenuControls.ClearCache();
         }
 
         public virtual bool AreAnyPanelsClosing()
         {
-            return conversationUIElements.AreAnyPanelsClosing();
+            foreach (var panel in conversationUIElements.subtitlePanels)
+            {
+                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            foreach (var panel in conversationUIElements.menuPanels)
+            {
+                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            return false;
         }
 
         #endregion
@@ -239,11 +218,6 @@ namespace PixelCrushers.DialogueSystem
             conversationUIElements.standardSubtitleControls.OverrideActorPanel(actor, subtitlePanelNumber);
         }
 
-        public virtual void ForceOverrideSubtitlePanel(StandardUISubtitlePanel customPanel)
-        {
-            conversationUIElements.standardSubtitleControls.ForceOverrideSubtitlePanel(customPanel);
-        }
-
         #endregion
 
         #region Response Menu
@@ -268,11 +242,6 @@ namespace PixelCrushers.DialogueSystem
         public virtual void OverrideActorMenuPanel(Actor actor, MenuPanelNumber menuPanelNumber, StandardUIMenuPanel customPanel)
         {
             conversationUIElements.standardMenuControls.OverrideActorMenuPanel(actor, menuPanelNumber, customPanel ?? conversationUIElements.defaultMenuPanel);
-        }
-
-        public virtual void ForceOverrideMenuPanel(StandardUIMenuPanel customPanel)
-        {
-            conversationUIElements.standardMenuControls.ForceOverrideMenuPanel(customPanel);
         }
 
         #endregion

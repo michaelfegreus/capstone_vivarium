@@ -93,12 +93,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Trigger when the GameObject receives an OnSequenceStart message
         /// </summary>
-        OnSequenceStart = 0x8000,
-
-        /// <summary>
-        /// Trigger after applying save data, or after Save System's Frames To Wait Before Apply Data if not applying save data
-        /// </summary>
-        OnSaveDataApplied = 0x10000
+        OnSequenceStart = 0x8000
 
     }
 

@@ -73,20 +73,10 @@ namespace PixelCrushers
         }
 
         /// <summary>
-        /// Retrieves info about the previously-saved data for a Saver.
-        /// </summary>
-        /// <param name="key">Saver's unique key.</param>
-        /// <returns>Returns the Save Record stored under the Saver's key, or null if no data is stored.</returns>
-        public SaveRecord GetDataInfo(string key)
-        {
-            return m_dict.ContainsKey(key) ? m_dict[key] : null;
-        }
-
-        /// <summary>
         /// Retrieves the previously-saved data for a Saver.
         /// </summary>
-        /// <param name="key">Saver's unique key.</param>
-        /// <returns>Returns the data stored under the Saver's key, or null if no data is stored.</returns>
+        /// <param name="key"></param>
+        /// <returns></returns>
         public string GetData(string key)
         {
             return m_dict.ContainsKey(key) ? m_dict[key].data : null;
@@ -95,9 +85,9 @@ namespace PixelCrushers
         /// <summary>
         /// Stores a Saver's data.
         /// </summary>
-        /// <param name="key">Saver's unique key.</param>
-        /// <param name="sceneIndex">Scene in which Saver exists.</param>
-        /// <param name="data">Data to set.</param>
+        /// <param name="key"></param>
+        /// <param name="sceneIndex"></param>
+        /// <param name="data"></param>
         public void SetData(string key, int sceneIndex, string data)
         {
             if (m_dict.ContainsKey(key))
@@ -112,22 +102,10 @@ namespace PixelCrushers
         }
 
         /// <summary>
-        /// Removes a Saver's data.
-        /// </summary>
-        /// <param name="key">Saver's unique key.</param>
-        public void DeleteData(string key)
-        {
-            if (m_dict.ContainsKey(key))
-            {
-                m_dict.Remove(key);
-            }
-        }
-
-        /// <summary>
         /// Removes all save records except those in the current scene and those that are
         /// configured to remember across scene changes.
         /// </summary>
-        /// <param name="currentSceneIndex">Don't clear out Savers in this scene.</param>
+        /// <param name="currentSceneIndex"></param>
         public void DeleteObsoleteSaveData(int currentSceneIndex)
         {
             m_dict = m_dict.Where(element => element.Value.sceneIndex == currentSceneIndex || element.Value.sceneIndex == SaveSystem.NoSceneIndex)
