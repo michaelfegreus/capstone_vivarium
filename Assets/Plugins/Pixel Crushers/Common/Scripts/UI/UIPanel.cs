@@ -49,8 +49,7 @@ namespace PixelCrushers
         }
 
         public UnityEvent onOpen = new UnityEvent();
-        public UnityEvent onClose = new UnityEvent(); // Called when close starts.
-        public UnityEvent onClosed = new UnityEvent(); // Called when close ends.
+        public UnityEvent onClose = new UnityEvent();
         public UnityEvent onBackButtonDown = new UnityEvent();
 
         protected GameObject m_previousSelected = null;
@@ -166,16 +165,6 @@ namespace PixelCrushers
             panelStack.Remove(this);
         }
 
-        /// <summary>
-        /// Move this panel to the top of the stack.
-        /// </summary>
-        public void TakeFocus()
-        {
-            PushToPanelStack();
-            RefreshSelectablesList();
-            CheckFocus();
-        }
-
         protected virtual void OnEnable()
         {
             PushToPanelStack();
@@ -249,7 +238,6 @@ namespace PixelCrushers
         {
             panelState = PanelState.Closed;
             if (deactivateOnHidden) gameObject.SetActive(false);
-            onClosed.Invoke();
         }
 
         protected virtual void Update()

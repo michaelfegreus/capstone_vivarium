@@ -84,10 +84,7 @@ namespace PixelCrushers.DialogueSystem
             string sendMessage;
             ParsePostParameters(reader, out atTime, out atMessage, out sendMessage);
             ParseOptionalWhitespace(reader);
-            if (!CheckParseComment(reader))
-            {
-                ParseSemicolonOrEnd(reader);
-            }
+            ParseSemicolonOrEnd(reader);
 
             ParseOptionalWhitespace(reader);
             CheckParseComment(reader);

@@ -160,7 +160,7 @@ namespace PixelCrushers.DialogueSystem
         /// Indicates whether the window is showing active quests or completed quests.
         /// </summary>
         /// <value><c>true</c> if showing active quests; otherwise, <c>false</c>.</value>
-        public virtual bool isShowingActiveQuests { get { return currentQuestStateMask == ActiveQuestStateMask; } }
+        public virtual bool isShowingActiveQuests { get { return currentQuestStateMask == QuestState.Active; } }
 
         /// @cond FOR_V1_COMPATIBILITY
         public bool IsOpen { get { return isOpen; } protected set { isOpen = value; } }
@@ -171,12 +171,10 @@ namespace PixelCrushers.DialogueSystem
         public bool IsShowingActiveQuests { get { return isShowingActiveQuests; } }
         /// @endcond
 
-        protected const QuestState ActiveQuestStateMask = QuestState.Active | QuestState.ReturnToNPC;
-
         /// <summary>
         /// The current quest state mask.
         /// </summary>
-        protected QuestState currentQuestStateMask = ActiveQuestStateMask;
+        protected QuestState currentQuestStateMask = QuestState.Active;
 
         /// <summary>
         /// The previous time scale prior to opening the window.
@@ -320,11 +318,10 @@ namespace PixelCrushers.DialogueSystem
         }
 
         protected virtual QuestInfo GetQuestInfo(string group, string title)
-        {            
+        {
             FormattedText description = FormattedText.Parse(QuestLog.GetQuestDescription(title), DialogueManager.masterDatabase.emphasisSettings);
             FormattedText localizedTitle = FormattedText.Parse(QuestLog.GetQuestTitle(title), DialogueManager.masterDatabase.emphasisSettings);
             FormattedText heading = (questHeadingSource == QuestHeadingSource.Description) ? description : localizedTitle;
-            string localizedGroup = string.IsNullOrEmpty(group) ? string.Empty : QuestLog.GetQuestGroup(title);
             bool abandonable = QuestLog.IsQuestAbandonable(title) && isShowingActiveQuests;
             bool trackable = QuestLog.IsQuestTrackingAvailable(title) && isShowingActiveQuests;
             bool track = QuestLog.IsQuestTrackingEnabled(title);
@@ -336,7 +333,7 @@ namespace PixelCrushers.DialogueSystem
                 entries[i] = FormattedText.Parse(QuestLog.GetQuestEntry(title, i + 1), DialogueManager.masterDatabase.emphasisSettings);
                 entryStates[i] = QuestLog.GetQuestEntryState(title, i + 1);
             }
-            return new QuestInfo(localizedGroup, title, heading, description, entries, entryStates, trackable, track, abandonable);
+            return new QuestInfo(group, title, heading, description, entries, entryStates, trackable, track, abandonable);
         }
 
         /// <summary>
@@ -348,7 +345,7 @@ namespace PixelCrushers.DialogueSystem
         /// <param name="questStateMask">Quest state mask.</param>
         protected virtual string GetNoQuestsMessage(QuestState questStateMask)
         {
-            return (questStateMask == ActiveQuestStateMask) ? GetLocalizedText(noActiveQuestsText) : GetLocalizedText(noCompletedQuestsText);
+            return (questStateMask == QuestState.Active) ? GetLocalizedText(noActiveQuestsText) : GetLocalizedText(noCompletedQuestsText);
         }
 
         /// <summary>
@@ -393,7 +390,7 @@ namespace PixelCrushers.DialogueSystem
         /// <param name="data">Ignored.</param>
         public virtual void ClickShowActiveQuests(object data)
         {
-            ShowQuests(ActiveQuestStateMask);
+            ShowQuests(QuestState.Active);
         }
 
         /// <summary>

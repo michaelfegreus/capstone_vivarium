@@ -76,9 +76,7 @@ namespace PixelCrushers
             {
                 if (textTable != null)
                 {
-                    return Application.isPlaying
-                        ? textTable.GetFieldTextForLanguage(textTableFieldID, UILocalizationManager.instance.currentLanguage)
-                        : textTable.GetFieldText(textTableFieldID);
+                    return textTable.GetFieldTextForLanguage(textTableFieldID, UILocalizationManager.instance.currentLanguage);
                 }
                 else if (stringAsset != null)
                 {
@@ -193,7 +191,7 @@ namespace PixelCrushers
         /// <summary>
         /// An empty StringField, similar to string.Empty.
         /// </summary>
-        public static readonly StringField empty = new StringField();
+        public static StringField empty = new StringField();
 
         /// <summary>
         /// Similar to string.IsNullOrEmpty.

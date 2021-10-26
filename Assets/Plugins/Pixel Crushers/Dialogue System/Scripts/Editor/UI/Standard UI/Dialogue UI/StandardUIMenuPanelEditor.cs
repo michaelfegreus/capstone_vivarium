@@ -54,7 +54,6 @@ namespace PixelCrushers.DialogueSystem
             EditorGUILayout.PropertyField(serializedObject.FindProperty("waitForClose"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onOpen"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onClose"), true);
-            EditorGUILayout.PropertyField(serializedObject.FindProperty("onClosed"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onFocus"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onUnfocus"), true);
             EditorGUILayout.PropertyField(serializedObject.FindProperty("onBackButtonDown"), true);

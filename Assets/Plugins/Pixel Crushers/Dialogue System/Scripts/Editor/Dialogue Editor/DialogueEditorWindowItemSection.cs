@@ -30,12 +30,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         [SerializeField]
         private int itemListSelectedIndex = -1;
 
-        [SerializeField]
-        private int questEntrySelectedIdx = -1;
-
-        [SerializeField]
-        private bool showCompactQuestEntryList = true; // Thanks to Tasta for compact view idea.
-
         private void ResetItemSection()
         {
             itemFoldouts = new AssetFoldouts();
@@ -446,7 +440,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (!template.questPrimaryFieldTitles.Contains(field.title)) continue;
                 if (questBuiltInFieldTitles.Contains(fieldTitle)) continue;
                 if (fieldTitle.StartsWith("Description") || fieldTitle.StartsWith("Success Description") || fieldTitle.StartsWith("Failure Description")) continue;
-                DrawMainSectionField(field);
+                EditorGUILayout.BeginHorizontal();
+                DrawField(field, false, false);
+                EditorGUILayout.EndHorizontal();
             }
         }
 
@@ -473,34 +469,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void DrawQuestEntries(Item item)
         {
-            EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Quest Entries", EditorStyles.boldLabel);
-            GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField("Compact View", GUILayout.Width(90));
-            showCompactQuestEntryList = EditorGUILayout.Toggle(GUIContent.none, showCompactQuestEntryList, GUILayout.Width(20));
-            EditorGUILayout.EndHorizontal();
-
-            int entryCount = Field.LookupInt(item.fields, "Entry Count");
-
-            string[] entryTabs = null;
-            if (showCompactQuestEntryList)
-            {
-                entryTabs = new string[entryCount];
-                for (int i = 1; i <= entryCount; i++)
-                {
-                    entryTabs[i - 1] = "Entry " + i;
-                }
-                questEntrySelectedIdx = GUILayout.Toolbar(questEntrySelectedIdx, entryTabs);
-            }
-
             EditorWindowTools.StartIndentedSection();
-            //int entryCount = Field.LookupInt(item.fields, "Entry Count");
+            int entryCount = Field.LookupInt(item.fields, "Entry Count");
             int entryToDelete = -1;
             int entryToMoveUp = -1;
             int entryToMoveDown = -1;
             for (int i = 1; i <= entryCount; i++)
             {
-                if (showCompactQuestEntryList && (i != questEntrySelectedIdx + 1)) continue;
                 DrawQuestEntry(item, i, entryCount, ref entryToDelete, ref entryToMoveUp, ref entryToMoveDown);
             }
             if (entryToDelete != -1)
@@ -519,7 +495,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (GUILayout.Button(new GUIContent("Add New Quest Entry", "Adds a new quest entry to this quest.")))
             {
                 entryCount++;
-                questEntrySelectedIdx = entryCount - 1;
                 Field.SetValue(item.fields, "Entry Count", entryCount);
                 Field.SetValue(item.fields, string.Format("Entry {0} State", entryCount), "unassigned");
                 Field.SetValue(item.fields, string.Format("Entry {0}", entryCount), string.Empty);
@@ -651,11 +626,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 CutEntry(item, entryNumber, entryCount);
                 SetDatabaseDirty("Delete Quest Entry");
-
-                if (entryNumber == questEntrySelectedIdx + 1)
-                {
-                    questEntrySelectedIdx = Mathf.Max(questEntrySelectedIdx - 1, 0);
-                }
             }
         }
 
@@ -665,7 +635,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var clipboard = CutEntry(item, entryNumber, entryCount);
             entryCount--;
             PasteEntry(item, entryNumber - 1, entryCount, clipboard);
-            questEntrySelectedIdx--;
         }
 
         private void MoveQuestEntryDown(Item item, int entryNumber, int entryCount)
@@ -674,7 +643,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             var clipboard = CutEntry(item, entryNumber, entryCount);
             entryCount--;
             PasteEntry(item, entryNumber + 1, entryCount, clipboard);
-            questEntrySelectedIdx++;
         }
 
         private List<Field> CutEntry(Item item, int entryNumber, int entryCount)

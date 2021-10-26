@@ -30,8 +30,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 {
                     Selection.activeObject = DialogueEditorWindow.instance.database;
                 }
-                DialogueDatabaseEditor.RepaintInstances();
-                //if (DialogueDatabaseEditor.instance != null) DialogueDatabaseEditor.instance.Repaint();
+                if (DialogueDatabaseEditor.instance != null) DialogueDatabaseEditor.instance.Repaint();
             }
         }
         [SerializeField]
@@ -102,6 +101,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorApplication.playmodeStateChanged -= OnPlaymodeStateChanged;
             EditorApplication.playmodeStateChanged += OnPlaymodeStateChanged;
 #endif
+            //nodeStyle = null;
             showQuickDialogueTextEntry = false;
             LoadEditorSettings();
         }
@@ -117,6 +117,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             SaveTemplate();
             inspectorSelection = null;
             instance = null;
+            //nodeStyle = null;
             SaveEditorSettings();
         }
 
@@ -291,7 +292,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             try
             {
-                if (instance == null) instance = this;
                 RecordUndo();
                 var isInNodeEditor = (toolbar.Current == Toolbar.Tab.Conversations) && showNodeEditor;
                 if (!isInNodeEditor) DrawDatabaseName(); // Node editor draws name after grid.
@@ -342,7 +342,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (_conversationParticipantsStyle == null || _conversationParticipantsStyle.fontSize != 20)
                 {
                     _conversationParticipantsStyle = new GUIStyle(databaseNameStyle);
-                    _conversationParticipantsStyle.alignment = TextAnchor.UpperRight;
+                    _conversationParticipantsStyle.alignment = TextAnchor.LowerRight;
                 }
                 return _conversationParticipantsStyle;
             }

@@ -158,8 +158,7 @@ namespace PixelCrushers
             {
                 var textTable = textTableProperty.objectReferenceValue as TextTable;
                 var textTableFieldIDProperty = stringFieldProperty.FindPropertyRelative("m_textTableFieldID");
-                return textTable.GetFieldTextForLanguage(textTableFieldIDProperty.intValue, 
-                    (UILocalizationManager.instance != null) ? UILocalizationManager.instance.currentLanguage : string.Empty);
+                return textTable.GetFieldTextForLanguage(textTableFieldIDProperty.intValue, UILocalizationManager.instance.currentLanguage);
             }
             return string.Empty;
         }

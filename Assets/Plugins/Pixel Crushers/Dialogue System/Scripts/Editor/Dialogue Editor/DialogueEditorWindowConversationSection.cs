@@ -2,7 +2,6 @@
 
 using UnityEngine;
 using UnityEditor;
-using UnityEditorInternal;
 using System.Collections.Generic;
 
 namespace PixelCrushers.DialogueSystem.DialogueEditor
@@ -19,7 +18,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private const int NoID = -1;
 
         [SerializeField]
-        public bool showNodeEditor = true;
+        private bool showNodeEditor = true;
 
         private Conversation _currentConversation = null;
         [SerializeField]
@@ -44,8 +43,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private int conversantID = NoID;
         private bool areParticipantsValid = false;
         private DialogueEntry startEntry = null;
-        private ReorderableList conversationReorderableList = null;
-        private HashSet<Conversation> conversationOutlineSelections = new HashSet<Conversation>();
 
         private void SetCurrentConversation(Conversation conversation)
         {
@@ -157,14 +154,14 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             {
                 DrawConversationSectionNodeStyle();
             }
-            else
-            {
+            else {
                 DrawConversationSectionOutlineStyle();
             }
         }
 
         private void DrawConversationSectionOutlineStyle()
         {
+            inspectorSelection = null;
             EditorGUILayout.BeginHorizontal();
             EditorGUILayout.LabelField("Conversations", EditorStyles.boldLabel);
             GUILayout.FlexibleSpace();
@@ -188,8 +185,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     menu.AddItem(new GUIContent("Copy Conversation"), false, CopyConversationCallback, null);
                     menu.AddItem(new GUIContent("Split Pipes Into Entries"), false, SplitPipesIntoEntries, null);
                 }
-                else
-                {
+                else {
                     menu.AddDisabledItem(new GUIContent("Copy Conversation"));
                     menu.AddDisabledItem(new GUIContent("Split Pipes Into Entries"));
                 }
@@ -197,7 +193,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 menu.AddItem(new GUIContent("Sort/By ID"), false, SortConversationsByID);
                 menu.AddItem(new GUIContent("Sort/Reorder IDs/This Conversation"), false, ConfirmReorderIDsThisConversation);
                 menu.AddItem(new GUIContent("Sort/Reorder IDs/All Conversations"), false, ConfirmReorderIDsAllConversations);
-                menu.AddItem(new GUIContent("Sort/Reorder IDs/Depth First Reordering"), reorderIDsDepthFirst, () => { reorderIDsDepthFirst = !reorderIDsDepthFirst; });
                 menu.AddItem(new GUIContent("Search Bar"), isSearchBarOpen, ToggleDialogueTreeSearchBar);
                 menu.AddItem(new GUIContent("Nodes"), false, ActivateNodeEditorMode);
                 if (currentConversation == null)
@@ -291,156 +286,64 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private void DrawConversations()
         {
-            if (conversationReorderableList == null)
+            EditorWindowTools.StartIndentedSection();
+            showStateFieldAsQuest = false;
+            Conversation conversationToRemove = null;
+            int indexToMoveUp = -1;
+            int indexToMoveDown = -1;
+            for (int index = 0; index < database.conversations.Count; index++)
             {
-                conversationReorderableList = new ReorderableList(database.conversations, typeof(Conversation), true, true, true, true);
-                conversationReorderableList.drawHeaderCallback = DrawConversationListHeader;
-                conversationReorderableList.drawElementCallback = DrawConversationListElement;
-                //conversationReorderableList.drawElementBackgroundCallback = DrawConversationListElementBackground;
-                conversationReorderableList.onAddCallback = OnConversationListAdd;
-                conversationReorderableList.onRemoveCallback = OnConversationListRemove;
-                conversationReorderableList.onSelectCallback = OnConversationListSelect;
-                //conversationReorderableList.onReorderCallback = OnConversationListReorder;
-                conversationReorderableList.onReorderCallbackWithDetails = OnConversationListReorderWithDetails; // Unity 2018+
-            }
-            conversationReorderableList.DoLayoutList();
-        }
-
-        private void DrawConversationListHeader(Rect rect)
-        {
-            EditorGUI.LabelField(new Rect(rect.x + 32f, rect.y, rect.width, rect.height), "Title");
-            float buttonWidth = 128f;
-            EditorGUI.BeginDisabledGroup(!(database != null && conversationOutlineSelections.Count < database.conversations.Count));
-            if (GUI.Button(new Rect(rect.x + rect.width - 2 * buttonWidth, rect.y, buttonWidth, EditorGUIUtility.singleLineHeight), "Select All"))
-            {
-                database.conversations.ForEach(x => conversationOutlineSelections.Add(x));
-                Repaint();
-            }
-            EditorGUI.EndDisabledGroup();
-            EditorGUI.BeginDisabledGroup(database == null || conversationOutlineSelections.Count == 0);
-            if (GUI.Button(new Rect(rect.x + rect.width - buttonWidth, rect.y, buttonWidth, EditorGUIUtility.singleLineHeight), "Deselect All"))
-            {
-                conversationOutlineSelections.Clear();
-                Repaint();
-            }
-            EditorGUI.EndDisabledGroup();
-        }
-
-        private void DrawConversationListElement(Rect rect, int index, bool isActive, bool isFocused)
-        {
-            if (!(0 <= index && index < database.conversations.Count)) return;
-            var nameControl = "ConversationTitle" + index;
-            var conversation = database.conversations[index];
-            var conversationTitle = conversation.Title;
-
-            float checkboxWidth = 16f;
-            bool selected = conversationOutlineSelections.Contains(conversation);
-            EditorGUI.BeginChangeCheck();
-            selected = EditorGUI.Toggle(new Rect(rect.x, rect.y, checkboxWidth, EditorGUIUtility.singleLineHeight), GUIContent.none, selected);
-            if (EditorGUI.EndChangeCheck())
-            {
-                if (selected) conversationOutlineSelections.Add(conversation);
-                else conversationOutlineSelections.Remove(conversation);
-            }
-
-            EditorGUI.BeginChangeCheck();
-            GUI.SetNextControlName(nameControl);
-            conversationTitle = EditorGUI.TextField(new Rect(rect.x + checkboxWidth, rect.y, rect.width - checkboxWidth, EditorGUIUtility.singleLineHeight), GUIContent.none, conversationTitle);
-            if (EditorGUI.EndChangeCheck()) conversation.Title = conversationTitle;
-            var focusedControl = GUI.GetNameOfFocusedControl();
-            if (string.Equals(nameControl, focusedControl))
-            {
-                inspectorSelection = conversation;
-                if (conversation != currentConversation) OpenConversation(conversation);
-            }
-        }
-
-        //private void DrawConversationListElementBackground(Rect rect, int index, bool isActive, bool isFocused)
-        //{
-        //    if (!(0 <= index && index < database.conversations.Count)) return;
-        //    var conversation = database.conversations[index];
-        //    ReorderableList.defaultBehaviours.DrawElementBackground(rect, index, isActive, isFocused, true);
-        //}
-
-        private void OnConversationListAdd(ReorderableList list)
-        {
-            AddNewConversation();
-        }
-
-        private void OnConversationListRemove(ReorderableList list)
-        {
-            if (conversationOutlineSelections.Count > 1)
-            {
-                if (EditorUtility.DisplayDialog("Delete Multiple Conversations", "***WARNING:***\nMultiple conversations selected.\n\nDelete " + conversationOutlineSelections.Count + " conversations?", "OK", "Cancel"))
+                Conversation conversation = database.conversations[index];
+                EditorGUILayout.BeginHorizontal();
+                bool isCurrentConversation = (conversation == currentConversation);
+                bool foldout = isCurrentConversation;
+                foldout = EditorGUILayout.Foldout(foldout, conversation.Title);
+                EditorGUI.BeginDisabledGroup(index >= (database.conversations.Count - 1));
+                if (GUILayout.Button(new GUIContent("↓", "Move down"), GUILayout.Width(16))) indexToMoveDown = index;
+                EditorGUI.EndDisabledGroup();
+                EditorGUI.BeginDisabledGroup(index == 0);
+                if (GUILayout.Button(new GUIContent("↑", "Move up"), GUILayout.Width(16))) indexToMoveUp = index;
+                EditorGUI.EndDisabledGroup();
+                if (GUILayout.Button(new GUIContent(" ", string.Format("Delete {0}.", conversation.Title)), "OL Minus", GUILayout.Width(16))) conversationToRemove = conversation;
+                EditorGUILayout.EndHorizontal();
+                if (foldout)
                 {
-                    DeleteConversationOutlineSelections();
+                    if (!isCurrentConversation) OpenConversation(conversation);
+                    DrawConversation();
+                }
+                else if (isCurrentConversation)
+                {
+                    ResetConversationSection();
                 }
             }
-
-            if (!(0 <= list.index && list.index < database.conversations.Count)) return;
-            var conversation = database.conversations[list.index];
-            if (conversation == null) return;
-            var deletedLastOne = list.count == 1;
-            if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", EditorTools.GetAssetName(conversation)), "Are you sure you want to delete this conversation?", "Delete", "Cancel"))
+            if (indexToMoveDown >= 0)
             {
-                ReorderableList.defaultBehaviours.DoRemoveButton(list);
-                if (deletedLastOne) inspectorSelection = null;
-                else
-                {
-                    var nextConversation = (list.index < list.count) ? database.conversations[list.index] : (list.count > 0) ? database.conversations[list.count - 1] : null;
-                    if (nextConversation != null)
-                    {
-                        OpenConversation(nextConversation);
-                    }
-                    else
-                    {
-                        currentConversation = null;
-                        inspectorSelection = null;
-                    }
-                }
-                SetDatabaseDirty("Remove Conversation");
+                var conversation = database.conversations[indexToMoveDown];
+                database.conversations.RemoveAt(indexToMoveDown);
+                database.conversations.Insert(indexToMoveDown + 1, conversation);
+                SetDatabaseDirty("Move Conversation Up");
             }
-        }
-
-        private void DeleteConversationOutlineSelections()
-        {
-            database.conversations.RemoveAll(x => conversationOutlineSelections.Contains(x));
-            conversationOutlineSelections.Clear();
-            SetDatabaseDirty("Remove Conversations");
-        }
-
-        //private void OnConversationListReorder(ReorderableList list)
-        //{
-        //    SetDatabaseDirty("Reorder Conversations");
-        //}
-
-        private void OnConversationListReorderWithDetails(ReorderableList list, int oldIndex, int newIndex)
-        {
-            if (conversationOutlineSelections.Count > 1)
+            else if (indexToMoveUp >= 0)
             {
-                int delta = newIndex - oldIndex;
-                var ignoreConversation = database.conversations[newIndex];
-                foreach (var tickedConversation in conversationOutlineSelections)
+                var conversation = database.conversations[indexToMoveUp];
+                database.conversations.RemoveAt(indexToMoveUp);
+                database.conversations.Insert(indexToMoveUp - 1, conversation);
+                SetDatabaseDirty("Move Conversation Down");
+            }
+            else if (conversationToRemove != null)
+            {
+                if (EditorUtility.DisplayDialog(string.Format("Delete '{0}'?", conversationToRemove.Title),
+                    "Are you sure you want to delete this conversation?\nYou cannot undo this operation!", "Delete", "Cancel"))
                 {
-                    if (tickedConversation == ignoreConversation) continue;
-                    var tickedIndex = database.conversations.IndexOf(tickedConversation);
-                    if (tickedIndex < 0) continue;
-                    database.conversations.Remove(tickedConversation);
-                    database.conversations.Insert(Mathf.Clamp(tickedIndex + delta, 0, database.conversations.Count), tickedConversation);
+                    if (conversationToRemove == currentConversation) ResetConversationSection();
+                    database.conversations.Remove(conversationToRemove);
+                    SetDatabaseDirty("Delete Conversation");
                 }
             }
-            SetDatabaseDirty("Reorder Conversations");
+            EditorWindowTools.EndIndentedSection();
         }
 
-        private void OnConversationListSelect(ReorderableList list)
-        {
-            if (!(0 <= list.index && list.index < database.conversations.Count)) return;
-            var conversation = database.conversations[list.index];
-            if (conversation != currentConversation) OpenConversation(conversation);
-            inspectorSelection = conversation;
-        }
-
-        public void DrawConversationOutline()
+        private void DrawConversation()
         {
             if (currentConversation == null) return;
             EditorWindowTools.StartIndentedSection();
@@ -511,7 +414,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (string.IsNullOrEmpty(fieldTitle)) continue;
                 if (!template.conversationPrimaryFieldTitles.Contains(field.title)) continue;
                 if (conversationBuiltInFieldTitles.Contains(fieldTitle)) continue;
-                DrawMainSectionField(field);
+                EditorGUILayout.BeginHorizontal();
+                DrawField(field, false, false);
+                EditorGUILayout.EndHorizontal();
             }
         }
 
@@ -532,8 +437,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     if (startEntry != null) startEntry.ActorID = newParticipantID;
                     actorID = newParticipantID;
                 }
-                else
-                {
+                else {
                     if (startEntry != null) startEntry.ConversantID = newParticipantID;
                     conversantID = newParticipantID;
                 }
@@ -744,6 +648,134 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
             EditorWindowTools.EndIndentedSection();
         }
+
+        #region Reorder IDs
+
+        private void ConfirmReorderIDsThisConversation()
+        {
+            if (EditorUtility.DisplayDialog("Reorder IDs", "Are you sure you want to reorder dialogue entry ID numbers in this conversation?", "OK", "Cancel"))
+            {
+                ReorderIDsThisConversationNow();
+            }
+        }
+
+        private void ReorderIDsThisConversationNow()
+        { 
+            var currentConv = currentConversation;
+            ReorderIDsInConversation(currentConversation);
+            ResetConversationSection();
+            OpenConversation(currentConv);
+        }
+
+        private void ConfirmReorderIDsAllConversations()
+        {
+            if (!EditorUtility.DisplayDialog("Reorder IDs", "Are you sure you want to reorder dialogue entry ID numbers in ALL conversations?", "OK", "Cancel")) return;
+            var currentConv = currentConversation;
+            ReorderIDsAllConversations();
+            ResetConversationSection();
+            OpenConversation(currentConv);
+        }
+
+        private void ReorderIDsAllConversations()
+        {
+            if (database == null) return;
+            foreach (var conversation in database.conversations)
+            {
+                OpenConversation(conversation);
+                InitializeDialogueTree();
+                ReorderIDsThisConversationNow();
+            }
+            ResetDialogueTreeSection();
+        }
+
+        private void ReorderIDsInConversation(Conversation conversation)
+        {
+            if (conversation == null) return;
+            try
+            {
+                EditorUtility.DisplayProgressBar("Reordering IDs", conversation.Title, 0);
+
+                // Determine new order:
+                var newIDs = new Dictionary<int, int>();
+                int nextID = 0;
+                DetermineNewEntryID(conversation, dialogueTree, newIDs, ref nextID);
+
+                // Include orphans:
+                foreach (var entry in conversation.dialogueEntries)
+                {
+                    if (newIDs.ContainsKey(entry.id)) continue;
+                    newIDs.Add(entry.id, nextID);
+                    nextID++;
+                }
+
+                if (debug)
+                {
+                    var s = conversation.Title + " new IDs:\n";
+                    foreach (var kvp in newIDs)
+                    {
+                        s += kvp.Key + " --> " + kvp.Value + "\n";
+                    }
+                    Debug.Log(s);
+                }
+
+                // Change IDs:
+                int tempOffset = 100000;
+                foreach (var kvp in newIDs)
+                {
+                    ChangeEntryIDEverywhere(conversation.id, kvp.Key, kvp.Value + tempOffset);
+                }
+                foreach (var kvp in newIDs)
+                {
+                    ChangeEntryIDEverywhere(conversation.id, kvp.Value + tempOffset, kvp.Value);
+                }
+
+                // Sort entries:
+                conversation.dialogueEntries.Sort((x, y) =>x.id.CompareTo(y.id));
+
+            }
+            finally
+            {
+                EditorUtility.ClearProgressBar();
+            }
+        }
+
+        private void DetermineNewEntryID(Conversation conversation, DialogueNode node, Dictionary<int, int> newIDs, ref int nextID)
+        {
+            if (conversation == null || node == null || node.entry.conversationID != conversation.id) return;
+            newIDs.Add(node.entry.id, nextID);
+            nextID++;
+            for (int i = 0; i < node.children.Count; i++)
+            {
+                var child = node.children[i];
+                if (child == null) continue;
+                if (newIDs.ContainsKey(child.entry.id)) continue;
+                DetermineNewEntryID(conversation, child, newIDs, ref nextID);
+            }
+        }
+
+        private void ChangeEntryIDEverywhere(int conversationID, int oldID, int newID)
+        {
+            for (int c = 0; c < database.conversations.Count; c++)
+            {
+                var conversation = database.conversations[c];
+                for (int e = 0; e < conversation.dialogueEntries.Count; e++)
+                {
+                    var entry = conversation.dialogueEntries[e];
+                    if (conversation.id == conversationID && entry.id == oldID)
+                    {
+                        entry.id = newID;
+                    }
+                    for (int i = 0; i < entry.outgoingLinks.Count; i++)
+                    {
+                        var link = entry.outgoingLinks[i];
+                        if (link.originConversationID == conversationID && link.originDialogueID == oldID) link.originDialogueID = newID;
+                        if (link.destinationConversationID == conversationID && link.destinationDialogueID == oldID) link.destinationDialogueID = newID;
+                    }
+                }
+            }
+        }
+
+        #endregion
 
     }
 

@@ -583,9 +583,6 @@ namespace PixelCrushers.DialogueSystem
                 {
                     actor.AssignPortraitSprite((sprite) => { characterInfo.portrait = sprite; });
                 }
-                // Don't cache null actor ID -1:
-                if (id == -1) return characterInfo;
-                // Otherwise cache to speed up lookups:
                 m_characterInfoCache.Add(id, characterInfo);
             }
             return m_characterInfoCache[id];

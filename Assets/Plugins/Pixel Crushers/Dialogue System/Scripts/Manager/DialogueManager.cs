@@ -75,16 +75,6 @@ namespace PixelCrushers.DialogueSystem
         }
 
         /// <summary>
-        /// Convenience property that casts the dialogueUI property as a StandardDialogueUI.
-        /// If the dialogueUI is not a StandardDialogueUI, returns null.
-        /// </summary>
-        public static StandardDialogueUI standardDialogueUI
-        {
-            get { return (instance != null) ? instance.standardDialogueUI : null; }
-            set { instance.standardDialogueUI = value; }
-        }
-
-        /// <summary>
         /// Gets the display settings.
         /// </summary>
         /// <value>
@@ -121,15 +111,6 @@ namespace PixelCrushers.DialogueSystem
         {
             get { return hasInstance ? instance.isDialogueEntryValid : null; }
             set { instance.isDialogueEntryValid = value; }
-        }
-
-        /// <summary>
-        /// If response timeout action is set to Custom and menu times out, call this method.
-        /// </summary>
-        public static System.Action customResponseTimeoutHandler
-        {
-            get { return hasInstance ? instance.customResponseTimeoutHandler : null; }
-            set { instance.customResponseTimeoutHandler = value; }
         }
 
         /// <summary>
@@ -373,10 +354,9 @@ namespace PixelCrushers.DialogueSystem
         /// direct camera angles and perform other actions. In PC-NPC conversations, the conversant
         /// is usually the NPC.
         /// </param>
-        /// <param name="initialDialogueEntryID">Optional starting entry ID; omit to start at beginning.</param>
-        public static bool ConversationHasValidEntry(string title, Transform actor, Transform conversant, int initialDialogueEntryID = -1)
+        public static bool ConversationHasValidEntry(string title, Transform actor, Transform conversant)
         {
-            return hasInstance ? instance.ConversationHasValidEntry(title, actor, conversant, initialDialogueEntryID) : false;
+            return hasInstance ? instance.ConversationHasValidEntry(title, actor, conversant) : false;
         }
 
         /// <summary>

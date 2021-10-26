@@ -1,8 +1,7 @@
 // Copyright (c) Pixel Crushers. All rights reserved.
 
-using System;
-using System.Collections;
 using UnityEngine;
+using System;
 
 namespace PixelCrushers.DialogueSystem
 {
@@ -38,11 +37,8 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Default panel for response menus.")]
         public StandardUIMenuPanel defaultMenuPanel;
 
-        [Tooltip("When showing response menu, use portrait info of player actor assigned to first response. Also use that actor's menu panel if using multiple menu panels.")]
+        [Tooltip("When showing response menu, use portrait info of player actor assigned to first response.")]
         public bool useFirstResponseForMenuPortrait;
-
-        [Tooltip("When closing, wait for all subtitle panels and menu panels to close.")]
-        public bool waitForClose = true;
 
         #endregion
 
@@ -57,7 +53,6 @@ namespace PixelCrushers.DialogueSystem
         public override AbstractUIResponseMenuControls responseMenuControls { get { return m_standardMenuControls; } }
 
         private bool m_initializedAnimator = false;
-        private Coroutine closeCoroutine = null;
 
         #endregion
 
@@ -80,11 +75,6 @@ namespace PixelCrushers.DialogueSystem
 
         public override void ShowPanel()
         {
-            if (closeCoroutine != null)
-            {
-                mainPanel.StopCoroutine(closeCoroutine);
-                closeCoroutine = null;
-            }
             m_initializedAnimator = true;
             if (mainPanel != null) mainPanel.Open();
             standardSubtitleControls.ApplyQueuedActorPanelCache();
@@ -101,51 +91,18 @@ namespace PixelCrushers.DialogueSystem
             {
                 standardSubtitleControls.Close();
                 standardMenuControls.Close();
-                if (mainPanel != null && !dontDeactivateMainPanel)
-                {
-                    if (waitForClose)
-                    {
-                        closeCoroutine = mainPanel.StartCoroutine(CloseAfterPanelsAreClosed());
-                    }
-                    else
-                    {
-                        mainPanel.Close();
-                    }
-                }
+                if (mainPanel != null && !dontDeactivateMainPanel) mainPanel.Close();
             }
-        }
-
-        private IEnumerator CloseAfterPanelsAreClosed()
-        {
-            while (AreAnyPanelsClosing())
-            {
-                yield return null;
-            }
-            mainPanel.Close();
-        }
-
-        public bool AreAnyPanelsClosing()
-        {
-            foreach (var panel in subtitlePanels)
-            {
-                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
-            }
-            foreach (var panel in menuPanels)
-            {
-                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
-            }
-            if (mainPanel != null && mainPanel.panelState == UIPanel.PanelState.Closing) return true;
-            return false;
         }
 
         public void HideImmediate()
         {
             HideSubtitlePanelsImmediate();
             HideMenuPanelsImmediate();
-            if (mainPanel != null && !dontDeactivateMainPanel)
-            {
-                mainPanel.gameObject.SetActive(false);
-                mainPanel.panelState = UIPanel.PanelState.Closed;
+            if (mainPanel != null && !dontDeactivateMainPanel) 
+            { 
+                mainPanel.gameObject.SetActive(false); 
+                mainPanel.panelState = UIPanel.PanelState.Closed; 
             }
         }
 
@@ -167,28 +124,9 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
-        public void OpenSubtitlePanelsOnStart(StandardDialogueUI ui)
+        public void OpenSubtitlePanelsOnStart()
         {
-            if (allowOpenSubtitlePanelsOnStartConversation) standardSubtitleControls.OpenSubtitlePanelsOnStartConversation(ui);
-        }
-
-        public void ClearCaches()
-        {
-            standardSubtitleControls.ClearCache();
-            standardMenuControls.ClearCache();
-        }
-
-        public virtual void ClearAllSubtitleText()
-        {
-            // Clear all built-in panels:
-            for (int i = 0; i < subtitlePanels.Length; i++)
-            {
-                if (subtitlePanels[i] == null) continue;
-                subtitlePanels[i].ClearText();
-            }
-
-            // Clear any custom panels:
-            standardSubtitleControls.ClearSubtitlesOnCustomPanels();
+            if (allowOpenSubtitlePanelsOnStartConversation) standardSubtitleControls.OpenSubtitlePanelsOnStartConversation();
         }
 
         #endregion

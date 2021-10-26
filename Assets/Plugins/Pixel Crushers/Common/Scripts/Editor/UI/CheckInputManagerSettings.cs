@@ -18,7 +18,6 @@ namespace PixelCrushers
 
         static CheckInputManagerSettings()
         {
-#if !USE_NEW_INPUT
             var alreadyAsked = EditorPrefs.GetBool(CheckedInputManagerSettingsEditorPrefsKey, false);
             EditorPrefs.SetBool(CheckedInputManagerSettingsEditorPrefsKey, true);
             if (InputDeviceManagerEditor.HasStandardInputDefinitions() || alreadyAsked) return;
@@ -28,7 +27,6 @@ namespace PixelCrushers
                 InputDeviceManagerEditor.AddStandardInputDefinitions();
                 Debug.Log("Added standard input definitions.");
             }
-#endif
         }
 
     }

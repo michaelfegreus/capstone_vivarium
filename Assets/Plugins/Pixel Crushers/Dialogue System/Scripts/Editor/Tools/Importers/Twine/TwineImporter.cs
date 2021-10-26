@@ -21,7 +21,7 @@ namespace PixelCrushers.DialogueSystem.Twine
         protected DialogueDatabase database { get; set; }
         protected Template template { get; set; }
 
-        public virtual void ConvertStoryToConversation(DialogueDatabase database, Template template, TwineStory story, int actorID, int conversantID, bool splitPipesIntoEntries, bool useTwineNodePositions = false)
+        public virtual void ConvertStoryToConversation(DialogueDatabase database, Template template, TwineStory story, int actorID, int conversantID, bool splitPipesIntoEntries)
         {
             this.database = database;
             this.template = template;
@@ -48,24 +48,13 @@ namespace PixelCrushers.DialogueSystem.Twine
                 highestPid = Mathf.Max(highestPid, SafeConvert.ToInt(passage.pid));
             }
 
-
             // Add passages as nodes:
-            var isFirstPassage = true;
             var allHooks = new Dictionary<TwinePassage, List<TwineHook>>();
             foreach (var passage in story.passages)
             {
                 var entryID = SafeConvert.ToInt(passage.pid);
                 if (entryID == 0) entryID = ++highestPid;
                 var entry = template.CreateDialogueEntry(entryID, conversation.id, passage.name);
-                if (useTwineNodePositions)
-                {
-                    SetEntryPosition(entry, passage.position);
-                    if (isFirstPassage)
-                    {
-                        isFirstPassage = false;
-                        SetEntryPosition(startEntry, new TwinePosition(Mathf.Max(1, passage.position.x - DialogueEntry.CanvasRectWidth / 4f), Mathf.Max(1, passage.position.y - 1.5f * DialogueEntry.CanvasRectHeight)));
-                    }
-                }
                 int entryActorID, entryConversantID;
                 string dialogueText, sequence, conditions, script;
                 List<TwineHook> hooks;
@@ -80,10 +69,7 @@ namespace PixelCrushers.DialogueSystem.Twine
                 entry.ActorID = entryActorID;
                 entry.ConversantID = conversantID;
                 entry.Sequence = AppendCode(entry.Sequence, sequence);
-                string falseConditionAction;
-                CheckConditionsForPassthrough(conditions, out conditions, out falseConditionAction);
                 entry.conditionsString = AppendCode(entry.conditionsString, conditions);
-                entry.falseConditionAction = falseConditionAction;
                 entry.userScript = AppendCode(entry.userScript, script);
                 conversation.dialogueEntries.Add(entry);
             }
@@ -93,7 +79,6 @@ namespace PixelCrushers.DialogueSystem.Twine
             startEntry.outgoingLinks.Add(new Link(conversation.id, startEntry.id, conversation.id, startnodeID));
 
             // Link nodes:
-            int linkNum = 0;
             foreach (var passage in story.passages)
             {
                 if (passage.links == null) continue;
@@ -115,17 +100,12 @@ namespace PixelCrushers.DialogueSystem.Twine
                     }
                     else
                     {
-                        // Check if there's a node that's a repeat of the link (and, if so, don't add a link entry):
-                        var linkRepeatEntry = conversation.GetDialogueEntry(link.name);
-                        if (linkRepeatEntry != null && linkRepeatEntry.ActorID == conversation.ActorID)
+                        // Otherwise add a link entry between passages:
+                        var linkEntryTitle = GetLinkEntryTitle(link.name, originID);
+                        var linkEntry = conversation.GetDialogueEntry(linkEntryTitle);
+                        if (linkEntry == null)
                         {
-                            // Link links to node for that link (to allow Script: etc in link), so do nothing.
-                            var linkEntry = linkRepeatEntry;
-                            if (useTwineNodePositions)
-                            {
-                                SetEntryPosition(linkEntry, new TwinePosition(passage.position.x + DialogueEntry.CanvasRectWidth / 4f + (linkNum * (DialogueEntry.CanvasRectWidth + 8)), passage.position.y + (1.5f * DialogueEntry.CanvasRectHeight)));
-                                linkNum++;
-                            }
+                            linkEntry = template.CreateDialogueEntry(++highestPid, conversation.id, linkEntryTitle);
                             int linkActorID, linkConversantID;
                             string linkDialogueText, sequence, conditions, script;
                             ExtractParticipants(link.name, actorID, conversantID, true, out linkDialogueText, out linkActorID, out linkConversantID);
@@ -136,39 +116,14 @@ namespace PixelCrushers.DialogueSystem.Twine
                             linkEntry.Sequence = sequence;
                             linkEntry.conditionsString = AppendCode(linkEntry.conditionsString, conditions);
                             linkEntry.userScript = AppendCode(linkEntry.userScript, script);
+                            conversation.dialogueEntries.Add(linkEntry);
+                        }
+                        conversation.dialogueEntries.Add(linkEntry);
+                        if (!willLinkInHook)
+                        {
                             originEntry.outgoingLinks.Add(new Link(conversation.id, originID, conversation.id, linkEntry.id));
                         }
-                        else
-                        {
-                            // Otherwise add a link entry between passages:
-                            var linkEntryTitle = GetLinkEntryTitle(link.name, originID);
-                            var linkEntry = conversation.GetDialogueEntry(linkEntryTitle);
-                            if (linkEntry == null)
-                            {
-                                linkEntry = template.CreateDialogueEntry(++highestPid, conversation.id, linkEntryTitle);
-                                if (useTwineNodePositions)
-                                {
-                                    SetEntryPosition(linkEntry, new TwinePosition(passage.position.x + DialogueEntry.CanvasRectWidth / 4f + (linkNum * (DialogueEntry.CanvasRectWidth + 8)), passage.position.y + (1.5f * DialogueEntry.CanvasRectHeight)));
-                                    linkNum++;
-                                }
-                                int linkActorID, linkConversantID;
-                                string linkDialogueText, sequence, conditions, script;
-                                ExtractParticipants(link.name, actorID, conversantID, true, out linkDialogueText, out linkActorID, out linkConversantID);
-                                ExtractSequenceConditionsScript(ref linkDialogueText, out sequence, out conditions, out script);
-                                linkEntry.DialogueText = ReplaceFormatting(linkDialogueText);
-                                linkEntry.ActorID = linkActorID;
-                                linkEntry.ConversantID = linkConversantID;
-                                linkEntry.Sequence = sequence;
-                                linkEntry.conditionsString = AppendCode(linkEntry.conditionsString, conditions);
-                                linkEntry.userScript = AppendCode(linkEntry.userScript, script);
-                            }
-                            conversation.dialogueEntries.Add(linkEntry);
-                            if (!willLinkInHook)
-                            {
-                                originEntry.outgoingLinks.Add(new Link(conversation.id, originID, conversation.id, linkEntry.id));
-                            }
-                            linkEntry.outgoingLinks.Add(new Link(conversation.id, linkEntry.id, conversation.id, linkedPassageID));
-                        }
+                        linkEntry.outgoingLinks.Add(new Link(conversation.id, linkEntry.id, conversation.id, linkedPassageID));
                     }
                 }
             }
@@ -178,7 +133,6 @@ namespace PixelCrushers.DialogueSystem.Twine
             {
                 var passageID = SafeConvert.ToInt(passage.pid);
                 var passageEntry = conversation.GetDialogueEntry(passageID);
-                var rectOffset = Vector2.zero;
                 foreach (var hook in allHooks[passage])
                 {
                     int hookActorID, hookConversantID;
@@ -191,20 +145,10 @@ namespace PixelCrushers.DialogueSystem.Twine
                         {
                             // Hook still has text, so make the text an intermediate entry:
                             var midEntry = template.CreateDialogueEntry(++highestPid, conversation.id, hook.text);
-                            if (useTwineNodePositions)
-                            {
-                                SetEntryPosition(linkEntry, new TwinePosition(passage.position.x + DialogueEntry.CanvasRectWidth / 4f + (linkNum * (DialogueEntry.CanvasRectWidth + 8)), passage.position.y + (1.5f * DialogueEntry.CanvasRectHeight)));
-                                linkNum++;
-                            }
                             midEntry.DialogueText = hook.text;
                             midEntry.ActorID = hookActorID;
                             midEntry.ConversantID = hookConversantID;
-
-                            string falseConditionAction;
-                            CheckConditionsForPassthrough(conditions, out conditions, out falseConditionAction);
                             midEntry.conditionsString = AppendCode(midEntry.conditionsString, conditions);
-                            midEntry.falseConditionAction = falseConditionAction;
-
                             conversation.dialogueEntries.Add(midEntry);
                             passageEntry.outgoingLinks.Add(new Link(conversation.id, passageEntry.id, conversation.id, midEntry.id));
                         }
@@ -223,11 +167,6 @@ namespace PixelCrushers.DialogueSystem.Twine
             {
                 conversation.SplitPipesIntoEntries();
             }
-        }
-
-        protected virtual void SetEntryPosition(DialogueEntry entry, TwinePosition position)
-        {
-            entry.canvasRect = new Rect(position.x, position.y, DialogueEntry.CanvasRectWidth, DialogueEntry.CanvasRectHeight);
         }
 
         protected string GetLinkEntryTitle(string linkName, int originPassageID)
@@ -296,21 +235,6 @@ namespace PixelCrushers.DialogueSystem.Twine
         {
             var index = text.IndexOf(heading, startIndex);
             return (index == -1) ? text.Length : index;
-        }
-
-        protected void CheckConditionsForPassthrough(string originalConditions, out string conditions, out string falseConditionAction)
-        {
-            var passthrough = false;
-            if (!string.IsNullOrEmpty(originalConditions) && originalConditions.StartsWith("(passthrough)"))
-            {
-                passthrough = true;
-                conditions = originalConditions.Substring("(passthrough)".Length);
-            }
-            else
-            {
-                conditions = originalConditions;
-            }
-            falseConditionAction = passthrough ? "Passthrough" : "Block";
         }
 
         protected string AppendCode(string block, string extra)

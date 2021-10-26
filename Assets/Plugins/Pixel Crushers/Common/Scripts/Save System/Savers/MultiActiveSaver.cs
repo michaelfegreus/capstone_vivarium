@@ -23,7 +23,7 @@ namespace PixelCrushers
             public bool[] active;
         }
 
-        [Tooltip("GameObjects to watch.")]
+        [Tooltip("GameObject to watch.")]
         [SerializeField]
         private GameObject[] m_gameObjectsToWatch;
 

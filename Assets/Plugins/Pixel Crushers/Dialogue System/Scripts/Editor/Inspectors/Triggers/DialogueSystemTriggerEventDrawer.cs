@@ -35,9 +35,7 @@ namespace PixelCrushers.DialogueSystem
             "On Conversation Start",// 12
 			"On Conversation End",	// 13
             "On Sequence Start",    // 14
-			"On Sequence End",		// 15
-
-            "On Save Data Applied"  // 16
+			"On Sequence End"		// 15
 		};
 
         private static int NameIndexToEnumValueIndex(int nameIndex)
@@ -74,8 +72,6 @@ namespace PixelCrushers.DialogueSystem
                     return 15; // DialogueSystemTriggerEvent.OnSequenceStart;
                 case 15:
                     return 2; // DialogueSystemTriggerEvent.OnSequenceEnd;
-                case 16:
-                    return 16; //DialogueSystemTriggerEvent.OnSaveDataApplied;
                 default:
                     return 10; // DialogueSystemTriggerEvent.None;
             }
@@ -115,8 +111,6 @@ namespace PixelCrushers.DialogueSystem
                     return 12;
                 case 15: // DialogueSystemTriggerEvent.OnSequenceStart:
                     return 14;
-                case 16: // DialogueSystemTriggerEvent.OnSaveDataApplied:
-                    return 16;
                 default:
                     return 0; // DialogueSystemTriggerEvent.None
             }
@@ -158,8 +152,6 @@ namespace PixelCrushers.DialogueSystem
                     return 14;
                 case DialogueSystemTriggerEvent.OnSequenceStart:
                     return 15;
-                case DialogueSystemTriggerEvent.OnSaveDataApplied:
-                    return 16;
                 default:
                     return 10;
             }
@@ -201,8 +193,6 @@ namespace PixelCrushers.DialogueSystem
                     return DialogueSystemTriggerEvent.OnConversationStart;
                 case 15:
                     return DialogueSystemTriggerEvent.OnSequenceStart;
-                case 16:
-                    return DialogueSystemTriggerEvent.OnSaveDataApplied;
                 default:
                     return DialogueSystemTriggerEvent.None;
             }

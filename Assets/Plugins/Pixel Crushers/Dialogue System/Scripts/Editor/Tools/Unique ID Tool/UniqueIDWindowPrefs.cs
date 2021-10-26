@@ -45,10 +45,8 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public static UniqueIDWindowPrefs Load()
         {
-            var prefs = EditorPrefs.HasKey(UniqueIDWindowPrefsKey) ? JsonUtility.FromJson<UniqueIDWindowPrefs>(EditorPrefs.GetString(UniqueIDWindowPrefsKey))
+            return EditorPrefs.HasKey(UniqueIDWindowPrefsKey) ? JsonUtility.FromJson<UniqueIDWindowPrefs>(EditorPrefs.GetString(UniqueIDWindowPrefsKey))
                 : new UniqueIDWindowPrefs();
-            if (prefs == null) prefs = new UniqueIDWindowPrefs();
-            return prefs;
         }
 
         /// <summary>

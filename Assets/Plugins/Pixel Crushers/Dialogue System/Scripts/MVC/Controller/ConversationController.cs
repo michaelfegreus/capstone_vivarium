@@ -50,8 +50,6 @@ namespace PixelCrushers.DialogueSystem
 
         public ConversationState currentState { get { return m_state; } }
 
-        public ActiveConversationRecord activeConversationRecord { get; set; }
-
         /// <summary>
         /// Gets or sets the IsDialogueEntryValid delegate.
         /// </summary>
@@ -188,8 +186,6 @@ namespace PixelCrushers.DialogueSystem
             DialogueManager.instance.currentConversationState = state;
             if (state != null)
             {
-                if (state.subtitle != null) state.subtitle.activeConversationRecord = activeConversationRecord;
-                
                 // Check for change of conversation:
                 var newConversationID = m_model.GetConversationID(state);
                 if (newConversationID != m_currentConversationID)
@@ -244,7 +240,6 @@ namespace PixelCrushers.DialogueSystem
         private void SetConversationOverride(ConversationState state)
         {
             m_view.displaySettings.conversationOverrideSettings = m_model.GetConversationOverrideSettings(state);
-            DialogueManager.displaySettings.conversationOverrideSettings = m_view.displaySettings.conversationOverrideSettings;
         }
 
         /// <summary>
@@ -262,7 +257,6 @@ namespace PixelCrushers.DialogueSystem
         /// </param>
         public void OnFinishedSubtitle(object sender, EventArgs e)
         {
-            DialogueManager.instance.activeConversation = activeConversationRecord;
             var randomize = randomizeNextEntry;
             randomizeNextEntry = false;
             if (m_state.hasNPCResponse)
@@ -300,7 +294,6 @@ namespace PixelCrushers.DialogueSystem
         /// </param>
         public void OnSelectedResponse(object sender, SelectedResponseEventArgs e)
         {
-            DialogueManager.instance.activeConversation = activeConversationRecord;
             GotoState(m_model.GetState(e.DestinationEntry));
         }
 

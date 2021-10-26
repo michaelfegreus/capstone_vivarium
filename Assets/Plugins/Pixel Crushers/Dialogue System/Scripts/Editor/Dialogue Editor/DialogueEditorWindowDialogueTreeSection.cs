@@ -79,10 +79,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                     currentEntryID = value.id;
                     if (value.fields != null) BuildLanguageListFromFields(value.fields);
                 }
-                else
-                {
-                    CloseQuickDialogueTextEntry();
-                }
                 if (verboseDebug && value != null) Debug.Log("<color=magenta>Set current entry ID to " + currentEntryID + "</color>");
             }
         }
@@ -636,7 +632,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 EditorWindowTools.EditorGUILayoutBeginGroup();
 
                 entry.Sequence = SequenceEditorTools.DrawLayout(new GUIContent("Sequence", "Cutscene played when speaking this entry. If set, overrides Dialogue Manager's Default Sequence. Drag audio clips to add AudioWait() commands."), entry.Sequence, ref sequenceRect, ref sequenceSyntaxState);
-                DrawLocalizedVersions(entry.fields, "Sequence {0}", false, FieldType.Text, true);
+                DrawLocalizedVersions(entry.fields, "Sequence {0}", false, FieldType.Text);
 
                 // Response Menu Sequence:
                 bool hasResponseMenuSequence = entry.HasResponseMenuSequence();
@@ -676,18 +672,12 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             entryEventFoldout = EditorGUILayout.Foldout(entryEventFoldout, "Events");
             if (entryEventFoldout) DrawUnityEvents();
 
-            // Notes: (special handling to use TextArea)
+            // Notes:
             Field notes = Field.Lookup(entry.fields, "Notes");
             if (notes != null)
             {
                 EditorGUILayout.LabelField("Notes");
                 notes.value = EditorGUILayout.TextArea(notes.value);
-            }
-
-            // Custom inspector code hook:
-            if (customDrawDialogueEntryInspector != null)
-            {
-                customDrawDialogueEntryInspector(database, entry);
             }
 
             // All Fields foldout:
@@ -892,7 +882,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
                 if (!template.dialogueEntryPrimaryFieldTitles.Contains(field.title)) continue;
                 if (dialogueEntryBuiltInFieldTitles.Contains(fieldTitle)) continue;
                 if (fieldTitle.StartsWith("Menu Text") || fieldTitle.StartsWith("Sequence") || fieldTitle.StartsWith("Response Menu Sequence")) continue;
-                DrawMainSectionField(field);
+                EditorGUILayout.BeginHorizontal();
+                DrawField(field, false, false);
+                EditorGUILayout.EndHorizontal();
             }
         }
 
@@ -1083,9 +1075,9 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             VerifyParticipantField(entry, "Actor", ref currentEntryActor);
             VerifyParticipantField(entry, "Conversant", ref currentEntryConversant);
 
-            // If actor is unassigned, use conversation's values: (conversant may be set to None)
+            // If actor and conversant are unassigned, use conversation's values:
             if (IsActorIDUnassigned(currentEntryActor)) currentEntryActor.value = currentConversation.ActorID.ToString();
-            //if (IsActorIDUnassigned(currentEntryConversant)) currentEntryConversant.value = currentConversation.ConversantID.ToString(); ;
+            if (IsActorIDUnassigned(currentEntryConversant)) currentEntryConversant.value = currentConversation.ConversantID.ToString(); ;
 
             // Participant IDs:
             EditorGUILayout.BeginHorizontal();
@@ -1112,7 +1104,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
 
         private bool IsActorIDUnassigned(Field field)
         {
-            return (field == null) || string.IsNullOrEmpty(field.value) || string.Equals(field.value, "-1");
+            return (field == null) || string.IsNullOrEmpty(field.value) || string.Equals(field.value, "0");
         }
 
         private void DrawParticipantField(Field participantField, string tooltipText)
@@ -1437,7 +1429,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         {
             if (source != null)
             {
-                DialogueEntry newEntry = CreateNewDialogueEntry(string.Empty);
+                DialogueEntry newEntry = CreateNewDialogueEntry("New Dialogue Entry");
                 if (useSameActorAssignments)
                 {
                     newEntry.ActorID = (source.ActorID == source.ConversantID) ? database.playerID : source.ActorID;

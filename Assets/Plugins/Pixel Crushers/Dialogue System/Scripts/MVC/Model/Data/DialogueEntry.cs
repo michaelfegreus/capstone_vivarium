@@ -101,8 +101,6 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public Rect canvasRect = new Rect(0, 0, CanvasRectWidth, CanvasRectHeight);
 
-        public const string SceneEventGuidFieldName = "EventGuid";
-
         /// <summary>
         /// Gets or sets the ID of the line's actor (speaker).
         /// </summary>
@@ -344,8 +342,8 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public string sceneEventGuid
         {
-            get { return Field.LookupValue(fields, SceneEventGuidFieldName); }
-            set { SetTextField(SceneEventGuidFieldName, value); }
+            get { return Field.LookupValue(fields, "EventGuid"); }
+            set { SetTextField("EventGuid", value); }
         }
 
         /// <summary>
