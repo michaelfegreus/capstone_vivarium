@@ -112,17 +112,21 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Trackable
-      value: True
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Track
-      value: True
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Group
+      value: Forest
+      type: 0
+      typeString: CustomFieldType_Text
   - id: 2
     fields:
     - title: Name
-      value: Shop Quest
+      value: Shop Re-opening
       type: 0
       typeString: 
     - title: Pictures
@@ -157,10 +161,14 @@ MonoBehaviour:
       value: True
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Group
+      value: Town
+      type: 0
+      typeString: CustomFieldType_Text
   - id: 3
     fields:
     - title: Name
-      value: Car Quest
+      value: Car Fixup
       type: 0
       typeString: 
     - title: Pictures
@@ -188,13 +196,55 @@ MonoBehaviour:
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Trackable
-      value: True
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Track
       value: True
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Abandonable
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Group
+      value: House
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 4
+    fields:
+    - title: Name
+      value: Retrieve Tea Leaves
+      type: 0
+      typeString: 
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: Get tea leaves to try.
+      type: 0
+      typeString: 
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: 
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: 
+    - title: State
+      value: active
+      type: 0
+      typeString: 
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Group
+      value: Forest
+      type: 0
+      typeString: CustomFieldType_Text
   locations: []
   variables:
   - id: 1

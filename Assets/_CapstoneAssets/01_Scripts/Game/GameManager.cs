@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Opsive.UltimateInventorySystem.Core.InventoryCollections;
+using UnityEngine;
 
 [RequireComponent(typeof(GameInputManager))]
 [RequireComponent(typeof(ClockManager))]
@@ -13,6 +14,7 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
     public MenuInput menuInput;
 
     public NotebookMenuManager notebookMenuManager;
+    public Inventory playerInventory;
 
     // Use this "protected override void awake" to ensure that this and the SingletonPersistant interface both prevent destruction on load.
     // Without this, the engine might just run GAME_manager's Awake, and not the SingletonPersistant's awake that keeps it from being destroyed
