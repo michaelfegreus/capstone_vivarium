@@ -20,6 +20,12 @@ public class RoomEventInstant : RoomEvent
         }
     }
 
+    // Be sure to check events OnEnable so you dont walk into a room and the event starts after waiting for the minute tick
+    private void OnEnable()
+    {
+        CheckEventTime();
+    }
+
     public void SetEventTime(GameTime newTime)
     {
         eventStartTime = newTime;

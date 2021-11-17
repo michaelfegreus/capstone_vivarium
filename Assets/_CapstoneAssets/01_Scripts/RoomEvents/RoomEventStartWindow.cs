@@ -34,6 +34,12 @@ public class RoomEventStartWindow : RoomEvent
         CheckClockRollover();
     }
 
+    // Be sure to check events OnEnable so you dont walk into a room and the event starts after waiting for the minute tick
+    private void OnEnable()
+    {
+        CheckEventTime();
+    }
+
     void CheckClockRollover()
     {
         // If the start of the window is later in the day than the end of the window, assume an event that rolls over into the next day.
