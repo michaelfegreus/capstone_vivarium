@@ -336,7 +336,7 @@ namespace PixelCrushers.DialogueSystem
 
         private SelectorType GetSelectorType()
         {
-            if (pcObject.GetComponent<ProximitySelector>() != null)
+            if (pcObject.GetComponent<CustomProximitySelector>() != null)
             {
                 return SelectorType.Proximity;
             }
@@ -365,7 +365,7 @@ namespace PixelCrushers.DialogueSystem
         private void DrawNoSelector()
         {
             DestroyImmediate(pcObject.GetComponent<Selector>());
-            DestroyImmediate(pcObject.GetComponent<ProximitySelector>());
+            DestroyImmediate(pcObject.GetComponent<CustomProximitySelector>());
             EditorWindowTools.StartIndentedSection();
             EditorGUILayout.HelpBox("The player will not use a Dialogue System-provided targeting component.", MessageType.None);
             EditorWindowTools.EndIndentedSection();
@@ -374,7 +374,7 @@ namespace PixelCrushers.DialogueSystem
         private void DrawProximitySelector()
         {
             DestroyImmediate(pcObject.GetComponent<Selector>());
-            ProximitySelector proximitySelector = pcObject.GetComponent<ProximitySelector>() ?? pcObject.AddComponent(TypeUtility.GetWrapperType(typeof(PixelCrushers.DialogueSystem.ProximitySelector))) as ProximitySelector;
+            CustomProximitySelector proximitySelector = pcObject.GetComponent<CustomProximitySelector>() ?? pcObject.AddComponent(TypeUtility.GetWrapperType(typeof(PixelCrushers.DialogueSystem.CustomProximitySelector))) as CustomProximitySelector;
             EditorWindowTools.StartIndentedSection();
             EditorGUILayout.HelpBox("The player can target usable objects (e.g., conversations on NPCs) when inside their trigger areas. Click Select Player to customize the Proximity Selector.", MessageType.None);
             DrawSelectorUIPosition();
@@ -385,7 +385,7 @@ namespace PixelCrushers.DialogueSystem
 
         private void DrawSelector(SelectorType selectorType)
         {
-            DestroyImmediate(pcObject.GetComponent<ProximitySelector>());
+            DestroyImmediate(pcObject.GetComponent<CustomProximitySelector>());
             Selector selector = pcObject.GetComponent<Selector>() ?? pcObject.AddComponent(TypeUtility.GetWrapperType(typeof(PixelCrushers.DialogueSystem.Selector))) as Selector;
             EditorWindowTools.StartIndentedSection();
             switch (selectorType)
@@ -529,7 +529,7 @@ namespace PixelCrushers.DialogueSystem
         private bool IsPlayerControlComponent(MonoBehaviour component)
         {
             return (component is Selector) ||
-                    (component is ProximitySelector) ||
+                    (component is CustomProximitySelector) ||
                     (component is PixelCrushers.DialogueSystem.Demo.SimpleController) ||
                     (component is PixelCrushers.DialogueSystem.Demo.NavigateOnMouseClick);
         }
