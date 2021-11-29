@@ -24,7 +24,6 @@ public class PlayerStateBespokeAction : IState {
         Debug.Log("Player entered Bespoke Action state");
         // Disable free movement and control.
         movementScript.enabled = false;
-        interactionScript.enabled = false;
         // Disable Wall Script check as well.
     }
 

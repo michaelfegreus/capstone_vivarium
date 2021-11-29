@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class PlayerAnimation : MonoBehaviour {
 
@@ -132,4 +134,63 @@ public class PlayerAnimation : MonoBehaviour {
     {
         playerShadow.SetActive(true);
     }
+
+
+    // Thanks to Llama_w_2Ls on Unity Answers for the following code for an animation coroutine queue:
+
+    public void PlayTwoAnimationsQueued(string _firstState, string _secondState)
+    {
+        StartCoroutine(QueueAnimation(_firstState, _secondState));
+    }
+
+    /// <summary>
+    /// Run this coroutine to play two animations, the second after the first finishes.
+    /// </summary>
+    /// <param name="First animation clip to play"></param>
+    /// <param name="Second animation clip to play"></param>
+    /// <returns></returns>
+    IEnumerator QueueAnimation(string thisStateName, string nextStateName)
+    {
+        PlayAnimationState(thisStateName);
+
+        // Wait till it's finished
+        while (anim.GetCurrentAnimatorStateInfo(0).IsName(thisStateName))
+        {
+            Debug.Log("Still in first state.");
+            yield return null;
+        }
+        
+        PlayAnimationState(nextStateName);
+    }
+
+    /*
+     * Here's the basis for a list queue if you end up needing it:
+
+    List<string> QueuedClips;
+
+    /// <summary>
+    /// Play Queued Clips list.
+    /// </summary>
+    /// <param name="index"></param>
+    /// <returns></returns>
+    IEnumerator PlayQueuedAnimations(int index)
+    {
+        // Exit once all queued clips have been played
+        if (QueuedClips.Count <= index)
+            yield break;
+
+        string thisClipName = QueuedClips[index];
+
+        anim.Play(thisClipName);
+
+        // Wait till it's finished
+        while (anim.GetCurrentAnimatorStateInfo(0).IsName(thisClipName))
+        {
+            yield return null;
+        }
+
+        StartCoroutine(PlayQueuedAnimations(index + 1));
+    }
+    */
+
 }

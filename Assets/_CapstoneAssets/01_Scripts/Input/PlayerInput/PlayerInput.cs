@@ -27,17 +27,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Interact"",
+                    ""name"": ""Dash"",
                     ""type"": ""PassThrough"",
-                    ""id"": ""4b457169-1e9a-42f8-b849-43bd4856d1cc"",
+                    ""id"": ""448b3a70-7d0e-4e3c-8fef-73127746b7a6"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
                 },
                 {
-                    ""name"": ""Dash"",
-                    ""type"": ""PassThrough"",
-                    ""id"": ""448b3a70-7d0e-4e3c-8fef-73127746b7a6"",
+                    ""name"": ""Tool"",
+                    ""type"": ""Button"",
+                    ""id"": ""15734a04-4279-481a-9dba-584b51be388c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
@@ -156,23 +156,23 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""e7f1024b-1257-4bba-976c-ec70471735d5"",
-                    ""path"": ""<Keyboard>/z"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Interact"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""e3f0608f-99c4-46f7-9b35-7695460097dc"",
                     ""path"": ""<Keyboard>/shift"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""Dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""07b0e052-ee83-4e7f-9f5d-64fabc3c556e"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Tool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -184,8 +184,8 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         // FreeControl
         m_FreeControl = asset.FindActionMap("FreeControl", throwIfNotFound: true);
         m_FreeControl_Move = m_FreeControl.FindAction("Move", throwIfNotFound: true);
-        m_FreeControl_Interact = m_FreeControl.FindAction("Interact", throwIfNotFound: true);
         m_FreeControl_Dash = m_FreeControl.FindAction("Dash", throwIfNotFound: true);
+        m_FreeControl_Tool = m_FreeControl.FindAction("Tool", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -236,15 +236,15 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputActionMap m_FreeControl;
     private IFreeControlActions m_FreeControlActionsCallbackInterface;
     private readonly InputAction m_FreeControl_Move;
-    private readonly InputAction m_FreeControl_Interact;
     private readonly InputAction m_FreeControl_Dash;
+    private readonly InputAction m_FreeControl_Tool;
     public struct FreeControlActions
     {
         private @PlayerInput m_Wrapper;
         public FreeControlActions(@PlayerInput wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_FreeControl_Move;
-        public InputAction @Interact => m_Wrapper.m_FreeControl_Interact;
         public InputAction @Dash => m_Wrapper.m_FreeControl_Dash;
+        public InputAction @Tool => m_Wrapper.m_FreeControl_Tool;
         public InputActionMap Get() { return m_Wrapper.m_FreeControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -257,12 +257,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Move.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnMove;
                 @Move.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnMove;
                 @Move.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnMove;
-                @Interact.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnInteract;
-                @Interact.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnInteract;
-                @Interact.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnInteract;
                 @Dash.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnDash;
                 @Dash.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnDash;
                 @Dash.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnDash;
+                @Tool.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
+                @Tool.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
+                @Tool.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
             }
             m_Wrapper.m_FreeControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -270,12 +270,12 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Move.started += instance.OnMove;
                 @Move.performed += instance.OnMove;
                 @Move.canceled += instance.OnMove;
-                @Interact.started += instance.OnInteract;
-                @Interact.performed += instance.OnInteract;
-                @Interact.canceled += instance.OnInteract;
                 @Dash.started += instance.OnDash;
                 @Dash.performed += instance.OnDash;
                 @Dash.canceled += instance.OnDash;
+                @Tool.started += instance.OnTool;
+                @Tool.performed += instance.OnTool;
+                @Tool.canceled += instance.OnTool;
             }
         }
     }
@@ -283,7 +283,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     public interface IFreeControlActions
     {
         void OnMove(InputAction.CallbackContext context);
-        void OnInteract(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+        void OnTool(InputAction.CallbackContext context);
     }
 }

@@ -29,21 +29,33 @@ public class CustomProximitySelector : PixelCrushers.DialogueSystem.CustomProxim
 
     public bool SelectingItemUsable()
     {
-        if (CurrentUsable.GetType().Equals(typeof(ItemUsable)))
+        if (!SelectingUsable())
         {
-            Debug.Log("Current usable IS an ItemUsable.");
-            return true;
+            return false;
         }
         else
         {
-            Debug.Log("Current usable NOT an ItemUsable.");
-            return false;
+            if (CurrentUsable.GetType().Equals(typeof(ItemUsable)))
+            {
+                Debug.Log("Current usable IS an ItemUsable.");
+                return true;
+            }
+            else
+            {
+                Debug.Log("Current usable NOT an ItemUsable.");
+                return false;
+            }
         }
     }
 
-    public void UseItemSelection(ItemInfo usedItem)
+    public bool UseItemSelection(ItemInfo usedItem)
     {
-        ItemUsable currentItemUsable = CurrentUsable.GetComponent<ItemUsable>();
-        currentItemUsable.OnItemUse(usedItem);
+        bool succesfullyUsedItem = false;
+        if (SelectingItemUsable())
+        {
+            ItemUsable currentItemUsable = CurrentUsable.GetComponent<ItemUsable>();
+            succesfullyUsedItem = currentItemUsable.TryItemUse(usedItem);
+        }
+        return succesfullyUsedItem;
     }
 }

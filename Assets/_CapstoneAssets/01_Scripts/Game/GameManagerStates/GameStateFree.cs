@@ -36,6 +36,8 @@ public class GameStateFree : IState {
         {
             gameManager.notebookMenuManager.OpenMenu();
             PlayerManager.Instance.EnterMenuState();
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("TurnToNotebook");
+
         }
     }
 
@@ -45,7 +47,8 @@ public class GameStateFree : IState {
         if (gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.CloseMenu();
-            PlayerManager.Instance.EnterFreeState();
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
+            //PlayerManager.Instance.EnterFreeState();
         }
     }
 }

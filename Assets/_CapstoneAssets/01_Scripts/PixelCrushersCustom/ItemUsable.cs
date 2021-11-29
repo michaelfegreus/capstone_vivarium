@@ -1,20 +1,24 @@
 ﻿using PixelCrushers.DialogueSystem;
 using UnityEngine.Events;
-using Opsive.Shared.Game;
-using Opsive.UltimateInventorySystem.Core.AttributeSystem;
+using Opsive.Shared.Utility;
 using Opsive.UltimateInventorySystem.Core.DataStructures;
+using Opsive.UltimateInventorySystem.Exchange;
 using Opsive.UltimateInventorySystem.ItemActions;
+using Opsive.UltimateInventorySystem.Storage;
 using System;
 using UnityEngine;
 
 public class ItemUsable : Usable
 {
     public UsableItemEvent[] usableItemEvents;
+    
 
-    public void OnItemUse(ItemInfo _usedItem)
+    public bool TryItemUse(ItemInfo _usedItem)
     {
+        bool itemEventSuccessful = false;
         foreach (UsableItemEvent element in usableItemEvents)
         {
+            
             // Check if you used the proper item.
             if (_usedItem.ItemAmount.Item.ItemDefinition.InherentlyContains(element.requiredItem.Item.ItemDefinition))
             {
@@ -26,8 +30,9 @@ public class ItemUsable : Usable
                     if (GameManager.Instance.playerInventory.HasItem(element.requiredItem))
                     {
                         Debug.Log("Used the right item, and you have enough of them in your inventory.");
-
+                        itemEventSuccessful = true;
                         element.onItemUse.Invoke();
+
                         if (element.consumeItem == true)
                         {
                             Debug.Log("Consumed " + element.requiredItem.Amount + element.requiredItem.Item.name + "(s) from the player's inventory.");
@@ -48,7 +53,9 @@ public class ItemUsable : Usable
                 }
             }
         }
-        // Should add a functionality where it sends a message to Dialogue System saying that there was no effect if an item was no event was used.
+        // Should add a functionality where it sends a message to Dialogue System saying that there was no effect if an item was no event was used --
+        // if you should want to use barks or a prompt explaing that nothing happened.
+        return itemEventSuccessful;
     }
 
     [Serializable]

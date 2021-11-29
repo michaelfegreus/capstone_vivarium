@@ -17,7 +17,6 @@ public class PlayerStateMenu : IState {
 	public void Enter(){
 		// Disable the scripts that the player should have when they are free to move around.
 		//playerObject.GetComponent<PLAYER_movement_directional_2d> ().enabled = false; --- Keep movement script running so it doesn't awkwardly jerk the character to a stop in disabling the script.
-		playerObject.GetComponent<PlayerInteraction> ().enabled = false;
 	}
 
 	public void Execute(){

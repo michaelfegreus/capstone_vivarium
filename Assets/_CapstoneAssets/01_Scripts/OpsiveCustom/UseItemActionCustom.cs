@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using Opsive.Shared.Game;
-using Opsive.UltimateInventorySystem.Core.AttributeSystem;
-using Opsive.UltimateInventorySystem.Core.DataStructures;
+﻿using Opsive.UltimateInventorySystem.Core.DataStructures;
 using Opsive.UltimateInventorySystem.ItemActions;
 
 public class UseItemActionCustom : ItemAction
@@ -18,17 +13,11 @@ public class UseItemActionCustom : ItemAction
 
     protected override void InvokeActionInternal(ItemInfo itemInfo, ItemUser itemUser)
     {
-        
-        // If the player is highlighting an ItemUsable with their Selector, run its functionality.
-        if (PlayerManager.Instance.playerInteraction.playerSelector.SelectingItemUsable())
+        // Try to use item
+        if (!PlayerManager.Instance.playerInteraction.playerSelector.UseItemSelection(itemInfo))
         {
-            PlayerManager.Instance.playerInteraction.playerSelector.UseItemSelection(itemInfo);
-        }
-        // Otherwise, run a default "can't use that item here" functionality.
-        else
-        {
+            // If fail, play the wrong item shrug animation.
             PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrug");
-            Debug.Log("Oak's words echoed... 'There's a time and place for everything, but not now.'");
         }
 
     }

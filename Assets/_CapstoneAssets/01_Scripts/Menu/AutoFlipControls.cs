@@ -55,6 +55,7 @@ public class AutoFlipControls : MonoBehaviour
         if (myBook.CurrentPaper > 0)
         {
             autoFlipScript.FlipLeftPage();
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("NotebookFlipLeft");
         }
     }
 
@@ -65,6 +66,7 @@ public class AutoFlipControls : MonoBehaviour
         if (myBook.CurrentPaper < myBook.papers.Length - 1)
         {
             autoFlipScript.FlipRightPage();
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("NotebookFlipRight");
         }
     }
 

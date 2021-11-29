@@ -81,6 +81,7 @@ public class PlayerStateFreeControl : IState {
         animationScript.SetFreeStateBool(false);
 
         //PlayerManager.Instance.playerInput.Disable();
+        interactionScript.enabled = false;
     }
 
 }
