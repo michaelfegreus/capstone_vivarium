@@ -20,10 +20,12 @@ public class UseShovelItemAction : ItemAction
         if (rayHit.collider != null)
         {
             Debug.Log("Dig on this spot.");
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("Shovel");
         }
         else
         {
             Debug.Log("Found nothing to dig.");
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("ToolShrug");
         }
     }
 }

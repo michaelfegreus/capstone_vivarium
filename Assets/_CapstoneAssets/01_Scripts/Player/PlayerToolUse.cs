@@ -15,26 +15,16 @@ public class PlayerToolUse : MonoBehaviour
     //InputAction toolInput; // Cache the action since it will continously be referenced.
     ItemSlotCollection equipmentItemCollection; // Cache the Tool equipment item collection
 
-    [SerializeField] ToolAction[] toolActions;
-
     PlayerInput toolInput;
 
     [SerializeField] ItemUser playerItemUser;
-    //[SerializeField] Inventory playerInventory;
-
-    [Serializable]
-    public class ToolAction
-    {
-        [Tooltip("The item you need to use invoke this tool's actions.")]
-        public Item requiredItem;
-        public PlayerTool toolInterface;
-    }
 
     private void Start()
     {
         toolInput = new PlayerInput();
         toolInput.Enable();
 
+        playerItemUser = GameManager.Instance.playerInventory.GetComponent<ItemUser>();
         equipmentItemCollection = GameManager.Instance.playerInventory.GetItemCollection("Equipment") as ItemSlotCollection;
     }
 
@@ -59,7 +49,7 @@ public class PlayerToolUse : MonoBehaviour
 
         ItemInfo equippedTool = equipmentItemCollection.GetItemInfoAtSlot(0); // Get item at slot 0 because right now you can only equip one tool at a time like classic Harvest Moon. (You'll have to expand on this if you want multiple tools equipped at once like Zelda 64 C-buttons.)
 
-        if (equippedTool != null) {
+        if (equippedTool.ItemAmount.Amount > 0) {
             // First, check to see if there's an Item Usable that uses this tool.
             if (PlayerManager.Instance.playerInteraction.playerSelector.UseItemSelection(equippedTool))
             {
@@ -112,6 +102,7 @@ public class PlayerToolUse : MonoBehaviour
         var actionSet = attribute.GetValue();
         if (actionSet == null) { return false; }
 
+        Debug.Log(actionSet.name);
         //Since the Item Action has a list of items we need to choose which one we will use by specifying the index (or we could have executed all the actions).
         //if (m_ActionIndex < 0 || actionSet.ItemActionCollection.Count >= m_ActionIndex) { return false; }
 
@@ -145,7 +136,7 @@ public class PlayerToolUse : MonoBehaviour
         return true;
 
     }
-
+    /*
     void CaseToolUse(ItemInfo equippedTool)
     {
         var toolType = equippedTool.Item.GetAttribute<Attribute<string>>("Name");
@@ -181,5 +172,5 @@ public class PlayerToolUse : MonoBehaviour
         {
             Debug.Log("Found nothing to dig.");
         }
-    }
+    }*/
 }

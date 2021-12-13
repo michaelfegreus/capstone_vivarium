@@ -8,6 +8,7 @@ public class PlayerStateFreeControl : IState {
 	PlayerMovement movementScript;
 	PlayerInteraction interactionScript;
 	PlayerAnimation animationScript;
+    PlayerToolUse toolUseScript;
 
     InputAction playerMovementDirection; // Cache the movement since it will continously be referenced.
     InputAction playerDash;
@@ -18,7 +19,7 @@ public class PlayerStateFreeControl : IState {
 		movementScript = playerObject.GetComponent<PlayerMovement>();
 		interactionScript = playerObject.GetComponent<PlayerInteraction>();
 		animationScript = playerObject.GetComponent<PlayerAnimation>();
-
+        toolUseScript = playerObject.GetComponent<PlayerToolUse>();
 	}
 
 	public void Enter(){
@@ -26,6 +27,7 @@ public class PlayerStateFreeControl : IState {
 		// Now go ahead and enable the scripts that the player should have when they are free to move around.
 		movementScript.enabled = true;
 		interactionScript.enabled = true;
+        toolUseScript.enabled = true;
 
         animationScript.SetFreeStateBool(true);
 
@@ -80,8 +82,9 @@ public class PlayerStateFreeControl : IState {
         movementScript.StopMomentum();
         animationScript.SetFreeStateBool(false);
 
-        //PlayerManager.Instance.playerInput.Disable();
         interactionScript.enabled = false;
+        toolUseScript.enabled = false;
+
     }
 
 }

@@ -1,10 +1,7 @@
 ﻿using Opsive.UltimateInventorySystem.Core;
 using Opsive.UltimateInventorySystem.ItemActions;
 using Opsive.UltimateInventorySystem.ItemObjectBehaviours;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class ShovelBehavior : ItemObjectBehaviour
 {
@@ -19,10 +16,12 @@ public class ShovelBehavior : ItemObjectBehaviour
         if (rayHit.collider != null)
         {
             Debug.Log("Dig on this spot.");
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("Shovel");
         }
         else
         {
             Debug.Log("Found nothing to dig.");
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("ToolShrug");
         }
     }
 }
