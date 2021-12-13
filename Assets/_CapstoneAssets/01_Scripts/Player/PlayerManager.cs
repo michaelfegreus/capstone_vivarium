@@ -3,6 +3,8 @@
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerInteraction))]
 [RequireComponent(typeof(PlayerAnimation))]
+[RequireComponent(typeof(PlayerToolUse))]
+
 public class PlayerManager : Singleton<PlayerManager> {
 	
 	private StateMachine playerStateMachine = new StateMachine();
@@ -17,11 +19,14 @@ public class PlayerManager : Singleton<PlayerManager> {
     public PlayerCollisionModule collisionDelegateScript;
     [System.NonSerialized]
     public PlayerInput playerInput;
+    [System.NonSerialized]
+    public PlayerToolUse playerToolUse;
 
 	void Awake(){
 		playerMovement = GetComponent<PlayerMovement> ();
 		playerInteraction = GetComponent<PlayerInteraction> ();
 		playerAnimation = GetComponent<PlayerAnimation> ();
+        playerToolUse = GetComponent<PlayerToolUse>();
 
         collisionDelegateScript = playerMovement.playerMovementModule.GetComponent<PlayerCollisionModule>();
 

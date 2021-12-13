@@ -21,7 +21,7 @@ namespace PixelCrushers.DialogueSystem
         public Vector3 offset = Vector3.zero;
 
         private Selector selector = null;
-        private ProximitySelector proximitySelector = null;
+        private CustomProximitySelector proximitySelector = null;
         private bool previousUseDefaultGUI = false;
 
         private Usable lastUsable = null;
@@ -38,7 +38,7 @@ namespace PixelCrushers.DialogueSystem
         void Awake()
         {
             selector = GetComponent<Selector>();
-            proximitySelector = GetComponent<ProximitySelector>();
+            proximitySelector = GetComponent<CustomProximitySelector>();
             selectorUseStandardUIElements = GetComponent<SelectorUseStandardUIElements>();
 
         }

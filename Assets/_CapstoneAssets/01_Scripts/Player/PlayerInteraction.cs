@@ -10,7 +10,7 @@ public class PlayerInteraction : MonoBehaviour
 
     public SpriteRenderer selectorUI;
     public Transform playerMovementModule; // Also get a reference to the movement module to help set the direction the player is facing on interact.
-    public ProximitySelector playerSelector;
+    public CustomProximitySelector playerSelector;
 
     private void OnEnable()
     {

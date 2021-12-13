@@ -11,7 +11,7 @@ namespace PixelCrushers.DialogueSystem.Wrappers
     /// </summary>
     [HelpURL("http://www.pixelcrushers.com/dialogue_system/manual2x/html/proximity_selector.html")]
     [AddComponentMenu("Pixel Crushers/Dialogue System/Actor/Player/Proximity Selector")]
-    public class ProximitySelector : PixelCrushers.DialogueSystem.ProximitySelector
+    public class ProximitySelector : PixelCrushers.DialogueSystem.CustomProximitySelector
     {
     }
 

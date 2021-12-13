@@ -26,7 +26,7 @@ namespace PixelCrushers.DialogueSystem
     /// when the current target has changed.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
-    public class ProximitySelector : MonoBehaviour
+    public class CustomProximitySelector : MonoBehaviour
     {
 
         /// <summary>

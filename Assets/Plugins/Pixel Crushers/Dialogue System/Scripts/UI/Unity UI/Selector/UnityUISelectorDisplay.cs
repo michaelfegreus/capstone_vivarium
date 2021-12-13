@@ -55,7 +55,7 @@ namespace PixelCrushers.DialogueSystem
 
         private Selector selector = null;
 
-        private ProximitySelector proximitySelector = null;
+        private CustomProximitySelector proximitySelector = null;
 
         private string defaultUseMessage = string.Empty;
 
@@ -154,7 +154,7 @@ namespace PixelCrushers.DialogueSystem
                 selector.DeselectedUsableObject += OnDeselectedUsable;
                 defaultUseMessage = selector.defaultUseMessage;
             }
-            proximitySelector = GetComponent<ProximitySelector>();
+            proximitySelector = GetComponent<CustomProximitySelector>();
             if (proximitySelector != null)
             {
                 previousUseDefaultGUI = proximitySelector.useDefaultGUI;
@@ -174,7 +174,7 @@ namespace PixelCrushers.DialogueSystem
                 selector.SelectedUsableObject -= OnSelectedUsable;
                 selector.DeselectedUsableObject -= OnDeselectedUsable;
             }
-            proximitySelector = GetComponent<ProximitySelector>();
+            proximitySelector = GetComponent<CustomProximitySelector>();
             if (proximitySelector != null)
             {
                 proximitySelector.useDefaultGUI = previousUseDefaultGUI;

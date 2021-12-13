@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8884010167576440417
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8884010167576440416}
+  - component: {fileID: 9028713184133226087}
+  - component: {fileID: 6818198552081717344}
+  - component: {fileID: 8340674822588581568}
+  - component: {fileID: 6628915094352249082}
+  - component: {fileID: 5074320363024865401}
+  m_Layer: 18
+  m_Name: ShovelUsableTool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8884010167576440416
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9028713184133226087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c24e708be0357f54ba165b3f8794666f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6818198552081717344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 480e00ff9c1f2fe47acc735c2822816d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  overrideName: 
+  overrideUseMessage: 
+  maxUseDistance: 5
+  events:
+    onSelect:
+      m_PersistentCalls:
+        m_Calls: []
+    onDeselect:
+      m_PersistentCalls:
+        m_Calls: []
+    onUse:
+      m_PersistentCalls:
+        m_Calls: []
+  usableItemEvents: []
+--- !u!114 &8340674822588581568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ec83bdea51e5954a985bcb9403ffacf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ItemInfo:
+    m_ItemAmount:
+      m_Amount: 0
+      m_Item:
+        m_ID: 1917255655
+        m_Name: 
+        m_ItemDefinitionID: 0
+        m_ItemDefinition: {fileID: 0}
+        m_ItemAttributeCollection:
+          m_AttributeCollectionData: []
+--- !u!114 &6628915094352249082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9ca3fa63dda456da4d53a6e3dd7c7f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ItemObject: {fileID: 8340674822588581568}
+  m_ItemObjectBehaviours:
+  - {fileID: 9028713184133226087}
+--- !u!114 &5074320363024865401
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884010167576440417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0708d38c346a482480ce0b677deee438, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_AttributeBindingsData:
+  - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeBinding`1[[UnityEngine.Sprite,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+    m_ValueHashes: d7e3edd6f5e48b2e1cb0e23c
+    m_ValuePositions: 000000000c00000010000000
+    m_Values: 43617465676f727949636f6effffffff
+    m_UnityObjects: []
+    m_Version: 3.1
+  - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeBinding`1[[System.String,
+      mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]]
+    m_ValueHashes: d7e3edd6f5e48b2e1cb0e23c
+    m_ValuePositions: 000000000b0000000f000000
+    m_Values: 4465736372697074696f6effffffff
+    m_UnityObjects: []
+    m_Version: 3.1
+  - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeBinding`1[[UnityEngine.Sprite,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+    m_ValueHashes: d7e3edd6f5e48b2e1cb0e23c
+    m_ValuePositions: 000000000400000008000000
+    m_Values: 49636f6effffffff
+    m_UnityObjects: []
+    m_Version: 3.1
+  - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeBinding`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+    m_ValueHashes: d7e3edd6f5e48b2e1cb0e23c
+    m_ValuePositions: 000000000e00000012000000
+    m_Values: 546f6f6c4974656d507265666162ffffffff
+    m_UnityObjects: []
+    m_Version: 3.1
+  - m_ObjectType: Opsive.UltimateInventorySystem.Core.AttributeBinding`1[[UnityEngine.GameObject,
+      UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]]
+    m_ValueHashes: d7e3edd6f5e48b2e1cb0e23c
+    m_ValuePositions: 000000000f00000013000000
+    m_Values: 45717569706d656e74507265666162ffffffff
+    m_UnityObjects: []
+    m_Version: 3.1
+  m_ItemCategory: {fileID: 11400000, guid: f8f7a76fe514b6d4ea393d60a0b16355, type: 2}
