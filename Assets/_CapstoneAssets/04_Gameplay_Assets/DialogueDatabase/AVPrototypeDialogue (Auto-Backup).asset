@@ -235,7 +235,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: State
-      value: 
+      value: unassigned
       type: 0
       typeString: 
     - title: Is Item
@@ -377,6 +377,48 @@ MonoBehaviour:
       value: False
       type: 2
       typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 7
+    fields:
+    - title: Name
+      value: Time.Day
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 0
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: How many days have elapsed in the game world
+      type: 0
+      typeString: 
+  - id: 6
+    fields:
+    - title: Name
+      value: Time.Hour
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 0
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Description
+      value: 
+      type: 0
+      typeString: 
+  - id: 8
+    fields:
+    - title: Name
+      value: Time.Minute
+      type: 0
+      typeString: 
+    - title: Initial Value
+      value: 0
+      type: 1
+      typeString: CustomFieldType_Number
     - title: Description
       value: 
       type: 0
@@ -5373,7 +5415,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 34.39023
+        x: 39.26828
         y: 111.0244
         width: 320
         height: 30
@@ -5420,7 +5462,9 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: MoveTo(TreeHollowWarp, PlayerMovement);
+        value: 'MoveTo(ShedWarp, PlayerMovement);
+
+          Continue();'
         type: 0
         typeString: 
       conversationID: 14
@@ -5438,7 +5482,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 808.36584
+        x: 797.3903
         y: 114.804855
         width: 320
         height: 30
@@ -5485,7 +5529,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: Continue();
         type: 0
         typeString: 
       conversationID: 14
@@ -5515,7 +5559,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 401.04877
+        x: 404.70734
         y: 146.51219
         width: 320
         height: 30
@@ -5574,7 +5618,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: SetQuestState("Get into the Shed", "active")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -5611,7 +5655,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: 
+        value: I think I can dig the door out of the ground with my shovel.
         type: 0
         typeString: 
       - title: Parenthetical
@@ -5637,7 +5681,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 14
+        originDialogueID: 5
+        destinationConversationID: 14
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
       conditionsString: uisGetItemAmount("Shovel", "PlayerInventory") == 1
       userScript: 
       onExecute:
@@ -5645,8 +5695,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 566.90247
-        y: 264.8049
+        x: 572.99994
+        y: 263.5854
         width: 320
         height: 30
     - id: 6
@@ -5676,7 +5726,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: 
+        value: I don't think I can force the door open without some sort of tool...
         type: 0
         typeString: 
       - title: Parenthetical
@@ -5703,20 +5753,84 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: uisGetItemAmount("Bolt Cutters (Fixed)", "PlayerInventory")
-        == 0
+      conditionsString: uisGetItemAmount("Shovel", "PlayerInventory") == 0
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 201.0488
-        y: 259.92685
+        x: 202.26831
+        y: 263.5854
+        width: 320
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: '*SHOVEL SHOVEL*'
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 14
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: SetQuestState("Get into the Shed", "success")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 570.5609
+        y: 316.0244
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 1.2195435, y: 0}
     canvasZoom: 0.82000005
   - id: 15
     fields:
