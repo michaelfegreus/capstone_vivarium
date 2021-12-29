@@ -24,7 +24,7 @@ public class RoomEvent : MonoBehaviour
     // Cache a reference to the GameManager's clock
     protected ClockManager gameClockManager;
 
-    private void Start()
+    private void Awake()
     {
         gameClockManager = GameManager.Instance.clockManager;
     }
