@@ -402,7 +402,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
+      value: 10
       type: 1
       typeString: CustomFieldType_Number
     - title: Description
@@ -416,7 +416,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: 0
+      value: 20
       type: 1
       typeString: CustomFieldType_Number
     - title: Description
@@ -3574,9 +3574,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 274
+        x: 354
         y: 22
-        width: 320
+        width: 160
         height: 30
     - id: 1
       fields:
@@ -3645,9 +3645,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 274
+        x: 354
         y: 91
-        width: 320
+        width: 160
         height: 30
     - id: 2
       fields:
@@ -3710,9 +3710,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 277
+        x: 357
         y: 308
-        width: 320
+        width: 160
         height: 30
     - id: 3
       fields:
@@ -3781,9 +3781,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 274
+        x: 354
         y: 165
-        width: 320
+        width: 160
         height: 30
     - id: 4
       fields:
@@ -3852,9 +3852,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 277
+        x: 357
         y: 231
-        width: 320
+        width: 160
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
@@ -4661,7 +4661,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 0, y: 32}
     canvasZoom: 1
   - id: 13
     fields:
@@ -5480,6 +5480,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
+        x: 590.0732
+        y: 120.902435
         width: 320
         height: 30
     - id: 4
@@ -5543,6 +5545,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
+        x: 25.853638
+        y: 175.65857
         width: 320
         height: 30
     - id: 6
@@ -5599,16 +5603,19 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
+        x: 597.39026
+        y: 191.63417
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 1.2195435, y: 0}
+    canvasScrollPosition: {x: 0, y: 0}
     canvasZoom: 0.82000005
   - id: 15
     fields:
@@ -5737,9 +5744,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1085.7188
+        x: 1165.7188
         y: 54.488365
-        width: 320
+        width: 160
         height: 30
     - id: 1
       fields:
@@ -5786,7 +5793,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Continue();
+        value: Continue();MAPlaySound(ChainLinkFenceShake,,,,,FencePadlock,);
         type: 0
         typeString: 
       conversationID: 15
@@ -5817,9 +5824,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 429.67285
+        x: 509.67285
         y: 144.43695
-        width: 320
+        width: 160
         height: 30
     - id: 2
       fields:
@@ -5864,7 +5871,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Continue();
+        value: Continue();MAPlaySound(ChainLinkFenceShake,,,,,FencePadlock,);
         type: 0
         typeString: 
       conversationID: 15
@@ -5896,9 +5903,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1779.5951
+        x: 1859.5951
         y: 161.28246
-        width: 320
+        width: 160
         height: 30
     - id: 3
       fields:
@@ -5943,7 +5950,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Continue();
+        value: Continue();MAPlaySound(ChainLinkFenceShake,,,,,FencePadlock,);
         type: 0
         typeString: 
       conversationID: 15
@@ -5960,12 +5967,6 @@ MonoBehaviour:
         destinationDialogueID: 8
         isConnector: 0
         priority: 2
-      - originConversationID: 15
-        originDialogueID: 3
-        destinationConversationID: 15
-        destinationDialogueID: 9
-        isConnector: 0
-        priority: 2
       conditionsString: uisGetItemAmount("Bolt Cutters (Fixed)", "PlayerInventory")
         == 1
       userScript: 
@@ -5974,9 +5975,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1092.3904
+        x: 1172.3904
         y: 164.22665
-        width: 320
+        width: 160
         height: 30
     - id: 4
       fields:
@@ -6045,9 +6046,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1601.1241
+        x: 1681.1241
         y: 349.6625
-        width: 320
+        width: 160
         height: 30
     - id: 5
       fields:
@@ -6116,9 +6117,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1604.0446
+        x: 1684.0446
         y: 409.6337
-        width: 320
+        width: 160
         height: 30
     - id: 6
       fields:
@@ -6187,9 +6188,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 193.89468
+        x: 273.89468
         y: 250.78156
-        width: 320
+        width: 160
         height: 30
     - id: 7
       fields:
@@ -6252,9 +6253,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 542.9211
+        x: 622.9211
         y: 301.14038
-        width: 320
+        width: 160
         height: 30
     - id: 8
       fields:
@@ -6323,80 +6324,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 881.5357
+        x: 961.53564
         y: 297.46292
-        width: 320
-        height: 30
-    - id: 9
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: I could probably just clip this lock right off with the bolt cutters.
-        type: 0
-        typeString: 
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: 
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 15
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 15
-        originDialogueID: 9
-        destinationConversationID: 15
-        destinationDialogueID: 19
-        isConnector: 0
-        priority: 2
-      conditionsString: Variable["Forest.Bridge.SeenPadlock"] == true
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 1237.0265
-        y: 299.36557
-        width: 320
+        width: 160
         height: 30
     - id: 10
       fields:
@@ -6465,9 +6395,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1598.9363
-        y: 291.58997
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 11
       fields:
@@ -6536,9 +6466,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1974.6948
-        y: 291.13913
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 12
       fields:
@@ -6607,9 +6537,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1605.8627
-        y: 473.00534
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 14
       fields:
@@ -6678,9 +6608,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 194.67197
-        y: 325.9529
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 15
       fields:
@@ -6746,9 +6676,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 871.5383
-        y: 768.16187
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 16
       fields:
@@ -6811,9 +6741,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1974.6948
-        y: 357.50275
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 17
       fields:
@@ -6882,9 +6812,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 546.09076
-        y: 231.7504
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     - id: 18
       fields:
@@ -6953,81 +6883,12 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 878.4805
-        y: 359.2633
-        width: 320
-        height: 30
-    - id: 19
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: SNIP!
-        type: 0
-        typeString: 
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: 
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      - title: EventGuid
-        value: b33fae3c-75df-49cc-ad49-79d59d70f437
-        type: 0
-        typeString: 
-      conversationID: 15
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: 
-      userScript: SetQuestState("Breaking and Entering", "success")
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 1236.8649
-        y: 362.3734
-        width: 320
+        x: 0
+        y: 0
+        width: 160
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 570.2406, y: 93.13481}
+    canvasScrollPosition: {x: 551.0625, y: 32.87671}
     canvasZoom: 0.7299998
   - id: 16
     fields:
@@ -7134,7 +6995,7 @@ MonoBehaviour:
       - originConversationID: 16
         originDialogueID: 0
         destinationConversationID: 16
-        destinationDialogueID: 1
+        destinationDialogueID: 5
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -7144,8 +7005,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 371.0454
-        y: 68.86365
+        x: 130
+        y: 20
         width: 320
         height: 30
     - id: 1
@@ -7213,157 +7074,19 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: SetQuestState("Breaking and Entering", "success")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 370.90906
-        y: 149
-        width: 320
-        height: 30
-    - id: 2
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: 
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 'MAPlaySound(CuttingPadlock,,,,,FencePadlock,);
-
-          Continue()@2;'
-        type: 0
-        typeString: 
-      conversationID: 16
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 16
-        originDialogueID: 2
-        destinationConversationID: 16
-        destinationDialogueID: 3
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 368.90906
-        y: 203
-        width: 320
-        height: 30
-    - id: 3
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: 
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: 
-      - title: Actor
-        value: 2
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: 
-      - title: Dialogue Text
-        value: Can I get in trouble for vandalism here?
-        type: 0
-        typeString: 
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: 
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: 
-      - title: Sequence
-        value: 
-        type: 0
-        typeString: 
-      conversationID: 16
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks: []
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 371.90906
-        y: 262
+        x: 97.341446
+        y: 124.87804
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 17, y: 0}
-    canvasZoom: 1.0000001
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.88
   - id: 17
     fields:
     - title: Title
@@ -7485,8 +7208,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 313
-        y: 40
+        x: 281
+        y: 46
         width: 320
         height: 30
     - id: 1
@@ -7516,7 +7239,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: That should do the trick.
+        value: 
         type: 0
         typeString: 
       - title: Parenthetical
@@ -7546,18 +7269,18 @@ MonoBehaviour:
       - originConversationID: 17
         originDialogueID: 1
         destinationConversationID: 17
-        destinationDialogueID: 2
+        destinationDialogueID: 3
         isConnector: 0
         priority: 2
       conditionsString: CurrentQuestState("Get into the Shed") ~= "success"
-      userScript: SetQuestState("Get into the Shed", "success")
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 44
-        y: 176
+        x: 31
+        y: 123
         width: 320
         height: 30
     - id: 2
@@ -7623,13 +7346,84 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 536
-        y: 176
+        x: 497
+        y: 148
+        width: 320
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: 
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: 
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: 
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: 
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: 
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 17
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 17
+        originDialogueID: 3
+        destinationConversationID: 17
+        destinationDialogueID: 2
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: SetQuestState("Get into the Shed", "success")
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 29
+        y: 207
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 1.03
+    canvasScrollPosition: {x: 0, y: 11}
+    canvasZoom: 1
   syncInfo:
     syncActors: 0
     syncItems: 0
