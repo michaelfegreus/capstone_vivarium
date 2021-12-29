@@ -28,7 +28,7 @@ public class ClockSystemVariableUpdate : MonoBehaviour
         DialogueLua.SetVariable("Time.Hour", gameClockManager.inGameTime.hour);
         DialogueLua.SetVariable("Time.Minute", gameClockManager.inGameTime.minute);
 
-        Debug.Log("Time in DialogueSystem " + DialogueLua.GetVariable("Time.Hour").asInt + ":" + DialogueLua.GetVariable("Time.Minute").asInt);
+        // Debug.Log("Time in DialogueSystem " + DialogueLua.GetVariable("Time.Hour").asInt + ":" + DialogueLua.GetVariable("Time.Minute").asInt);
 
     }
 }
