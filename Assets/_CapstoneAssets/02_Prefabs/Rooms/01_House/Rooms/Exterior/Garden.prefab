@@ -144,7 +144,9 @@ MonoBehaviour:
   questEntryNumber: 1
   questEntryState: 0
   luaCode: 
-  sequence: MoveTo(TreeHollowWarp, PlayerMovement);
+  sequence: 'MoveTo(TreeHollowWarp, PlayerMovement);
+
+    MAPlaySound(PushTreeBranch,,,,,PlayerAnimation,);'
   sequenceSpeaker: {fileID: 0}
   sequenceListener: {fileID: 0}
   waitOneFrameOnStartOrEnable: 1
