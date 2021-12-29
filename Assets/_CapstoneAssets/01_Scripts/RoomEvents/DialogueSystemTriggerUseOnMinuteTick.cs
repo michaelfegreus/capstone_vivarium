@@ -5,7 +5,14 @@ using PixelCrushers.DialogueSystem;
 
 public class DialogueSystemTriggerUseOnMinuteTick : MonoBehaviour
 {
-    public TimeDialogueSystemTrigger[] dialogueSystemTriggers;
+    [Tooltip("This will auto-populate with TimeDialogueSystemTriggers that are set as children to this object, so no need to manually fill it.")]
+    [SerializeField] TimeDialogueSystemTrigger[] dialogueSystemTriggers;
+
+    [Tooltip("Once the Lua conditions have been met in the Conditions section of the component, stop checking them on the Minute Tick.")]
+    [SerializeField] bool disableCheckOnSuccessfulFire = true;
+
+    // Cache a reference to the GameManager's clock
+    protected ClockManager gameClockManager;
 
     private void OnEnable()
     {
@@ -22,10 +29,7 @@ public class DialogueSystemTriggerUseOnMinuteTick : MonoBehaviour
     private void OnDisable()
     {
         ClockManager.OnMinuteTick -= TryStartDialogueSystemTriggers;
-    }
-
-    // Cache a reference to the GameManager's clock
-    protected ClockManager gameClockManager;
+    }    
 
     private void Start()
     {
@@ -34,16 +38,25 @@ public class DialogueSystemTriggerUseOnMinuteTick : MonoBehaviour
         dialogueSystemTriggers = GetComponentsInChildren<TimeDialogueSystemTrigger>();
     }
 
+    // TODO: You should reset all successful fire flags on the DS Triggers when the clock proceeeds to the next day, in case the player stands in a room overnight and
+    // the room events need to reset for the next day.
+
     public void TryStartDialogueSystemTriggers()
     {
         foreach(TimeDialogueSystemTrigger trigger in dialogueSystemTriggers)
         {
-            // Make sure it hasn't already successfully fired before trying to start it up again
-            if (trigger.firedSuccessfully != true)
+            // Make sure it hasn't already successfully fired before trying to start it up again, if that's a relevant check
+            if (disableCheckOnSuccessfulFire)
+            {
+                if (!trigger.firedSuccessfully)
+                {
+                    trigger.TryStart(null);
+                }
+            }
+            else
             {
                 trigger.TryStart(null);
             }
         }
     }
-
 }
