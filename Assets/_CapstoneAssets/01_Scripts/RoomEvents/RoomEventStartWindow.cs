@@ -31,12 +31,17 @@ public class RoomEventStartWindow : RoomEvent
 
     private void Start()
     {
-        CheckClockRollover();
+
     }
 
     // Be sure to check events OnEnable so you dont walk into a room and the event starts after waiting for the minute tick
     private void OnEnable()
     {
+        if (gameClockManager == null)
+        {
+            gameClockManager = GameManager.Instance.clockManager;
+            CheckClockRollover();
+        }
         CheckEventTime();
     }
 
@@ -64,6 +69,7 @@ public class RoomEventStartWindow : RoomEvent
         {
             if (!ranEvent)
             {
+                Debug.Log("Checked time event with clock rollover FALSE");
                 if (gameClockManager.inGameTime.TimeMet(startTimeWindowA))
                 {
                     if (!gameClockManager.inGameTime.TimeMet(startTimeWindowB))
@@ -89,6 +95,7 @@ public class RoomEventStartWindow : RoomEvent
         {
             if (!ranEvent)
             {
+                Debug.Log("Checked time event with clock rollover TRUE");
                 if (gameClockManager.inGameTime.TimeMet(startTimeWindowA))
                 {
                     eventDialogueSystemTrigger.OnUse();

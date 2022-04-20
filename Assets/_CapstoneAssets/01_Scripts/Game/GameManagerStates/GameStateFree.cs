@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using PixelCrushers.DialogueSystem;
 
 public class GameStateFree : IState {
 
@@ -35,6 +36,7 @@ public class GameStateFree : IState {
         if(PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.OpenMenu();
+            gameManager.hideQuestHUD();
             PlayerManager.Instance.EnterMenuState();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("TurnToNotebook");
 
@@ -47,6 +49,7 @@ public class GameStateFree : IState {
         if (gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.CloseMenu();
+            gameManager.showQuestHUD();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
             //PlayerManager.Instance.EnterFreeState();
         }

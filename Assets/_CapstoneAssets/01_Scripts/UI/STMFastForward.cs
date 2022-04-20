@@ -32,19 +32,23 @@ public class STMFastForward : PixelCrushers.DialogueSystem.StandardUIContinueBut
 		}
 		else
 		{
-			if (state.hasPCResponses && !state.hasForceAutoResponse)
+			if (state != null)
 			{
-				contButton.interactable = false;
-			}
-			else if (!state.hasPCResponses)
-			{
-				if (!noMoreClick)
+				if (state.hasPCResponses && !state.hasForceAutoResponse)
 				{
-					noMoreClick = true;
-					StartCoroutine(UnReadThenFastForward());
+					runtimeDialogueUI.OnContinueConversation();
+				}
+				else if (!state.hasPCResponses)
+				{
+					if (!noMoreClick)
+					{
+						noMoreClick = true;
+						StartCoroutine(UnReadThenFastForward());
+					}
 				}
 			}
 		}
+
 	}
 
 	IEnumerator UnReadThenFastForward()
