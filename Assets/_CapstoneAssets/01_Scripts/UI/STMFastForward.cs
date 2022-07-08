@@ -25,6 +25,8 @@ public class STMFastForward : PixelCrushers.DialogueSystem.StandardUIContinueBut
 		if (!string.IsNullOrWhiteSpace(targetTextMesh.leftoverText) && !targetTextMesh.reading)
 		{
 			targetTextMesh.Continue();
+			Debug.LogWarning("Text mesh is not currently reading and leftover text is not null or white space");
+
 		}
 		else if (targetTextMesh != null && targetTextMesh.reading)
 		{
@@ -37,6 +39,7 @@ public class STMFastForward : PixelCrushers.DialogueSystem.StandardUIContinueBut
 				if (state.hasPCResponses && !state.hasForceAutoResponse)
 				{
 					runtimeDialogueUI.OnContinueConversation();
+					Debug.LogWarning("State does not equal null apparently");
 				}
 				else if (!state.hasPCResponses)
 				{
