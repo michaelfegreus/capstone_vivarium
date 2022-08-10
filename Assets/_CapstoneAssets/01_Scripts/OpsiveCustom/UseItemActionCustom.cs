@@ -19,6 +19,12 @@ public class UseItemActionCustom : ItemAction
             // If fail, play the wrong item shrug animation.
             PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrug");
         }
+        // If item use SUCCEEDS, CLOSE the inventory screen so player can engage in dialogue
+        else
+        {
+            GameManager.Instance.notebookMenuManager.CloseMenu();
+            PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebookStayInMenu");
+        }
 
     }
 }

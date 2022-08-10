@@ -25,6 +25,8 @@ public class STMFastForward : PixelCrushers.DialogueSystem.StandardUIContinueBut
 		if (!string.IsNullOrWhiteSpace(targetTextMesh.leftoverText) && !targetTextMesh.reading)
 		{
 			targetTextMesh.Continue();
+			Debug.LogWarning("Text mesh is not currently reading and leftover text is not null or white space");
+
 		}
 		else if (targetTextMesh != null && targetTextMesh.reading)
 		{
@@ -32,19 +34,24 @@ public class STMFastForward : PixelCrushers.DialogueSystem.StandardUIContinueBut
 		}
 		else
 		{
-			if (state.hasPCResponses && !state.hasForceAutoResponse)
+			if (state != null)
 			{
-				contButton.interactable = false;
-			}
-			else if (!state.hasPCResponses)
-			{
-				if (!noMoreClick)
+				if (state.hasPCResponses && !state.hasForceAutoResponse)
 				{
-					noMoreClick = true;
-					StartCoroutine(UnReadThenFastForward());
+					runtimeDialogueUI.OnContinueConversation();
+					Debug.LogWarning("State does not equal null apparently");
+				}
+				else if (!state.hasPCResponses)
+				{
+					if (!noMoreClick)
+					{
+						noMoreClick = true;
+						StartCoroutine(UnReadThenFastForward());
+					}
 				}
 			}
 		}
+
 	}
 
 	IEnumerator UnReadThenFastForward()

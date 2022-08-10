@@ -4,10 +4,15 @@ using PixelCrushers.DialogueSystem;
 public class RoomEvent : MonoBehaviour
 {
     [Tooltip("Use this flag to disable children of this object as a way to 'reset' the event.")]
-    [SerializeField] bool deactivateChildrenOnDisable = true;
+    [SerializeField] protected bool deactivateChildrenOnDisable = true;
+    protected ClockManager gameClockManager;
 
     private void OnEnable()
     {
+        if (gameClockManager == null)
+        {
+            gameClockManager = GameManager.Instance.clockManager;
+        }
         ClockManager.OnMinuteTick += CheckEventTime;
     }
 
@@ -22,11 +27,10 @@ public class RoomEvent : MonoBehaviour
     }
 
     // Cache a reference to the GameManager's clock
-    protected ClockManager gameClockManager;
 
-    private void Awake()
+    private void Start()
     {
-        gameClockManager = GameManager.Instance.clockManager;
+
     }
 
     /// <summary>
