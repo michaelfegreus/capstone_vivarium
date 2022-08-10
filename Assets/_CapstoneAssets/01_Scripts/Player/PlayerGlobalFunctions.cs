@@ -23,5 +23,4 @@ public class PlayerGlobalFunctions : MonoBehaviour
     {
         PlayerManager.Instance.playerMovement.playerMovementModule.transform.position = destinationPosition.transform.position;
     }
-
 }

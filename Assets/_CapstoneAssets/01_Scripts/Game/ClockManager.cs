@@ -164,4 +164,14 @@ public class ClockManager : Singleton<ClockManager> {
 
         UpdateClockValues ();
 	}
+
+    public void StartNewDay(int newHour)
+    {
+        IncrementDay();
+
+        inGameTime.hour = newHour;
+        inGameTime.minute = 0;
+
+        UpdateClockValues();
+    }
 }
