@@ -9,5 +9,6 @@ public class EnableCanvasOnPlay : MonoBehaviour
     void Start()
     {
         myCanvas = GetComponent<Canvas>();
+        myCanvas.enabled = true;
     }
 }
