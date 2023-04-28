@@ -71,24 +71,68 @@ public class PlayerMovement : MonoBehaviour {
     public float wallActionTimer = .25f;
     float wallActionTimeElapsed = 0f; // How many seconds the player has been moving towards the wall to perform a special wall action.
 
+
+    //Reference footsteps code to figure out what surface to generate particles for
+    [SerializeField] private FootstepsFoley footsteps;
+
+    [SerializeField] private bool particlesOn = false;
+    [SerializeField] private SurfaceType.surface currSurface;
+    [SerializeField] private SurfaceType.surface prevSurface;
+
+
     // Disable and enable based on when you're dashing.
-    public ParticleSystem dashParticles;
+    public ParticleSystem dashParticles1;
+    public ParticleSystem dashParticles2;
+    public ParticleSystem dashParticles3;
+
+    public ParticleSystem grassParticles;
+
+    public ParticleSystem bambooParticles1;
+    public ParticleSystem bambooParticles2;
+    public ParticleSystem bambooParticles3;
+
+    public ParticleSystem waterParticles;
+    public ParticleSystem waterRipples1;
+    public ParticleSystem waterRipples2;
+    public ParticleSystem waterSplashes;
+    public ParticleSystem waterSplashes2;
+    public ParticleSystem waterSplashes3;
+
 
     [Tooltip("How far to adjust the Player Movement's position by after climbing a ledge.")]
     public Vector2 diagonalLedgeClimbDistance;
+    public Vector2 diagonalLedgeClimbDistanceOverride;
+    public Vector2 currentDiagonalLedgeClimbDistance;
     [Tooltip("How far to adjust the Player Movement's position by after jumping a ledge.")]
     public Vector2 diagonalLedgeJumpDistance;
+
     //float currentLedgeFallDistance = 0f; // How far the player has fallen from a ledge jump
     //Vector3 ledgeFallTargetPosition;
     [SerializeField] float ledgeFallSpeed = .8f;
     [SerializeField] float ledgeFallForwardMomentum = .1f;
     float ledgeFallDistance;
+    [SerializeField] private GameObject currLedgeCollider;
 
     void Start () {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
         playerAnimation = PlayerManager.Instance.playerAnimation;
 		targetMoveSpeed = walkSpeed;
-	}
+
+        dashParticles1.Stop();
+        dashParticles2.Stop();
+        dashParticles3.Stop();
+        bambooParticles1.Stop();
+        bambooParticles2.Stop();
+        bambooParticles3.Stop();
+        grassParticles.Stop();
+        waterParticles.Stop();
+        waterRipples1.Stop();
+        waterRipples2.Stop();
+        waterSplashes.Stop();
+        waterSplashes2.Stop();
+        waterSplashes3.Stop();
+        particlesOn = false;
+    }
 
     void Update () {
         PlayerControls();
@@ -122,13 +166,74 @@ public class PlayerMovement : MonoBehaviour {
         }
 
         // Character dash particles / dust cloud effects
-        if(currentMoveSpeed < dashSpeed && dashParticles.isPlaying)
+        if(currentMoveSpeed < dashSpeed && particlesOn)
         {
-            dashParticles.Stop();
+            dashParticles1.Stop();
+            dashParticles2.Stop();
+            dashParticles3.Stop();
+            bambooParticles1.Stop();
+            bambooParticles2.Stop();
+            bambooParticles3.Stop();
+            grassParticles.Stop();
+            waterParticles.Stop();
+            waterSplashes.Stop();
+            waterSplashes2.Stop();
+            waterSplashes3.Stop();
+            particlesOn = false;
         }
-        else if(currentMoveSpeed >= dashSpeed && !dashParticles.isPlaying)
+        else if(currentMoveSpeed >= dashSpeed)
         {
-            dashParticles.Play();
+            prevSurface = currSurface;
+            currSurface = footsteps.currentSurface;
+            if (currSurface != prevSurface)
+            {
+                dashParticles1.Stop();
+                dashParticles2.Stop();
+                dashParticles3.Stop();
+                bambooParticles1.Stop();
+                bambooParticles2.Stop();
+                bambooParticles3.Stop();
+                grassParticles.Stop();
+                waterParticles.Stop();
+                waterRipples1.Stop();
+                waterRipples2.Stop();
+                waterSplashes.Stop();
+                waterSplashes2.Stop();
+                waterSplashes3.Stop();
+                particlesOn = false;
+            }
+
+            if (!particlesOn)
+            {
+
+            switch (currSurface)
+            {
+                case SurfaceType.surface.Dirt:
+                    dashParticles1.Play();
+                    dashParticles2.Play();
+                    dashParticles3.Play();
+                    break;
+                case SurfaceType.surface.Grass:
+                    grassParticles.Play();
+                    break;
+                case SurfaceType.surface.Leaves:
+                    bambooParticles1.Play();
+                    bambooParticles2.Play();
+                    bambooParticles3.Play();
+                    break;
+                case SurfaceType.surface.Puddle:
+                    waterParticles.Play();
+                    waterRipples1.Play();
+                    waterRipples2.Play();
+                    waterSplashes.Play();
+                    waterSplashes2.Play();
+                    waterSplashes3.Play();
+                    break;
+            }
+            particlesOn = true;
+
+            }
+
         }
 
         if (!skid)
@@ -302,8 +407,19 @@ public class PlayerMovement : MonoBehaviour {
             {
                 if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
                 {
-                    SetFaceDirection(inputX, 1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
+                    Ledge thisLedge = wallCheckScript.collidingWall.GetComponent<Ledge>();
+
+                    diagonalLedgeClimbDistanceOverride = thisLedge.ledgeJumpOverride;
+                    if (thisLedge.upRightFacing)
+                    {
+                        SetFaceDirection(1f, 1f);
+                    }
+                    else
+                    {
+                        SetFaceDirection(-1f, 1f);
+                    }
                     StopMomentum();
+                    
                     playerAnimation.PlayAnimationState("Climb Ledge");
                 }
                 else
@@ -315,11 +431,20 @@ public class PlayerMovement : MonoBehaviour {
             {
                 if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
                 {
-                    SetFaceDirection(inputX, -1f); // Again, remove this diagonal forcing angle if you make non-diagonal ledge climbing
-                    ledgeFallDistance = wallCheckScript.collidingWall.GetComponent<Ledge>().ledgeFallDistance;
+                    Ledge thisLedge = wallCheckScript.collidingWall.GetComponent<Ledge>();
+                    currLedgeCollider = thisLedge.ledgeCollider;
+                    ledgeFallDistance = thisLedge.ledgeFallDistance;
+                    if (thisLedge.upRightFacing)
+                    {
+                        SetFaceDirection(-1f,-1f);
+                    }
+                    else
+                    {
+                        SetFaceDirection(1f, -1f);
+                    }
                     StopMomentum();
                     PlayerManager.Instance.EnterBespokeActionState();
-                    playerMovementModuleCollider.enabled = false;
+                    currLedgeCollider.SetActive(false);
                     playerAnimation.PlayAnimationState("Jump Ledge");
                 }
                 else
@@ -356,15 +481,22 @@ public class PlayerMovement : MonoBehaviour {
         //StopMomentum();
         //Debug.Log("Landed");
         playerAnimation.PlayAnimationState("Land");
-        playerMovementModuleCollider.enabled = true;
-
+        currLedgeCollider.SetActive(true);
     }
 
     public void LedgeClimbReposition()
     {
         // NOTE: Add functionality if you need to have the character climb ledges that are not upward-diagonals
+        if(diagonalLedgeClimbDistanceOverride != Vector2.zero)
+        {
+            currentDiagonalLedgeClimbDistance = diagonalLedgeClimbDistanceOverride;
+        }
+        else
+        {
+            currentDiagonalLedgeClimbDistance = diagonalLedgeClimbDistance;
+        }
         float xSign = Mathf.Sign(PlayerManager.Instance.playerAnimation.lastMove.x); // Find out if the last move was negative or positive, multiply by that to set the correct position
-        playerMovementModule.transform.localPosition += new Vector3(diagonalLedgeClimbDistance.x * xSign, diagonalLedgeClimbDistance.y, 0f);// Add to the player's position to get the new placement.
+        playerMovementModule.transform.localPosition += new Vector3(currentDiagonalLedgeClimbDistance.x * xSign, currentDiagonalLedgeClimbDistance.y, 0f);// Add to the player's position to get the new placement.
     }
     public void LedgeJumpReposition()
     {

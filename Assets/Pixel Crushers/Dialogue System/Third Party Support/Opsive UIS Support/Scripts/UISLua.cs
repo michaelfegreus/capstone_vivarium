@@ -4,6 +4,7 @@ using Opsive.UltimateInventorySystem.Core;
 using Opsive.UltimateInventorySystem.Core.DataStructures;
 using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 using Opsive.UltimateInventorySystem.Exchange;
+using DarkTonic.MasterAudio;
 
 namespace PixelCrushers.UISSupport
 {
@@ -90,6 +91,7 @@ namespace PixelCrushers.UISSupport
             {
                 inventory.AddItem(itemInfo);
             }
+            MasterAudio.PlaySound3DAtTransform("ItemPickup",PlayerManager.Instance.playerMovement.playerMovementModule.transform);
         }
 
         /// <summary>

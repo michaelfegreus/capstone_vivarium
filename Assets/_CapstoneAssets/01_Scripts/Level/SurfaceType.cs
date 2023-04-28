@@ -9,7 +9,9 @@ public class SurfaceType
         Tile,
         Carpet,
         Grass,
-        Dirt
+        Dirt,
+        Leaves,
+        Puddle
     }
 
 }

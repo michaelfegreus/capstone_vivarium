@@ -31,6 +31,15 @@ public class FootstepsFoley : MonoBehaviour
                 case SurfaceType.surface.Dirt:
                     MasterAudio.PlaySound3DAtVector3("Dirt_Run_Tip", targetTransform.position);
                     break;
+                case SurfaceType.surface.Grass:
+                    MasterAudio.PlaySound3DAtVector3("Grass_Run_Tip", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Leaves:
+                    MasterAudio.PlaySound3DAtVector3("Leaves_Run_Tip", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Puddle:
+                    MasterAudio.PlaySound3DAtVector3("Puddle_Run_Tip", targetTransform.position);
+                    break;
             }
         }
         else //Play walking sound
@@ -48,6 +57,15 @@ public class FootstepsFoley : MonoBehaviour
                     break;
                 case SurfaceType.surface.Dirt:
                     MasterAudio.PlaySound3DAtVector3("Dirt_Walk_Tip", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Grass:
+                    MasterAudio.PlaySound3DAtVector3("Grass_Walk_Tip", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Leaves:
+                    MasterAudio.PlaySound3DAtVector3("Leaves_Walk_Tip", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Puddle:
+                    MasterAudio.PlaySound3DAtVector3("Puddle_Walk_Tip", targetTransform.position);
                     break;
             }
         }
@@ -75,6 +93,15 @@ public class FootstepsFoley : MonoBehaviour
                 case SurfaceType.surface.Dirt:
                     MasterAudio.PlaySound3DAtVector3("Dirt_Run_Tap", targetTransform.position);
                     break;
+                case SurfaceType.surface.Grass:
+                    MasterAudio.PlaySound3DAtVector3("Grass_Run_Tap", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Leaves:
+                    MasterAudio.PlaySound3DAtVector3("Leaves_Run_Tap", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Puddle:
+                    MasterAudio.PlaySound3DAtVector3("Puddle_Run_Tap", targetTransform.position);
+                    break;
             }
         }
         else //Play walking sound
@@ -92,6 +119,15 @@ public class FootstepsFoley : MonoBehaviour
                     break;
                 case SurfaceType.surface.Dirt:
                     MasterAudio.PlaySound3DAtVector3("Dirt_Walk_Tap", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Grass:
+                    MasterAudio.PlaySound3DAtVector3("Grass_Walk_Tap", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Leaves:
+                    MasterAudio.PlaySound3DAtVector3("Leaves_Walk_Tap", targetTransform.position);
+                    break;
+                case SurfaceType.surface.Puddle:
+                    MasterAudio.PlaySound3DAtVector3("Puddle_Walk_Tap", targetTransform.position);
                     break;
             }
         }
@@ -115,6 +151,15 @@ public class FootstepsFoley : MonoBehaviour
                 break;
             case SurfaceType.surface.Dirt:
                 MasterAudio.PlaySound3DAtVector3("Dirt_Skid", targetTransform.position);
+                break;
+            case SurfaceType.surface.Grass:
+                MasterAudio.PlaySound3DAtVector3("Grass_Skid", targetTransform.position);
+                break;
+            case SurfaceType.surface.Leaves:
+                MasterAudio.PlaySound3DAtVector3("Leaves_Skid", targetTransform.position);
+                break;
+            case SurfaceType.surface.Puddle:
+                MasterAudio.PlaySound3DAtVector3("Puddle_Skid", targetTransform.position);
                 break;
         }
 
@@ -147,6 +192,18 @@ public class FootstepsFoley : MonoBehaviour
         if (currSurf.Equals("Dirt"))
         {
             currentSurface = SurfaceType.surface.Dirt;
+        }
+        if (currSurf.Equals("Grass"))
+        {
+            currentSurface = SurfaceType.surface.Grass;
+        }
+        if (currSurf.Equals("Leaves"))
+        {
+            currentSurface = SurfaceType.surface.Leaves;
+        }
+        if (currSurf.Equals("Water"))
+        {
+            currentSurface = SurfaceType.surface.Puddle;
         }
     }
 

@@ -5,10 +5,17 @@ using UnityEngine;
 public class PlayerAnimation : MonoBehaviour {
 
 	public Animator anim;
-    public Animator animReflectY; // Y Axis reflection Animator. Used for things like reflective floors, puddles, etc.
+    public Vector3 reflectionOffset;
 	[HideInInspector] public Vector2 lastMove;
+    [SerializeField]private Transform reflectionTransform;
+    public Material reflectionOpaque;
+    public Material reflectionTransparent;
+    public Material reflectionStatic;
 
-	bool moving;
+    private SpriteRenderer regularSprite;
+    private SpriteRenderer reflectSprite;
+
+    bool moving;
 	bool running;
 
 	// The following allows the Sprite to follow along with the player's movement module positional transforms, while maintaining 0 rotational values.
@@ -22,17 +29,21 @@ public class PlayerAnimation : MonoBehaviour {
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
 	void Start(){
 		spriteModuleOffset = spriteModule.localPosition;
-        animReflectY.fireEvents = false; // Disable animation events on the floor-reflection animator.
+        regularSprite = anim.GetComponent<SpriteRenderer>();
+        reflectSprite = reflectionTransform.GetComponent<SpriteRenderer>();
 	}
 	void Update(){
 		// Offset the module
 		spriteModule.transform.position = targetTransform.position + spriteModuleOffset;
+        reflectionTransform.localPosition = reflectionOffset;
+
+        reflectSprite.sprite = regularSprite.sprite;
+        reflectSprite.flipX = regularSprite.flipX;
 
 		anim.SetBool("Moving", moving);
 		anim.SetBool("DashInput", running);
 
-        animReflectY.SetBool("Moving", moving);
-        animReflectY.SetBool("DashInput", running);
+
 
         /*if (!moving) {
 			anim.Play ("IdleStanding");
@@ -67,8 +78,6 @@ public class PlayerAnimation : MonoBehaviour {
 		anim.SetFloat ("DirectionX", lastMove.x);
 		anim.SetFloat ("DirectionY", lastMove.y);
 
-        animReflectY.SetFloat("DirectionX", lastMove.x);
-        animReflectY.SetFloat("DirectionY", lastMove.y);
     }
     
     /// Just set the direction the player is facing, but don't move them. Use this with Animator, or for things like cutscenes.
@@ -82,7 +91,6 @@ public class PlayerAnimation : MonoBehaviour {
     {
         anim.Play(animationStateName, 0); // Always play from Layer 0 since this is 2D animation and only uses the base layer. I think.
 
-        animReflectY.Play(animationStateName, 0);
     }
 
     [Tooltip("Sprites affiliated with the Player Character, including the main sprite, the shadow, and reflections.")]
@@ -107,8 +115,6 @@ public class PlayerAnimation : MonoBehaviour {
         anim.SetFloat("TurnOriginX", lastMove.x);
         anim.SetFloat("TurnOriginY", lastMove.y);
 
-        animReflectY.SetFloat("TurnOriginX", lastMove.x);
-        animReflectY.SetFloat("TurnOriginY", lastMove.y);
     }
     /// Set the direction of the Player character's turn rotation.
     /// Counterclockwise: Negative int  Neutral: 0   Clockwise: Positive int
@@ -117,7 +123,6 @@ public class PlayerAnimation : MonoBehaviour {
         
         anim.SetFloat("TurnAngle", angleDifference);
 
-        animReflectY.SetFloat("TurnAngle", angleDifference);
 
     }
 
@@ -161,6 +166,35 @@ public class PlayerAnimation : MonoBehaviour {
         }
         
         PlayAnimationState(nextStateName);
+    }
+
+    public void ChangeReflectionOffsetX(float f)
+    {
+        reflectionOffset = new Vector3(f,reflectionOffset.y,reflectionOffset.z);
+    }
+
+    public void ChangeReflectionOffsetY(float f)
+    {
+        reflectionOffset = new Vector3(reflectionOffset.x, f, reflectionOffset.z);
+    }
+
+    public void SetReflectionMaterial(string mat)
+    {
+        if(mat == "opaque")
+        {
+            reflectSprite.material = reflectionOpaque;
+            reflectSprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
+        }
+        else if(mat == "transparent")
+        {
+            reflectSprite.material = reflectionTransparent;
+            reflectSprite.GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f);
+        }
+        else if (mat == "static")
+        {
+            reflectSprite.material = reflectionStatic;
+            reflectSprite.GetComponent<SpriteRenderer>().color = new Color(1,1,1,0.03f);
+        }
     }
 
     /*
