@@ -380,7 +380,7 @@ namespace Opsive.UltimateInventorySystem.UI.Menus.Shop
             var itemInfo = slotEventData.ItemViewSlot.ItemInfo;
 
             m_SelectedItemInfo = itemInfo;
-            m_QuantityPickerPanel.Open(m_InventoryGrid.Panel, slotEventData.ItemViewSlot);
+
             
             if (m_SelectedItemInfo == ItemInfo.None) {
                 m_QuantityPickerPanel.QuantityPicker.MinQuantity = 0;
@@ -389,6 +389,7 @@ namespace Opsive.UltimateInventorySystem.UI.Menus.Shop
                 DrawPriceTo((0, m_SelectedItemInfo), m_TotalPrice);
                 return;
             }
+            m_QuantityPickerPanel.Open(m_InventoryGrid.Panel, slotEventData.ItemViewSlot);
 
             m_QuantityPickerPanel.QuantityPicker.MinQuantity = 1;
             if (m_IsBuying) {
