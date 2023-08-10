@@ -1,5 +1,6 @@
 ﻿using Opsive.UltimateInventorySystem.Core.InventoryCollections;
 using UnityEngine;
+using System.Collections;
 using PixelCrushers.DialogueSystem;
 
 [RequireComponent(typeof(GameInputManager))]
@@ -13,6 +14,8 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 	[System.NonSerialized]
 	public MenuInput menuInput;
+
+	public bool startFromBeginning;
 
 	public NotebookMenuManager notebookMenuManager;
 	public Inventory playerInventory;
@@ -32,8 +35,8 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 		menuInput = new MenuInput();
 		menuInput.Enable();
-
 		EnterFreeState();
+
 	}
 
 	// Set up components
@@ -48,17 +51,35 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 	void Start() {
 
-		EnterFreeState();
+
 
 		Application.targetFrameRate = targetFrameRate;
+
+		if (startFromBeginning)
+		{
+			DialogueManager.PlaySequence("Fade(stay,0.1,#000000)"); 
+			StartCoroutine("StartDemo");
+        }
+        else
+        {
+			EnterFreeState();
+		}
+
 	}
 
+
+	IEnumerator StartDemo()
+    {
+        yield return new WaitForSeconds(3f);
+		DialogueManager.instance.StartConversation("DemoStartDialogue");
+	}
 
 	void Update() {
 		this.gameStateMachine.ExecuteStateUpdate();
 	}
 
-	public void EnterFreeState() {
+	public void EnterFreeState()
+	{
 		this.gameStateMachine.ChangeState(new GameStateFree(gameObject));
 	}
 

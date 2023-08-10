@@ -11,8 +11,8 @@ public class EventSystemDebugger : MonoBehaviour
 
     public string previouslySelected = "";
     public string currentlySelected = "";
-    
-    
+
+    public bool debug = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,16 +22,21 @@ public class EventSystemDebugger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (system.currentSelectedGameObject != null)
-        {
-            currentlySelected = system.currentSelectedGameObject.name;
-            if (!string.Equals(previouslySelected,currentlySelected))
-            {
-                Debug.Log("Currently Selected: " + currentlySelected);
-                previouslySelected = currentlySelected;
-            }
 
+        if (debug)
+        {
+            if (system.currentSelectedGameObject != null)
+            {
+                currentlySelected = system.currentSelectedGameObject.name;
+                if (!string.Equals(previouslySelected, currentlySelected))
+                {
+                    Debug.Log("Currently Selected: " + currentlySelected);
+                    previouslySelected = currentlySelected;
+                }
+
+            }
         }
+       
 
     }
 }

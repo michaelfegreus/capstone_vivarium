@@ -32,8 +32,14 @@ public class PlayerManager : Singleton<PlayerManager> {
 
         playerInput = new PlayerInput();
         playerInput.Enable();
-
-        EnterFreeState();
+        if (!GameManager.Instance.startFromBeginning)
+        {
+            EnterFreeState();
+        }
+        else
+        {
+            EnterMenuState();
+        }
     }
 
     void Update(){
