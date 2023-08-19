@@ -18,6 +18,11 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 	public bool startFromBeginning;
 
 	public NotebookMenuManager notebookMenuManager;
+
+
+	public ItemHotbarManager ItemHotbarManager;
+
+
 	public Inventory playerInventory;
 	public StandardUIQuestTracker questHUD;
 

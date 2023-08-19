@@ -18,6 +18,9 @@ public class GameStateFree : IState {
 	public void Enter(){
         gameManager.menuInput.NotebookNavigation.OpenNotebookMenu.performed += OpenMenu;
         gameManager.menuInput.NotebookNavigation.CloseNotebookMenu.performed += CloseMenu;
+        gameManager.menuInput.NotebookNavigation.OpenItemHotbar.performed += OpenItemHotbar;
+        gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed += CloseItemHotbar;
+
     }
 
     public void Execute(){
@@ -25,10 +28,14 @@ public class GameStateFree : IState {
 
 	}
 
+
+    //TODO: This isn't getting called EVER!@??!@?!?!?!?
 	public void Exit(){
         //PLAYER_manager.Instance.EnterPreviousState ();
         gameManager.menuInput.NotebookNavigation.OpenNotebookMenu.performed -= OpenMenu;
         gameManager.menuInput.NotebookNavigation.CloseNotebookMenu.performed -= CloseMenu;
+        gameManager.menuInput.NotebookNavigation.OpenItemHotbar.performed -= OpenItemHotbar;
+        gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed -= CloseItemHotbar;
     }
 
     void OpenMenu(InputAction.CallbackContext obj)
@@ -53,5 +60,27 @@ public class GameStateFree : IState {
             PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
             //PlayerManager.Instance.EnterFreeState();
         }
+    }
+
+    //What to do when closing or opening the hotbar
+    void OpenItemHotbar(InputAction.CallbackContext obj)
+    {
+        if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.ItemHotbarManager.hotbarOpen && !gameManager.notebookMenuManager.menuOpen && !DialogueManager.IsConversationActive)
+        {
+            PlayerManager.Instance.EnterMenuState();
+            gameManager.ItemHotbarManager.HotBarItemSelected();
+            gameManager.ItemHotbarManager.OpenHotbarPanel();
+        }
+
+    }
+    void CloseItemHotbar(InputAction.CallbackContext obj)
+    {
+        if (gameManager.ItemHotbarManager.hotbarOpen)
+        {
+            gameManager.ItemHotbarManager.HotBarItemDeselected();
+            PlayerManager.Instance.EnterFreeState();
+            gameManager.ItemHotbarManager.CloseHotbarPanel();
+        }
+
     }
 }

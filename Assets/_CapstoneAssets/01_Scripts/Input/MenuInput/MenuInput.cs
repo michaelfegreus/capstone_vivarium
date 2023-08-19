@@ -1071,6 +1071,22 @@ public class @MenuInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""OpenItemHotbar"",
+                    ""type"": ""Button"",
+                    ""id"": ""ee760445-8afe-44ae-8e76-a39414c536a1"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
+                },
+                {
+                    ""name"": ""CloseItemHotbar"",
+                    ""type"": ""Button"",
+                    ""id"": ""869b1929-7fab-436e-b745-79734c62f576"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -1150,6 +1166,149 @@ public class @MenuInput : IInputActionCollection, IDisposable
                     ""action"": ""CloseNotebookMenu"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5f8cafed-f38f-4660-918f-dd7c93e09adb"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ddb2edcb-77d9-426a-94f4-6de6f38a8f43"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a099a273-0642-4dac-8ed3-b31fd9e10e49"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""5a92cd74-9709-4031-8921-c5c73f99acfb"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ea20c0c4-ad9a-40d6-841c-b0fbd962304a"",
+                    ""path"": ""<Keyboard>/c"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""ca32e39d-6f3e-4ad7-98c6-8b0c7c7de225"",
+                    ""path"": ""<Keyboard>/tab"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c6d52cec-9d31-41bf-9a4f-a0a814fcec0b"",
+                    ""path"": ""<DualShockGamepad>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8a803989-c6ec-4445-b879-81522da23f68"",
+                    ""path"": ""<XInputController>/buttonNorth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""937d9930-7b10-4ebe-884e-29d05a2df817"",
+                    ""path"": ""*/{Cancel}"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""7f0e3230-2bd1-4875-a84e-2a673e02d5cd"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c8f3cc47-2b87-4143-9bdd-bcb69f8babf6"",
+                    ""path"": ""<DualShockGamepad>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a62ee592-e576-4e28-ade8-8567e16b779e"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""066b4a1c-48da-481f-9373-48c9c0184ce4"",
+                    ""path"": ""<SwitchProControllerHID>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseItemHotbar"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -1191,6 +1350,8 @@ public class @MenuInput : IInputActionCollection, IDisposable
         m_NotebookNavigation_FlipLeft = m_NotebookNavigation.FindAction("FlipLeft", throwIfNotFound: true);
         m_NotebookNavigation_OpenNotebookMenu = m_NotebookNavigation.FindAction("OpenNotebookMenu", throwIfNotFound: true);
         m_NotebookNavigation_CloseNotebookMenu = m_NotebookNavigation.FindAction("CloseNotebookMenu", throwIfNotFound: true);
+        m_NotebookNavigation_OpenItemHotbar = m_NotebookNavigation.FindAction("OpenItemHotbar", throwIfNotFound: true);
+        m_NotebookNavigation_CloseItemHotbar = m_NotebookNavigation.FindAction("CloseItemHotbar", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -1503,6 +1664,8 @@ public class @MenuInput : IInputActionCollection, IDisposable
     private readonly InputAction m_NotebookNavigation_FlipLeft;
     private readonly InputAction m_NotebookNavigation_OpenNotebookMenu;
     private readonly InputAction m_NotebookNavigation_CloseNotebookMenu;
+    private readonly InputAction m_NotebookNavigation_OpenItemHotbar;
+    private readonly InputAction m_NotebookNavigation_CloseItemHotbar;
     public struct NotebookNavigationActions
     {
         private @MenuInput m_Wrapper;
@@ -1511,6 +1674,8 @@ public class @MenuInput : IInputActionCollection, IDisposable
         public InputAction @FlipLeft => m_Wrapper.m_NotebookNavigation_FlipLeft;
         public InputAction @OpenNotebookMenu => m_Wrapper.m_NotebookNavigation_OpenNotebookMenu;
         public InputAction @CloseNotebookMenu => m_Wrapper.m_NotebookNavigation_CloseNotebookMenu;
+        public InputAction @OpenItemHotbar => m_Wrapper.m_NotebookNavigation_OpenItemHotbar;
+        public InputAction @CloseItemHotbar => m_Wrapper.m_NotebookNavigation_CloseItemHotbar;
         public InputActionMap Get() { return m_Wrapper.m_NotebookNavigation; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -1532,6 +1697,12 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 @CloseNotebookMenu.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
                 @CloseNotebookMenu.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
                 @CloseNotebookMenu.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseNotebookMenu;
+                @OpenItemHotbar.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenItemHotbar;
+                @OpenItemHotbar.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenItemHotbar;
+                @OpenItemHotbar.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnOpenItemHotbar;
+                @CloseItemHotbar.started -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseItemHotbar;
+                @CloseItemHotbar.performed -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseItemHotbar;
+                @CloseItemHotbar.canceled -= m_Wrapper.m_NotebookNavigationActionsCallbackInterface.OnCloseItemHotbar;
             }
             m_Wrapper.m_NotebookNavigationActionsCallbackInterface = instance;
             if (instance != null)
@@ -1548,6 +1719,12 @@ public class @MenuInput : IInputActionCollection, IDisposable
                 @CloseNotebookMenu.started += instance.OnCloseNotebookMenu;
                 @CloseNotebookMenu.performed += instance.OnCloseNotebookMenu;
                 @CloseNotebookMenu.canceled += instance.OnCloseNotebookMenu;
+                @OpenItemHotbar.started += instance.OnOpenItemHotbar;
+                @OpenItemHotbar.performed += instance.OnOpenItemHotbar;
+                @OpenItemHotbar.canceled += instance.OnOpenItemHotbar;
+                @CloseItemHotbar.started += instance.OnCloseItemHotbar;
+                @CloseItemHotbar.performed += instance.OnCloseItemHotbar;
+                @CloseItemHotbar.canceled += instance.OnCloseItemHotbar;
             }
         }
     }
@@ -1590,5 +1767,7 @@ public class @MenuInput : IInputActionCollection, IDisposable
         void OnFlipLeft(InputAction.CallbackContext context);
         void OnOpenNotebookMenu(InputAction.CallbackContext context);
         void OnCloseNotebookMenu(InputAction.CallbackContext context);
+        void OnOpenItemHotbar(InputAction.CallbackContext context);
+        void OnCloseItemHotbar(InputAction.CallbackContext context);
     }
 }
