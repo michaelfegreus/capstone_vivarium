@@ -23,7 +23,10 @@ public class SetPlayerState : StateMachineBehaviour
         switch (goToState)
         {
             case PlayerState.free:
-                PlayerManager.Instance.EnterFreeState();
+                    if (!DialogueManager.isConversationActive)
+                    {
+                        PlayerManager.Instance.EnterFreeState();
+                    }
                 break;
             case PlayerState.menu:
                 PlayerManager.Instance.EnterMenuState();

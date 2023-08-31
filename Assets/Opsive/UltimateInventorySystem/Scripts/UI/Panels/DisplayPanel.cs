@@ -202,6 +202,18 @@ namespace Opsive.UltimateInventorySystem.UI.Panels
             m_PreviousSelectable = previousSelectable;
         }
 
+        //Added by Stupid Boy Trent©
+
+        public virtual void SetOpenSelectable(Selectable openSelectable)
+        {
+            m_SelectableOnOpen = openSelectable;
+        }
+        public virtual Selectable GetOpenSelectable()
+        {
+            return m_SelectableOnOpen;
+        }
+        //End of Stupid Boy Trent© Additions
+
         /// <summary>
         /// Toggle the panel open, close.
         /// </summary>

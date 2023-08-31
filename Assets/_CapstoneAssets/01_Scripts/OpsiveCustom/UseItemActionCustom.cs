@@ -16,14 +16,30 @@ public class UseItemActionCustom : ItemAction
         // Try to use item
         if (!PlayerManager.Instance.playerInteraction.playerSelector.UseItemSelection(itemInfo))
         {
-            // If fail, play the wrong item shrug animation.
-            PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrug");
+            if (GameManager.Instance.notebookMenuManager.menuOpen)
+            {
+                PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrug");
+            }
+            else
+            {
+                PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrugHotbar");
+            }
+
         }
         // If item use SUCCEEDS, CLOSE the inventory screen so player can engage in dialogue
         else
         {
-            GameManager.Instance.notebookMenuManager.CloseMenu();
-            PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebookStayInMenu");
+            if (GameManager.Instance.notebookMenuManager.menuOpen)
+            {
+                GameManager.Instance.notebookMenuManager.CloseMenu();
+                PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebookStayInMenu");
+            }
+            else
+            {
+                GameManager.Instance.ItemHotbarManager.CloseHotbarPanel();
+
+            }
+
         }
 
     }

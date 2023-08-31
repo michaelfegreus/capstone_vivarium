@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Opsive.UltimateInventorySystem.UI.Panels;
+using Opsive.UltimateInventorySystem.UI.Item;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
@@ -19,6 +20,7 @@ public class ItemHotbarManager : MonoBehaviour
     [SerializeField] private ScrollRect scrollRect;
     [SerializeField] private RectTransform contentPanel;
     [SerializeField] private RectTransform currRect;
+    [SerializeField] private ItemViewSlot itemSlot;
     [SerializeField] private Vector2 vectorOffset;
 
     private GameObject currObject;
@@ -38,10 +40,12 @@ public class ItemHotbarManager : MonoBehaviour
         if (hotbarItemsSelected)
         {
             currObject = EventSystem.current.currentSelectedGameObject;
-            currObject.TryGetComponent<RectTransform>(out currRect);
-            if (currRect != null)
+            currObject.TryGetComponent<ItemViewSlot>(out itemSlot);
+            if (itemSlot != null)
             {
+                currRect = currObject.GetComponent<RectTransform>();
                 SnapTo(currRect);
+                ItemHotbarPanel.SetOpenSelectable(currRect.GetComponent<Selectable>());
             }
         }
 
@@ -52,6 +56,7 @@ public class ItemHotbarManager : MonoBehaviour
     {
         ItemHotbarPanel.gameObject.SetActive(true);
         ItemHotbarPanel.SmartOpen();
+        EventSystem.current.SetSelectedGameObject(ItemHotbarPanel.GetOpenSelectable().gameObject);
         anim.SetTrigger("Appear");
         StartCoroutine(WaitToSetOpen());
     }
@@ -61,6 +66,8 @@ public class ItemHotbarManager : MonoBehaviour
     {
         anim.SetTrigger("Disappear");
         hotbarOpen = false;
+        StartCoroutine(WaitToDisable());
+
     }
 
     IEnumerator WaitToSetOpen()
@@ -68,6 +75,14 @@ public class ItemHotbarManager : MonoBehaviour
         yield return new WaitForEndOfFrame();
 
         hotbarOpen = true;
+    }
+
+    IEnumerator WaitToDisable()
+    {
+        yield return new WaitForEndOfFrame();
+        float animationLength = anim.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSecondsRealtime(animationLength);
+        ItemHotbarPanel.gameObject.SetActive(false);
     }
 
 
@@ -80,5 +95,6 @@ public class ItemHotbarManager : MonoBehaviour
     {
         hotbarItemsSelected = false;
     }
+
 
 }
