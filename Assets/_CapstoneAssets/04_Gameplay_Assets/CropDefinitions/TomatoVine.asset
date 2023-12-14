@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf825f994e828c4d8c930d96ced4154, type: 3}
+  m_Name: TomatoVine
+  m_EditorClassIdentifier: 
+  numGrowthStages: 3
+  regrowthTimeInDays: 2
+  justPlantedSprite: {fileID: 21300000, guid: a354c30f086307842820158ca316537b, type: 3}
+  growthSprites:
+  - {fileID: 21300000, guid: c973bfb405fb09c4d9bd030f435c4b68, type: 3}
+  - {fileID: 21300000, guid: 260434a0596f46f4e9cf84696ef2e219, type: 3}
+  - {fileID: 21300000, guid: 5a5f1913f87a6494596a199fd4162b46, type: 3}
+  justHarvestedSprite: {fileID: 21300000, guid: a670b1d5cb2e1d94ea1c5d5e2214aea6,
+    type: 3}
+  harvestOutputs:
+  - m_ItemAmount:
+      m_Amount: 3
+      m_Item:
+        m_ID: 3284032204
+        m_Name: Tomato
+        m_ItemDefinitionID: 643914739
+        m_ItemDefinition: {fileID: 11400000, guid: dc3792d989a2074439ce3acff95d8c09,
+          type: 2}
+        m_ItemAttributeCollection:
+          m_AttributeCollectionData: []
+  removeOnHarvest: 0
+  fullyGrownEXP: 4

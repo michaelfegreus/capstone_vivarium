@@ -22,9 +22,7 @@ public class PlayerMovement : MonoBehaviour {
 	Rigidbody2D rb;
 
 	// Analog stick input
-	[System.NonSerialized]
 	public float inputX = 0f;
-	[System.NonSerialized]
 	public float inputY = 0f;
 	public float inputDeadzoneThreshold = .01f; // How far you need to move the stick to get this script to register it as movement.
 	public bool directionInput; // Is the player moving the analog stick?

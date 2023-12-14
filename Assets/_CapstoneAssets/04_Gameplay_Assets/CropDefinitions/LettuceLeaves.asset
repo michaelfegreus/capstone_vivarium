@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf825f994e828c4d8c930d96ced4154, type: 3}
+  m_Name: LettuceLeaves
+  m_EditorClassIdentifier: 
+  numGrowthStages: 2
+  regrowthTimeInDays: 2
+  justPlantedSprite: {fileID: 21300000, guid: 6de9ba70497d0774baf352a0faed3eb8, type: 3}
+  growthSprites:
+  - {fileID: 21300000, guid: 31275b80288a9064f90e5cb9102f0e06, type: 3}
+  - {fileID: 21300000, guid: f9b00b6dd99c8484698bc3b6af063b1f, type: 3}
+  justHarvestedSprite: {fileID: 0}
+  harvestOutputs:
+  - m_ItemAmount:
+      m_Amount: 1
+      m_Item:
+        m_ID: 2942702857
+        m_Name: Lettuce
+        m_ItemDefinitionID: 2860744941
+        m_ItemDefinition: {fileID: 11400000, guid: a4d90d988efa6fa4791b7638e907e942,
+          type: 2}
+        m_ItemAttributeCollection:
+          m_AttributeCollectionData: []
+  removeOnHarvest: 1
+  fullyGrownEXP: 2

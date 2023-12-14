@@ -18,14 +18,39 @@ public class ItemUsable : Usable
         bool itemEventSuccessful = false;
         foreach (UsableItemEvent element in usableItemEvents)
         {
-            
-            // Check if you used the proper item.
-            if (_usedItem.ItemAmount.Item.ItemDefinition.InherentlyContains(element.requiredItem.Item.ItemDefinition))
+            //Check if ItemCategory matches
+            if (element.requiredItem.Item.ItemDefinition == null)
+            {
+                if (_usedItem.Item.ItemDefinition.Category == element.requiredItemCategory.ItemCategory)
+                {
+                    // Make sure the event hasn't been disabled after already being used
+                    if (!element.eventDisabled)
+                    {
+                        GameManager.Instance.SetCurrentItem(_usedItem.Item.ItemDefinition);
+                        itemEventSuccessful = true;
+                        element.onItemUse.Invoke();
+
+                        if (element.consumeItem == true)
+                        {
+                            GameManager.Instance.playerInventory.RemoveItem(_usedItem);
+                            Debug.Log("Consumed " + element.requiredItem.Amount + element.requiredItem.Item.name + "(s) from the player's inventory.");
+                        }
+                        if (element.disableEventAfterInvoked)
+                        {
+                            element.eventDisabled = true;
+                        }
+                        break;
+
+                    }
+                }
+
+            }
+            //Check if ItemDefinition matches
+            else if(_usedItem.ItemAmount.Item.ItemDefinition.InherentlyContains(element.requiredItem.Item.ItemDefinition))
             {
                 // Make sure the event hasn't been disabled after already being used
                 if (!element.eventDisabled)
                 {
-
                     // Now check if you have the right amount of required item. If you do, invoke the event.
                     if (GameManager.Instance.playerInventory.HasItem(element.requiredItem))
                     {
@@ -35,6 +60,7 @@ public class ItemUsable : Usable
 
                         if (element.consumeItem == true)
                         {
+                            GameManager.Instance.playerInventory.RemoveItem(_usedItem);
                             Debug.Log("Consumed " + element.requiredItem.Amount + element.requiredItem.Item.name + "(s) from the player's inventory.");
                         }
                         if (element.disableEventAfterInvoked)
@@ -68,6 +94,8 @@ public class ItemUsable : Usable
         [HideInInspector] public bool eventDisabled = false;
         [Tooltip("The item you need to use invoke this event.")]
         public ItemAmount requiredItem;
+        [Tooltip("The category of item you need to use invoke this event.")]
+        public ItemCategoryAmount requiredItemCategory;
         [Tooltip("Invoked when a Selector or ProximitySelector is highlighting this Usable, and an item is used from the custom UIS item action.")]
         public UnityEvent onItemUse;
         

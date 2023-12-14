@@ -147,6 +147,8 @@ public class ClockManager : Singleton<ClockManager> {
 		Debug.Log ("End of day.");
 		gameEndOfDay = true;
 
+
+
         // Run delegate methods for starting a new day.
         if (OnDayStart != null)
         {

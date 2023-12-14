@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using PixelCrushers.DialogueSystem;
+using Opsive.UltimateInventorySystem.Core;
 
 [RequireComponent(typeof(GameInputManager))]
 [RequireComponent(typeof(ClockManager))]
@@ -25,6 +26,10 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 	public Inventory playerInventory;
 	public StandardUIQuestTracker questHUD;
+
+	[SerializeField] private SeedPlotLogic currSeedPlot;
+
+	[SerializeField] private ItemDefinition currItemInUse;
 
 	// Use this "protected override void awake" to ensure that this and the SingletonPersistant interface both prevent destruction on load.
 	// Without this, the engine might just run GAME_manager's Awake, and not the SingletonPersistant's awake that keeps it from being destroyed
@@ -81,6 +86,7 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 	void Update() {
 		this.gameStateMachine.ExecuteStateUpdate();
+        
 	}
 
 	public void EnterFreeState()
@@ -96,6 +102,26 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 	public void hideQuestHUD()
     {
 		questHUD.HideTracker();
+    }
+
+	public void SetCurrentSeedPlot(SeedPlotLogic plot)
+    {
+		currSeedPlot = plot;
+    }
+
+	public void DestroyCurrentSeedPlot()
+	{
+		currSeedPlot.RemovePlant();
+	}
+
+	public void SetCurrentItem(ItemDefinition item)
+    {
+		currItemInUse = item;
+    }
+
+	public ItemDefinition GetCurrentItem()
+    {
+		return currItemInUse;
     }
 
 	// Pausing functionality. Not sure if I'll use it in this way.

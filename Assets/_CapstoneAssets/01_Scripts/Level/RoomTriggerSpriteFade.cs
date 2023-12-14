@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.Linq;
+using UnityEngine;
 //using UnityEditor;
 
 public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
@@ -20,6 +20,10 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
     SpriteRenderer[] spritesToEnableDisable;
 
     bool firstFrame; //Used to check if it's the first frame, and if collider fucntions should immediately take effect.
+
+    [SerializeField] private bool startedFadingUp = false;
+    [SerializeField] private bool startedFadingDown = false;
+
 
     void Start()
     {
@@ -112,9 +116,10 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
             }
             else
             {
-                if (spritesToFade.Length != 0)
+                if (spritesToFade.Length != 0 && !startedFadingUp)
                 {
                     StartCoroutine(SpriteFade(spritesToFade, 1f, fadeDuration));
+                    startedFadingUp = true; //you little fucking bitch
                 }
                 // If there are only enable/disable, just enable them now. Otherwise if there are fade sprite, it'll do them at the end of that coroutine ^
                 else
@@ -138,9 +143,10 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
 
 
 
-            if (spritesToFade.Length != 0)
+            if (spritesToFade.Length != 0 && !startedFadingDown)
             {
                 StartCoroutine(SpriteFade(spritesToFade, 0f, fadeDuration));
+                startedFadingDown = true; //you little fucking whore
             }
         } 
     }
@@ -192,6 +198,8 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
             }
             yield return null;
         }
+        startedFadingUp = false;
+        startedFadingDown = false;
     }
 
     public void OnEnterRoom()

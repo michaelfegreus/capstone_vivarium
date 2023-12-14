@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
+using PixelCrushers.DialogueSystem;
 
 public class PlayerStateFreeControl : IState {
 
@@ -25,15 +26,21 @@ public class PlayerStateFreeControl : IState {
 	public void Enter(){
 		Debug.Log ("Player entered free move state");
 		// Now go ahead and enable the scripts that the player should have when they are free to move around.
-		movementScript.enabled = true;
-		interactionScript.enabled = true;
-        toolUseScript.enabled = true;
 
-        animationScript.SetFreeStateBool(true);
+        if(DialogueManager.instance.IsConversationActive == false)
+        {
+            movementScript.enabled = true;
+            interactionScript.enabled = true;
+            toolUseScript.enabled = true;
 
-        //PlayerManager.Instance.playerInput.Enable();
-        playerMovementDirection = PlayerManager.Instance.playerInput.FreeControl.Move;
-        playerDash = PlayerManager.Instance.playerInput.FreeControl.Dash;
+            animationScript.SetFreeStateBool(true);
+
+            //PlayerManager.Instance.playerInput.Enable();
+            playerMovementDirection = PlayerManager.Instance.playerInput.FreeControl.Move;
+            playerDash = PlayerManager.Instance.playerInput.FreeControl.Dash;
+        }
+
+		
 
     }
 
@@ -61,18 +68,19 @@ public class PlayerStateFreeControl : IState {
 		} else {
 			movementScript.SetDashInput (false);
 		}*/
-
-        movementScript.SetMovementAxes(playerMovementDirection.ReadValue<Vector2>().x, playerMovementDirection.ReadValue<Vector2>().y);
-
-        if (playerDash.ReadValue<float>() > 0f)
+        if (DialogueManager.instance.IsConversationActive == false)
         {
-            movementScript.SetDashInput(true);
-        }
-        else
-        {
-            movementScript.SetDashInput(false);
-        }
+            movementScript.SetMovementAxes(playerMovementDirection.ReadValue<Vector2>().x, playerMovementDirection.ReadValue<Vector2>().y);
 
+            if (playerDash.ReadValue<float>() > 0f)
+            {
+                movementScript.SetDashInput(true);
+            }
+            else
+            {
+                movementScript.SetDashInput(false);
+            }
+        }
     }
 
     public void Exit(){		
