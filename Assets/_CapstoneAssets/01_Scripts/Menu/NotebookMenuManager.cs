@@ -80,6 +80,38 @@ public class NotebookMenuManager : MonoBehaviour
         menuOpen = false;
     }
 
+
+    /// <summary>
+    /// TODO: This is extremely inefficent and stupid but I don't care, somebody else can fix it later
+    /// -Love,
+    ///          Trent <3
+    /// </summary>
+    /// <param name="parent"></param>
+    public void DisableAllButtons(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.TryGetComponent(out Button button))
+            {
+                button.enabled = false;
+            }
+            DisableAllButtons(child);
+        }
+    }
+    public void EnableAllButtons(Transform parent)
+    {
+        foreach (Transform child in parent)
+        {
+            if (child.gameObject.TryGetComponent(out Button button))
+            {
+                button.enabled = true;
+            }
+            EnableAllButtons(child);
+        }
+    }
+
+
+
     /// <summary>
     /// On Menu Opened invocation list, called when the menu is opened.
     /// </summary>
