@@ -5,7 +5,8 @@
 [RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerToolUse))]
 
-public class PlayerManager : Singleton<PlayerManager> {
+public class PlayerManager : Singleton<PlayerManager> 
+{
 	
 	private StateMachine playerStateMachine = new StateMachine();
 
