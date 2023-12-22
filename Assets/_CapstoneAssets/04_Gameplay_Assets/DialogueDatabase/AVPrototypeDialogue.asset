@@ -927,6 +927,34 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
+  - id: 27
+    fields:
+    - title: Name
+      value: Bathroom.SeenSelfInMirror
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+  - id: 28
+    fields:
+    - title: Name
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   conversations:
   - id: 1
     fields:
@@ -2573,7 +2601,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 2, y: 7}
     canvasZoom: 1
   - id: 6
     fields:
@@ -5648,7 +5676,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 15.129065, y: 30.758024}
+    canvasScrollPosition: {x: 16.86972, y: 27.47985}
     canvasZoom: 1.0670002
   - id: 14
     fields:
@@ -16751,8 +16779,8 @@ MonoBehaviour:
         width: 848.9995
         height: 411.06885
       color: {r: 0, g: 0.96398306, b: 1, a: 0.59607846}
-    canvasScrollPosition: {x: 366.25046, y: 127.96915}
-    canvasZoom: 0.6100001
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.49000016
   - id: 27
     fields:
     - title: Title
@@ -16945,8 +16973,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 155.77313
-        y: 437.6239
+        x: 127.53781
+        y: 396.4474
         width: 320
         height: 30
     - id: 2
@@ -17100,7 +17128,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 144.00658
-        y: 489.16095
+        y: 464.45502
         width: 320
         height: 30
     - id: 4
@@ -17170,8 +17198,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 529.90424
-        y: 531.77136
+        x: 533.43365
+        y: 525.8891
         width: 320
         height: 30
     - id: 5
@@ -19835,8 +19863,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 593.7288
-        y: 339.35413
+        x: 446.66992
+        y: 245.23642
         width: 320
         height: 30
     - id: 43
@@ -19917,8 +19945,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 438.9395
-        y: 81.826485
+        x: 442.46893
+        y: 85.35589
         width: 320
         height: 30
     - id: 44
@@ -20368,8 +20396,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.7899996
+    canvasScrollPosition: {x: 800.5299, y: 386.23547}
+    canvasZoom: 0.99999946
   - id: 28
     fields:
     - title: Title
@@ -22813,8 +22841,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 217.5
-        y: 49.03572
+        x: 312.34534
+        y: 42.850143
         width: 320
         height: 30
     - id: 1
@@ -23090,14 +23118,15 @@ MonoBehaviour:
         destinationDialogueID: 6
         isConnector: 0
         priority: 2
-      conditionsString: Variable["House.CookingActivated"] == true
+      conditionsString: Variable["House.CookingActivated"] == true and (Variable["Time.Hour"]
+        > 11)
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 436.67346
+        x: 433.58075
         y: 240.08875
         width: 320
         height: 30
@@ -23151,6 +23180,10 @@ MonoBehaviour:
         value: 1c2e6bd2-7562-4031-aec7-e6b0342b45fd
         type: 0
         typeString: 
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 30
       isRoot: 0
       isGroup: 0
@@ -23172,7 +23205,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 637.25336
+        x: 639.31525
         y: 323.8332
         width: 320
         height: 30
@@ -23322,12 +23355,12 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 217.5
-        y: 109.345
+        x: 692.7576
+        y: 142.33464
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 41.23712, y: 52.577393}
+    canvasScrollPosition: {x: 353.60828, y: 9.278412}
     canvasZoom: 0.9700001
   - id: 31
     fields:
@@ -26250,8 +26283,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 24
-        y: 247
+        x: 30.593414
+        y: 241.5055
         width: 320
         height: 30
     - id: 2
@@ -26306,6 +26339,10 @@ MonoBehaviour:
         value: 646f37c5-2087-47ea-a46e-1951a9783efa
         type: 0
         typeString: 
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 37
       isRoot: 0
       isGroup: 0
@@ -26321,8 +26358,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 486.90106
-        y: 248.0989
+        x: 484.1977
+        y: 241.30771
         width: 320
         height: 30
     - id: 3
@@ -26398,13 +26435,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 247
-        y: 140
+        x: 286.56042
+        y: 98.24176
         width: 320
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.91
+    canvasZoom: 1.06
   - id: 38
     fields:
     - title: Title
