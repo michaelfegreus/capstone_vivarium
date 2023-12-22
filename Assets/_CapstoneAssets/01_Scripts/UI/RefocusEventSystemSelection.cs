@@ -18,7 +18,7 @@ public class RefocusEventSystemSelection : MonoBehaviour
 
     void Update()
     {
-        if (thisSystem != null && thisSystem.currentSelectedGameObject == null && (Input.GetAxis("Horizontal") > Mathf.Abs(0.3f) || Input.GetAxis("Vertical") != 0f || Input.GetButton("Submit")))
+        if (thisSystem != null && thisSystem.currentSelectedGameObject == null)
         {
             thisSystem.SetSelectedGameObject(thisSystem.firstSelectedGameObject);
         }

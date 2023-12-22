@@ -1,7 +1,7 @@
 ﻿using TMPro;
 using System.Text;
 using UnityEngine;
-
+using PixelCrushers.DialogueSystem;
 public class ClockManager : Singleton<ClockManager> {
 
 	//[Header("Time of Day")]

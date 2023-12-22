@@ -67,6 +67,7 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 		if (startFromBeginning)
 		{
+			PlayerManager.Instance.EnterMenuState();
 			DialogueManager.PlaySequence("Fade(stay,0.1,#000000)"); 
 			StartCoroutine("StartDemo");
         }
