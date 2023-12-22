@@ -144,6 +144,14 @@ namespace Opsive.UltimateInventorySystem.UI.CompoundElements
         {
             m_MainButton.Select();
         }
+
+        /// <summary>
+        /// Automatically complete the inventory hand-change. Don't display the quantity panel and instantly move the item.
+        /// </summary>
+        public void AutoComplete()
+        {
+
+        }
     }
 
 }
