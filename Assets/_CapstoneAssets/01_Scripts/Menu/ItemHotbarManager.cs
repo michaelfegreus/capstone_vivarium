@@ -57,38 +57,43 @@ public class ItemHotbarManager : MonoBehaviour
     public void OpenHotbarPanel()
     {
         // if the hotbar is already open, don't open it, trent.
-        if (hotbarOpen) return;
+        if (hotbarOpen | opening | closing)
+        {
+            Debug.Log("Hotbar is either already open or opening, or closing");
+            return;
+        }
 
         ItemHotbarPanel.gameObject.SetActive(true);
         ItemHotbarPanel.SmartOpen();
         EventSystem.current.SetSelectedGameObject(ItemHotbarPanel.GetOpenSelectable().gameObject);
         anim.SetTrigger("Appear");
         // set to open
-        if (!opening)
-            StartCoroutine(WaitToSet());
+        if (!closing | !opening)
+            StartCoroutine(WaitToSetOpen());
     }
 
     // closes the hotbar panel
     public void CloseHotbarPanel()
     {
         // if the hotbar is open, then close it, trent.
-        if (hotbarOpen)
+        if (!hotbarOpen | closing | opening) // if the hotbar is open and we're not closing or opening
+            return;
 
         anim.SetTrigger("Disappear");
-        hotbarOpen = false;
-
+        
         // now do the waiting
-        if (!closing)
+        if (!closing | !opening)
             StartCoroutine(WaitToDisable());
     }
 
     // wait to set the next frame
     bool opening;
-    IEnumerator WaitToSet()
+    IEnumerator WaitToSetOpen()
     {
         opening = true;
         yield return new WaitForFixedUpdate();
         hotbarOpen = true;
+        Debug.Log("Hotbar is now open");
         opening = false;
     }
 
@@ -96,11 +101,15 @@ public class ItemHotbarManager : MonoBehaviour
     bool closing;
     IEnumerator WaitToDisable()
     {
+        hotbarOpen = false;
         closing = true;
         yield return new WaitForEndOfFrame();
         float animationLength = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSecondsRealtime(animationLength);
         ItemHotbarPanel.gameObject.SetActive(false);
+        Debug.Log("Hotbar is now closed, entering free state");
+        // forces the player to be in the free state
+        PlayerManager.Instance.EnterFreeState();
         closing = false;
     }
 
