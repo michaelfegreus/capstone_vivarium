@@ -58,4 +58,11 @@ public class CustomProximitySelector : PixelCrushers.DialogueSystem.CustomProxim
         }
         return succesfullyUsedItem;
     }
+
+    void OnDrawGizmos()
+    {
+        // draw a gizmo at the center of the current usable object
+        if (CurrentUsable)
+            Gizmos.DrawWireSphere(CurrentUsable.transform.position, 0.25f);
+    }
 }
