@@ -78,7 +78,6 @@ public class GameStateFree : IState {
         Debug.Log("Close item hotbar from GameStateFree");
         if (gameManager.ItemHotbarManager.hotbarOpen)
         {
-            gameManager.ItemHotbarManager.HotBarItemDeselected();
             PlayerManager.Instance.EnterFreeState();
             gameManager.ItemHotbarManager.CloseHotbarPanel();
         }
