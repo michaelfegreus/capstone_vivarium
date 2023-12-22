@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerAnimation : MonoBehaviour {
+public class PlayerAnimation : MonoBehaviour 
+{
 
 	public Animator anim;
     public Vector3 reflectionOffset;
@@ -27,12 +28,14 @@ public class PlayerAnimation : MonoBehaviour {
     public GameObject playerShadow;
 
 	// This preserves the sprite's offset, as if it were a child of the MovementModule.
-	void Start(){
+	void Start()
+    {
 		spriteModuleOffset = spriteModule.localPosition;
         regularSprite = anim.GetComponent<SpriteRenderer>();
         reflectSprite = reflectionTransform.GetComponent<SpriteRenderer>();
 	}
-	void Update(){
+	void Update()
+    {
 		// Offset the module
 		spriteModule.transform.position = targetTransform.position + spriteModuleOffset;
         reflectionTransform.localPosition = reflectionOffset;
