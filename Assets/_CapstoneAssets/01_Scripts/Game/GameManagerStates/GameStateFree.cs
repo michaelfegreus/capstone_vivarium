@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using PixelCrushers.DialogueSystem;
+using System;
+using System.Collections;
 
 public class GameStateFree : IState {
 
@@ -40,25 +42,28 @@ public class GameStateFree : IState {
 
     void OpenMenu(InputAction.CallbackContext obj)
     {
-        if(PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
+        Debug.Log("attempted opening of notebook");
+
+        if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.OpenMenu();
             gameManager.hideQuestHUD();
             PlayerManager.Instance.EnterMenuState();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("TurnToNotebook");
-
         }
     }
 
     // Later this should be moved to GameStatePaused state, and opening the inventory can pause time in the game.
     void CloseMenu(InputAction.CallbackContext obj)
     {
+        Debug.Log("close of notebook");
         if (gameManager.notebookMenuManager.menuOpen)
         {
+            Debug.Log("Closing notebook!");
             gameManager.notebookMenuManager.CloseMenu();
             gameManager.showQuestHUD();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
-            //PlayerManager.Instance.EnterFreeState();
+            // PlayerManager.Instance.EnterFreeState();
         }
     }
 
