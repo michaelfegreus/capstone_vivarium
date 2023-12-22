@@ -66,6 +66,7 @@ public class ItemHotbarManager : MonoBehaviour
         ItemHotbarPanel.gameObject.SetActive(true);
         ItemHotbarPanel.SmartOpen();
         EventSystem.current.SetSelectedGameObject(ItemHotbarPanel.GetOpenSelectable().gameObject);
+        HotBarItemSelected();
         anim.SetTrigger("Appear");
         // set to open
         if (!closing | !opening)
@@ -80,7 +81,11 @@ public class ItemHotbarManager : MonoBehaviour
             return;
 
         anim.SetTrigger("Disappear");
-        
+
+        // deselect when the hotbar is inactive
+        EventSystem.current.SetSelectedGameObject(null);
+
+        HotBarItemDeselected();
         // now do the waiting
         if (!closing | !opening)
             StartCoroutine(WaitToDisable());

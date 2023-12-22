@@ -68,7 +68,6 @@ public class GameStateFree : IState {
         if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.ItemHotbarManager.hotbarOpen && !gameManager.notebookMenuManager.menuOpen && !DialogueManager.IsConversationActive)
         {
             PlayerManager.Instance.EnterMenuState();
-            gameManager.ItemHotbarManager.HotBarItemSelected();
             gameManager.ItemHotbarManager.OpenHotbarPanel();
         }
 
