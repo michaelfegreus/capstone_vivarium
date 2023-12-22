@@ -35,7 +35,7 @@ public class GameStateFree : IState {
         gameManager.menuInput.NotebookNavigation.OpenNotebookMenu.performed -= OpenMenu;
         gameManager.menuInput.NotebookNavigation.CloseNotebookMenu.performed -= CloseMenu;
         gameManager.menuInput.NotebookNavigation.OpenItemHotbar.performed -= OpenItemHotbar;
-        gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed -= CloseItemHotbar;
+        // gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed -= CloseItemHotbar;
     }
 
     void OpenMenu(InputAction.CallbackContext obj)
@@ -73,8 +73,10 @@ public class GameStateFree : IState {
         }
 
     }
+
     void CloseItemHotbar(InputAction.CallbackContext obj)
     {
+        Debug.Log("Close item hotbar from GameStateFree");
         if (gameManager.ItemHotbarManager.hotbarOpen)
         {
             gameManager.ItemHotbarManager.HotBarItemDeselected();

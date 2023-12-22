@@ -8,6 +8,8 @@ using UnityEngine.EventSystems;
 
 //Copyright Smart Boy Trent© 2023 
 
+// rights reserved by smart boy josh, circa 2024
+
 
 public class ItemHotbarManager : MonoBehaviour
 {
@@ -35,9 +37,10 @@ public class ItemHotbarManager : MonoBehaviour
                 
     }
 
+    // runs every frame
     private void Update()
     {
-        if (hotbarItemsSelected)
+        if (hotbarItemsSelected && hotbarOpen)
         {
             currObject = EventSystem.current.currentSelectedGameObject;
             currObject.TryGetComponent<ItemViewSlot>(out itemSlot);
@@ -48,41 +51,57 @@ public class ItemHotbarManager : MonoBehaviour
                 ItemHotbarPanel.SetOpenSelectable(currRect.GetComponent<Selectable>());
             }
         }
-
-
     }
 
+    // opens the hotbar panel
     public void OpenHotbarPanel()
     {
+        // if the hotbar is already open, don't open it, trent.
+        if (hotbarOpen) return;
+
         ItemHotbarPanel.gameObject.SetActive(true);
         ItemHotbarPanel.SmartOpen();
         EventSystem.current.SetSelectedGameObject(ItemHotbarPanel.GetOpenSelectable().gameObject);
         anim.SetTrigger("Appear");
-        StartCoroutine(WaitToSetOpen());
+        // set to open
+        if (!opening)
+            StartCoroutine(WaitToSet());
     }
 
-
+    // closes the hotbar panel
     public void CloseHotbarPanel()
     {
+        // if the hotbar is open, then close it, trent.
+        if (hotbarOpen)
+
         anim.SetTrigger("Disappear");
         hotbarOpen = false;
-        StartCoroutine(WaitToDisable());
 
+        // now do the waiting
+        if (!closing)
+            StartCoroutine(WaitToDisable());
     }
 
-    IEnumerator WaitToSetOpen()
+    // wait to set the next frame
+    bool opening;
+    IEnumerator WaitToSet()
     {
-        yield return new WaitForEndOfFrame();
-
+        opening = true;
+        yield return new WaitForFixedUpdate();
         hotbarOpen = true;
+        opening = false;
     }
 
+    // wiats to disable the hotbar
+    bool closing;
     IEnumerator WaitToDisable()
     {
+        closing = true;
         yield return new WaitForEndOfFrame();
         float animationLength = anim.GetCurrentAnimatorStateInfo(0).length;
         yield return new WaitForSecondsRealtime(animationLength);
         ItemHotbarPanel.gameObject.SetActive(false);
+        closing = false;
     }
 
 
