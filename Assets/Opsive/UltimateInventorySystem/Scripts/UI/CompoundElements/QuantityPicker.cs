@@ -7,6 +7,7 @@
 namespace Opsive.UltimateInventorySystem.UI.CompoundElements
 {
     using Opsive.UltimateInventorySystem.Input;
+    using Opsive.UltimateInventorySystem.UI.Panels;
     using System;
     using UnityEngine;
     using UnityEngine.EventSystems;
@@ -143,14 +144,6 @@ namespace Opsive.UltimateInventorySystem.UI.CompoundElements
         public void SelectMainButton()
         {
             m_MainButton.Select();
-        }
-
-        /// <summary>
-        /// Automatically complete the inventory hand-change. Don't display the quantity panel and instantly move the item.
-        /// </summary>
-        public void AutoComplete()
-        {
-
         }
     }
 

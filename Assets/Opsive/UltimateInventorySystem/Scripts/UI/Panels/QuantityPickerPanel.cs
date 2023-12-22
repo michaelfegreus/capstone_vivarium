@@ -44,8 +44,7 @@ namespace Opsive.UltimateInventorySystem.UI.Panels
 
             m_ConfirmCancelPanel.OnClose += () => Close();
 
-            // AUTO COMPLETE AND CLOSE THE PANEL!
-            AutoComplete();
+
 
             EnableQuantityButton();
         }
@@ -87,15 +86,20 @@ namespace Opsive.UltimateInventorySystem.UI.Panels
                 return -1;
             }
 
+
+            // AUTO COMPLETE AND CLOSE THE PANEL!
+            AutoComplete();
+            return QuantityPicker.Quantity;
+
             var confirm = await m_ConfirmCancelPanel.WaitForConfirmAsync();
+
 
             if (confirm) { return QuantityPicker.Quantity; }
 
+
+
             return -1;
-
         }
-
-        
 
         /// <summary>
         /// Automatically complete the inventory hand-change. Don't display the quantity panel and instantly move the item.
