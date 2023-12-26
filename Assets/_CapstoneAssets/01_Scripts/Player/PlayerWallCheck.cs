@@ -21,6 +21,11 @@ public class PlayerWallCheck : MonoBehaviour
 
     private void Update()
     {
+        // set to the updated position of the player
+        transform.position = PlayerCollisionModule.instance.transform.position;
+
+        // get our movement direction
+
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.down) * rayLength, Color.red);
 
         // original

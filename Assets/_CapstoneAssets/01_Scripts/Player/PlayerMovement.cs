@@ -111,6 +111,10 @@ public class PlayerMovement : MonoBehaviour {
     float ledgeFallDistance;
     [SerializeField] private GameObject currLedgeCollider;
 
+    public static PlayerMovement instance;
+
+    void Awake() => instance = this;
+
     void Start () 
     {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
@@ -394,6 +398,13 @@ public class PlayerMovement : MonoBehaviour {
                 }
             }
         }
+    }
+
+    // set every frame
+    Vector3 lastFrameMovement;
+    public Vector3 DeltaMovement()
+    {
+        return PlayerCollisionModule.instance.transform.position - lastFrameMovement;
     }
 
     void WallCheck(Quaternion _desiredRotation)
