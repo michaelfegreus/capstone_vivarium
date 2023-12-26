@@ -5,6 +5,7 @@ using Opsive.UltimateInventorySystem.UI.Panels;
 using Opsive.UltimateInventorySystem.UI.Item;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Opsive.UltimateInventorySystem.UI.CompoundElements;
 
 //Copyright Smart Boy Trent© 2023 
 
@@ -24,6 +25,12 @@ public class ItemHotbarManager : MonoBehaviour
     [SerializeField] private RectTransform currRect;
     [SerializeField] private ItemViewSlot itemSlot;
     [SerializeField] private Vector2 vectorOffset;
+
+    /// <summary>
+    /// The item view slots on the hotbar parent
+    /// </summary>
+    [SerializeField] GameObject itemViewSlotsGrid;
+
 
     private GameObject currObject;
     private bool hotbarItemsSelected;
@@ -100,12 +107,18 @@ public class ItemHotbarManager : MonoBehaviour
         hotbarOpen = true;
         Debug.Log("Hotbar is now open");
         opening = false;
+
+        // activate the buttons
+        SetButtonActivity(true);
     }
 
     // wiats to disable the hotbar
     bool closing;
     IEnumerator WaitToDisable()
     {
+        // deactivate the buttons
+        SetButtonActivity(false);
+
         hotbarOpen = false;
         closing = true;
         yield return new WaitForEndOfFrame();
@@ -129,5 +142,20 @@ public class ItemHotbarManager : MonoBehaviour
         hotbarItemsSelected = false;
     }
 
+    /// <summary>
+    /// Sets our hotbar grid buttons to active or inactive based on their state
+    /// </summary>
+    /// <param name="active">Active state of buttons</param>
+    void SetButtonActivity(bool active)
+    {
+        // loop
+        foreach (Transform button in itemViewSlotsGrid.transform)
+        {
+            try
+            {
+                button.gameObject.GetComponent<ActionButton>().interactable = active;
+            } catch { }
+        }
+    }
 
 }
