@@ -12,6 +12,9 @@ public class PlayerInteraction : MonoBehaviour
     public Transform playerMovementModule; // Also get a reference to the movement module to help set the direction the player is facing on interact.
     public CustomProximitySelector playerSelector;
 
+    Vector2 direction;
+	Vector2 center;
+
     private void OnEnable()
     {
         selectorUI.enabled = true;
@@ -28,31 +31,36 @@ public class PlayerInteraction : MonoBehaviour
     {
         if (playerSelector.CurrentUsable != null)
         {
+			// get our direction as a normalized vector
+			direction = Vector2.zero;
+            center = Vector2.zero;
 
             Transform interactedObject = playerSelector.CurrentUsable.transform;
             Debug.Log(interactedObject.name);
-            // Also, cause the player character to face what's being interacted with.
-            float dirX;
-            float dirY;
-            if (playerMovementModule.position.x < interactedObject.transform.position.x)
-            {
-                dirX = 1f;
-            }
-            else
-            {
-                dirX = -1f;
-            }
-            if (playerMovementModule.position.y < interactedObject.transform.position.y)
-            {
-                dirY = 1f;
-            }
-            else
-            {
-                dirY = -1f;
-            }
-            PlayerManager.Instance.playerMovement.SetFaceDirection(dirX, dirY);
+
+			// retrieve our center
+            center = (Vector2)playerSelector.CurrentUsable.GetComponent<Collider2D>()?.bounds.center != null ?
+				(Vector2)playerSelector.CurrentUsable.GetComponent<Collider2D>()?.bounds.center :
+                (Vector2)interactedObject.transform.position;
+
+			Debug.Log("The center of the interactable collider is: " + center);
+
+			direction = center - (Vector2)PlayerCollisionModule.instance.transform.position;
+			
+			// set our direction
+            PlayerManager.Instance.playerMovement.SetFaceDirection(direction.x, direction.y);
         }
     }
+
+	void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawLine(transform.position, center);
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position, (Vector2)transform.position+center);
+	}
+
 }
 
 
