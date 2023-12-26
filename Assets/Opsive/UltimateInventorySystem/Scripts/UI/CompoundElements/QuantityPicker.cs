@@ -7,6 +7,7 @@
 namespace Opsive.UltimateInventorySystem.UI.CompoundElements
 {
     using Opsive.UltimateInventorySystem.Input;
+    using Opsive.UltimateInventorySystem.UI.Panels;
     using System;
     using UnityEngine;
     using UnityEngine.EventSystems;

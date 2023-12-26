@@ -112,7 +112,15 @@ namespace Opsive.UltimateInventorySystem.Crafting
         public virtual void AddRecipe(CraftingRecipe recipe)
         {
             if (m_CraftingRecipes.Contains(recipe)) { return; }
+
+            Debug.Log("Adding " + recipe);
+
             m_CraftingRecipes.Add(recipe);
+
+            foreach(CraftingRecipe r in m_CraftingRecipes)
+            {
+                Debug.Log(r.name);
+            }
         }
 
         /// <summary>

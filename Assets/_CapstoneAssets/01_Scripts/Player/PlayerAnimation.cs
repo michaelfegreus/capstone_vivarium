@@ -62,7 +62,8 @@ public class PlayerAnimation : MonoBehaviour
 		}*/
     }
 
-	public void SetAnimationMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running){
+	public void SetAnimationMovement(bool playerMoving, Vector2 playerMovement, float movementThreshold, bool _running)
+    {
 
 		moving = playerMoving;
 		running = _running;

@@ -54,7 +54,7 @@ namespace Opsive.UltimateInventorySystem.UI.Panels
         /// <summary>
         /// The confirm button was clicked.
         /// </summary>
-        private void ClickedConfirm()
+        public void ClickedConfirm()
         {
             m_PressedConfirm = true;
             OnConfirm?.Invoke();

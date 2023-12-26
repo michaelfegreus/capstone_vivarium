@@ -41,6 +41,14 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """"
+                },
+                {
+                    ""name"": ""Escape"",
+                    ""type"": ""Button"",
+                    ""id"": ""2b5cd23f-05ee-44d0-862d-15893bbe50e8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """"
                 }
             ],
             ""bindings"": [
@@ -175,6 +183,17 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                     ""action"": ""Tool"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""e1cb4c98-83c8-44d7-83ab-ba82ce8760d0"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Escape"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -186,6 +205,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         m_FreeControl_Move = m_FreeControl.FindAction("Move", throwIfNotFound: true);
         m_FreeControl_Dash = m_FreeControl.FindAction("Dash", throwIfNotFound: true);
         m_FreeControl_Tool = m_FreeControl.FindAction("Tool", throwIfNotFound: true);
+        m_FreeControl_Escape = m_FreeControl.FindAction("Escape", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -238,6 +258,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
     private readonly InputAction m_FreeControl_Move;
     private readonly InputAction m_FreeControl_Dash;
     private readonly InputAction m_FreeControl_Tool;
+    private readonly InputAction m_FreeControl_Escape;
     public struct FreeControlActions
     {
         private @PlayerInput m_Wrapper;
@@ -245,6 +266,7 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         public InputAction @Move => m_Wrapper.m_FreeControl_Move;
         public InputAction @Dash => m_Wrapper.m_FreeControl_Dash;
         public InputAction @Tool => m_Wrapper.m_FreeControl_Tool;
+        public InputAction @Escape => m_Wrapper.m_FreeControl_Escape;
         public InputActionMap Get() { return m_Wrapper.m_FreeControl; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -263,6 +285,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Tool.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
                 @Tool.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
                 @Tool.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnTool;
+                @Escape.started -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnEscape;
+                @Escape.performed -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnEscape;
+                @Escape.canceled -= m_Wrapper.m_FreeControlActionsCallbackInterface.OnEscape;
             }
             m_Wrapper.m_FreeControlActionsCallbackInterface = instance;
             if (instance != null)
@@ -276,6 +301,9 @@ public class @PlayerInput : IInputActionCollection, IDisposable
                 @Tool.started += instance.OnTool;
                 @Tool.performed += instance.OnTool;
                 @Tool.canceled += instance.OnTool;
+                @Escape.started += instance.OnEscape;
+                @Escape.performed += instance.OnEscape;
+                @Escape.canceled += instance.OnEscape;
             }
         }
     }
@@ -285,5 +313,6 @@ public class @PlayerInput : IInputActionCollection, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
         void OnTool(InputAction.CallbackContext context);
+        void OnEscape(InputAction.CallbackContext context);
     }
 }

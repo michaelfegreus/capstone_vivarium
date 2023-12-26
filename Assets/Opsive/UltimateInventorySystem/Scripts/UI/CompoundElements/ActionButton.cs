@@ -19,6 +19,7 @@ namespace Opsive.UltimateInventorySystem.UI.CompoundElements
     /// </summary>
     public class ActionButton : Selectable, IPointerClickHandler, ISubmitHandler, ICancelHandler, IBeginDragHandler, IEndDragHandler, IDragHandler, IDropHandler
     {
+
         [Flags]
         [Serializable]
         public enum InputButton {

@@ -28,6 +28,8 @@ namespace Opsive.UltimateInventorySystem.UI.Menus.Crafting
         /// <param name="force">Force the initialize.</param>
         public override void Initialize(DisplayPanel display, bool force)
         {
+            // forcing true
+            force = true;
             var wasInitialized = m_IsInitialized;
             if (wasInitialized && !force) { return; }
             base.Initialize(display, force);
