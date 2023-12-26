@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using PixelCrushers.DialogueSystem;
+using System;
+using System.Collections;
 
 public class GameStateFree : IState {
 
@@ -35,30 +37,38 @@ public class GameStateFree : IState {
         gameManager.menuInput.NotebookNavigation.OpenNotebookMenu.performed -= OpenMenu;
         gameManager.menuInput.NotebookNavigation.CloseNotebookMenu.performed -= CloseMenu;
         gameManager.menuInput.NotebookNavigation.OpenItemHotbar.performed -= OpenItemHotbar;
-        gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed -= CloseItemHotbar;
+        // gameManager.menuInput.NotebookNavigation.CloseItemHotbar.performed -= CloseItemHotbar;
     }
 
     void OpenMenu(InputAction.CallbackContext obj)
     {
-        if(PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
+        Debug.Log("attempted opening of notebook");
+
+        if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.OpenMenu();
             gameManager.hideQuestHUD();
             PlayerManager.Instance.EnterMenuState();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("TurnToNotebook");
-
         }
     }
 
     // Later this should be moved to GameStatePaused state, and opening the inventory can pause time in the game.
     void CloseMenu(InputAction.CallbackContext obj)
     {
+        CloseMenu();
+    }
+
+    // Later this should be moved to GameStatePaused state, and opening the inventory can pause time in the game.
+    void CloseMenu()
+    {
         if (gameManager.notebookMenuManager.menuOpen)
         {
+            Debug.Log("Closing notebook!");
             gameManager.notebookMenuManager.CloseMenu();
             gameManager.showQuestHUD();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
-            //PlayerManager.Instance.EnterFreeState();
+            // PlayerManager.Instance.EnterFreeState();
         }
     }
 
@@ -68,19 +78,23 @@ public class GameStateFree : IState {
         if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.ItemHotbarManager.hotbarOpen && !gameManager.notebookMenuManager.menuOpen && !DialogueManager.IsConversationActive)
         {
             PlayerManager.Instance.EnterMenuState();
-            gameManager.ItemHotbarManager.HotBarItemSelected();
             gameManager.ItemHotbarManager.OpenHotbarPanel();
         }
 
     }
+
     void CloseItemHotbar(InputAction.CallbackContext obj)
     {
+        CloseItemHotbar();
+    }
+
+    void CloseItemHotbar()
+    {
+        Debug.Log("Close item hotbar from GameStateFree");
         if (gameManager.ItemHotbarManager.hotbarOpen)
         {
-            gameManager.ItemHotbarManager.HotBarItemDeselected();
             PlayerManager.Instance.EnterFreeState();
             gameManager.ItemHotbarManager.CloseHotbarPanel();
         }
-
     }
 }

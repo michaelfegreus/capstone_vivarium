@@ -20,7 +20,6 @@ public class NotebookMenuManager : MonoBehaviour
     [SerializeField] bool turnPagesOnOpenClose; // Not sure if I want to use this feature so I set it up as an option for now.
     [SerializeField] float closeDelay; 
 
-    [HideInInspector]
     public bool menuOpen;
 
     [SerializeField] int lastPage = 1; // The last page the player was on before closing the menu
@@ -31,7 +30,36 @@ public class NotebookMenuManager : MonoBehaviour
         menuOpen = false;
         notebookParent.localPosition = new Vector3(notebookCloseXPos, notebookParent.localPosition.y, notebookParent.localPosition.z);
         menuBook.currentPaper = 0;
+
+        // run our slow step at the start of the object
+        StartCoroutine(SlowStep());
     }
+
+
+    // runs once per second
+    IEnumerator SlowStep()
+    {
+        // make sure the menu is open
+        ConfirmMenuState();
+        // wait
+        yield return new WaitForSecondsRealtime(1f);
+        // repeat
+        StartCoroutine(SlowStep());
+    }
+
+    // confirms the menu is open
+    void ConfirmMenuState()
+    {
+        // if the menu says it's open, make sure it is!
+        if (menuOpen)
+        {
+            StartCoroutine(MoveNotebook(notebookOpenXPos, notebookMoveDuration, true, true));
+        } else if (!menuOpen)
+        {
+            StartCoroutine(MoveNotebook(notebookCloseXPos, notebookMoveDuration, false, false));
+        }
+    }
+
 
     public void OpenMenu()
     {

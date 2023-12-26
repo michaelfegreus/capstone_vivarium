@@ -111,7 +111,8 @@ public class PlayerMovement : MonoBehaviour {
     float ledgeFallDistance;
     [SerializeField] private GameObject currLedgeCollider;
 
-    void Start () {
+    void Start () 
+    {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
         playerAnimation = PlayerManager.Instance.playerAnimation;
 		targetMoveSpeed = walkSpeed;
@@ -132,7 +133,8 @@ public class PlayerMovement : MonoBehaviour {
         particlesOn = false;
     }
 
-    void Update () {
+    void Update () 
+    {
         PlayerControls();
         inputAngle = Mathf.Atan2(inputX, inputY) * Mathf.Rad2Deg;
         // If the analog stick is moved...
@@ -250,15 +252,18 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
-	void FixedUpdate (){
+	void FixedUpdate () 
+    {
 		// Move input that pushes the character forward towards the direction faced
-		if (directionInput && !wallCheckScript.stickingWall) {
+		if (directionInput && !wallCheckScript.stickingWall) 
+        {
 			// Apply force to begin moving!
 			rb.AddForce ((playerMovementModule.transform.up * -1f) * (currentMoveSpeed /*substract based on yMovementForshortenMod, if player is drawn from a camera angle needing compensation for moving in perspective*/ - Mathf.Abs(yMovementForshortenModifier * inputY * targetMoveSpeed)));
 		}
 	}
 
-	void PlayerControls(){
+	void PlayerControls()
+    {
 
 		// Derive player controls from PLAYER_STATE_FreeControl.
 		// This method interprets what to do with those controls once input.
@@ -310,7 +315,8 @@ public class PlayerMovement : MonoBehaviour {
     }
 
 	// Calculate which way you're facing
-	void DirectionInputCheck(float inX, float inY){
+	void DirectionInputCheck(float inX, float inY)
+    {
 		//movementVector = new Vector3 (inputX, inputY, 0.0f);
 		//float inputAngle = Mathf.Atan2 (inX, inY) * Mathf.Rad2Deg; // Calculate angle of analog stick input.
 		desiredRotation = Quaternion.Euler(new Vector3(0f, 0f, -1f * inputAngle + 180f));
@@ -616,10 +622,12 @@ public class PlayerMovement : MonoBehaviour {
         currentMoveSpeed = 0f;
         targetMoveSpeed = 0f;
     }
+
     private void OnEnable()
     {
         wallCheckScript.enabled = true;
     }
+    
     private void OnDisable()
     {
         wallCheckScript.enabled = false;

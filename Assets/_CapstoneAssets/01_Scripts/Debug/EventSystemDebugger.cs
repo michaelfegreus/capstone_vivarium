@@ -30,7 +30,7 @@ public class EventSystemDebugger : MonoBehaviour
                 currentlySelected = system.currentSelectedGameObject.name;
                 if (!string.Equals(previouslySelected, currentlySelected))
                 {
-                    Debug.Log("Currently Selected: " + currentlySelected);
+                    // Debug.Log("Currently Selected: " + currentlySelected);
                     previouslySelected = currentlySelected;
                 }
 

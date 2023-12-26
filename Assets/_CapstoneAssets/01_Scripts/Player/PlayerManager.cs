@@ -5,9 +5,16 @@
 [RequireComponent(typeof(PlayerAnimation))]
 [RequireComponent(typeof(PlayerToolUse))]
 
-public class PlayerManager : Singleton<PlayerManager> {
+public class PlayerManager : Singleton<PlayerManager> 
+{
 	
 	private StateMachine playerStateMachine = new StateMachine();
+
+    // is the player in dialogue?
+    public bool inDialogue = false;
+
+    // our notebook manager
+    NotebookMenuManager notebookManager;
 
 	[System.NonSerialized]
 	public PlayerMovement playerMovement;
@@ -21,6 +28,11 @@ public class PlayerManager : Singleton<PlayerManager> {
     public PlayerInput playerInput;
     [System.NonSerialized]
     public PlayerToolUse playerToolUse;
+
+    void Start()
+    {
+        notebookManager = FindObjectOfType<NotebookMenuManager>();
+    }
 
 	void Awake(){
 		playerMovement = GetComponent<PlayerMovement> ();
@@ -44,6 +56,12 @@ public class PlayerManager : Singleton<PlayerManager> {
 
     void Update(){
 		this.playerStateMachine.ExecuteStateUpdate ();
+
+        // are we in a dialogue state?
+        if (inDialogue && notebookManager.menuOpen)
+        {
+            notebookManager.CloseMenu();
+        }
 	}
 
 	public void EnterFreeState(){
@@ -63,5 +81,10 @@ public class PlayerManager : Singleton<PlayerManager> {
     public IState GetPlayerState()
     {
         return playerStateMachine.GetCurrentState();
+    }
+
+    public void DialogueState(bool state)
+    {
+        inDialogue = state;
     }
 }
