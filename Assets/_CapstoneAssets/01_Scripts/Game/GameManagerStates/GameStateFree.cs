@@ -62,7 +62,6 @@ public class GameStateFree : IState {
     // Later this should be moved to GameStatePaused state, and opening the inventory can pause time in the game.
     void CloseMenu()
     {
-        Debug.Log("close of notebook");
         if (gameManager.notebookMenuManager.menuOpen)
         {
             Debug.Log("Closing notebook!");
