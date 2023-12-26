@@ -33,10 +33,9 @@ public class PlayerGlobalFunctions : MonoBehaviour
     /// <returns></returns>
     IEnumerator SlowMenuState()
     {
-        Debug.Log("Waiting for fixed update...");
+
         yield return new WaitForFixedUpdate();
 
-        Debug.Log("Setting player menu state");
         PlayerManager.Instance.EnterMenuState();
     }
 
@@ -45,7 +44,7 @@ public class PlayerGlobalFunctions : MonoBehaviour
     /// </summary>
     public void SetPlayerFreeState()
     {
-        Debug.Log("Setting player free state");
+
         PlayerManager.Instance.EnterFreeState();
     }
 

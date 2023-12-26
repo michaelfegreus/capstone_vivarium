@@ -81,4 +81,9 @@ public class PlayerManager : Singleton<PlayerManager> {
     {
         return playerStateMachine.GetCurrentState();
     }
+
+    public void DialogueState(bool state)
+    {
+        inDialogue = state;
+    }
 }
