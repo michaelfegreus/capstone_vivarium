@@ -51,10 +51,11 @@ public class NotebookMenuManager : MonoBehaviour
     void ConfirmMenuState()
     {
         // if the menu says it's open, make sure it is!
-        if (menuOpen)
+        if (menuOpen && Vector2.Distance(notebookParent.anchoredPosition, new Vector2(notebookOpenXPos, notebookParent.anchoredPosition.y)) > 1f)
         {
             StartCoroutine(MoveNotebook(notebookOpenXPos, notebookMoveDuration, true, true));
-        } else if (!menuOpen)
+        } 
+        else if (!menuOpen && Vector2.Distance(notebookParent.anchoredPosition, new Vector2(notebookCloseXPos, notebookParent.anchoredPosition.y)) > 1f)
         {
             StartCoroutine(MoveNotebook(notebookCloseXPos, notebookMoveDuration, false, false));
         }

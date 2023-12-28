@@ -76,10 +76,14 @@ namespace Opsive.UltimateInventorySystem.Input
             if (m_InputType == InputType.Automatic) { return true; }
 
             // For any start types that require the button to be down make sure it has first returned to the up state before checking if it is down again.
-            if (!m_ButtonUp && (m_InputType == InputType.ButtonDown || m_InputType == InputType.DoublePress ||
-                                   m_InputType == InputType.LongPress || m_InputType == InputType.Tap)) {
-                m_ButtonUp = !playerInput.GetButton(m_InputName);
-            }
+            try
+            {
+                if (!m_ButtonUp && (m_InputType == InputType.ButtonDown || m_InputType == InputType.DoublePress ||
+                                       m_InputType == InputType.LongPress || m_InputType == InputType.Tap))
+                {
+                    m_ButtonUp = !playerInput.GetButton(m_InputName);
+                }
+            } catch { }
 
             if (m_ButtonUp &&
                 (m_InputType == InputType.ButtonDown && playerInput.GetButtonDown(m_InputName)) ||

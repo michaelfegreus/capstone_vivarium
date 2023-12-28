@@ -111,6 +111,10 @@ public class PlayerMovement : MonoBehaviour {
     float ledgeFallDistance;
     [SerializeField] private GameObject currLedgeCollider;
 
+    public static PlayerMovement instance;
+
+    void Awake() => instance = this;
+
     void Start () 
     {
 		rb = playerMovementModule.GetComponent<Rigidbody2D> ();
@@ -396,20 +400,31 @@ public class PlayerMovement : MonoBehaviour {
         }
     }
 
+    // set every frame
+    Vector3 lastFrameMovement;
+    public Vector3 DeltaMovement()
+    {
+        return PlayerCollisionModule.instance.transform.position - lastFrameMovement;
+    }
+
     void WallCheck(Quaternion _desiredRotation)
     {
         playerWallModule.transform.rotation = _desiredRotation;
         playerWallModule.transform.position = playerMovementModule.transform.position;
     }
 
+
+    // pieces for interacting with walls
+    public bool touchingClimb, touchingJump;
+
     void WallStickAction()
     {
         if (directionInput && wallCheckScript.stickingWall)
         {
             wallActionTimeElapsed += Time.fixedDeltaTime;
-            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeClimb".Trim()) /*&& (dashInput || wallActionTimeElapsed > wallActionTimer*/) // If the player is dashing, let them skip the wait to climb the wall.
             {
-                if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
+                if (inputX != 0f || inputY != 0f) // used to check diagonal movement, now checks to ensure we are moving at all
                 {
                     Ledge thisLedge = wallCheckScript.collidingWall.GetComponent<Ledge>();
 
@@ -431,7 +446,8 @@ public class PlayerMovement : MonoBehaviour {
                     wallActionTimeElapsed = 0f;
                 }
             }
-            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeJump".Trim()) && (dashInput || wallActionTimeElapsed > wallActionTimer)) // If the player is dashing, let them skip the wait to climb the wall.
+
+            if (wallCheckScript.collidingWall.tag.Trim().Equals("LedgeJump".Trim()) /*(dashInput || wallActionTimeElapsed > wallActionTimer)*/) // If the player is dashing, let them skip the wait to climb the wall.
             {
                 if (inputX != 0f && inputY != 0f) //Use this check to make sure the player is holding a diagonal. If in the future you make non-diagonal ledge climbing, remove this.
                 {
