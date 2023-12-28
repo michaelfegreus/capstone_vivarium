@@ -13,12 +13,9 @@ public class AnalogClockUI : MonoBehaviour
         secondsToDegrees = 360f / 60f;
 
     public Transform hours, minutes, seconds, hours24;
-
    
     public float m_timeAmplifier = 20f;
     public DayCycle m_customTime = new DayCycle();
-
-
 
     [Serializable]
     public class DayCycle
@@ -47,8 +44,6 @@ public class AnalogClockUI : MonoBehaviour
         {
             m_hours = overrideHours;
             m_minutes = overrideMinutes;
-
-
         }
 
         public void SetupHands()
@@ -59,11 +54,11 @@ public class AnalogClockUI : MonoBehaviour
         }
     }
 
-    
         void Start()
         {
             m_customTime.OverrideCustomTime(ClockManager.Instance.inGameTime.hour, ClockManager.Instance.inGameTime.minute);
         }
+
         private void LateUpdate()
         {
             m_customTime.OverrideCustomTime(ClockManager.Instance.inGameTime.hour, ClockManager.Instance.inGameTime.minute);
@@ -78,79 +73,8 @@ public class AnalogClockUI : MonoBehaviour
                 Quaternion.Euler(0f, 0f, m_customTime.Minutes * -minutesToDegrees);
             seconds.localRotation =
                 Quaternion.Euler(0f, 0f, m_customTime.Seconds * -secondsToDegrees);
-            //Debug.LogFormat("{0};{1};{2}", m_customTime.Hours.ToString("00"), m_customTime.Minutes.ToString("00"), m_customTime.Seconds.ToString("00"));
 
         }
-
-
-    /*
-    void Update()
-    {
-        if (useCustomTime)
-        {
-            if (useWorldTimeManager)
-            {
-                // This works by just getting time in the same Time.smoothDeltaTime way as the WORLD_time_manager...hope it doesn't de-sync!!!
-                m_customTime.AddSeconds((Time.smoothDeltaTime / WORLD_time_manager.Instance.secondsInGameMinute) * 60f);
-
-            }
-            else
-            {
-                m_customTime.AddSeconds(Time.deltaTime * m_timeAmplifier);
-                Debug.LogFormat("{0};{1};{2}", m_customTime.Hours.ToString("00"), m_customTime.Minutes.ToString("00"), m_customTime.Seconds.ToString("00"));
-            }
-            if (analog)
-            {
-                hours24.localRotation =
-                    Quaternion.Euler(0f, 180f, m_customTime.Hours * -hours24ToDegrees);
-                hours.localRotation =
-                    Quaternion.Euler(0f, 0f, m_customTime.Hours * -hoursToDegrees);
-                minutes.localRotation =
-                    Quaternion.Euler(0f, 0f, m_customTime.Minutes * -minutesToDegrees);
-                seconds.localRotation =
-                    Quaternion.Euler(0f, 0f, m_customTime.Seconds * -secondsToDegrees);
-            }
-            else
-            {
-                hours24.localRotation =
-                    Quaternion.Euler(0f, 180f, Mathf.RoundToInt(m_customTime.Hours) * -hours24ToDegrees);
-                hours.localRotation =
-                    Quaternion.Euler(0f, 0f, Mathf.RoundToInt(m_customTime.Hours) * -hoursToDegrees);
-                minutes.localRotation =
-                    Quaternion.Euler(0f, 0f, Mathf.RoundToInt(m_customTime.Minutes) * -minutesToDegrees);
-                seconds.localRotation =
-                    Quaternion.Euler(0f, 0f, Mathf.RoundToInt(m_customTime.Seconds) * -secondsToDegrees);
-            }
-        }
-        else
-        {
-            if (analog)
-            {
-                TimeSpan timespan = DateTime.Now.TimeOfDay;
-                hours24.localRotation =
-                    Quaternion.Euler(0f, 180f, (float)timespan.TotalHours * -hours24ToDegrees);
-                hours.localRotation =
-                    Quaternion.Euler(0f, 0f, (float)timespan.TotalHours * -hoursToDegrees);
-                minutes.localRotation =
-                    Quaternion.Euler(0f, 0f, (float)timespan.TotalMinutes * -minutesToDegrees);
-                seconds.localRotation =
-                    Quaternion.Euler(0f, 0f, (float)timespan.TotalSeconds * -secondsToDegrees);
-            }
-            else
-            {
-                DateTime time = DateTime.Now;
-                hours24.localRotation = Quaternion.Euler(0f, 180f, time.Hour * -hours24ToDegrees);
-                hours.localRotation = Quaternion.Euler(0f, 0f, time.Hour * -hoursToDegrees);
-                minutes.localRotation = Quaternion.Euler(0f, 0f, time.Minute * -minutesToDegrees);
-                seconds.localRotation = Quaternion.Euler(0f, 0f, time.Second * -secondsToDegrees);
-            }
-
-            DateTime currentTime = DateTime.Now;
-            Debug.LogFormat("{0};{1};{2}", currentTime.Hour.ToString("00"), currentTime.Minute.ToString("00"), currentTime.Second.ToString("00"));
-        }
-    }
-    */
-
     
 }
 
