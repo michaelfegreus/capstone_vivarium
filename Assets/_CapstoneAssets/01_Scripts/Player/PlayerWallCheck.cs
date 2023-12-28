@@ -3,7 +3,7 @@
 public class PlayerWallCheck : MonoBehaviour
 {
     [SerializeField]
-    float rayLength = 2f;
+    float rayLength = 4f;
 
     int layermask;
 
@@ -21,13 +21,20 @@ public class PlayerWallCheck : MonoBehaviour
 
     private void Update()
     {
+        // set to the updated position of the player
+        transform.position = PlayerCollisionModule.instance.transform.position;
+
+        // get our movement direction
+
         Debug.DrawRay(transform.position, transform.TransformDirection(Vector2.down) * rayLength, Color.red);
 
+        // original
         RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.TransformDirection(Vector2.down), rayLength, layermask);
+        // new
+        // hit = Physics2D.CircleCast(transform.position, 2, transform.TransformDirection(Vector2.down), rayLength, layermask);
 
         if (hit)
         {
-            //Debug.Log("Hit something: " + hit.collider.name);
             collidingWall = hit.collider.gameObject;
             stickingWall = true;
         }
