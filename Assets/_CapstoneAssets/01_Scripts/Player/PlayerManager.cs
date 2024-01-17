@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using JetBrains.Annotations;
+using UnityEngine;
 
 [RequireComponent(typeof(PlayerMovement))]
 [RequireComponent(typeof(PlayerInteraction))]
@@ -64,7 +65,8 @@ public class PlayerManager : Singleton<PlayerManager>
         }
 	}
 
-	public void EnterFreeState(){
+	public void EnterFreeState()
+    {
 		this.playerStateMachine.ChangeState(new PlayerStateFreeControl(gameObject));
 	}
 	public void EnterMenuState(){
