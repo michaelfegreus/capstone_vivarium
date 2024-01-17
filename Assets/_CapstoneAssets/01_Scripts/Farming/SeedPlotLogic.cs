@@ -114,9 +114,8 @@ public class SeedPlotLogic : MonoBehaviour
 
     public void PlantSeed(Crop crop)
     {
-        //TODO: Add Jenny planting seed animation
         SetToCurrentSeedPlot();
-
+        player.SetPlayerAnimationState("player_interact_plantseed");
         currentCrop = crop;
         plotInUse = true;
         fullyGrown = false;
@@ -172,6 +171,7 @@ public class SeedPlotLogic : MonoBehaviour
 
     public void WaterPlant()
     {
+        player.SetPlayerAnimationState("player_tool_wateringcan");
         wateredSpot.enabled = true;
         plotWatered = true;
     }

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using PixelCrushers.DialogueSystem;
+using static PlayerManager;
 
 public class PlayerStateFreeControl : IState {
 
@@ -23,11 +24,18 @@ public class PlayerStateFreeControl : IState {
         toolUseScript = playerObject.GetComponent<PlayerToolUse>();
 	}
 
-	public void Enter(){
-		Debug.Log ("Player entered free move state");
-		// Now go ahead and enable the scripts that the player should have when they are free to move around.
+    // for when the free state is entered
+    public delegate void FreeStateEntered();
+    public event FreeStateEntered freeStateEntered;
 
-        if(DialogueManager.instance.IsConversationActive == false)
+    public void Enter(){
+		Debug.Log ("Player entered free move state");
+        // Now go ahead and enable the scripts that the player should have when they are free to move around.
+
+        // we entered the free state
+        freeStateEntered?.Invoke();
+
+        if (DialogueManager.instance.IsConversationActive == false)
         {
             movementScript.enabled = true;
             interactionScript.enabled = true;

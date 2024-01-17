@@ -100,7 +100,8 @@ public class ClockManager : Singleton<ClockManager> {
 
 		secondsElapsed += Time.smoothDeltaTime; // I'm not completely sure what smoothDeltaTime functions like, but I'll try it.
 		// When the real-time timer reaches the amount of seconds needed to fulfill one in-game minute...
-		if (secondsElapsed > secondsInGameMinute) {
+		if (secondsElapsed > secondsInGameMinute) 
+        {
 			// Account for a game minute by subtracting the respective amount of seconds
 			secondsElapsed -= secondsInGameMinute;
 			inGameTime.minute += 1; // Increment the game minutes

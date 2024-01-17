@@ -52,7 +52,7 @@ PolygonCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 5.46, y: 3.54}
+    oldSize: {x: 1.8461539, y: 1.8461539}
     newSize: {x: 5.46, y: 3.54}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -103,6 +103,9 @@ MonoBehaviour:
           type: 2}
         m_ItemAttributeCollection:
           m_AttributeCollectionData: []
+    requiredItemCategory:
+      m_Amount: 0
+      m_ItemCategory: {fileID: 0}
     onItemUse:
       m_PersistentCalls:
         m_Calls:
@@ -167,10 +170,10 @@ MonoBehaviour:
   questEntryNumber: 1
   questEntryState: 0
   luaCode: uisAddItem("Arrowhead", 1, "PlayerInventory", "")
-  sequence: 
-  sequenceSpeaker: {fileID: 0}
+  sequence: required SetEnabled(SpriteRenderer, false)@0.3
+  sequenceSpeaker: {fileID: 3366749352719285780}
   sequenceListener: {fileID: 0}
-  waitOneFrameOnStartOrEnable: 1
+  waitOneFrameOnStartOrEnable: 0
   alertMessage: 
   textTable: {fileID: 0}
   alertDuration: 0
@@ -217,15 +220,6 @@ MonoBehaviour:
       luaWizardIndex: 0
       lastEvaluationValue: 0
     target: {fileID: 3366749352719285776}
-    state: 1
-  - condition:
-      luaConditions: []
-      questConditions: []
-      acceptedTags: []
-      acceptedGameObjects: []
-      luaWizardIndex: 0
-      lastEvaluationValue: 0
-    target: {fileID: 8760322501307355722}
     state: 1
   setAnimatorStateActions: []
   onExecute:
