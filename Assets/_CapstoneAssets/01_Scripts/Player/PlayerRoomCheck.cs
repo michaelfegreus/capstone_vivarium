@@ -21,6 +21,7 @@ public class PlayerRoomCheck : MonoBehaviour
 
         rayHit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, layermask);
 
+        /*
         if (rayHit.collider!=null) { 
             if(currentRoomVolume == null)
             {
@@ -55,7 +56,48 @@ public class PlayerRoomCheck : MonoBehaviour
             }
 
         }
+        
+        */
         //Currently does not have an option where you can leave all rooms and have none set active, but that's something you could set up later 
     }
     
+    // checks every single frame
+    void OnTriggerStay2D()
+    {
+        if (currentRoomVolume == null)
+        {
+            // Set up starting room
+
+            currentRoomVolume = rayHit.collider;
+            roomVolumeScripts = currentRoomVolume?.GetComponents<IRoomTrigger>();
+
+            foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
+            {
+                roomTrigger.OnEnterRoom();
+                Debug.Log("running enter room");
+            }
+
+        }
+        else if (currentRoomVolume != null && currentRoomVolume != rayHit.collider)
+        {
+            // Change rooms
+
+            // Run exit functions on current
+            foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
+            {
+                roomTrigger.OnExitRoom();
+                Debug.Log("running exit room");
+            }
+
+            // Set up new room
+            currentRoomVolume = rayHit.collider;
+            roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
+
+            foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
+            {
+                roomTrigger.OnEnterRoom();
+                Debug.Log("running enter room");
+            }
+        }
+    }
 }
