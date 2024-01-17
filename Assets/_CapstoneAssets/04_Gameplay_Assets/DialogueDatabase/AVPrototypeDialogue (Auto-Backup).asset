@@ -8310,10 +8310,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 'AnimatorPlay(yulia_talking, Yulia);
-
-          AnimatorPlay(yulia_idle,
-          Yulia)@Message(Typed); Delay({{end}});'
+        value: '{{yNeutral}}'
+        type: 0
+        typeString: 
+      - title: Response Menu Sequence
+        value: 
         type: 0
         typeString: 
       conversationID: 18
@@ -8385,7 +8386,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: '{{yNeutral}}'
         type: 0
         typeString: 
       conversationID: 18
@@ -8456,7 +8457,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: '{{yNeutral}}'
         type: 0
         typeString: 
       conversationID: 18
@@ -8598,7 +8599,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: '{{yNeutral}}'
         type: 0
         typeString: 
       conversationID: 18
@@ -8669,7 +8670,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: '{{yNeutral}}'
         type: 0
         typeString: 
       conversationID: 18
@@ -8740,7 +8741,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: 
+        value: '{{yNeutral}}'
         type: 0
         typeString: 
       conversationID: 18
@@ -10203,7 +10204,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 56.04413, y: 104.39575}
+    canvasScrollPosition: {x: 37.362732, y: 439.56094}
     canvasZoom: 0.909999
   - id: 19
     fields:
@@ -34441,7 +34442,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(marionne_come_to_life, NPC_marionne)->Message(Curtsy);Continue()@Message(Curtsy)
+        value: AnimatorPlayWait(marionne_come_to_life, NPC_marionne)->Message(Curtsy);Continue()@Message(Curtsy);AnimatorTrigger(Inspect,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 49
@@ -34583,7 +34584,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: '{{mHappy}}'
+        value: '{{mHappy}};AnimatorTrigger(StopInspecting,PlayerAnimation);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 49
@@ -36845,8 +36846,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 600.267, y: 0}
-    canvasZoom: 0.61000025
+    canvasScrollPosition: {x: 198.61012, y: 27.075752}
+    canvasZoom: 0.85000014
   - id: 50
     fields:
     - title: Title
