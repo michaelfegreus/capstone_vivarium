@@ -98,6 +98,34 @@ public class ItemHotbarManager : MonoBehaviour
             StartCoroutine(WaitToDisable());
     }
 
+    public void CloseHotbarPanel(bool stayInMenuState)
+    {
+
+        // hehehh we're gonna have an overload here sorry joshy ;)
+        //TODO: Make this less sloppy/redundant cause i'm goofin'
+        if (!hotbarOpen | closing | opening) // if the hotbar is open and we're not closing or opening
+            return;
+
+        anim.SetTrigger("Disappear");
+
+        // deselect when the hotbar is inactive
+        EventSystem.current.SetSelectedGameObject(null);
+
+        HotBarItemDeselected();
+        // now do the waiting
+        if (!closing | !opening)
+            //this is the new part josho boy, we need this like this so if the player closes the hotbar by using an item they 
+            //shouldn't go into free state (usually)
+            if (stayInMenuState)
+            {
+                StartCoroutine(WaitToDisableStayInMenu());
+            }
+            else
+            {
+                StartCoroutine(WaitToDisable());
+            }
+    }
+
     // wait to set the next frame
     bool opening;
     IEnumerator WaitToSetOpen()
@@ -130,7 +158,22 @@ public class ItemHotbarManager : MonoBehaviour
         PlayerManager.Instance.EnterFreeState();
         closing = false;
     }
+    IEnumerator WaitToDisableStayInMenu()
+    {
+        // deactivate the buttons
+        SetButtonActivity(false);
 
+        hotbarOpen = false;
+        closing = true;
+        yield return new WaitForEndOfFrame();
+        float animationLength = anim.GetCurrentAnimatorStateInfo(0).length;
+        yield return new WaitForSecondsRealtime(animationLength);
+        ItemHotbarPanel.gameObject.SetActive(false);
+        Debug.Log("Hotbar is now closed, staying in menu state");
+        // forces the player to be in the free state
+        PlayerManager.Instance.EnterMenuState();
+        closing = false;
+    }
 
     public void HotBarItemSelected()
     {
