@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Opsive.UltimateInventorySystem.Utility;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -95,13 +96,16 @@ namespace Josh
     [System.Serializable]
     public class RoomCluster
     {
+        [HideInInspector] public string header;
         public List<TimePool> timePools = new List<TimePool>()
         {
-            new TimePool(MusicPlayer.PossibleTimes.Morning, new List<MusicClip>()),
-            new TimePool(MusicPlayer.PossibleTimes.Midday, new List<MusicClip>()),
-            new TimePool(MusicPlayer.PossibleTimes.Afternoon, new List<MusicClip>()),
-            new TimePool(MusicPlayer.PossibleTimes.Night, new List<MusicClip>())
+            new TimePool(MusicPlayer.PossibleTimes.Morning, new List<MusicClip>(), "Morning"),
+            new TimePool(MusicPlayer.PossibleTimes.Midday, new List<MusicClip>(), "Midday"),
+            new TimePool(MusicPlayer.PossibleTimes.Afternoon, new List<MusicClip>(), "Afternoon"),
+            new TimePool(MusicPlayer.PossibleTimes.Night, new List<MusicClip>(), "Night")
         };
+
+        public RoomCluster(string header) { this.header = header; }
     }
     /// <summary>
     /// TimePools hold collections of songs for each time of day, to be held by RoomClusters
@@ -109,17 +113,20 @@ namespace Josh
     [System.Serializable]
     public class TimePool
     {
+        [HideInInspector] public string header;
         /// <summary>
         /// Referenced by other scripts to determine which time this pool represents.
         /// Should only have one TimePool per time 
         /// </summary>
-        public MusicPlayer.PossibleTimes setTime;
+        [HideInInspector] public MusicPlayer.PossibleTimes setTime;
         public List<MusicClip> musicClips = new List<MusicClip>();
 
-        public TimePool(MusicPlayer.PossibleTimes setTime, List<MusicClip> musicClips)
+        public TimePool(MusicPlayer.PossibleTimes setTime, List<MusicClip> musicClips, string header)
         {
+            // set our attributes on construct
             this.setTime = setTime;
             this.musicClips = musicClips;
+            this.header = header;
         }
     }
 
@@ -130,9 +137,16 @@ namespace Josh
     [System.Serializable]
     [SerializeField] public class MusicClip 
     {
+        public string customHeader;
         public AudioClip musicClip; // what is the audio we want to play?
+        [Tooltip("Set to 0 for infinite")]
         public int maxLoops; // how many times can this loop at most?
-        public bool loopsForever; // does this loop forever? sets the loop count to 9999
+
+        public MusicClip(AudioClip musicClip, int maxLoops)
+        {
+            this.musicClip = musicClip;
+            this.maxLoops = maxLoops;
+        }
     }
 
     /// <summary>
@@ -143,5 +157,31 @@ namespace Josh
     {
         // build our list of room clusters, this will auto-populate
         public List<RoomCluster> roomClusters = new List<RoomCluster>();
+
+        void Awake()
+        {
+            ValidateDataset();
+        }
+
+        // when we validate this object
+        void OnValidate()
+        {
+            ValidateDataset();
+        }
+
+        void ValidateDataset()
+        {
+            if (roomClusters.Count < (int)MusicPlayer.PossibleRoomClusters.Count)
+            {
+                Debug.Log("it's lower than 4.");
+                roomClusters.Clear();
+                // then
+                for (int i = 0; i < (int)MusicPlayer.PossibleRoomClusters.Count; i++)
+                {
+                    // create one new RoomCluster with the correct header per room cluster area
+                    roomClusters.Add(new RoomCluster(Enum.GetName(typeof(MusicPlayer.PossibleRoomClusters), i)));
+                }
+            }
+        }
     }
 }
