@@ -31,7 +31,7 @@ namespace Josh
         {
             if (roomClusters.Count < (int)MusicPlayer.PossibleRoomClusters.Count)
             {
-                UnityEngine.Debug.Log("it's lower than 4.");
+                UnityEngine.Debug.LogWarning("Music System Clusters lower than four, rebuilding asset...");
                 roomClusters.Clear();
                 // then
                 for (int i = 0; i < (int)MusicPlayer.PossibleRoomClusters.Count; i++)

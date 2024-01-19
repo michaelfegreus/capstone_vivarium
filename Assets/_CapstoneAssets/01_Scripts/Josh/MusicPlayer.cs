@@ -95,6 +95,7 @@ namespace Josh
 
             ProcessRoomClusterChange();
             ProcessVolumeLevel();
+            ProcessPlayingState();
         }
 
         /// <summary>
@@ -109,6 +110,18 @@ namespace Josh
                 OnRoomClusterChange();
                 // at the end of the frame set our previous room cluster to the current one
                 previousRoomCluster = currentRoomCluster;
+            }
+        }
+
+        /// <summary>
+        /// Performs actions based on whether the audio source is currently playing
+        /// </summary>
+        void ProcessPlayingState()
+        {
+            // if we are not playing, play the next song
+            if (!musicSource.isPlaying && playbackQueue.Count > 0)
+            {
+                ExecuteMusicPlaybackFromQueue();
             }
         }
 
@@ -135,7 +148,10 @@ namespace Josh
         }
 
         // function wrapper for ease of readability
-        void RoomClusterMusicTransition() => StartCoroutine(RoomClusterMusicTransitionCoroutine());
+        void RoomClusterMusicTransition()
+        {
+            StartCoroutine(RoomClusterMusicTransitionCoroutine());
+        }
 
         /// <summary>
         /// Fade out our music
@@ -147,7 +163,27 @@ namespace Josh
             yield return new WaitForSecondsRealtime(1f);
             // after our music has faded out, populate the queue and then set the target volume to 1
             AutoPopulatePlaybackQueue();
+            targetSourceVolume = 1;
+        }
+
+        // function wrapper for manual audio fade in / out
+        void ManualMusicFadeInOut(AudioClip song, int loops)
+        {
+            // clear our queue
+            ClearMusicQueue();
+            // run our new song
+            StartCoroutine(ManualMusicFadeInOutCoroutine(song, loops));
+        }
+
+        // manually fades music in and out
+        IEnumerator ManualMusicFadeInOutCoroutine(AudioClip song, int loops)
+        {
+            // fade our music out
             targetSourceVolume = 0;
+            yield return new WaitForSecondsRealtime(1f);
+            // after our music has faded out, populate the queue and then set the target volume to 1
+            ExecuteMusicPlaybackFromManual(song, loops);
+            targetSourceVolume = 1;
         }
 
         /// <summary>
@@ -192,8 +228,31 @@ namespace Josh
                 playbackQueue.Enqueue(selectedClip.audioClip);
             }
 
-            // after we execute
+            // after we finish population, run our music execution function and begin playback
+            if (playbackQueue.Count > 0)
+                ExecuteMusicPlaybackFromQueue();
 
+        }
+
+        /// <summary>
+        /// Local function to populate our music queue manually
+        /// </summary>
+        /// <param name="song"></param>
+        /// <param name="loops"></param>
+        void ManuallyPopulatePlaybackQueue(AudioClip song, int loops)
+        {
+            // depending on how many times this clip can loop, add a specific amount to the queue
+            int loopCount = loops == 0 ? 10 : Random.Range(1, loops);
+
+            // queue the loop up to the count
+            for (int i = 0; i < loopCount; i++)
+            {
+                playbackQueue.Enqueue(song);
+            }
+
+            // after we finish population, run our music execution function and begin playback
+            if (playbackQueue.Count > 0)
+                ExecuteMusicPlaybackFromQueue();
         }
 
         /// <summary>
@@ -202,18 +261,20 @@ namespace Josh
         /// </summary>
         public void PlayMusic()
         {
-
+            // clear and then auto populate the queue
+            ClearMusicQueue();
+            AutoPopulatePlaybackQueue();
         }
 
         /// <summary>
         /// Function plays music based off of: Time of day, current room, and previously played song.
-        /// Calling this function without any arguments causes it to automatically determine these features.
-        /// Calling this function with an AudioClip overrides the current song and plays that clip instead.
+        /// Calling this function with an AudioClip overrides the current song and plays that clip instead, once.
         /// </summary>
         /// <param name="song"></param>
         public void PlayMusic(AudioClip song)
         {
-
+            ClearMusicQueue();
+            ManualMusicFadeInOut(song, 1);
         }        
         
         /// <summary>
@@ -225,7 +286,8 @@ namespace Josh
         /// <param name="song"></param>
         public void PlayMusic(AudioClip song, int maxLoops)
         {
-
+            ClearMusicQueue();
+            ManualMusicFadeInOut(song, maxLoops);
         }
 
         /// <summary>
@@ -236,17 +298,28 @@ namespace Josh
         /// <param name="musicClip"></param>
         public void PlayMusic(MusicClip musicClip)
         {
-
+            ClearMusicQueue();
+            ManualMusicFadeInOut(musicClip.audioClip, musicClip.maxLoops);
         }
 
         /// <summary>
-        /// Local function used to play music by all of the PlayMusic public functions
+        /// Local function used to play music by all of the PlayMusic public functions.
+        /// Running this function with no arguments plays the most recent song in the queue.
+        /// </summary>
+        void ExecuteMusicPlaybackFromQueue()
+        {
+            musicSource.clip = playbackQueue.Dequeue();
+            musicSource.Play();
+        }
+
+        /// <summary>
+        /// Local function used to play music manually
         /// </summary>
         /// <param name="audioClip">The audio file to be played</param>
         /// <param name="maxLoops">How many times this song is looped</param>
-        void ExecuteMusicPlayback(AudioClip audioClip, int maxLoops)
+        void ExecuteMusicPlaybackFromManual(AudioClip audioClip, int maxLoops)
         {
-
+            ManuallyPopulatePlaybackQueue(audioClip, maxLoops);
         }
     }
 

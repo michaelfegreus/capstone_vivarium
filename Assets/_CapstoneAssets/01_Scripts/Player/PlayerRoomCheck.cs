@@ -27,7 +27,7 @@ public class PlayerRoomCheck : MonoBehaviour
     }
     
     // checks every single frame
-    void OnTriggerStay2D(Collider2D other)
+    void OnTriggerStay2D()
     {
         if (currentRoomVolume == null)
         {

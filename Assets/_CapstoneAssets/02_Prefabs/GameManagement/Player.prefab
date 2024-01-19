@@ -6074,7 +6074,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -6171,11 +6171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb214c416b725a94e90c576f14e8a585, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  initialized: 0
   currentPlaybackDataset: {fileID: 11400000, guid: d5746bcb1fb02b04296aed181571794e,
     type: 2}
-  currentRoom: 
+  musicSource: {fileID: 0}
   currentRoomCluster: 0
   currentTime: 0
+  targetSourceFadeRate: 0
 --- !u!1 &6212762178952061769
 GameObject:
   m_ObjectHideFlags: 0
