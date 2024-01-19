@@ -25,6 +25,11 @@ namespace Josh
         /// </summary>
         public MusicPlaybackDataset currentPlaybackDataset;
 
+        [Header("Debug Readouts")]
+        [SerializeField] string currentRoom;
+        [SerializeField] PossibleRoomClusters currentRoomCluster;
+        [SerializeField] PossibleTimes currentTime;
+
         /// <summary>
         /// What possible times are there in the environment?
         /// Used by the TimePool class to mark what time the pool represents

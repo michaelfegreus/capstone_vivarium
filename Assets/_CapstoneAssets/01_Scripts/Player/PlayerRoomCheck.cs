@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Josh;
 
 public class PlayerRoomCheck : MonoBehaviour
 {
@@ -10,65 +11,29 @@ public class PlayerRoomCheck : MonoBehaviour
     Collider2D currentRoomVolume;
     IRoomTrigger[] roomVolumeScripts;
 
+    public MusicPlayer.PossibleRoomClusters currentRoomCluster;
+
     private void Start()
     {
          layermask = LayerMask.GetMask("Rooms");
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
+        // 
         ray = new Ray(transform.position + new Vector3(0, 0, -1), Vector3.forward);
 
         rayHit = Physics2D.GetRayIntersection(ray, Mathf.Infinity, layermask);
-
-        /*
-        if (rayHit.collider!=null) { 
-            if(currentRoomVolume == null)
-            {
-                // Set up starting room
-
-                currentRoomVolume = rayHit.collider;
-                roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
-
-                foreach(IRoomTrigger roomTrigger in roomVolumeScripts)
-                {
-                    roomTrigger.OnEnterRoom();
-                }
-
-            }
-            else if (currentRoomVolume != null && currentRoomVolume != rayHit.collider) {
-                // Change rooms
-
-                // Run exit functions on current
-                foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
-                {
-                    roomTrigger.OnExitRoom();
-                }
-
-                // Set up new room
-                currentRoomVolume = rayHit.collider;
-                roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
-
-                foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
-                {
-                    roomTrigger.OnEnterRoom();
-                }
-            }
-
-        }
-        
-        */
-        //Currently does not have an option where you can leave all rooms and have none set active, but that's something you could set up later 
     }
     
     // checks every single frame
-    void OnTriggerStay2D()
+    void OnTriggerStay2D(Collider2D other)
     {
         if (currentRoomVolume == null)
         {
             // Set up starting room
 
-            currentRoomVolume = rayHit.collider;
+            currentRoomVolume = rayHit.collider; // use the trigger overlap instead of the raycast
             roomVolumeScripts = currentRoomVolume?.GetComponents<IRoomTrigger>();
 
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
@@ -92,6 +57,9 @@ public class PlayerRoomCheck : MonoBehaviour
             // Set up new room
             currentRoomVolume = rayHit.collider;
             roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
+
+            // set our current room cluster
+            currentRoomCluster = currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster;
 
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
             {
