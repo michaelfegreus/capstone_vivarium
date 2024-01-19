@@ -36,9 +36,10 @@ public class PlayerRoomCheck : MonoBehaviour
             currentRoomVolume = rayHit.collider; // use the trigger overlap instead of the raycast
             roomVolumeScripts = currentRoomVolume?.GetComponents<IRoomTrigger>();
 
+            if (roomVolumeScripts?.Length > 0)
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
             {
-                roomTrigger.OnEnterRoom();
+                roomTrigger?.OnEnterRoom();
                 Debug.Log("running enter room");
             }
 
@@ -48,9 +49,10 @@ public class PlayerRoomCheck : MonoBehaviour
             // Change rooms
 
             // Run exit functions on current
+            if (roomVolumeScripts.Length > 0)
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
             {
-                roomTrigger.OnExitRoom();
+                roomTrigger?.OnExitRoom();
                 Debug.Log("running exit room");
             }
 
@@ -59,11 +61,13 @@ public class PlayerRoomCheck : MonoBehaviour
             roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
 
             // set our current room cluster
+            Debug.Log("setting: " + currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster);
             currentRoomCluster = currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster;
+            MusicPlayer.instance.currentRoomCluster = currentRoomCluster;
 
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
             {
-                roomTrigger.OnEnterRoom();
+                roomTrigger?.OnEnterRoom();
                 Debug.Log("running enter room");
             }
         }

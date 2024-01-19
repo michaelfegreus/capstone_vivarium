@@ -2,6 +2,8 @@
 using System.Text;
 using UnityEngine;
 using PixelCrushers.DialogueSystem;
+using PixelCrushers;
+
 public class ClockManager : Singleton<ClockManager> {
 
 	//[Header("Time of Day")]
@@ -86,10 +88,41 @@ public class ClockManager : Singleton<ClockManager> {
 	
 	void Update () {
 		RunGameClock ();
-		// TimeOfDayColor(); // Set a post processing profile on the camera to recolor the screen depending on time of deay.
+        // TimeOfDayColor(); // Set a post processing profile on the camera to recolor the screen depending on time of deay.
+
+        // update the time pool readout for the music
+        MusicTimeUpdate();
 	}
 
-	void RunGameClock (){
+    void MusicTimeUpdate()
+    {
+        // morning
+        if (inGameTime.hour > morning.startTime.hour && inGameTime.hour < morning.endTime.hour)
+        {
+            Josh.MusicPlayer.instance.currentTime = Josh.MusicPlayer.PossibleTimes.Morning;
+        } 
+
+        // midday
+        if (inGameTime.hour > midday.startTime.hour && inGameTime.hour < midday.endTime.hour)
+        {
+            Josh.MusicPlayer.instance.currentTime = Josh.MusicPlayer.PossibleTimes.Midday;
+        }
+
+        // evening
+        if (inGameTime.hour > evening.startTime.hour && inGameTime.hour < evening.endTime.hour)
+        {
+            Josh.MusicPlayer.instance.currentTime = Josh.MusicPlayer.PossibleTimes.Evening;
+        }
+
+        // night
+        if (inGameTime.hour > night.startTime.hour && inGameTime.hour < night.endTime.hour)
+        {
+            Josh.MusicPlayer.instance.currentTime = Josh.MusicPlayer.PossibleTimes.Night;
+        }
+
+    }
+
+    void RunGameClock (){
 		// Change this if there is an update to time that needs to be reflected in articy:draft global variables and the HUD
 		bool clockUpdated = false;
 		// Reset End of Day variable in articy:draft global variables if it's currently set to true;

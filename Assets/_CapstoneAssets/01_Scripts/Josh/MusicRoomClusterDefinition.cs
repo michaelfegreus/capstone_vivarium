@@ -4,8 +4,11 @@ using UnityEngine;
 
 namespace Josh
 {
-    public class MusicRoomClusterDefinition
+    public class MusicRoomClusterDefinition : MonoBehaviour, IRoomTrigger
     {
         public MusicPlayer.PossibleRoomClusters assignedCluster;
+
+        public void OnEnterRoom() { }
+        public void OnExitRoom() { }
     }
 }
