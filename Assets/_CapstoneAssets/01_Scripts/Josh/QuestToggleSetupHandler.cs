@@ -16,6 +16,8 @@ public class QuestToggleSetupHandler : MonoBehaviour
     {
         if (toggle == null) toggle = GetComponent<Toggle>();
 
+        if (trackerCompanion == null) trackerCompanion = GameObject.FindObjectOfType<QuestTrackerCompanion>();
+
         // find and setup this toggle
         toggle.onValueChanged.AddListener(delegate { trackerCompanion.ToggleQuests(); });
     }

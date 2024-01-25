@@ -6,7 +6,7 @@ public class QuestTrackerCompanion : MonoBehaviour
 {
     // variables
     [SerializeField] CanvasGroup questGroup; // the UI canvas group for our quests
-    float targetAlpha, fadeRate = 1;
+    [SerializeField] float targetAlpha, fadeRate = 1;
 
     // public functions for showing / hiding the active quests
     public void ShowQuests()
@@ -22,9 +22,11 @@ public class QuestTrackerCompanion : MonoBehaviour
 
     public void ToggleQuests()
     {
+        Debug.Log("setting quest toggle...");
+
         if (targetAlpha == 1)
             HideQuests();
-        if (targetAlpha == 0)
+        else if (targetAlpha == 0)
             ShowQuests();
     }
 
@@ -32,6 +34,6 @@ public class QuestTrackerCompanion : MonoBehaviour
     void FixedUpdate()
     {
         // fade to our desired canvas alpha state
-        questGroup.alpha = questGroup.alpha == targetAlpha ? Mathf.MoveTowards(questGroup.alpha, targetAlpha, fadeRate * Time.deltaTime) : questGroup.alpha;
+        questGroup.alpha = Mathf.MoveTowards(questGroup.alpha, targetAlpha, fadeRate * Time.deltaTime);
     }
 }
