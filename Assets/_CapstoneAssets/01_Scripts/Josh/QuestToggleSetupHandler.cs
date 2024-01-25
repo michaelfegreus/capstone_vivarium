@@ -14,7 +14,7 @@ public class QuestToggleSetupHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        toggle ??= GetComponent<Toggle>();
+        if (toggle == null) toggle = GetComponent<Toggle>();
 
         // find and setup this toggle
         toggle.onValueChanged.AddListener(delegate { trackerCompanion.ToggleQuests(); });
