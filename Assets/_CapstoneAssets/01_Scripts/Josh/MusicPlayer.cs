@@ -27,11 +27,12 @@ namespace Josh
         [Header("Core Variables")]
         [SerializeField] private AudioSource musicSource;
         public PossibleRoomClusters currentRoomCluster;
-        PossibleRoomClusters previousRoomCluster;
+        [SerializeField] PossibleRoomClusters previousRoomCluster;
         public PossibleTimes currentTime;
-        float targetSourceVolume;
+        [SerializeField] PossibleTimes previousTime;
+        public float targetSourceVolume;
         [Tooltip("How quickly songs fade in and out")]
-        [SerializeField] float targetSourceFadeRate;
+        public float targetSourceFadeRate;
         /// <summary>
         /// What possible times are there in the environment?
         /// Used by the TimePool class to mark what time the pool represents
@@ -91,11 +92,17 @@ namespace Josh
         // Runs once per physics tick, 50 times per second
         void FixedUpdate()
         {
-            if (!initialized) return;
+            if (!initialized)
+            {
+                Debug.Log("Not initialized");
+                return;
+            }
 
             ProcessRoomClusterChange();
+            ProcessTimeChange();
             ProcessVolumeLevel();
             ProcessPlayingState();
+
         }
 
         /// <summary>
@@ -106,10 +113,26 @@ namespace Josh
             // check if the room cluster has changed
             if (previousRoomCluster != currentRoomCluster)
             {
+                Debug.Log("Cluster Change Processed");
                 // a change has occured!
-                OnRoomClusterChange();
+                OnAnyMusicChange();
                 // at the end of the frame set our previous room cluster to the current one
                 previousRoomCluster = currentRoomCluster;
+            }
+        }
+
+        /// <summary>
+        /// Processes Time Changes
+        /// </summary>
+        void ProcessTimeChange()
+        {
+            if (previousTime != currentTime)
+            {
+                Debug.Log("Time has changed!");
+                // a change has occured!
+                OnAnyMusicChange();
+                // set our previous time
+                previousTime = currentTime;
             }
         }
 
@@ -126,11 +149,11 @@ namespace Josh
         }
 
         /// <summary>
-        /// Run when the Room Cluster changes
+        /// Run when the any Room Cluster or Times Change
         /// </summary>
-        void OnRoomClusterChange()
+        void OnAnyMusicChange()
         {
-            // clear the queu
+            // clear the queue
             ClearMusicQueue();
             // whenever the cluster changes, run a coroutine to lower fade out the music before fading in
             RoomClusterMusicTransition();
@@ -200,17 +223,20 @@ namespace Josh
         /// Local function to populate our music queue
         /// </summary>
         void AutoPopulatePlaybackQueue()
-        {
+        { 
+
+            Debug.Log("Automatically populating the playback queue...");
+
             // make sure we have a playback dataset before continuing
             if (currentPlaybackDataset == null)
             {
+                Debug.Log("MusicPlayer object does not have a MuscPlaybackDataset, you need to set this in the inspector or music will not play.");
                 Debug.LogError("MusicPlayer object does not have a MuscPlaybackDataset, you need to set this in the inspector or music will not play.");
                 return;
             }
 
             // based on our current room cluster pick a series of songs to add to the playback queue
-            MusicClip selectedClip = currentPlaybackDataset?.roomClusters[(int)currentRoomCluster].timePools[(int)currentTime]
-                .musicClips[Random.Range(0, currentPlaybackDataset.roomClusters[(int)currentRoomCluster].timePools[(int)currentTime].musicClips.Count)];
+            MusicClip selectedClip = currentPlaybackDataset?.roomClusters[(int)currentRoomCluster].timePools[(int)currentTime].musicClips[Random.Range(0, currentPlaybackDataset.roomClusters[(int)currentRoomCluster].timePools[(int)currentTime].musicClips.Count-1)];
 
             // if this music clip comes up null, don't do anything and return this function
             if (selectedClip == null)
@@ -225,6 +251,7 @@ namespace Josh
             // queue the loop up to the count
             for (int i = 0; i < loopCount; i++)
             {
+                Debug.Log("Enqueuing : " + selectedClip.audioClip.name);
                 playbackQueue.Enqueue(selectedClip.audioClip);
             }
 
@@ -308,8 +335,11 @@ namespace Josh
         /// </summary>
         void ExecuteMusicPlaybackFromQueue()
         {
+
             musicSource.clip = playbackQueue.Dequeue();
             musicSource.Play();
+
+            Debug.Log("Executing Playback from Queue: " + musicSource.clip.name);   
         }
 
         /// <summary>

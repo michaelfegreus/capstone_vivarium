@@ -41,6 +41,11 @@ public class PlayerRoomCheck : MonoBehaviour
             {
                 roomTrigger?.OnEnterRoom();
                 Debug.Log("running enter room");
+
+                // set our current room cluster
+                Debug.Log("setting: " + currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster);
+                currentRoomCluster = currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster;
+                MusicPlayer.instance.currentRoomCluster = currentRoomCluster;
             }
 
         }
@@ -58,12 +63,9 @@ public class PlayerRoomCheck : MonoBehaviour
 
             // Set up new room
             currentRoomVolume = rayHit.collider;
-            roomVolumeScripts = currentRoomVolume.GetComponents<IRoomTrigger>();
+            Debug.Log("our current room volume is: " + currentRoomVolume);
 
-            // set our current room cluster
-            Debug.Log("setting: " + currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster);
-            currentRoomCluster = currentRoomVolume.GetComponent<Josh.MusicRoomClusterDefinition>().assignedCluster;
-            MusicPlayer.instance.currentRoomCluster = currentRoomCluster;
+            roomVolumeScripts = currentRoomVolume?.GetComponents<IRoomTrigger>();
 
             foreach (IRoomTrigger roomTrigger in roomVolumeScripts)
             {
