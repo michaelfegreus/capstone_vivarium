@@ -70,16 +70,20 @@ public class RoomEventStartWindow : RoomEvent
             if (!ranEvent)
             {
                 Debug.Log("Checked time event with clock rollover FALSE");
-                if (gameClockManager.inGameTime.TimeMet(startTimeWindowA))
+                try
                 {
-                    if (!gameClockManager.inGameTime.TimeMet(startTimeWindowB))
+                    if (gameClockManager.inGameTime.TimeMet(startTimeWindowA))
                     {
-                        eventDialogueSystemTrigger.OnUse();
-                        ranEvent = true;
+                        if (!gameClockManager.inGameTime.TimeMet(startTimeWindowB))
+                        {
+                            eventDialogueSystemTrigger.OnUse();
+                            ranEvent = true;
 
-                        EventDebugLog();
+                            EventDebugLog();
+                        }
                     }
                 }
+                catch { }
             }
             else
             {

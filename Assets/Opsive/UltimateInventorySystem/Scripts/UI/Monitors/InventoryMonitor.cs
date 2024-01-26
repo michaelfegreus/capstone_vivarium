@@ -465,7 +465,11 @@ namespace Opsive.UltimateInventorySystem.UI.Monitors
             if (m_ItemDisplays == null) { return; }
 
             for (int i = 0; i < m_ItemDisplays.Count; i++) {
-                m_ItemDisplays[i].CanvasGroup.alpha = 0;
+                try
+                {
+                    m_ItemDisplays[i].CanvasGroup.alpha = 0;
+                }
+                catch { }
             }
 
             StopListening();

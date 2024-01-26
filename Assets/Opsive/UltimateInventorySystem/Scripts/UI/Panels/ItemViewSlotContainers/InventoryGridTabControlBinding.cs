@@ -26,7 +26,7 @@ namespace Opsive.UltimateInventorySystem.UI.Panels.ItemViewSlotContainers
         protected override void OnBindItemViewSlotContainer()
         {
             if (m_TabControl == null) {
-                Debug.LogError("The tab control is missing from the inventory grid tab control binding", gameObject);
+                Debug.LogWarning("The tab control is missing from the inventory grid tab control binding", gameObject);
                 return;
             }
 
