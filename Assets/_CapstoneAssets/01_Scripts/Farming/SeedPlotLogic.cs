@@ -102,14 +102,15 @@ public class SeedPlotLogic : MonoBehaviour
     public void DigHole()
     {
         player.SetPlayerAnimationState("Shovel");
-        currentSprite.sprite = dugHole;
+        StartCoroutine("ShowHole");
     }
 
     public void FillHole()
     {
         //TODO: Swap this out with a fill hole shovelling animation like in Animal Crossing
         player.SetPlayerAnimationState("Shovel");
-        currentSprite.sprite = null;
+        StartCoroutine("RemoveHole");
+
     }
 
     public void PlantSeed(Crop crop)
@@ -122,15 +123,58 @@ public class SeedPlotLogic : MonoBehaviour
         daysGrowing = 0;
         daysOfRegrowth = 0;
         daysTillFullyGrown = currentCrop.numGrowthStages;
-        currentSprite.sprite = currentCrop.justPlantedSprite;
         daysTillReharvest = currentCrop.regrowthTimeInDays;
         fullGrownEXP = currentCrop.fullyGrownEXP;
+        StartCoroutine("SetCrop");
+    }
+
+    IEnumerator ShowHole()
+    {
+        yield return new WaitForSeconds(0.4f);
+        currentSprite.sprite = dugHole;
+    }
+
+    IEnumerator RemoveHole()
+    {
+        yield return new WaitForSeconds(0.4f);
+        currentSprite.sprite = null;
+    }
+
+    IEnumerator SetCrop()
+    {
+        yield return new WaitForSeconds(0.6f);
+        currentSprite.sprite = currentCrop.justPlantedSprite;
+
     }
 
     public void SetCurrentCrop()
     {
-        GameManager.Instance.GetCurrentItem().TryGetAttributeValue<Crop>("CropObject", out Crop crop);
-        PlantSeed(crop);
+        if (plotReady && !plotInUse)
+        {
+            Opsive.UltimateInventorySystem.Core.ItemDefinition item;
+            item = GameManager.Instance.GetCurrentItem();
+            item.TryGetAttributeValue<Crop>("CropObject", out Crop crop);
+            GameManager.Instance.playerInventory.RemoveItem(item, 1);
+            PlantSeed(crop);
+        }
+        else
+        {
+            if (GameManager.Instance.notebookMenuManager.menuOpen)
+            {
+                PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrug");
+            }
+            else
+            {
+                PlayerManager.Instance.playerAnimation.PlayAnimationState("WrongItemShrugHotbar");
+            }
+            StartCoroutine(SetFreeState());
+        }
+    }
+
+    IEnumerator SetFreeState()
+    {
+        yield return new WaitForSeconds(1.5f);
+        PlayerManager.Instance.EnterFreeState();
     }
 
     public void TryHarvestPlant()
@@ -172,8 +216,26 @@ public class SeedPlotLogic : MonoBehaviour
     public void WaterPlant()
     {
         player.SetPlayerAnimationState("player_tool_wateringcan");
-        wateredSpot.enabled = true;
+        StartCoroutine("ShowWetSpot");
         plotWatered = true;
+    }
+
+    IEnumerator ShowWetSpot()
+    {
+        if(wateredSpot.enabled!= true)
+        {
+            float alpha = 0f;
+            yield return new WaitForSeconds(0.2f);
+            wateredSpot.color = new Color(1f, 1f, 1f, alpha);
+            wateredSpot.enabled = true;
+            while (alpha < 1)
+            {
+                alpha += 0.05f;
+                wateredSpot.color = new Color(1f, 1f, 1f, alpha);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+        
     }
 
     public void RemovePlant()

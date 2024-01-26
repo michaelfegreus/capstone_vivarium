@@ -26,7 +26,7 @@ public class UseItemActionCustom : ItemAction
             }
 
         }
-        // If item use SUCCEEDS, CLOSE the inventory screen so player can engage in dialogue
+        // If item use SUCCEEDS, CLOSE the inventory screen so player can engage in dialogue or some other shit like watch an animation
         else
         {
             if (GameManager.Instance.notebookMenuManager.menuOpen)
@@ -36,8 +36,7 @@ public class UseItemActionCustom : ItemAction
             }
             else
             {
-                GameManager.Instance.ItemHotbarManager.CloseHotbarPanel();
-
+                GameManager.Instance.ItemHotbarManager.CloseHotbarPanel(true);
             }
 
         }

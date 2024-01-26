@@ -14,8 +14,10 @@ public class SetPlayerDirection : StateMachineBehaviour
     [Tooltip("Reset the Player Movement to 0, such as in the event of facing downward.")]
     bool resetPlayerRotation;
 
-    public override void OnStateExit(Animator animator, AnimatorStateInfo animatorStateInfo, int layerIndex)
+
+    public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        base.OnStateEnter(animator, stateInfo, layerIndex);
         PlayerManager.Instance.playerMovement.SetStandingFaceDirection(xDirection, yDirection);
         if (resetPlayerRotation)
         {
