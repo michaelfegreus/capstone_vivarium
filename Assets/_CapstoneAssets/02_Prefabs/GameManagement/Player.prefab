@@ -886,6 +886,7 @@ GameObject:
   - component: {fileID: 2393786709365995844}
   - component: {fileID: 6619141325963461217}
   - component: {fileID: 9146648728208779628}
+  - component: {fileID: 6566651495031460476}
   m_Layer: 16
   m_Name: PlayerMovement
   m_TagString: Player
@@ -970,6 +971,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentRoomCluster: 0
+--- !u!114 &6566651495031460476
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393786709365995855}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5bd14756cbab94ca6c5f199dc7a3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportLocations:
+  - {x: -82, y: -16.44}
+  - {x: 33.77, y: -13.04}
+  - {x: -184.5, y: 33.2}
+  - {x: 133.85, y: 55.41}
+  - {x: 157.9, y: 293.9}
+  - {x: 10.5, y: 133.9}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
 --- !u!1 &2393786709766913223
 GameObject:
   m_ObjectHideFlags: 0
@@ -1065,7 +1089,6 @@ GameObject:
   - component: {fileID: 2393786709830514600}
   - component: {fileID: 2393786709830514601}
   - component: {fileID: 1396227365}
-  - component: {fileID: 4286423558660692688}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1221,29 +1244,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerItemUser: {fileID: 0}
---- !u!114 &4286423558660692688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393786709830514611}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a5bd14756cbab94ca6c5f199dc7a3f1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teleportLocations:
-  - {x: -82, y: -16.44}
-  - {x: 33.77, y: -13.04}
-  - {x: -184.5, y: 33.2}
-  - {x: 133.85, y: 55.41}
-  - {x: 157.9, y: 293.9}
-  - {x: 10.5, y: 133.9}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
 --- !u!1 &2465563752525673104
 GameObject:
   m_ObjectHideFlags: 0
