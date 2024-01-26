@@ -14,7 +14,7 @@ public class PlayerStateMenu : MonoBehaviour, IState {
 		Debug.Log ("Player entered Menu state");
 
 		// when we enter the menu state, hide our toggles
-		FindObjectOfType<QuestTrackerCompanion>().HideQuests();
+		FindObjectOfType<QuestTrackerCompanion>()?.HideQuests();
 
 	}
 

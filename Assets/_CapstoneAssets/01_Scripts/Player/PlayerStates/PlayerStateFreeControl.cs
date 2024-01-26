@@ -32,7 +32,7 @@ public class PlayerStateFreeControl : MonoBehaviour, IState {
 		Debug.Log ("Player entered free move state");
 
         // tell the quest tracker we'd like to see the quests
-        FindObjectOfType<QuestTrackerCompanion>().ShowQuests();
+        FindObjectOfType<QuestTrackerCompanion>()?.ShowQuests();
 
         // Now go ahead and enable the scripts that the player should have when they are free to move around.
 
