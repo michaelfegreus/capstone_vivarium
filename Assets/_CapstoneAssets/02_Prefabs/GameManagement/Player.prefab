@@ -1065,6 +1065,7 @@ GameObject:
   - component: {fileID: 2393786709830514600}
   - component: {fileID: 2393786709830514601}
   - component: {fileID: 1396227365}
+  - component: {fileID: 4286423558660692688}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1220,6 +1221,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerItemUser: {fileID: 0}
+--- !u!114 &4286423558660692688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2393786709830514611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a5bd14756cbab94ca6c5f199dc7a3f1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  teleportLocations:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
 --- !u!1 &2465563752525673104
 GameObject:
   m_ObjectHideFlags: 0
@@ -6176,10 +6200,11 @@ MonoBehaviour:
     type: 2}
   musicSource: {fileID: 0}
   currentRoomCluster: 0
+  previousRoomCluster: 0
   currentTime: 0
+  previousTime: 0
+  targetSourceVolume: 0
   targetSourceFadeRate: 1
-  visibleQueue: []
-  debugQueue: 0
 --- !u!1 &6212762178952061769
 GameObject:
   m_ObjectHideFlags: 0
