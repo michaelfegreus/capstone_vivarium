@@ -8,6 +8,7 @@ public class FMVManager : MonoBehaviour
 {
 
     private VideoPlayer videoPlayer;
+    [SerializeField] GameObject cam;
 
     void Start()
     {
@@ -19,12 +20,14 @@ public class FMVManager : MonoBehaviour
     {
         videoPlayer.Play();
         PlayerManager.Instance.EnterMenuState();
+        cam.SetActive(true);
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
         videoPlayer.Stop();
         PlayerManager.Instance.EnterFreeState();
+        cam.SetActive(false);
     }
 
     void Update()
