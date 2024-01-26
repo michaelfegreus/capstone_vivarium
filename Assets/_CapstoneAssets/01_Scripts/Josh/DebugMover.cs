@@ -6,7 +6,10 @@ using UnityEngine.InputSystem;
 
 public class DebugMover : MonoBehaviour
 {
-    [SerializeField] List<Vector2> teleportLocations;
+    public List<Vector2> teleportLocations;
+
+    public static DebugMover instance;
+    void Awake() => instance = this;    
 
     void Update()
     {
@@ -36,7 +39,7 @@ public class DebugMover : MonoBehaviour
 
     }
 
-    void Teleport(Vector2 target)
+    public void Teleport(Vector2 target)
     {
         transform.position = target;
     }
