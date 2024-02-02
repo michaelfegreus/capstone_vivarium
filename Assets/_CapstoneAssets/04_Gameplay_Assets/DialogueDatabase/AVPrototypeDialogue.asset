@@ -991,6 +991,20 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: CustomFieldType_Text
+  - id: 30
+    fields:
+    - title: Name
+      value: ActiveStorageName
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   conversations:
   - id: 1
     fields:
@@ -5682,7 +5696,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
-        value: 
+        value: 77ce3873-df8d-4e64-8c55-eff81c356848
         type: 0
         typeString: 
       conversationID: 13
@@ -5709,7 +5723,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 118.25531
+        x: 119.192535
         y: 343.95306
         width: 320
         height: 30
@@ -5783,8 +5797,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0.8642578, y: 162.4892}
-    canvasZoom: 1.1570001
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1.0670002
   - id: 14
     fields:
     - title: Title
@@ -5937,7 +5951,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: This shed door won't budge...
+        value: 
         type: 0
         typeString: 
       - title: Parenthetical
@@ -5953,6 +5967,11 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
+        value: HidePlayer(); AnimatorPlay(sheddoor_stuck,ShedDoor); SetPlayerFaceDirection(NE);
+          ShowPlayer()@0.95;MoveTo(ShedJennyPosition, PlayerMovement)
+        type: 0
+        typeString: 
+      - title: Response Menu Sequence
         value: 
         type: 0
         typeString: 
@@ -5967,7 +5986,7 @@ MonoBehaviour:
       - originConversationID: 14
         originDialogueID: 1
         destinationConversationID: 14
-        destinationDialogueID: 4
+        destinationDialogueID: 7
         isConnector: 0
         priority: 2
       conditionsString: CurrentQuestState("Get into the Shed") == "unassigned"
@@ -5977,8 +5996,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 40.43445
-        y: 111.0244
+        x: 54.42856
+        y: 139.0127
         width: 320
         height: 30
     - id: 3
@@ -6048,8 +6067,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 590.0732
-        y: 120.902435
+        x: 608.73206
+        y: 152.38931
         width: 320
         height: 30
     - id: 4
@@ -6079,7 +6098,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: Looks like it's sunken in the dirt.
+        value: Looks like it's blocked by the overgrowth.
         type: 0
         typeString: 
       - title: Parenthetical
@@ -6113,8 +6132,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 25.853638
-        y: 176.82477
+        x: 59.672836
+        y: 302.77225
         width: 320
         height: 30
     - id: 6
@@ -6178,8 +6197,79 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 597.44366
-        y: 192.85368
+        x: 616.10254
+        y: 224.34056
+        width: 320
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: This shed door won't budge...
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 14
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 14
+        originDialogueID: 7
+        destinationConversationID: 14
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 55.594788
+        y: 222.83194
         width: 320
         height: 30
     entryGroups: []
@@ -13084,8 +13174,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 48.588867, y: 0}
-    canvasZoom: 0.8199998
+    canvasScrollPosition: {x: 249.42227, y: 135.44312}
+    canvasZoom: 0.78999984
   - id: 23
     fields:
     - title: Title
@@ -18325,7 +18415,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1354.7386
+        x: 1356.1085
         y: 1209.7971
         width: 320
         height: 30
@@ -18425,7 +18515,7 @@ MonoBehaviour:
         width: 848.9995
         height: 411.06885
       color: {r: 0, g: 0.96398306, b: 1, a: 0.59607846}
-    canvasScrollPosition: {x: 546.1476, y: 0}
+    canvasScrollPosition: {x: 764.38403, y: 632.87714}
     canvasZoom: 0.7299996
   - id: 27
     fields:
@@ -21741,8 +21831,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1280.4419
-        y: 884.0795
+        x: 1279.0132
+        y: 885.5081
         width: 320
         height: 30
     - id: 46
@@ -22042,7 +22132,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 584.2859, y: 618.5718}
     canvasZoom: 0.69999975
   - id: 28
     fields:

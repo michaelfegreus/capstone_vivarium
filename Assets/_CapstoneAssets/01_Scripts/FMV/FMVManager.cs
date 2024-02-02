@@ -20,7 +20,15 @@ public class FMVManager : MonoBehaviour
     {
         videoPlayer.Play();
         PlayerManager.Instance.EnterMenuState();
+        FindObjectOfType<QuestTrackerCompanion>().HideQuests();
+        StartCoroutine("ShowCam");
+    }
+
+    IEnumerator ShowCam()
+    {
+        yield return new WaitForSeconds(0.3f);
         cam.SetActive(true);
+
     }
 
     void EndReached(UnityEngine.Video.VideoPlayer vp)
@@ -28,6 +36,7 @@ public class FMVManager : MonoBehaviour
         videoPlayer.Stop();
         PlayerManager.Instance.EnterFreeState();
         cam.SetActive(false);
+        FindObjectOfType<QuestTrackerCompanion>().ShowQuests();
     }
 
     void Update()

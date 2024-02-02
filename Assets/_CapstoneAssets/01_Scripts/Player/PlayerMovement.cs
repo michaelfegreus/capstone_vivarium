@@ -643,9 +643,10 @@ public class PlayerMovement : MonoBehaviour {
     {
         wallCheckScript.enabled = true;
     }
-    
+
     private void OnDisable()
     {
         wallCheckScript.enabled = false;
     }
+
 }

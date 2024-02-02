@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 using PixelCrushers.DialogueSystem;
 using static PlayerManager;
 
-public class PlayerStateFreeControl : MonoBehaviour, IState {
+public class PlayerStateFreeControl : IState {
 
 	private GameObject playerObject;
 
@@ -31,8 +31,6 @@ public class PlayerStateFreeControl : MonoBehaviour, IState {
     public void Enter(){
 		Debug.Log ("Player entered free move state");
 
-        // tell the quest tracker we'd like to see the quests
-        FindObjectOfType<QuestTrackerCompanion>()?.ShowQuests();
 
         // Now go ahead and enable the scripts that the player should have when they are free to move around.
 

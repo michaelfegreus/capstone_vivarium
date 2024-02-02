@@ -3,7 +3,6 @@
 /// Copyright (c) Opsive. All Rights Reserved.
 /// https://www.opsive.com
 /// ---------------------------------------------
-
 namespace Opsive.UltimateInventorySystem.Demo.UI.Menus.Storage
 {
     using Opsive.UltimateInventorySystem.Core.DataStructures;
@@ -17,6 +16,7 @@ namespace Opsive.UltimateInventorySystem.Demo.UI.Menus.Storage
     using UnityEngine.UI;
     using Text = Opsive.Shared.UI.Text;
     using TMPro;
+    using PixelCrushers.DialogueSystem;
     /// <summary>
     /// Storage menu is used to exchange items between to inventories.
     /// </summary>
@@ -282,6 +282,26 @@ namespace Opsive.UltimateInventorySystem.Demo.UI.Menus.Storage
         {
             m_StorageInventory = inventory;
             StorageInventoryGrid.SetInventory(inventory);
+        }
+
+        public void PlayClosingAnimation()
+        {
+            switch (DialogueLua.GetVariable("ActiveStorageName").AsString)
+            {
+                case "Dresser":
+                    DialogueManager.instance.PlaySequence("AnimatorPlay(dresser_closing,DresserSprites);ShowPlayer()@0.42;SetPlayerState(Free)@0.42");
+                    break;
+                case "DrySink":
+                    DialogueManager.instance.PlaySequence("ShowPlayer()@0.54;SetPlayerState(Free)@0.54");
+                    break;
+                case "Toolbox":
+                    DialogueManager.instance.PlaySequence("AnimatorPlay(player_interact_uncrouch_UR,PlayerAnimation);SetPlayerState(Free)@0.54");
+                    break;
+                case "Bookshelf":
+                    DialogueManager.instance.PlaySequence("SetPlayerState(Free)@0.1");
+                    break;
+            }
+
         }
     }
 

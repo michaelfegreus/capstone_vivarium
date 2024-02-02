@@ -5,6 +5,13 @@ using UnityEngine;
 public class PlayerSpriteBehaviors : MonoBehaviour
 {
 
+    private ParticleSystem particles;
+
+    private void Start()
+    {
+        particles = GetComponentInChildren<ParticleSystem>();
+    }
+
     public void HidePlayerSprite()
     {
         PlayerManager.Instance.playerAnimation.EnableDisableCharacterSprite(false);
@@ -13,6 +20,11 @@ public class PlayerSpriteBehaviors : MonoBehaviour
     public void ShowPlayerSprite()
     {
         PlayerManager.Instance.playerAnimation.EnableDisableCharacterSprite(true);
+    }
+
+    public void MakeDiggingParticles()
+    {
+        particles.Play();
     }
 
 }

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class PlayerStateMenu : MonoBehaviour, IState {
+public class PlayerStateMenu : IState {
 
 	private GameObject playerObject;
 
@@ -12,10 +12,6 @@ public class PlayerStateMenu : MonoBehaviour, IState {
 		playerObject = player;
 		movementScript = playerObject.GetComponent<PlayerMovement>();
 		Debug.Log ("Player entered Menu state");
-
-		// when we enter the menu state, hide our toggles
-		FindObjectOfType<QuestTrackerCompanion>()?.HideQuests();
-
 	}
 
 	public void Enter(){

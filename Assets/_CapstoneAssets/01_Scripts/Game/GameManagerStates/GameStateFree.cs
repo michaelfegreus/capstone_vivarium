@@ -47,7 +47,6 @@ public class GameStateFree : IState {
         if (PlayerManager.Instance.GetPlayerState() is PlayerStateFreeControl && !gameManager.notebookMenuManager.menuOpen)
         {
             gameManager.notebookMenuManager.OpenMenu();
-            gameManager.hideQuestHUD();
             PlayerManager.Instance.EnterMenuState();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("TurnToNotebook");
         }
@@ -66,7 +65,6 @@ public class GameStateFree : IState {
         {
             Debug.Log("Closing notebook!");
             gameManager.notebookMenuManager.CloseMenu();
-            gameManager.showQuestHUD();
             PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebook");
             // PlayerManager.Instance.EnterFreeState();
         }
