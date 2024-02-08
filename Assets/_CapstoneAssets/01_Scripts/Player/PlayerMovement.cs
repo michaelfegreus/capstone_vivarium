@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour {
 	//public float deccelerationRate;
 
 	// Rotation
-	Quaternion desiredRotation; // Calculated r otation of where the player is analog sticks are rotating the player towards.
+	public Quaternion desiredRotation; // Calculated r otation of where the player is analog sticks are rotating the player towards.
 	//Vector3 movementVector; // Used to calculate direction analog stick is pointing.
 
     // For checking change in direction

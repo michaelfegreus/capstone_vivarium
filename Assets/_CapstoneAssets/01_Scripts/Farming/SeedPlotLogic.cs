@@ -241,9 +241,16 @@ public class SeedPlotLogic : MonoBehaviour
     public void RemovePlant()
     {
         player.SetPlayerAnimationState("Shovel");
-        currentSprite.sprite = dugHole;
+        StartCoroutine("RemoveSprite");
+    }
+
+
+    IEnumerator RemoveSprite()
+    {
+        yield return new WaitForSeconds(0.4f);
+        currentSprite.sprite = null;
         fullyGrown = false;
-        plotReady = true;
+        plotReady = false;
         daysGrowing = 0;
         daysOfRegrowth = 0;
         plotInUse = false;
