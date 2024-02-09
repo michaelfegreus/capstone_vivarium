@@ -9,16 +9,15 @@ public class BookReader : MonoBehaviour
 {
     TextAsset bookText; // the text of our book
 
-    // the line our page starts on
-    [SerializeField] int firstLine;
-    // how many lines per page
-    [SerializeField] int linesPerPage;
-    // characters per line
-    [SerializeField] int charactersPerLine;
-    int firstChar; // the current page we are on in the book
-
     // our page
-    [SerializeField] string page;
+    string leftPage, rightPage;
+    string bookAsString; // the book, stored as a string.
+
+    // our starting character
+    [SerializeField] int startingCharacter, charactersPerPage, leftPageNumber;
+
+    // setup our text outputs
+    [SerializeField] UnityEngine.UI.Text leftPageText, rightPageText;
 
     public enum Books
     {
@@ -47,25 +46,53 @@ public class BookReader : MonoBehaviour
                 break;
         }
 
+        // then turn the book into a string
+        bookAsString = bookText.text;
+
         BuildPage();
     }
 
     void BuildPage()
     {
-        page = "";
+        // reset our left page
+        leftPage = "";
 
-        // start with lines
-        for (int i = firstLine; i < linesPerPage; i++) 
-        { 
-            // then do each line individually
-            for (int j = 0; j < charactersPerLine; j++)
-            { // get all of our characters per each line
-                page += bookText.ToString()[j+firstLine];
-            }
+        // loop through our book, starting from our starting character, until we have hit our maximum characters per page
+        for (int character = startingCharacter; character < startingCharacter + charactersPerPage; character++)
+        {
+            // if we are approaching the end of this page, break from the loop and stop counting
+            if (character >= startingCharacter + charactersPerPage - 30 && bookAsString[character] == ' ')
+                break;
+
+            // if we find a linebreak in our text, add a space instead
+            if (bookAsString[character] == '\n' && leftPageNumber >= 2)
+                leftPage += " ";
+            else
+            // add to our page
+            leftPage += bookAsString[character];
         }
 
-        // log the page
-        Debug.Log(page);
+        // reset our right page
+        rightPage = "";
+
+        // starting from the next page, build the right page
+        for (int character = startingCharacter + charactersPerPage - 1; character < startingCharacter + charactersPerPage * 2; character++)
+        {
+            // if we are approaching the end of this page, break from the loop and stop counting
+            if (character >= startingCharacter + charactersPerPage * 2 - 30 && bookAsString[character] == ' ')
+                break;
+
+            // if we find a linebreak in our text, add a space instead
+            if (bookAsString[character] == '\n' && leftPageNumber >= 2)
+                rightPage += " ";
+            else
+                // add to our page
+                rightPage += bookAsString[character];
+        }
+
+        // write the page
+        leftPageText.text = leftPage;
+        rightPageText.text = rightPage;
     }
 
     // Update is called once per frame
@@ -80,21 +107,18 @@ public class BookReader : MonoBehaviour
         // advance and go back
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            firstLine += linesPerPage;
-            firstChar += charactersPerLine * linesPerPage;
+            // add to our start character
+            startingCharacter += charactersPerPage * 2;
+            leftPageNumber += 2;
             BuildPage();
         }        
        
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            firstChar -= charactersPerLine * linesPerPage;
-
-            if (firstLine - linesPerPage >= 0)
-                firstLine -= linesPerPage;
-
-            if (firstLine - linesPerPage < 0)
-                firstLine = 0;
-
+            // subtract from our start character
+            startingCharacter -= charactersPerPage * 2;
+            leftPageNumber = leftPageNumber <= 0 ? 0 : leftPageNumber;
+            startingCharacter = startingCharacter <= 0 ? 0 : startingCharacter;
             BuildPage();
         }
     }
