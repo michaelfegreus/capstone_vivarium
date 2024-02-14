@@ -9,11 +9,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3366749352719285780}
-  - component: {fileID: 3366749352719285776}
   - component: {fileID: 3366749352719285783}
   - component: {fileID: 3366749352719285782}
   - component: {fileID: 3366749352719285781}
   - component: {fileID: 8760322501307355722}
+  - component: {fileID: 4623887825836402623}
   m_Layer: 0
   m_Name: ShovelDigSpot
   m_TagString: Untagged
@@ -35,35 +35,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -11.798, y: 0, z: 0}
---- !u!60 &3366749352719285776
-PolygonCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3366749352719221227}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.8461539, y: 1.8461539}
-    newSize: {x: 5.46, y: 3.54}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: -0.06769652, y: 0.45126343}
-      - {x: -1.0766442, y: 0.063222066}
-      - {x: 0.029445514, y: -0.51905334}
-      - {x: 1.2254603, y: 0.26444718}
 --- !u!114 &3366749352719285783
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,7 +190,7 @@ MonoBehaviour:
       acceptedGameObjects: []
       luaWizardIndex: 0
       lastEvaluationValue: 0
-    target: {fileID: 3366749352719285776}
+    target: {fileID: 0}
     state: 1
   setAnimatorStateActions: []
   onExecute:
@@ -279,3 +250,19 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!58 &4623887825836402623
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3366749352719221227}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.1, y: 0.06}
+  serializedVersion: 2
+  m_Radius: 1.43

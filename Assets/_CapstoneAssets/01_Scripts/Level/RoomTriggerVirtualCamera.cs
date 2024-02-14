@@ -37,6 +37,6 @@ public class RoomTriggerVirtualCamera : MonoBehaviour, IRoomTrigger
     }
     public void OnExitRoom()
     {
-
+        myCam.gameObject.SetActive(false);
     }
 }

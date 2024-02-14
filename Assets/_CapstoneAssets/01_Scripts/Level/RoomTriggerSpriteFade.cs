@@ -24,6 +24,8 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
     [SerializeField] private bool startedFadingUp = false;
     [SerializeField] private bool startedFadingDown = false;
 
+    [SerializeField] private bool fadedOnStart = true;
+
 
     void Start()
     {
@@ -61,15 +63,18 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
 
         // Start with setting off all disable / fading sprites
 
-        // Disabling
-        for (int i = 0; i < spritesToEnableDisable.Length; i++)
+        if (fadedOnStart)
         {
-            spritesToEnableDisable[i].enabled = false;
-        }
-        // Fading
-        for (int i = 0; i < spritesToFade.Length; i++)
-        {
-            spritesToFade[i].color = new Color(spritesToFade[i].color.r, spritesToFade[i].color.g, spritesToFade[i].color.b, 0f);
+            // Disabling
+            for (int i = 0; i < spritesToEnableDisable.Length; i++)
+            {
+                spritesToEnableDisable[i].enabled = false;
+            }
+            // Fading
+            for (int i = 0; i < spritesToFade.Length; i++)
+            {
+                spritesToFade[i].color = new Color(spritesToFade[i].color.r, spritesToFade[i].color.g, spritesToFade[i].color.b, 0f);
+            }
         }
         
         // Then, wait for the first frame of collision checks to enable and fade up what should be on screen.
@@ -204,10 +209,16 @@ public class RoomTriggerSpriteFade : MonoBehaviour, IRoomTrigger
 
     public void OnEnterRoom()
     {
-        FadeUp();
+        if (fadedOnStart)
+        {
+            FadeUp();
+        }
     }
     public void OnExitRoom()
     {
-        FadeDown();
+        if (fadedOnStart)
+        {
+            FadeDown();
+        }
     }
 }
