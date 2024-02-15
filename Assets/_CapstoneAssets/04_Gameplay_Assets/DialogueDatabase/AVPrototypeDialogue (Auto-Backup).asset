@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 935899b62f48ae5498594680ed17d133, type: 3}
-  m_Name: AVPrototypeDialogue
+  m_Name: AVPrototypeDialogue (Auto-Backup)
   m_EditorClassIdentifier: 
   version: 
   author: 
@@ -3442,10 +3442,16 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: HidePlayer()@0.05; MoveTo(JennyWasherPosition, PlayerMovement); AnimatorPlay(washingmachine_opening,
+        value: 'HidePlayer()@0.05; MoveTo(JennyWasherPosition, PlayerMovement); AnimatorPlay(washingmachine_opening,
           WashingMachineSprites)@0.04; Continue()@0.8; SetPlayerFaceDirection(NE);
+
+          MAPlaySound(OpenWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 8
       isRoot: 0
       isGroup: 0
@@ -3628,7 +3634,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 712.15076
+        x: 713.2146
         y: 505.5453
         width: 320
         height: 30
@@ -3675,10 +3681,16 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_placing_clothes, WashingMachineSprites);
+        value: 'AnimatorPlay(washingmachine_placing_clothes, WashingMachineSprites);
           Continue()@0.8;
+
+          MAPlaySound(PutClothesWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 8
       isRoot: 0
       isGroup: 0
@@ -3830,8 +3842,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_placing_clothes, WashingMachineSprites);
+        value: 'AnimatorPlay(washingmachine_placing_clothes, WashingMachineSprites);
           Continue()@0.8;
+
+          MAPlaySound(PourBleach,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4115,8 +4129,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@0.8;
+        value: 'AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@0.8;
           ShowPlayer()@0.66;
+
+          MAPlaySound(CloseWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4193,8 +4209,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@3.1;
+        value: 'AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@3.1;
           ShowPlayer()@0.66; Fade(Stay,2)@1;
+
+          MAPlaySound(RunWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4265,8 +4283,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: Fade(In,2)@1; HidePlayer()@2.51; AnimatorPlay(washingmachine_opening,
+        value: 'Fade(In,2)@1; HidePlayer()@2.51; AnimatorPlay(washingmachine_opening,
           WashingMachineSprites)@2.5; Continue()@3.3;
+
+          MAPlaySound(OpenWasher,,,,,WasherInteractable,)@2.5;'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4414,8 +4434,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_taking_clothes, WashingMachineSprites);
+        value: 'AnimatorPlay(washingmachine_taking_clothes, WashingMachineSprites);
           Continue()@0.8;
+
+          MAPlaySound(TakeClothesWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       - title: Response Menu Sequence
@@ -4574,8 +4596,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@0.8;
+        value: 'AnimatorPlay(washingmachine_closing, WashingMachineSprites); Continue()@0.8;
           ShowPlayer()@0.66;
+
+          MAPlaySound(CloseWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4593,7 +4617,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 87.84253
+        x: 88.90634
         y: 1321.3043
         width: 320
         height: 30
@@ -4664,8 +4688,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 510.31232
-        y: 1031.2256
+        x: 607.1208
+        y: 754.6298
         width: 320
         height: 30
     - id: 27
@@ -4711,8 +4735,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(washingmachine_taking_clothes, WashingMachineSprites);
+        value: 'AnimatorPlay(washingmachine_taking_clothes, WashingMachineSprites);
           Continue()@0.8;
+
+          MAPlaySound(TakeClothesWasher,,,,,WasherInteractable,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 8
@@ -4813,8 +4839,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 441.65015
-        y: 652.7372
+        x: 476.7566
+        y: 635.71594
         width: 320
         height: 30
     - id: 29
@@ -4884,8 +4910,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 617.32556
-        y: 752.9134
+        x: 502.43195
+        y: 978.44525
         width: 320
         height: 30
     - id: 30
@@ -5031,7 +5057,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 832.4529}
+    canvasScrollPosition: {x: 0, y: 864.89374}
     canvasZoom: 0.94000006
   - id: 9
     fields:
@@ -8682,7 +8708,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 485.71448, y: 230.00009}
+    canvasScrollPosition: {x: 1121.4285, y: 0}
     canvasZoom: 0.6999998
   - id: 16
     fields:
@@ -8880,7 +8906,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 148.81622
+        x: 147.75241
         y: 136.91864
         width: 320
         height: 30
@@ -8996,7 +9022,11 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 'MAPlaySound(CuttingPadlock,,,,,FencePadlock,)@0.9;  MoveTo(PadlockJennyPosition1,PlayerMovement)@0.3
+        value: 'MAPlaySound(CuttingPadlock,,,,,FencePadlock,)@0.9;
+
+          MAPlaySound(SnipBoltcutters,,,,,FencePadlock,);
+
+          MoveTo(PadlockJennyPosition1,PlayerMovement)@0.3
           ;SetPlayerFaceDirection(E)@1;
 
           AnimatorPlay(chainlinkfence_clipping_lock
@@ -9024,7 +9054,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 150.94391
+        x: 149.94391
         y: 216.70586
         width: 320
         height: 30
@@ -9146,7 +9176,9 @@ MonoBehaviour:
         value: 'SetPlayerFaceDirection(NE)@1; MoveTo(PadlockJennyPosition,PlayerMovement)@0.3;
 
           AnimatorPlay(chainlinkfence_openingdoor
-          ,PadlockSprites);HidePlayer()@0.01; Continue()@1.4;'
+          ,PadlockSprites);HidePlayer()@0.01; Continue()@1.4;
+
+          MAPlaySound(PadlockFenceOpen,,,,,FencePadlock,);'
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
@@ -9173,8 +9205,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 69.14902, y: 0}
-    canvasZoom: 0.93999994
+    canvasScrollPosition: {x: 54, y: 0}
+    canvasZoom: 0.9999999
   - id: 17
     fields:
     - title: Title
@@ -15080,7 +15112,9 @@ MonoBehaviour:
         value: 'AnimatorPlayWait(circuitbreaker_try_pull_down, Fusebox)->Message(Pulled);
           Continue()@Message(Pulled);HidePlayer()@0.02;MoveTo(FuseboxPlayerPos,PlayerMovement);
 
-          SetPlayerFaceDirection(NE);'
+          SetPlayerFaceDirection(NE);
+
+          MAPlaySound(PullLeverFuseBox,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 22
@@ -15157,9 +15191,11 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(circuitbreaker_smile_release_lever, Fusebox)->Message(Released);
+        value: 'AnimatorPlayWait(circuitbreaker_smile_release_lever, Fusebox)->Message(Released);
           ShowPlayer()@1.3;AnimatorPlay(circuitbreaker_lever_down, Fusebox)@Message(Released);
           Continue()@Message(Released);
+
+          MAPlaySound(FixFuseBox,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
       - title: Response Menu Sequence
@@ -15187,8 +15223,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 900.7163
-        y: 457.53046
+        x: 902.032
+        y: 456.21472
         width: 320
         height: 30
     - id: 11
@@ -15305,8 +15341,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(circuitbreaker_put_back_up, Fusebox)->Message(BackUp);
-          Continue()@Message(BackUp); ShowPlayer()@0.9
+        value: 'AnimatorPlayWait(circuitbreaker_put_back_up, Fusebox)->Message(BackUp);
+          Continue()@Message(BackUp); ShowPlayer()@0.9;
+
+          MAPlaySound(ReleaseLeverFuseBox,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 22
@@ -15399,7 +15437,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 901.84973
+        x: 903.1655
         y: 517.8769
         width: 320
         height: 30
@@ -15449,7 +15487,9 @@ MonoBehaviour:
         value: 'AnimatorPlayWait(circuitbreaker_open_box, Fusebox)->Message(Opened);
           Continue()@Message(Opened);HidePlayer()@0.02;MoveTo(FuseboxPlayerPos,PlayerMovement);
 
-          SetPlayerFaceDirection(NE);'
+          SetPlayerFaceDirection(NE);
+
+          MAPlaySound(OpenFuseBox,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 22
@@ -15603,8 +15643,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(circuitbreaker_insert_fuse, Fusebox)->Message(Fixed);
+        value: 'AnimatorPlayWait(circuitbreaker_insert_fuse, Fusebox)->Message(Fixed);
           Continue()@Message(Fixed);
+
+          MAPlaySound(PlaceNewFuse,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 22
@@ -15678,10 +15720,16 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(circuitbreaker_close_box, Fusebox)->Message(Closed);
-          Continue()@Message(Closed);ShowPlayer()@0.68
+        value: 'AnimatorPlayWait(circuitbreaker_close_box, Fusebox)->Message(Closed);
+          Continue()@Message(Closed);ShowPlayer()@0.68;
+
+          MAPlaySound(CloseFuseBox,,,,,Fusebox,);'
         type: 0
         typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 22
       isRoot: 0
       isGroup: 0
@@ -15992,7 +16040,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 1076.3165, y: 147.31845}
+    canvasScrollPosition: {x: 738.15845, y: 23.684174}
     canvasZoom: 0.7599999
   - id: 23
     fields:

@@ -217,6 +217,7 @@ public class SeedPlotLogic : MonoBehaviour
     {
         player.SetPlayerAnimationState("player_tool_wateringcan");
         StartCoroutine("ShowWetSpot");
+        DialogueManager.instance.PlaySequence("MAPlaySound(WateringCanWatering,,,,,PlayerMovement,);");
         plotWatered = true;
     }
 
