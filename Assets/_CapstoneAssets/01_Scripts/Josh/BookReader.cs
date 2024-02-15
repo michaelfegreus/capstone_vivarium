@@ -56,13 +56,19 @@ public class BookReader : MonoBehaviour
     {
         // reset our left page
         leftPage = "";
+        int remainingCharacters = 0;
 
         // loop through our book, starting from our starting character, until we have hit our maximum characters per page
         for (int character = startingCharacter; character < startingCharacter + charactersPerPage; character++)
         {
             // if we are approaching the end of this page, break from the loop and stop counting
             if (character >= startingCharacter + charactersPerPage - 30 && bookAsString[character] == ' ')
+            {
+                // get the remaining characters and save them before we do our next loop
+                remainingCharacters = (startingCharacter + charactersPerPage) - character;
+                Debug.Log(remainingCharacters);
                 break;
+            }
 
             // if we find a linebreak in our text, add a space instead
             if (bookAsString[character] == '\n' && leftPageNumber >= 2)
@@ -76,7 +82,7 @@ public class BookReader : MonoBehaviour
         rightPage = "";
 
         // starting from the next page, build the right page
-        for (int character = startingCharacter + charactersPerPage - 1; character < startingCharacter + charactersPerPage * 2; character++)
+        for (int character = startingCharacter + (charactersPerPage - remainingCharacters); character < startingCharacter + charactersPerPage * 2; character++)
         {
             // if we are approaching the end of this page, break from the loop and stop counting
             if (character >= startingCharacter + charactersPerPage * 2 - 30 && bookAsString[character] == ' ')
