@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class Warp : MonoBehaviour {
 
@@ -24,15 +25,9 @@ public class Warp : MonoBehaviour {
         {
             if (col.tag == ("Player"))
             {
-                if (destinationObject != null)
-                {
-                    // Warps player to a destination object transform
-                    col.transform.position = destinationObject.transform.position + destinationObject.transform.up * warpOffset;
-                }
-                else if (destinationCoordinates != null)
-                {
-                    col.transform.position = new Vector3(destinationCoordinates.x, destinationCoordinates.y, 0f); ;
-                }
+                StartCoroutine(WarpAtEndOfFrame(col.gameObject));
+
+                
 
                 /* OLD
                 thePlayer.GetComponent<scr_player_manager> ().Warp (destinationWarp.position);
@@ -42,4 +37,18 @@ public class Warp : MonoBehaviour {
         }
 	}
 
+    IEnumerator WarpAtEndOfFrame(GameObject collidedPlayer)
+    {
+        yield return new WaitForEndOfFrame();
+
+        if (destinationObject != null)
+        {
+            // Warps player to a destination object transform
+            collidedPlayer.transform.position = destinationObject.transform.position + destinationObject.transform.up * warpOffset;
+        }
+        else if (destinationCoordinates != null)
+        {
+            collidedPlayer.transform.position = new Vector3(destinationCoordinates.x, destinationCoordinates.y, 0f); ;
+        }
+    }
 }
