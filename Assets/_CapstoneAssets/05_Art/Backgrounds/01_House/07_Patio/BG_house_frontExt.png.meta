@@ -29,6 +29,9 @@ TextureImporter:
   - first:
       213: 185593665796549900
     second: BG_house_frontExt_doorframe
+  - first:
+      213: 3915574285959493700
+    second: BG_house_frontExt_housecutout
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -160,7 +163,11 @@ TextureImporter:
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
+      outline:
+      - - {x: -6522, y: -5349.5}
+        - {x: 6522, y: -5349.5}
+        - {x: 6522, y: 5349.5}
+        - {x: -6522, y: 5349.5}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -1083,11 +1090,7 @@ TextureImporter:
       pivot: {x: 0.51835454, y: 0.17136359}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: 560.5, y: 10}
-        - {x: 505.5, y: -88}
-        - {x: 471.5, y: -106}
-        - {x: 453.5, y: -217}
-        - {x: 256.5, y: -336}
+      - - {x: 256.5, y: -336}
         - {x: 229.5, y: -338}
         - {x: 156.5, y: -314}
         - {x: 127.5, y: -270}
@@ -1249,23 +1252,6 @@ TextureImporter:
         - {x: 89.5, y: 313}
         - {x: 158.5, y: 353}
         - {x: 245.5, y: 276}
-        - {x: 262.5, y: 388}
-        - {x: 220.5, y: 363}
-        - {x: 206.5, y: 382}
-        - {x: 274.5, y: 452}
-        - {x: 361.5, y: 443}
-        - {x: 389.5, y: 376}
-        - {x: 380.5, y: 332}
-        - {x: 338.5, y: 362}
-        - {x: 305.5, y: 356}
-        - {x: 285.5, y: 317}
-        - {x: 333.5, y: 322}
-        - {x: 381.5, y: 288}
-        - {x: 422.5, y: 324}
-        - {x: 481.5, y: 318}
-        - {x: 557.5, y: 275}
-        - {x: 576.5, y: 195}
-        - {x: 574.5, y: 126}
       physicsShape: []
       tessellationDetail: 0
       bones: []
@@ -1793,7 +1779,7 @@ TextureImporter:
         width: 3662
         height: 2981
       alignment: 9
-      pivot: {x: 0.997553, y: 0.42614454}
+      pivot: {x: 0.99471045, y: 0.37603915}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1828,6 +1814,34 @@ TextureImporter:
       bones: []
       spriteID: c0dad5aa47c539200800000000000000
       internalID: 185593665796549900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BG_house_frontExt_housecutout
+      rect:
+        serializedVersion: 2
+        x: 4532
+        y: 5171
+        width: 3164
+        height: 5528
+      alignment: 9
+      pivot: {x: 0.50475454, y: 0.14789958}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline:
+      - - {x: -1433, y: -2715}
+        - {x: -1554, y: -2650}
+        - {x: -1578, y: 2762}
+        - {x: 1480, y: 2762}
+        - {x: 1582, y: -88}
+        - {x: 62, y: 4}
+        - {x: 68, y: -1910}
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 448f446411ae65630800000000000000
+      internalID: 3915574285959493700
       vertices: []
       indices: 
       edges: []
