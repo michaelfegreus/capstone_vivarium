@@ -20,6 +20,8 @@ public class RoomTriggerLightFade : MonoBehaviour, IRoomTrigger
 
     bool firstFrame; //Used to check if it's the first frame, and if collider fucntions should immediately take effect.
 
+    [SerializeField] bool alwaysFadedUp;
+
     void Start()
     {
         // Initialize arrays to avoid errors. Remove this if you end up putting these arrays as editable in the inspector for any reason.
@@ -53,6 +55,22 @@ public class RoomTriggerLightFade : MonoBehaviour, IRoomTrigger
         // Then, wait for the first frame of collision checks to enable and fade up what should be on screen.
 
         StartCoroutine(EndOfFirstFrame());
+
+        if (alwaysFadedUp)
+        {
+            for (int i = 0; i < enableDisableLights.Length; i++)
+            {
+                enableDisableLights[i].enabled = true;
+            }
+            // On first frame, immediately fade up all the sprites in associated with this script if the player is standing here.
+            if (fadeLights.Length > 0)
+            {
+                for (int i = 0; i < fadeLights.Length; i++)
+                {
+                    fadeLights[i].intensity = 1f;
+                }
+            }
+        }
     }
 
     IEnumerator EndOfFirstFrame()
@@ -63,50 +81,56 @@ public class RoomTriggerLightFade : MonoBehaviour, IRoomTrigger
 
     public void FadeUp()
     {
-        if (gameObject.activeInHierarchy)
+        if (!alwaysFadedUp)
         {
-            for (int i = 0; i < enableDisableLights.Length; i++)
+            if (gameObject.activeInHierarchy)
             {
-                enableDisableLights[i].enabled = true;
-            }
-
-            if (firstFrame)
-            {
-                // On first frame, immediately fade up all the sprites in associated with this script if the player is standing here.
-                if (fadeLights.Length > 0)
+                for (int i = 0; i < enableDisableLights.Length; i++)
                 {
-                    for (int i = 0; i < fadeLights.Length; i++)
+                    enableDisableLights[i].enabled = true;
+                }
+
+                if (firstFrame)
+                {
+                    // On first frame, immediately fade up all the sprites in associated with this script if the player is standing here.
+                    if (fadeLights.Length > 0)
                     {
-                        fadeLights[i].intensity = 1f;
+                        for (int i = 0; i < fadeLights.Length; i++)
+                        {
+                            fadeLights[i].intensity = 1f;
+                        }
                     }
                 }
-            }
-            else
-            {
-                if (fadeLights.Length != 0)
+                else
                 {
-                    StartCoroutine(SpriteFade(fadeLights, 1f, fadeDuration));
+                    if (fadeLights.Length != 0)
+                    {
+                        StartCoroutine(SpriteFade(fadeLights, 1f, fadeDuration));
+                    }
                 }
             }
         }
     }
     public void FadeDown()
     {
-        if (gameObject.activeInHierarchy)
+        if (!alwaysFadedUp)
         {
-            if (enableDisableLights.Length > 0)
+            if (gameObject.activeInHierarchy)
             {
-                for (int i = 0; i < enableDisableLights.Length; i++)
+                if (enableDisableLights.Length > 0)
                 {
-                    enableDisableLights[i].enabled = false;
+                    for (int i = 0; i < enableDisableLights.Length; i++)
+                    {
+                        enableDisableLights[i].enabled = false;
+                    }
                 }
-            }
 
 
 
-            if (fadeLights.Length != 0)
-            {
-                StartCoroutine(SpriteFade(fadeLights, 0f, fadeDuration));
+                if (fadeLights.Length != 0)
+                {
+                    StartCoroutine(SpriteFade(fadeLights, 0f, fadeDuration));
+                }
             }
         }
     }

@@ -1,15 +1,30 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
+using System.Linq;
 
 public class DayNightLight2DColor : MonoBehaviour
 {
-    [SerializeField] Light2D[] lights;
+    [Tooltip("Defaults to this Game Object at runtime if you didn't enter a different parent.")]
+    [SerializeField] Transform lightParent;
+
+    [SerializeField] private Light2D[] lights;
 
     [SerializeField] Color morning;
     [SerializeField] Color day;
     [SerializeField] Color evening;
     [SerializeField] Color night;
 
+    
+
+    private void Awake()
+    {
+        if(lightParent == null)
+        {
+            lightParent = this.transform;
+        }
+        Light2D[] lightParentArray = lightParent.GetComponentsInChildren<Light2D>();
+        lights = lights.Concat(lightParentArray).ToArray();
+    }
     private void OnEnable()
     {
         ClockManager.OnMinuteTick += DaylightMinuteUpdate;
