@@ -16,7 +16,7 @@ public class DayNightLight2DColor : MonoBehaviour
 
     
 
-    private void Start()
+    private void Awake()
     {
         if(lightParent == null)
         {
