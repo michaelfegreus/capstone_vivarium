@@ -40,4 +40,9 @@ public class DebugMover : MonoBehaviour
     {
         transform.position = target;
     }
+
+    public void TeleportTo(int t)
+    {
+        Teleport(teleportLocations[t]);
+    }
 }
