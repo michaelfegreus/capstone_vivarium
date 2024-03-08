@@ -3,6 +3,8 @@ using PixelCrushers.DialogueSystem;
 
 public class RoomEventStartWindow : RoomEvent
 {
+
+    [SerializeField] private bool runOnlyOnceDaily;
     [Header("This event will start anytime within this A-to-B time frame window. After it's started, the event will not fire again until the component is disabled and re-enabled.")]
 
     [SerializeField] DialogueSystemTrigger eventDialogueSystemTrigger;
@@ -43,6 +45,7 @@ public class RoomEventStartWindow : RoomEvent
             CheckClockRollover();
         }
         CheckEventTime();
+        Debug.Log("RoomEventStartWindow was ENABLED");
     }
 
     void CheckClockRollover()
@@ -75,7 +78,10 @@ public class RoomEventStartWindow : RoomEvent
                     if (!gameClockManager.inGameTime.TimeMet(startTimeWindowB))
                     {
                         eventDialogueSystemTrigger.OnUse();
-                        ranEvent = true;
+                        if (runOnlyOnceDaily)
+                        {
+                            ranEvent = true;
+                        }
 
                         EventDebugLog();
                     }

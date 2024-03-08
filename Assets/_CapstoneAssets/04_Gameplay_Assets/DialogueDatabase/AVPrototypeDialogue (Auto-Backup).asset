@@ -468,6 +468,57 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 8
+    fields:
+    - title: Name
+      value: Planting a Seed
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Pictures
+      value: '[]'
+      type: 3
+      typeString: CustomFieldType_Files
+    - title: Description
+      value: I found the perfect patch of dirt in a tree hollow. I should keep an
+        eye out for something special to plant in it.
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Success Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Failure Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: State
+      value: unassigned
+      type: 0
+      typeString: CustomFieldType_QuestState
+    - title: Is Item
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Trackable
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Track
+      value: True
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Entry Count
+      value: 1
+      type: 1
+      typeString: CustomFieldType_Number
+    - title: Entry 1 State
+      value: active
+      type: 0
+      typeString: 
+    - title: Entry 1
+      value: '- Find something to plant in the dirt patch'
+      type: 0
+      typeString: 
   - id: 5
     fields:
     - title: Name
@@ -523,57 +574,6 @@ MonoBehaviour:
       value: '- Break the padlock on the fence in the forest'
       type: 0
       typeString: 
-  - id: 8
-    fields:
-    - title: Name
-      value: Planting a Seed
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: Pictures
-      value: '[]'
-      type: 3
-      typeString: CustomFieldType_Files
-    - title: Description
-      value: I found the perfect patch of dirt in a tree hollow. I should keep an
-        eye out for something special to plant in it.
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: Success Description
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: Failure Description
-      value: 
-      type: 0
-      typeString: CustomFieldType_Text
-    - title: State
-      value: unassigned
-      type: 0
-      typeString: CustomFieldType_QuestState
-    - title: Is Item
-      value: False
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Trackable
-      value: True
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Track
-      value: True
-      type: 2
-      typeString: CustomFieldType_Boolean
-    - title: Entry Count
-      value: 1
-      type: 1
-      typeString: CustomFieldType_Number
-    - title: Entry 1 State
-      value: active
-      type: 0
-      typeString: 
-    - title: Entry 1
-      value: '- Find something to plant in the dirt patch'
-      type: 0
-      typeString: 
   - id: 7
     fields:
     - title: Name
@@ -622,7 +622,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Entry 1
-      value: '- Get Yulia''s permission'
+      value: '- Get Yulia''s permission to buy a drink for the solstice'
       type: 0
       typeString: 
     - title: Entry 2 State
@@ -950,7 +950,7 @@ MonoBehaviour:
       type: 0
       typeString: CustomFieldType_Text
     - title: Initial Value
-      value: True
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1258,7 +1258,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1272,7 +1272,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1286,7 +1286,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1300,7 +1300,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1314,7 +1314,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1328,7 +1328,7 @@ MonoBehaviour:
       type: 0
       typeString: 
     - title: Initial Value
-      value: false
+      value: False
       type: 2
       typeString: CustomFieldType_Boolean
     - title: Description
@@ -1451,8 +1451,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1
-        y: 23
+        x: 2
+        y: 25
         width: 320
         height: 30
     - id: 1
@@ -6479,7 +6479,7 @@ MonoBehaviour:
         typeString: 
       - title: Sequence
         value: 'HidePlayer(); AnimatorPlay(sheddoor_stuck,ShedDoor); SetPlayerFaceDirection(NE);
-          ShowPlayer()@0.98;Continue()@1;MoveTo(ShedJennyPosition, PlayerMovement);
+          required ShowPlayer()@0.98;Continue()@1;MoveTo(ShedJennyPosition, PlayerMovement);
 
           MAPlaySound(ShedDoorShake,,,,,ShedDoor,);'
         type: 0
@@ -6509,7 +6509,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 54.42856
+        x: 55.594727
         y: 140.17886
         width: 320
         height: 30
@@ -6557,7 +6557,7 @@ MonoBehaviour:
         typeString: 
       - title: Sequence
         value: 'HidePlayer()@0.01; AnimatorPlay(sheddoor_stuck_more,ShedDoor); SetPlayerFaceDirection(NE);
-          ShowPlayer()@2.33;Continue()@2.33;MoveTo(ShedJennyPosition, PlayerMovement);
+          required ShowPlayer()@2.32;Continue()@2.33;MoveTo(ShedJennyPosition, PlayerMovement);
 
           MAPlaySound(ShedDoorShakeMore,,,,,ShedDoor,);'
         type: 0
@@ -8133,8 +8133,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 642.32355, y: 63.62857}
-    canvasZoom: 0.6699998
+    canvasScrollPosition: {x: 677.0109, y: 74.321945}
+    canvasZoom: 0.7899997
   - id: 16
     fields:
     - title: Title
@@ -10555,14 +10555,14 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: 
+      userScript: AnimatorPlay(yulia_whittling_idle, YuliaWhittling);
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 1389.3633
-        y: 2229.1782
+        y: 2230.9963
         width: 320
         height: 30
     - id: 25
@@ -10758,7 +10758,9 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: Continue()@1;AnimatorTrigger(Inspect,PlayerAnimation);
+        value: 'Continue()@1;AnimatorTrigger(Inspect,PlayerAnimation);
+
+          SetPlayerFaceDirection(NE);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -13476,19 +13478,16 @@ MonoBehaviour:
         destinationConversationID: 18
         destinationDialogueID: 157
         isConnector: 0
-        priority: 2
+        priority: 3
       conditionsString: 
-      userScript: 'SetQuestState("Yulia''s Ceremony", "active");
-
-        Variable["NPC.MetYulia"]
-        = true'
+      userScript: SetQuestState("Yulia's Ceremony", "active");
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 528.9229
-        y: 2058.6848
+        x: 557.8591
+        y: 2090.1135
         width: 320
         height: 30
     - id: 66
@@ -13918,8 +13917,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 895.52075
-        y: 2036.2527
+        x: 909.8065
+        y: 2023.3958
         width: 320
         height: 30
     - id: 72
@@ -14788,8 +14787,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 2103.5605
-        y: 440.8767
+        x: 2110.8333
+        y: 435.42212
         width: 320
         height: 30
     - id: 84
@@ -15927,7 +15926,7 @@ MonoBehaviour:
       - originConversationID: 18
         originDialogueID: 99
         destinationConversationID: 18
-        destinationDialogueID: 106
+        destinationDialogueID: 178
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -16382,8 +16381,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 3520.6472
-        y: 743.9369
+        x: 3515.4749
+        y: 795.66113
         width: 320
         height: 30
     - id: 107
@@ -16453,8 +16452,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 3528.637
-        y: 807.77356
+        x: 3525.1887
+        y: 859.4978
         width: 320
         height: 30
     - id: 108
@@ -19778,14 +19777,14 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: 
+      userScript: Variable["NPC.MetYulia"] = true
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
         x: 887.83203
-        y: 2223.6985
+        y: 2225.1272
         width: 320
         height: 30
     - id: 153
@@ -20654,8 +20653,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 230.70227
-        y: 2584.0466
+        x: 234.95761
+        y: 2575.536
         width: 320
         height: 30
     - id: 167
@@ -20725,8 +20724,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 234.54968
-        y: 2636.6782
+        x: 235.61353
+        y: 2619.6567
         width: 320
         height: 30
     - id: 168
@@ -20799,8 +20798,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 228.1706
-        y: 2738.5269
+        x: 237.74509
+        y: 2714.0586
         width: 320
         height: 30
     - id: 169
@@ -20870,8 +20869,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 229.48636
-        y: 2787.2114
+        x: 239.06085
+        y: 2762.7432
         width: 320
         height: 30
     - id: 170
@@ -20941,8 +20940,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 228.1706
-        y: 2838.527
+        x: 238.8089
+        y: 2805.5483
         width: 320
         height: 30
     - id: 171
@@ -20988,7 +20987,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21059,7 +21058,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21083,8 +21082,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 237.46909
-        y: 2685.571
+        x: 238.53293
+        y: 2667.4858
         width: 320
         height: 30
     - id: 173
@@ -21130,7 +21129,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21155,7 +21154,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 1254.6118
-        y: 770.9749
+        y: 769.2508
         width: 320
         height: 30
     - id: 174
@@ -21201,7 +21200,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21272,7 +21271,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21343,9 +21342,13 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
       conversationID: 18
       isRoot: 0
       isGroup: 0
@@ -21367,7 +21370,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1801.6713
+        x: 1805.1195
         y: 996.85767
         width: 320
         height: 30
@@ -21414,7 +21417,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;
+        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21440,6 +21443,77 @@ MonoBehaviour:
         serializedVersion: 2
         x: 2176.966
         y: 982.74
+        width: 320
+        height: 30
+    - id: 178
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 3
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 18
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 18
+        originDialogueID: 178
+        destinationConversationID: 18
+        destinationDialogueID: 106
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 3518.5146
+        y: 731.41425
         width: 320
         height: 30
     entryGroups:
@@ -21491,8 +21565,8 @@ MonoBehaviour:
         width: 1440.0717
         height: 1139.7223
       color: {r: 0.19339621, g: 0.7272636, b: 1, a: 0.5}
-    canvasScrollPosition: {x: 1487.9847, y: 1242.3115}
-    canvasZoom: 0.6099986
+    canvasScrollPosition: {x: 725.45605, y: 1875.0055}
+    canvasZoom: 0.5499987
   - id: 19
     fields:
     - title: Title
@@ -21964,8 +22038,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 435
-        y: 283
+        x: 432
+        y: 299
         width: 320
         height: 30
     entryGroups: []
@@ -23386,19 +23460,7 @@ MonoBehaviour:
       - originConversationID: 22
         originDialogueID: 6
         destinationConversationID: 22
-        destinationDialogueID: 7
-        isConnector: 0
-        priority: 2
-      - originConversationID: 22
-        originDialogueID: 6
-        destinationConversationID: 22
-        destinationDialogueID: 8
-        isConnector: 0
-        priority: 2
-      - originConversationID: 22
-        originDialogueID: 6
-        destinationConversationID: 22
-        destinationDialogueID: 20
+        destinationDialogueID: 23
         isConnector: 0
         priority: 2
       conditionsString: Variable["House.Workshop.SeenFusebox"] == false
@@ -23846,7 +23908,7 @@ MonoBehaviour:
       - originConversationID: 22
         originDialogueID: 12
         destinationConversationID: 22
-        destinationDialogueID: 6
+        destinationDialogueID: 23
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -24600,9 +24662,92 @@ MonoBehaviour:
         y: 525.5944
         width: 320
         height: 30
+    - id: 23
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: Continue();
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 22
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 22
+        originDialogueID: 23
+        destinationConversationID: 22
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
+      - originConversationID: 22
+        originDialogueID: 23
+        destinationConversationID: 22
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      - originConversationID: 22
+        originDialogueID: 23
+        destinationConversationID: 22
+        destinationDialogueID: 20
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 1093.2074
+        y: 237.39966
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 1105.2896, y: 105.26309}
-    canvasZoom: 0.75999993
+    canvasScrollPosition: {x: 771.3767, y: 23.134613}
+    canvasZoom: 0.7
   - id: 23
     fields:
     - title: Title
@@ -38141,7 +38286,10 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(barkeep_put_down_book, bartender)->Message(BookClosed);Continue()@Message(BookClosed)
+        value: 'AnimatorPlayWait(barkeep_put_down_book, bartender)->Message(BookClosed);Continue()@Message(BookClosed);
+
+          required
+          AnimatorFloat(Direction, 0, catfish_bar);'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 28
@@ -38224,7 +38372,8 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(barkeep_put_down_book, bartender)->Message(BookClosed);Continue()@Message(BookClosed)
+        value: AnimatorPlayWait(barkeep_put_down_book, bartender)->Message(BookClosed);Continue()@Message(BookClosed);AnimatorFloat(Direction,
+          0, catfish_bar);
         type: 0
         typeString: CustomFieldType_Text
       - title: Response Menu Sequence
@@ -38258,7 +38407,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 660.3213
+        x: 658.9514
         y: 103.310394
         width: 320
         height: 30
@@ -38322,7 +38471,8 @@ MonoBehaviour:
         destinationDialogueID: 27
         isConnector: 0
         priority: 2
-      conditionsString: Variable["NPC.MetCatfish"] == false
+      conditionsString: Variable["NPC.MetCatfish"] == false and Variable["Bar.MetBarkeep"]
+        == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -38384,7 +38534,7 @@ MonoBehaviour:
       isGroup: 0
       nodeColor: 
       delaySimStatus: 0
-      falseConditionAction: Block
+      falseConditionAction: Passthrough
       conditionPriority: 2
       outgoingLinks:
       - originConversationID: 28
@@ -38393,7 +38543,7 @@ MonoBehaviour:
         destinationDialogueID: 31
         isConnector: 0
         priority: 2
-      conditionsString: 
+      conditionsString: Variable["Chef.MetChefAtBar"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -38505,7 +38655,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: Right? Parenting these days...
+        value: Parenting these days...
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -38609,7 +38759,8 @@ MonoBehaviour:
         destinationDialogueID: 26
         isConnector: 0
         priority: 2
-      conditionsString: Variable["NPC.MetCatfish"] == true
+      conditionsString: Variable["NPC.MetCatfish"] == true and (Variable["Bar.MetBarkeep"]
+        == false)
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -39129,7 +39280,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1294.5941
+        x: 1295.964
         y: 476.34152
         width: 320
         height: 30
@@ -39192,7 +39343,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: Variable["Time.Hour"] > 16
-      userScript: 
+      userScript: Variable["Bar.MetBarkeep"] = true
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -39257,7 +39408,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: Variable["Time.Hour"] <= 16
-      userScript: 
+      userScript: Variable["Bar.MetBarkeep"] = true
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -40113,7 +40264,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: 
+        value: '{{cBarTalk}}'
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 28
@@ -40210,8 +40361,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 868.6947
-        y: 1176.6793
+        x: 879.65356
+        y: 1169.8301
         width: 320
         height: 30
     - id: 54
@@ -40893,15 +41044,15 @@ MonoBehaviour:
         destinationDialogueID: 73
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Time.Hour"] < 16
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 873.69495
-        y: 1233.5087
+        x: 883.2838
+        y: 1226.6593
         width: 320
         height: 30
     - id: 63
@@ -40972,7 +41123,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 1642.1545
-        y: 1230.4697
+        y: 1229.0999
         width: 320
         height: 30
     - id: 64
@@ -41765,7 +41916,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 921.22424
-        y: 1395.2548
+        y: 1396.6245
         width: 320
         height: 30
     - id: 75
@@ -44036,7 +44187,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Dialogue Text
-        value: ...
+        value: Some day...
         type: 0
         typeString: CustomFieldType_Text
       - title: Parenthetical
@@ -44442,8 +44593,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 2168.0046
-        y: 732.3502
+        x: 2164.3682
+        y: 721.4411
         width: 320
         height: 30
     - id: 112
@@ -44810,8 +44961,8 @@ MonoBehaviour:
         width: 702.12463
         height: 175.56241
       color: {r: 1, g: 0.36320752, b: 0.36320752, a: 0.5}
-    canvasScrollPosition: {x: 610.5974, y: 0}
-    canvasZoom: 0.27999997
+    canvasScrollPosition: {x: 1313.9233, y: 10.90918}
+    canvasZoom: 0.5500001
   - id: 29
     fields:
     - title: Title
@@ -54044,7 +54195,10 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: Variable["NPC.MetCatfish"] = true
+      userScript: 'Variable["NPC.MetCatfish"] = true;
+
+        Variable["Chef.MetChefAtBar"]
+        = true'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -54550,8 +54704,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 377.17654
-        y: 371.69913
+        x: 378.73904
+        y: 370.13663
         width: 320
         height: 30
     - id: 12
@@ -55321,7 +55475,7 @@ MonoBehaviour:
       - originConversationID: 48
         originDialogueID: 22
         destinationConversationID: 48
-        destinationDialogueID: 23
+        destinationDialogueID: 24
         isConnector: 0
         priority: 2
       conditionsString: 
@@ -55333,77 +55487,6 @@ MonoBehaviour:
         serializedVersion: 2
         x: 1452.5165
         y: 284.0857
-        width: 320
-        height: 30
-    - id: 23
-      fields:
-      - title: Title
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Pictures
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Description
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Actor
-        value: 7
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Conversant
-        value: 1
-        type: 5
-        typeString: CustomFieldType_Actor
-      - title: Menu Text
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Dialogue Text
-        value: Nice try though-
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Parenthetical
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Audio Files
-        value: '[]'
-        type: 3
-        typeString: CustomFieldType_Files
-      - title: Video File
-        value: 
-        type: 0
-        typeString: CustomFieldType_Text
-      - title: Sequence
-        value: '{{cBarTalk}}'
-        type: 0
-        typeString: CustomFieldType_Text
-      conversationID: 48
-      isRoot: 0
-      isGroup: 0
-      nodeColor: 
-      delaySimStatus: 0
-      falseConditionAction: Block
-      conditionPriority: 2
-      outgoingLinks:
-      - originConversationID: 48
-        originDialogueID: 23
-        destinationConversationID: 48
-        destinationDialogueID: 24
-        isConnector: 0
-        priority: 2
-      conditionsString: 
-      userScript: 
-      onExecute:
-        m_PersistentCalls:
-          m_Calls: []
-      canvasRect:
-        serializedVersion: 2
-        x: 1449.2197
-        y: 361.55823
         width: 320
         height: 30
     - id: 24
@@ -55473,8 +55556,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1445.923
-        y: 429.14066
+        x: 1447.2386
+        y: 356.77225
         width: 320
         height: 30
     - id: 25
@@ -55561,8 +55644,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.49000064
+    canvasScrollPosition: {x: 985.41223, y: 0}
+    canvasZoom: 0.76000047
   - id: 49
     fields:
     - title: Title
