@@ -1376,6 +1376,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -1634,6 +1636,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -1892,6 +1896,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -2363,6 +2369,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -2621,6 +2629,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -2879,6 +2889,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -5017,6 +5029,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -5418,6 +5432,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -5608,6 +5624,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -6009,6 +6027,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -6084,8 +6104,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 109.44211
-        y: 233.51958
+        x: 219.0953
+        y: 135.11284
         width: 320
         height: 30
     - id: 4
@@ -6156,8 +6176,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 111.27139
-        y: 292.60468
+        x: 220.92459
+        y: 194.19794
         width: 320
         height: 30
     - id: 5
@@ -6234,8 +6254,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 119.192535
-        y: 343.95306
+        x: 228.84573
+        y: 245.54637
         width: 320
         height: 30
     - id: 6
@@ -6281,11 +6301,13 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: Continue();
+        value: "MoveTo(WorkshopInteractPosition, PlayerMovement); \nHidePlayer();
+          AnimatorPlay(repairingtable_jenny_idle, WorkshopInteractable); SetPlayerFaceDirection(NW);
+          Continue();"
         type: 0
         typeString: 
       - title: EventGuid
-        value: 
+        value: 9e011598-091d-4539-b220-fb6be1a754a9
         type: 0
         typeString: 
       conversationID: 13
@@ -6303,13 +6325,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 118.63461
-        y: 402.60403
+        x: 223.48303
+        y: 306.07178
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.94700027
+    canvasScrollPosition: {x: 0, y: 135.53673}
+    canvasZoom: 1.0670003
   - id: 14
     fields:
     - title: Title
@@ -6350,6 +6372,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -6557,9 +6581,13 @@ MonoBehaviour:
         typeString: 
       - title: Sequence
         value: 'HidePlayer()@0.01; AnimatorPlay(sheddoor_stuck_more,ShedDoor); SetPlayerFaceDirection(NE);
-          required ShowPlayer()@2.32;Continue()@2.33;MoveTo(ShedJennyPosition, PlayerMovement);
+          required ShowPlayer()@2.30;Continue()@2.33;MoveTo(ShedJennyPosition, PlayerMovement);
 
           MAPlaySound(ShedDoorShakeMore,,,,,ShedDoor,);'
+        type: 0
+        typeString: 
+      - title: Response Menu Sequence
+        value: 
         type: 0
         typeString: 
       conversationID: 14
@@ -6973,6 +7001,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -7091,9 +7121,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Dialogue Text
-        value: '
-
-'
+        value: 
         type: 0
         typeString: 
       - title: Parenthetical
@@ -8133,8 +8161,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 677.0109, y: 74.321945}
-    canvasZoom: 0.7899997
+    canvasScrollPosition: {x: 513.4148, y: 206.88}
+    canvasZoom: 0.8199996
   - id: 16
     fields:
     - title: Title
@@ -8175,6 +8203,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -8672,6 +8702,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -9161,6 +9193,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -10539,7 +10573,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: Continue();
+        value: Continue();AnimatorPlay(yulia_whittling_idle, YuliaWhittling,,,noactivate);
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
@@ -10555,7 +10589,7 @@ MonoBehaviour:
       conditionPriority: 2
       outgoingLinks: []
       conditionsString: 
-      userScript: AnimatorPlay(yulia_whittling_idle, YuliaWhittling);
+      userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -15007,8 +15041,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 3523.8706
-        y: 288.46008
+        x: 3532.4421
+        y: 264.17432
         width: 320
         height: 30
     - id: 87
@@ -15078,7 +15112,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 3228.5022
+        x: 3229.9307
         y: 929.76587
         width: 320
         height: 30
@@ -16298,8 +16332,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 2965.482
-        y: 747.33496
+        x: 2929.1182
+        y: 750.9713
         width: 320
         height: 30
     - id: 106
@@ -21058,7 +21092,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21129,7 +21163,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21200,7 +21234,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21271,7 +21305,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21342,7 +21376,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       - title: Response Menu Sequence
@@ -21417,7 +21451,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate)@0.8;Continue()@1;AnimatorPlay(PlayerGiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21488,7 +21522,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(yulia_receiveitem,Yulia);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
+        value: AnimatorPlay(yulia_receiveitem,Yulia,,,noactivate);Continue()@1;AnimatorPlay(PlayerReceiveItem,PlayerAnimation);
         type: 0
         typeString: CustomFieldType_Text
       conversationID: 18
@@ -21565,8 +21599,8 @@ MonoBehaviour:
         width: 1440.0717
         height: 1139.7223
       color: {r: 0.19339621, g: 0.7272636, b: 1, a: 0.5}
-    canvasScrollPosition: {x: 725.45605, y: 1875.0055}
-    canvasZoom: 0.5499987
+    canvasScrollPosition: {x: 0, y: 2175.7197}
+    canvasZoom: 0.69999826
   - id: 19
     fields:
     - title: Title
@@ -21607,6 +21641,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -22085,6 +22121,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -22713,6 +22751,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -22973,6 +23013,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -23742,7 +23784,7 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Sequence
         value: 'AnimatorPlayWait(circuitbreaker_smile_release_lever, Fusebox)->Message(Released);
-          ShowPlayer()@1.3;AnimatorPlay(circuitbreaker_lever_down, Fusebox)@Message(Released);
+          required ShowPlayer()@1.3;AnimatorPlay(circuitbreaker_lever_down, Fusebox)@Message(Released);
           Continue()@Message(Released);
 
           MAPlaySound(FixFuseBox,,,,,Fusebox,);'
@@ -23892,7 +23934,7 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Sequence
         value: 'AnimatorPlayWait(circuitbreaker_put_back_up, Fusebox)->Message(BackUp);
-          Continue()@Message(BackUp); ShowPlayer()@0.9;
+          Continue()@Message(BackUp); required ShowPlayer()@0.91;
 
           MAPlaySound(ReleaseLeverFuseBox,,,,,Fusebox,);'
         type: 0
@@ -24272,7 +24314,7 @@ MonoBehaviour:
         typeString: CustomFieldType_Text
       - title: Sequence
         value: 'AnimatorPlayWait(circuitbreaker_close_box, Fusebox)->Message(Closed);
-          Continue()@Message(Closed);ShowPlayer()@0.68;
+          Continue()@Message(Closed);ShowPlayer()@0.66;
 
           MAPlaySound(CloseFuseBox,,,,,Fusebox,);'
         type: 0
@@ -24746,8 +24788,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 771.3767, y: 23.134613}
-    canvasZoom: 0.7
+    canvasScrollPosition: {x: 430.21133, y: 175.95874}
+    canvasZoom: 0.75999993
   - id: 23
     fields:
     - title: Title
@@ -24788,6 +24830,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -25050,6 +25094,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -25522,6 +25568,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -26359,6 +26407,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -29874,7 +29924,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlayWait(Jenny_Store_Enter, BG_cutscene_shop_jenny)->Message(Entered);Continue()@2;AnimatorPlay(Rishi_Neutral_Idle,BG_cutscene_shop_rishi)
+        value: AnimatorPlayWait(Jenny_Store_Enter, BG_cutscene_shop_jenny)->Message(Entered);Continue()@1.5;AnimatorPlay(Rishi_Neutral_Idle,BG_cutscene_shop_rishi)
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
@@ -33366,7 +33416,7 @@ MonoBehaviour:
         height: 1327.4742
       color: {r: 1, g: 1, b: 1, a: 0.5}
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.30999926
+    canvasZoom: 0.33999997
   - id: 27
     fields:
     - title: Title
@@ -33407,6 +33457,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -37124,6 +37176,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -45003,6 +45057,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -45701,6 +45757,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -45840,6 +45898,12 @@ MonoBehaviour:
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
+      - originConversationID: 30
+        originDialogueID: 1
+        destinationConversationID: 30
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 4
       conditionsString: Variable["House.CookingActivated"] == false
       userScript: 
       onExecute:
@@ -45847,8 +45911,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 44.613434
-        y: 229.41975
+        x: 42.613434
+        y: 226.41975
         width: 320
         height: 30
     - id: 3
@@ -45912,8 +45976,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 44.706192
-        y: 291.65686
+        x: 6.706192
+        y: 394.65683
         width: 320
         height: 30
     - id: 4
@@ -45989,8 +46053,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 437.70435
-        y: 240.08875
+        x: 440.70435
+        y: 220.08875
         width: 320
         height: 30
     - id: 5
@@ -46064,8 +46128,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 636.2224
-        y: 324.8641
+        x: 635.2224
+        y: 325.8641
         width: 320
         height: 30
     - id: 6
@@ -46218,8 +46282,84 @@ MonoBehaviour:
         y: 109.345
         width: 320
         height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: Oh hey, I can use that recipe book I found here!
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 49ef0f37-3602-4734-86c3-edd5e916e083
+        type: 0
+        typeString: 
+      conversationID: 30
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 30
+        originDialogueID: 8
+        destinationConversationID: 30
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: uisGetItemAmount("Recipe Book", "PlayerInventory") == 1
+      userScript: uisRemoveItem("Recipe Book", 1, "PlayerInventory", "");Variable["House.CookingActivated"]
+        = true
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 171.99991
+        y: 322.99997
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 56.99997, y: 136}
     canvasZoom: 1.0000001
   - id: 31
     fields:
@@ -46261,6 +46401,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -46677,6 +46819,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -47398,8 +47542,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 73.306915
-        y: 144.36574
+        x: 75.65985
+        y: 146.71869
         width: 320
         height: 30
     - id: 12
@@ -47587,6 +47731,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -47991,6 +48137,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -48606,6 +48754,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -48937,6 +49087,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -49199,6 +49351,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -49267,6 +49421,12 @@ MonoBehaviour:
         destinationDialogueID: 3
         isConnector: 0
         priority: 2
+      - originConversationID: 37
+        originDialogueID: 0
+        destinationConversationID: 37
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 1
       conditionsString: 
       userScript: 
       onExecute:
@@ -49274,8 +49434,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 288.65936
-        y: 34.0989
+        x: 807.0803
+        y: 18.309418
         width: 320
         height: 30
     - id: 1
@@ -49332,15 +49492,15 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Time.Hour"] < 20
+      conditionsString: Variable["Time.Hour"] < 20 and (Variable["Time.Hour"] > 7)
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 24
-        y: 247
+        x: 22.901093
+        y: 245.90112
         width: 320
         height: 30
     - id: 2
@@ -49388,7 +49548,7 @@ MonoBehaviour:
       - title: Sequence
         value: 'MAPlaySound(BedtimeSoundDesignAndMusic);
 
-          Continue();'
+          Continue();MoveTo(WakeUpPlayerPosition,PlayerMovement);SetPlayerFaceDirection(SE);'
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
@@ -49403,7 +49563,7 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: Variable["Time.Hour"] >= 20
+      conditionsString: 
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -49473,7 +49633,7 @@ MonoBehaviour:
         destinationConversationID: 37
         destinationDialogueID: 1
         isConnector: 0
-        priority: 2
+        priority: 4
       - originConversationID: 37
         originDialogueID: 3
         destinationConversationID: 37
@@ -49565,7 +49725,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 416.2307
-        y: 259.23077
+        y: 258.1319
         width: 320
         height: 30
     - id: 5
@@ -49633,9 +49793,295 @@ MonoBehaviour:
         y: 258.13187
         width: 320
         height: 30
+    - id: 6
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 6
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: Its so late...
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 37
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 37
+        originDialogueID: 6
+        destinationConversationID: 37
+        destinationDialogueID: 7
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 1203.133
+        y: 132.78311
+        width: 320
+        height: 30
+    - id: 7
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 6
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: I've gotta go to sleep.
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 37
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 37
+        originDialogueID: 7
+        destinationConversationID: 37
+        destinationDialogueID: 8
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 1203.133
+        y: 185.41469
+        width: 320
+        height: 30
+    - id: 8
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 6
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: Fade(Stay,2);Continue()@2.1; MoveTo(WakeUpPlayerPosition,PlayerMovement)@2;
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Response Menu Sequence
+        value: 
+        type: 0
+        typeString: 
+      conversationID: 37
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 37
+        originDialogueID: 8
+        destinationConversationID: 37
+        destinationDialogueID: 9
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 1204.449
+        y: 239.36208
+        width: 320
+        height: 30
+    - id: 9
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 6
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: Fade(In,1.5)@0.2;MAPlaySound(BedtimeSoundDesignAndMusic);Continue()@1.8;SetPlayerFaceDirection(SE);
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 1ad1d46d-eb0d-4e73-951e-f11ea36b6edc
+        type: 0
+        typeString: 
+      conversationID: 37
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 1205.7649
+        y: 307.78314
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.91
+    canvasScrollPosition: {x: 3.2786865, y: 0}
+    canvasZoom: 0.61000025
   - id: 38
     fields:
     - title: Title
@@ -49676,6 +50122,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -50084,6 +50532,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -51317,6 +51767,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -51591,7 +52043,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 40
+        originDialogueID: 4
+        destinationConversationID: 40
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -51603,8 +52061,78 @@ MonoBehaviour:
         y: 252
         width: 320
         height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: "HidePlayer();AnimatorPlay(drysink_opening,DrySinkSeedStorage);\nMoveTo(DrySinkPlayerPos,PlayerMovement);
+          \nSetPlayerFaceDirection(NW);\nMAPlaySound(DrySinkOpen,,,,,DrySinkSeedStorage,);\nContinue();"
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 05015f81-4e6e-457e-b863-8360d3a09537
+        type: 0
+        typeString: 
+      conversationID: 40
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: Variable["ActiveStorageName"] = "DrySink"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 268
+        y: 312
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 29, y: 83}
     canvasZoom: 1
   - id: 41
     fields:
@@ -51646,6 +52174,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -51926,7 +52456,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 41
+        originDialogueID: 3
+        destinationConversationID: 41
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: Variable["House.Workshop.WorkbenchActivated"] == false
       userScript: 
       onExecute:
@@ -51991,7 +52527,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 41
+        originDialogueID: 4
+        destinationConversationID: 41
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: Variable["House.Workshop.WorkbenchActivated"] == true
       userScript: 
       onExecute:
@@ -52001,6 +52543,76 @@ MonoBehaviour:
         serializedVersion: 2
         x: 434
         y: 254
+        width: 320
+        height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: SetPlayerState(Menu); MoveTo(ToolboxJennyPosition,PlayerMovement);
+          AnimatorPlay(player_interact_crouch_UR ,PlayerAnimation); SetPlayerFaceDirection(NE);Continue();
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 7d71f84b-eb54-4268-92c1-54dfea170f94
+        type: 0
+        typeString: 
+      conversationID: 41
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: Variable["ActiveStorageName"] = "Toolbox"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 251
+        y: 379
         width: 320
         height: 30
     entryGroups: []
@@ -52046,6 +52658,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -52255,7 +52869,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 42
+        originDialogueID: 3
+        destinationConversationID: 42
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: CurrentQuestState("Yulia's Ceremony") == "unassigned"
       userScript: Variable["House.Bedroom.ClothesClosetFound"] = true
       onExecute:
@@ -52320,7 +52940,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 42
+        originDialogueID: 4
+        destinationConversationID: 42
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
       conditionsString: CurrentQuestState("Yulia's Ceremony") == "active"
       userScript: Variable["House.Bedroom.ClothesClosetFound"] = true
       onExecute:
@@ -52332,8 +52958,82 @@ MonoBehaviour:
         y: 252
         width: 320
         height: 30
+    - id: 5
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 'HidePlayer(); AnimatorPlay(dresser_opening,DresserSprites);
+
+          MAPlaySound(OpenDresser,,,,,ClothingClosetStorage,);
+
+          MoveTo(DresserJennyPosition,
+          PlayerMovement); SetPlayerFaceDirection(NW);Continue();'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 6fdaae9b-26b8-4eab-a126-786222cfb6e2
+        type: 0
+        typeString: 
+      conversationID: 42
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: Variable["ActiveStorageName"] = "Dresser"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 284
+        y: 380
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 26, y: 233}
     canvasZoom: 1
   - id: 43
     fields:
@@ -52375,6 +53075,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -52578,7 +53280,13 @@ MonoBehaviour:
       delaySimStatus: 0
       falseConditionAction: Block
       conditionPriority: 2
-      outgoingLinks: []
+      outgoingLinks:
+      - originConversationID: 43
+        originDialogueID: 3
+        destinationConversationID: 43
+        destinationDialogueID: 4
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: Variable["House.Bedroom.BookshelfFound"] = true
       onExecute:
@@ -52586,12 +53294,81 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 246
-        y: 176
+        x: 244
+        y: 178
+        width: 320
+        height: 30
+    - id: 4
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: Continue();
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 495153e1-14aa-4b2c-9faf-1ba966e60c19
+        type: 0
+        typeString: 
+      conversationID: 43
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: 
+      userScript: Variable["ActiveStorageName"] = "Bookshelf"
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 243
+        y: 252
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
+    canvasScrollPosition: {x: 0, y: 48}
     canvasZoom: 1
   - id: 44
     fields:
@@ -52633,6 +53410,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -52891,6 +53670,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -53224,6 +54005,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -53703,6 +54486,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -53819,6 +54604,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -55686,6 +56473,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -56911,7 +57700,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: AnimatorPlay(marionne_fade_to_dead, NPC_marionne);Continue();
+        value: AnimatorPlay(marionne_fade_to_dead_instant, NPC_marionne);Continue();
         type: 0
         typeString: CustomFieldType_Text
       - title: EventGuid
@@ -56934,7 +57723,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 846.11456
-        y: 1846.4446
+        y: 1845.2251
         width: 320
         height: 30
     - id: 19
@@ -59856,8 +60645,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.3099997
+    canvasScrollPosition: {x: 387.8053, y: 1491.4644}
+    canvasZoom: 0.8199994
   - id: 50
     fields:
     - title: Title
@@ -59898,6 +60687,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -64946,6 +65737,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -66069,6 +66862,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -66469,6 +67264,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 
@@ -66656,6 +67453,8 @@ MonoBehaviour:
       alwaysForceResponseMenu: 1
       includeInvalidEntries: 0
       responseTimeout: 0
+      emTagForOldResponses: 0
+      emTagForInvalidResponses: 0
       cancelSubtitle:
         key: 27
         buttonName: 

@@ -328,6 +328,30 @@ namespace PixelCrushers.DialogueSystem
             //--- No longer close cache when closing menus because SetDialoguePanel may close them: ClearCache();
         }
 
+        public bool AreAnyPanelsClosing()
+        {
+            for (int i = 0; i < m_builtinPanels.Count; i++)
+            {
+                if (m_builtinPanels[i] != null && m_builtinPanels[i].panelState == UIPanel.PanelState.Closing) return true;
+            }
+            if (m_defaultPanel != null && !m_builtinPanels.Contains(m_defaultPanel) && m_defaultPanel.panelState == UIPanel.PanelState.Closing) return true;
+            foreach (var kvp in m_actorPanelCache)
+            {
+                var panel = kvp.Value;
+                if (panel != null && !m_builtinPanels.Contains(panel) && panel.panelState == UIPanel.PanelState.Closing) return true;
+            }
+            if (m_actorIdPanelCache.Count > 0)
+            {
+                var cachedPanels = new List<StandardUIMenuPanel>(m_actorIdPanelCache.Values);
+                foreach (var kvp in m_actorIdPanelCache)
+                {
+                    var panel = kvp.Value;
+                    if (panel != null && !m_builtinPanels.Contains(panel) && !cachedPanels.Contains(panel) && panel.panelState == UIPanel.PanelState.Closing) return true;
+                }
+            }
+            return false;
+        }
+
         /// <summary>
         /// Starts the timer.
         /// </summary>

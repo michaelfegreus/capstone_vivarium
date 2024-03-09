@@ -6,9 +6,20 @@ namespace Language.Lua
 {
     public partial class Assignment : Statement
     {
+
+        // Supports monitoring of variable changes:
+        public static HashSet<string> MonitoredVariables = new HashSet<string>(); //[PixelCrushers]
+        public static System.Action<string, object> VariableChanged = null;
+
+        public static void InitializeVariableMonitoring()
+        {
+            MonitoredVariables = new HashSet<string>();
+            VariableChanged = null;
+        }
+
         public override LuaValue Execute(LuaTable enviroment, out bool isBreak)
         {
-            //[PixelCrushers]LuaValue[] values = this.ExprList.ConvertAll(expr => expr.Evaluate(enviroment)).ToArray();
+            //[PixelCrushers] LuaValue[] values = this.ExprList.ConvertAll(expr => expr.Evaluate(enviroment)).ToArray();
 			LuaValue[] values = LuaInterpreterExtensions.EvaluateAll(this.ExprList, enviroment).ToArray();
 
             LuaValue[] neatValues = LuaMultiValue.UnWrapLuaValues(values);
@@ -23,6 +34,10 @@ namespace Language.Lua
 
                     if (varName != null)
                     {
+                        if (MonitoredVariables.Contains(varName.Name) && values.Length >= 1) //[PixelCrushers]
+                        {
+                            VariableChanged?.Invoke(varName.Name, values[0].Value);
+                        }
                         SetKeyValue(enviroment, new LuaString(varName.Name), values[i]);
                         continue;
                     }

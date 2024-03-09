@@ -10,6 +10,7 @@ public class PlayerRoomCheck : MonoBehaviour
 
     Collider2D currentRoomVolume;
     IRoomTrigger[] roomVolumeScripts;
+    [SerializeField] private RoomEventStartWindow allRoomsEvent;
 
     public MusicPlayer.PossibleRoomClusters currentRoomCluster;
 
@@ -52,6 +53,8 @@ public class PlayerRoomCheck : MonoBehaviour
         else if (currentRoomVolume != null && currentRoomVolume != rayHit.collider)
         {
             // Change rooms
+
+            allRoomsEvent.CheckEvent();
 
             // Run exit functions on current
             if (roomVolumeScripts.Length > 0)

@@ -22,7 +22,7 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         /// <param name="_showName">Name will be shown in Dialogue Editor Window </param>
         [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-        public sealed class Name : Attribute
+        public sealed class Name : System.Attribute
         {
             public string showingName;
             public Name(string _showName)
@@ -248,7 +248,7 @@ namespace PixelCrushers.DialogueSystem
             return assembly.GetTypes().Where(t => t != derivedType && derivedType.IsAssignableFrom(t)).ToList();
         }
 
-        private static CustomFieldType GetFieldCustomType(string typeString)
+        public static CustomFieldType GetFieldCustomType(string typeString)
         {
             if (typesMapping == null)
                 Init();
@@ -258,7 +258,8 @@ namespace PixelCrushers.DialogueSystem
             }
             else
             {
-                Debug.Log("Can't find type: " + typeString + ". Define a class with this type inside an Editor folder.");
+                if (string.IsNullOrEmpty(typeString)) typeString = "CustomFieldType_Text";
+                else Debug.Log("Can't find type: " + typeString + ". Define a class with this type inside an Editor folder.");
                 return typesMapping.ContainsKey("CustomFieldType_Text") ? typesMapping["CustomFieldType_Text"] : null;
             }
         }

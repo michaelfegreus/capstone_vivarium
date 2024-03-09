@@ -289,10 +289,10 @@ namespace Opsive.UltimateInventorySystem.Demo.UI.Menus.Storage
             switch (DialogueLua.GetVariable("ActiveStorageName").AsString)
             {
                 case "Dresser":
-                    DialogueManager.instance.PlaySequence("AnimatorPlay(dresser_closing,DresserSprites);ShowPlayer()@0.42;SetPlayerState(Free)@0.42;MAPlaySound(CloseDresser,,,,,ClothingClosetStorage,);");
+                    DialogueManager.instance.PlaySequence("AnimatorPlay(dresser_closing,DresserSprites);required ShowPlayer()@0.42;SetPlayerState(Free)@0.42;MAPlaySound(CloseDresser,,,,,ClothingClosetStorage,);");
                     break;
                 case "DrySink":
-                    DialogueManager.instance.PlaySequence("ShowPlayer()@0.54;SetPlayerState(Free)@0.54;MAPlaySound(DrySinkClose,,,,,DrySinkSeedStorage,);");
+                    DialogueManager.instance.PlaySequence("required ShowPlayer()@0.54;SetPlayerState(Free)@0.54;MAPlaySound(DrySinkClose,,,,,DrySinkSeedStorage,);");
                     break;
                 case "Toolbox":
                     DialogueManager.instance.PlaySequence("AnimatorPlay(player_interact_uncrouch_UR,PlayerAnimation);SetPlayerState(Free)@0.54");

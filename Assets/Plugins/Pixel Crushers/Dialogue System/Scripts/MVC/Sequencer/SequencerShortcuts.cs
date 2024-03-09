@@ -7,7 +7,7 @@ namespace PixelCrushers.DialogueSystem
 {
 
     /// <summary>
-    /// Registers shortcuts with the sequencer.
+    /// Registers shortcuts and subjects with the sequencer.
     /// </summary>    
     [AddComponentMenu("")] // Use wrapper.
     public class SequencerShortcuts : MonoBehaviour
@@ -22,16 +22,26 @@ namespace PixelCrushers.DialogueSystem
             [Tooltip("Value to replace shortcut with.")]
             [TextArea]
             public string value;
+
+            [Tooltip("Menu of the shortcut.")]
+            [TextArea]
+            public string subMenu;
         }
 
         public Shortcut[] shortcuts = new Shortcut[0];
 
+        [Tooltip("Optionally assign GameObjects referenced by name in sequencer commands below. Prevents having to search for them at runtime.")]
+        public Transform[] referencedSubjects = new Transform[0];
 
         void OnEnable()
         {
             for (int i = 0; i < shortcuts.Length; i++)
             {
                 Sequencer.RegisterShortcut(shortcuts[i].shortcut, shortcuts[i].value);
+            }
+            for (int i = 0; i < referencedSubjects.Length; i++)
+            {
+                SequencerTools.RegisterSubject(referencedSubjects[i]);
             }
         }
 
@@ -40,6 +50,10 @@ namespace PixelCrushers.DialogueSystem
             for (int i = 0; i < shortcuts.Length; i++)
             {
                 Sequencer.UnregisterShortcut(shortcuts[i].shortcut);
+            }
+            for (int i = 0; i < referencedSubjects.Length; i++)
+            {
+                SequencerTools.UnregisterSubject(referencedSubjects[i]);
             }
         }
     }

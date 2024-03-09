@@ -20,12 +20,16 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Add an EventSystem if one isn't in the scene.")]
         public bool addEventSystemIfNeeded = true;
 
+        [Tooltip("Check in Awake if panels are properly assigned. Untick to suppress warnings.")]
+        public bool verifyPanelAssignments = true;
+
         #endregion
 
         #region Properties & Private Fields
 
         private Queue<QueuedUIAlert> m_alertQueue = new Queue<QueuedUIAlert>();
         private StandardUIRoot m_uiRoot = new StandardUIRoot();
+        private WaitForEndOfFrame endOfFrame = CoroutineUtility.endOfFrame;
         public override AbstractUIRoot uiRootControls { get { return m_uiRoot; } }
         public override AbstractUIAlertControls alertControls { get { return alertUIElements; } }
         public override AbstractDialogueUIControls dialogueControls { get { return conversationUIElements; } }
@@ -34,6 +38,8 @@ namespace PixelCrushers.DialogueSystem
         protected Queue<QueuedUIAlert> alertQueue { get { return m_alertQueue; } }
 
         protected Coroutine closeCoroutine = null;
+
+        protected const float WaitForOpenTimeoutDuration = 8f;
 
         #endregion
 
@@ -55,7 +61,7 @@ namespace PixelCrushers.DialogueSystem
         private void VerifyAssignments()
         {
             if (addEventSystemIfNeeded) UITools.RequireEventSystem();
-            if (DialogueDebug.logWarnings)
+            if (DialogueDebug.logWarnings && verifyPanelAssignments)
             {
                 if (alertUIElements.alertText.gameObject == null) Debug.LogWarning("Dialogue System: No UI text element is assigned to Standard Dialogue UI's Alert UI Elements.", this);
                 if (conversationUIElements.subtitlePanels.Length == 0) Debug.LogWarning("Dialogue System: No subtitle panels are assigned to Standard Dialogue UI.", this);
@@ -97,11 +103,12 @@ namespace PixelCrushers.DialogueSystem
             }
             base.Open();
             conversationUIElements.OpenSubtitlePanelsOnStart(this);
+            conversationUIElements.ClearSubtitleTextOnConversationStart();
         }
 
         public override void Close()
         {
-            if (conversationUIElements.waitForClose && AreAnyPanelsClosing())
+            if (conversationUIElements.waitForClose && (AreAnyPanelsClosing() || !IsMainPanelClosed()))
             {
                 closeCoroutine = StartCoroutine(CloseAfterPanelsAreClosed());
             }
@@ -119,16 +126,43 @@ namespace PixelCrushers.DialogueSystem
 
         protected IEnumerator CloseAfterPanelsAreClosed()
         {
+            // Close subtitle/menu panels and wait for them to finish:
+            conversationUIElements.ClosePanels();
             while (AreAnyPanelsClosing())
             {
                 yield return null;
             }
+            // Close main panel and wait for it to finish:
+            if (conversationUIElements.mainPanel != null && !conversationUIElements.dontDeactivateMainPanel)
+            {
+                if (DialogueSystemController.isWarmingUp)
+                {
+                    conversationUIElements.mainPanel.animatorMonitor.CancelCurrentAnimation();
+                    conversationUIElements.mainPanel.gameObject.SetActive(false);
+                    conversationUIElements.mainPanel.panelState = UIPanel.PanelState.Closed;
+                }
+                else
+                {
+                    conversationUIElements.mainPanel.Close();
+                    while (conversationUIElements.mainPanel.panelState == UIPanel.PanelState.Closing)
+                    {
+                        yield return null;
+                    }
+                }
+            }
             CloseNow();
         }
 
-        public virtual bool AreAnyPanelsClosing()
+        protected virtual bool IsMainPanelClosed()
         {
-            return conversationUIElements.AreAnyPanelsClosing();
+            return conversationUIElements.mainPanel == null ||
+                conversationUIElements.mainPanel.panelState == UIPanel.PanelState.Closed;
+        }
+
+        // extraSubtitlePanel may be a custom (e.g., bubble) panel that isn't part of the dialogue UI's regular list.
+        public virtual bool AreAnyPanelsClosing(StandardUISubtitlePanel extraSubtitlePanel = null)
+        {
+            return conversationUIElements.AreAnyPanelsClosing(extraSubtitlePanel);
         }
 
         #endregion
@@ -170,6 +204,12 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        public override void HideAllAlerts()
+        {
+            m_alertQueue.Clear();
+            base.HideAllAlerts();
+        }
+
         private void UpdateAlertQueue()
         {
             if (alertUIElements.queueAlerts && m_alertQueue.Count > 0 && !alertUIElements.isVisible && !(alertUIElements.waitForHideAnimation && alertUIElements.isHiding))
@@ -192,6 +232,45 @@ namespace PixelCrushers.DialogueSystem
         #region Subtitles
 
         public override void ShowSubtitle(Subtitle subtitle)
+        {
+            if (conversationUIElements.waitForMainPanelOpen && conversationUIElements.mainPanel != null && conversationUIElements.mainPanel.panelState != UIPanel.PanelState.Open)
+            {
+                StartCoroutine(ShowSubtitleWhenMainPanelOpen(subtitle));
+            }
+            else
+            {
+                ShowSubtitleImmediate(subtitle);
+            }
+        }
+
+        protected virtual IEnumerator ShowSubtitleWhenMainPanelOpen(Subtitle subtitle)
+        {
+            if (conversationUIElements.mainPanel == null)
+            {
+                ShowSubtitleImmediate(subtitle);
+            }
+            else
+            {
+                var focusedPanel = conversationUIElements.standardSubtitleControls.StageFocusedPanel(subtitle);
+                float timeout = Time.realtimeSinceStartup + WaitForOpenTimeoutDuration;
+                var showContinueButton = false;
+                while (conversationUIElements.mainPanel.panelState != UIPanel.PanelState.Open && Time.realtimeSinceStartup < timeout)
+                {
+                    yield return endOfFrame;
+                    var isContinueButtonActive = focusedPanel != null && focusedPanel.continueButton != null && focusedPanel.continueButton.gameObject.activeSelf;
+                    showContinueButton = showContinueButton || isContinueButtonActive;
+                    if (isContinueButtonActive)
+                    {
+                        focusedPanel.continueButton.gameObject.SetActive(false);
+                    }
+                    yield return null;
+                }
+                ShowSubtitleImmediate(subtitle);
+                if (showContinueButton) focusedPanel.ShowContinueButton();
+            }
+        }
+
+        protected virtual void ShowSubtitleImmediate(Subtitle subtitle)
         {
             conversationUIElements.standardMenuControls.Close();
             conversationUIElements.standardSubtitleControls.ShowSubtitle(subtitle);
@@ -234,9 +313,9 @@ namespace PixelCrushers.DialogueSystem
             conversationUIElements.standardMenuControls.SetActorMenuPanelNumber(dialogueActor, menuPanelNumber);
         }
 
-        public virtual void OverrideActorPanel(Actor actor, SubtitlePanelNumber subtitlePanelNumber)
+        public virtual void OverrideActorPanel(Actor actor, SubtitlePanelNumber subtitlePanelNumber, bool immediate = false)
         {
-            conversationUIElements.standardSubtitleControls.OverrideActorPanel(actor, subtitlePanelNumber);
+            conversationUIElements.standardSubtitleControls.OverrideActorPanel(actor, subtitlePanelNumber, null, immediate);
         }
 
         public virtual void ForceOverrideSubtitlePanel(StandardUISubtitlePanel customPanel)
@@ -250,7 +329,31 @@ namespace PixelCrushers.DialogueSystem
 
         public override void ShowResponses(Subtitle subtitle, Response[] responses, float timeout)
         {
+            if (conversationUIElements.waitForMainPanelOpen && conversationUIElements.mainPanel != null && conversationUIElements.mainPanel.panelState != UIPanel.PanelState.Open)
+            {
+                StartCoroutine(ShowResponsesWhenMainPanelOpen(subtitle, responses, timeout));
+            }
+            else
+            {
+                ShowResponsesImmediate(subtitle, responses, timeout);
+            }
+        }
+
+        protected virtual IEnumerator ShowResponsesWhenMainPanelOpen(Subtitle subtitle, Response[] responses, float timeout)
+        {
+            if (conversationUIElements.mainPanel == null) yield break;
+            float waitForOpenTimeout = Time.realtimeSinceStartup + WaitForOpenTimeoutDuration;
+            while (conversationUIElements.mainPanel.panelState != UIPanel.PanelState.Open && Time.realtimeSinceStartup < waitForOpenTimeout)
+            {
+                yield return null;
+            }
+            ShowResponsesImmediate(subtitle, responses, timeout);
+        }
+
+        protected virtual void ShowResponsesImmediate(Subtitle subtitle, Response[] responses, float timeout)
+        { 
             conversationUIElements.standardSubtitleControls.UnfocusAll();
+            conversationUIElements.standardSubtitleControls.HideOnResponseMenu();
             base.ShowResponses(subtitle, responses, timeout);
         }
 

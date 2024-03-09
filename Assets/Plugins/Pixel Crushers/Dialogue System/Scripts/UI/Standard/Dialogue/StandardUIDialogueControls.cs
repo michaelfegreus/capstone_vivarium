@@ -22,6 +22,9 @@ namespace PixelCrushers.DialogueSystem
         [Tooltip("Never deactivate Main Panel. Will still play show & hide animations if specified.")]
         public bool dontDeactivateMainPanel = false;
 
+        [Tooltip("When starting conversation, wait until main panel is open before showing subtitle or menu.")]
+        public bool waitForMainPanelOpen = false;
+
         public StandardUISubtitlePanel[] subtitlePanels;
 
         [Tooltip("Default panel for NPC subtitles.")]
@@ -82,7 +85,7 @@ namespace PixelCrushers.DialogueSystem
         {
             if (closeCoroutine != null)
             {
-                mainPanel.StopCoroutine(closeCoroutine);
+                if (mainPanel != null) mainPanel.StopCoroutine(closeCoroutine);
                 closeCoroutine = null;
             }
             m_initializedAnimator = true;
@@ -115,25 +118,27 @@ namespace PixelCrushers.DialogueSystem
             }
         }
 
+        public void ClosePanels()
+        {
+            standardSubtitleControls.Close();
+            standardMenuControls.Close();
+        }
+
         private IEnumerator CloseAfterPanelsAreClosed()
         {
-            while (AreAnyPanelsClosing())
+            while (AreAnyPanelsClosing(null))
             {
                 yield return null;
             }
             mainPanel.Close();
         }
 
-        public bool AreAnyPanelsClosing()
+        // extraSubtitlePanel may be a custom (e.g., bubble) panel that isn't part of the dialogue UI's regular list.
+        public bool AreAnyPanelsClosing(StandardUISubtitlePanel extraSubtitlePanel = null)
         {
-            foreach (var panel in subtitlePanels)
-            {
-                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
-            }
-            foreach (var panel in menuPanels)
-            {
-                if (panel != null && panel.panelState == UIPanel.PanelState.Closing) return true;
-            }
+            if (extraSubtitlePanel != null && extraSubtitlePanel.panelState == UIPanel.PanelState.Closing) return true;
+            if (standardSubtitleControls.AreAnyPanelsClosing()) return true;
+            if (standardMenuControls.AreAnyPanelsClosing()) return true;
             if (mainPanel != null && mainPanel.panelState == UIPanel.PanelState.Closing) return true;
             return false;
         }
@@ -189,6 +194,16 @@ namespace PixelCrushers.DialogueSystem
 
             // Clear any custom panels:
             standardSubtitleControls.ClearSubtitlesOnCustomPanels();
+        }
+
+        public virtual void ClearSubtitleTextOnConversationStart()
+        {
+            // Clear all built-in panels:
+            for (int i = 0; i < subtitlePanels.Length; i++)
+            {
+                if (subtitlePanels[i] == null) continue;
+                if (subtitlePanels[i].clearTextOnConversationStart) subtitlePanels[i].ClearText();
+            }
         }
 
         #endregion

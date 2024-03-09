@@ -460,7 +460,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             if (database == null) return;
             if (watchableQuestNames == null || watchableQuestNames.Length == 0)
             {
-                List<string> questNames = new List<string>(QuestLog.GetAllQuests(QuestState.Abandoned | QuestState.Active | QuestState.Failure | QuestState.Success | QuestState.Unassigned));
+                List<string> questNames = new List<string>(QuestLog.GetAllQuests(QuestState.Abandoned | QuestState.Active | QuestState.Failure | QuestState.Success | QuestState.Grantable | QuestState.Unassigned));
                 questNames.Sort();
                 watchableQuestNames = questNames.ToArray();
             }
@@ -519,7 +519,7 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             GUI.SetNextControlName("LuaEmptyLabel");
             EditorGUILayout.LabelField(string.Empty, GUILayout.Width(8));
             luaCommand = EditorGUILayout.TextField(string.Empty, luaCommand);
-            if (GUILayout.Button("Clear", "ToolbarSeachCancelButton"))
+            if (GUILayout.Button("Clear", MoreEditorGuiUtility.ToolbarSearchCancelButtonName))
             {
                 luaCommand = string.Empty;
                 GUI.FocusControl("LuaEmptyLabel"); // Need to deselect field to clear text field's display.

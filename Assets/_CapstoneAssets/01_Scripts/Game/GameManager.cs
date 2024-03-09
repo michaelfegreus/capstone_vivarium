@@ -7,8 +7,8 @@ using Opsive.UltimateInventorySystem.Core;
 [RequireComponent(typeof(GameInputManager))]
 [RequireComponent(typeof(ClockManager))]
 
-// TODO: FIX PERSISTANT SINGLETONS
-public class GameManager : Singleton/*Persistant*/<GameManager> {
+// TODO: FIX PERSISTENT SINGLETONS
+public class GameManager : Singleton/*Persistent*/<GameManager> {
 
 	// Instantiate personal state machine
 	private StateMachine gameStateMachine = new StateMachine();
@@ -27,14 +27,16 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 	public Inventory playerInventory;
 	public StandardUIQuestTracker questHUD;
 
+	public Opsive.UltimateInventorySystem.UI.Panels.DisplayPanel cookingDisplayPanel;
+
 	[SerializeField] private SeedPlotLogic currSeedPlot;
 
 	[SerializeField] private ItemDefinition currItemInUse;
 
 	// Use this "protected override void awake" to ensure that this and the SingletonPersistant interface both prevent destruction on load.
-	// Without this, the engine might just run GAME_manager's Awake, and not the SingletonPersistant's awake that keeps it from being destroyed
+	// Without this, the engine might just run GAME_manager's Awake, and not the SingletonPersistent's awake that keeps it from being destroyed
 
-	// Delete this function if you're not using the SingletonPersistant interface though.
+	// Delete this function if you're not using the SingletonPersistent interface though.
 	/*protected override*/
 	void Awake() {
 		//base.Awake ();
@@ -81,7 +83,9 @@ public class GameManager : Singleton/*Persistant*/<GameManager> {
 
 	IEnumerator StartDemo()
     {
-        yield return new WaitForSeconds(3f);
+		yield return new WaitForSeconds(0.1f);
+		cookingDisplayPanel.SmartClose();
+        yield return new WaitForSeconds(2.9f);
 		DialogueManager.instance.StartConversation("DemoStartDialogue");
 	}
 

@@ -8,6 +8,8 @@ using System.Collections.Generic;
 namespace PixelCrushers.DialogueSystem.DialogueEditor
 {
 
+    public enum BooleanType { True, False }
+
     /// <summary>
     /// This part of the Dialogue Editor window handles drawing a single field 
     /// and a list of fields.
@@ -22,6 +24,8 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
         private static readonly string[] questStateStrings = { "(None)", "unassigned", "active", "success", "failure", "done", "abandoned", "grantable", "returnToNPC" };
 
         private bool showStateFieldAsQuest = true;
+
+        private static GUIContent displayNameLabel = new GUIContent("Display Name", "The name to show in UIs.");
 
         private void DrawFieldsSection(List<Field> fields, List<string> primaryFieldTitles = null)
         {
@@ -175,6 +179,56 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             EditorGUILayout.EndHorizontal();
         }
 
+        private void DrawRevisableTextField(GUIContent label, Asset asset, DialogueEntry entry, List<Field> fields, string fieldTitle)
+        {
+            Field field = Field.Lookup(fields, fieldTitle);
+            if (field == null)
+            {
+                field = new Field(fieldTitle, string.Empty, FieldType.Text);
+                fields.Add(field);
+                SetDatabaseDirty("Create Field " + fieldTitle);
+            }
+            DrawRevisableTextField(label, asset, entry, field);
+        }
+
+        private void DrawRevisableTextField(GUIContent label, Asset asset, DialogueEntry entry, Field field)
+        {
+            if (field == null) return;
+            EditorGUILayout.BeginHorizontal();
+            field.value = EditorGUILayout.TextField(label, field.value);
+            DrawAIReviseTextButton(asset, entry, field);
+            EditorGUILayout.EndHorizontal();
+        }
+
+        private void DrawRevisableTextAreaField(GUIContent label, Asset asset, DialogueEntry entry, List<Field> fields, string fieldTitle)
+        {
+            Field field = Field.Lookup(fields, fieldTitle);
+            if (field == null)
+            {
+                field = new Field(fieldTitle, string.Empty, FieldType.Text);
+                fields.Add(field);
+                SetDatabaseDirty("Create Field " + fieldTitle);
+            }
+            DrawRevisableTextAreaField(label, asset, entry, field);
+        }
+
+        private void DrawRevisableTextAreaField(GUIContent label, Asset asset, DialogueEntry entry, Field field)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(label);
+            DrawAIReviseTextButton(asset, entry, field);
+            EditorGUILayout.EndHorizontal();
+            field.value = EditorGUILayout.TextArea(field.value);
+        }
+
+        private void DrawLocalizableTextAreaField(GUIContent label, Asset asset, DialogueEntry entry, Field field)
+        {
+            EditorGUILayout.BeginHorizontal();
+            EditorGUILayout.LabelField(label);
+            DrawAILocalizeTextButton(asset, entry, field);
+            EditorGUILayout.EndHorizontal();
+            field.value = EditorGUILayout.TextArea(field.value);
+        }
         private void DrawTextArea(Field field)
         {
             EditorGUI.BeginChangeCheck();
@@ -355,8 +409,6 @@ namespace PixelCrushers.DialogueSystem.DialogueEditor
             int newIndex = EditorGUILayout.Popup(new GUIContent(label, string.Empty), index, assetList.names);
             return (newIndex != index) ? assetList.GetID(newIndex) : value;
         }
-
-        private enum BooleanType { True, False }
 
         private static BooleanType StringToBooleanType(string s)
         {

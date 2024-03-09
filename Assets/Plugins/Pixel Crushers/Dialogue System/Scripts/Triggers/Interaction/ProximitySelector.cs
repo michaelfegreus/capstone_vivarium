@@ -23,7 +23,8 @@ namespace PixelCrushers.DialogueSystem
     /// object will receive an "OnUse" message.
     /// 
     /// You can hook into SelectedUsableObject and DeselectedUsableObject to get notifications
-    /// when the current target has changed.
+    /// when the current target has changed and Enabled and Disabled when the component is 
+    /// enabled or disabled.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
     public class CustomProximitySelector : MonoBehaviour
@@ -138,6 +139,10 @@ namespace PixelCrushers.DialogueSystem
         /// </summary>
         public event DeselectedUsableObjectDelegate DeselectedUsableObject = null;
 
+        public event System.Action Enabled = null;
+
+        public event System.Action Disabled = null;
+
         /// <summary>
         /// Gets the current usable.
         /// </summary>
@@ -156,7 +161,7 @@ namespace PixelCrushers.DialogueSystem
         /// <summary>
         /// Keeps track of which usable objects' triggers the selector is currently inside.
         /// </summary>
-        protected List<Usable> usablesInRange = new List<Usable>();
+        public List<Usable> usablesInRange = new List<Usable>();
 
         /// <summary>
         /// The current usable that will receive an OnUse message if the player hits the use button.
@@ -178,6 +183,30 @@ namespace PixelCrushers.DialogueSystem
 
         protected const float MinTimeBetweenUseButton = 0.5f;
         protected float timeToEnableUseButton = 0;
+
+        protected virtual void Reset()
+        {
+#if UNITY_EDITOR
+            var selectorUseStandardUIElements = gameObject.GetComponent<SelectorUseStandardUIElements>();
+            if (selectorUseStandardUIElements == null)
+            {
+                if (UnityEditor.EditorUtility.DisplayDialog("Use Unity UI for Selector?", "Add a 'Selector Use Standard UI Elements' component to allow the Selector to use Unity UI? Otherwise it will use legacy Unity GUI. You can customize the Unity UI prefab assigned to the Dialogue Manager's Instantiate Prefabs component.", "Add", "Don't Add"))
+                {
+                    gameObject.AddComponent<SelectorUseStandardUIElements>();
+                }
+            }
+#endif
+        }
+
+        protected virtual void OnEnable()
+        {
+            Enabled?.Invoke();
+        }
+
+        protected virtual void OnDisable()
+        {
+            Disabled?.Invoke();
+        }
 
         public virtual void Start()
         {

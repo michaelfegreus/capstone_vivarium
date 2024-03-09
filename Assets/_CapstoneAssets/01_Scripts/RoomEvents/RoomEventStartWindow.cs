@@ -45,7 +45,6 @@ public class RoomEventStartWindow : RoomEvent
             CheckClockRollover();
         }
         CheckEventTime();
-        Debug.Log("RoomEventStartWindow was ENABLED");
     }
 
     void CheckClockRollover()
@@ -61,6 +60,16 @@ public class RoomEventStartWindow : RoomEvent
     {
         startTimeWindowA = newTimeA;
         startTimeWindowB = newTimeB;
+    }
+
+    public void CheckEvent()
+    {
+        if (gameClockManager == null)
+        {
+            gameClockManager = GameManager.Instance.clockManager;
+            CheckClockRollover();
+        }
+        CheckEventTime();
     }
 
     public override void CheckEventTime()

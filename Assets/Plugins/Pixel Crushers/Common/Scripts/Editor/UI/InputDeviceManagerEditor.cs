@@ -192,22 +192,29 @@ namespace PixelCrushers
 #if USE_NEW_INPUT
             return true; // Assume InputActions will define axis.
 #else
-            var assets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset");
-            if (assets == null || assets.Length == 0) return true; // Gracefully skip if can't load InputManager.
-            SerializedObject serializedObject = new SerializedObject(assets[0]);
-            SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
-
-            axesProperty.Next(true);
-            axesProperty.Next(true);
-            while (axesProperty.Next(false))
+            try
             {
-                SerializedProperty axis = axesProperty.Copy();
-                if (axis.Next(true))
+                var assets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset");
+                if (assets == null || assets.Length == 0) return true; // Gracefully skip if can't load InputManager.
+                SerializedObject serializedObject = new SerializedObject(assets[0]);
+                SerializedProperty axesProperty = serializedObject.FindProperty("m_Axes");
+
+                var valid = axesProperty.Next(true);
+                valid = valid || axesProperty.Next(true);
+                while (valid && axesProperty.Next(false))
                 {
-                    if (axis.stringValue == axisName) return true;
+                    SerializedProperty axis = axesProperty.Copy();
+                    if (axis.Next(true))
+                    {
+                        if (axis.stringValue == axisName) return true;
+                    }
                 }
+                return false;
             }
-            return false;
+            catch (System.InvalidOperationException)
+            {
+                return false;
+            }
 #endif
         }
 

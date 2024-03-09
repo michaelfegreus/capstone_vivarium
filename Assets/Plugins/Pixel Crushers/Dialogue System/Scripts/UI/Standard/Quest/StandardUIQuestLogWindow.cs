@@ -12,7 +12,7 @@ namespace PixelCrushers.DialogueSystem
     /// This is the Standard UI implementation of the abstract QuestLogWindow class.
     /// </summary>
     [AddComponentMenu("")] // Use wrapper.
-    public class StandardUIQuestLogWindow : QuestLogWindow
+    public class StandardUIQuestLogWindow : QuestLogWindow, IEventSystemUser
     {
 
         #region Serialized Fields
@@ -88,8 +88,21 @@ namespace PixelCrushers.DialogueSystem
             set { m_detailsPanelContentManager = value; }
         }
 
+        private UnityEngine.EventSystems.EventSystem m_eventSystem = null;
+        public UnityEngine.EventSystems.EventSystem eventSystem
+        {
+            get
+            {
+                if (m_eventSystem != null) return m_eventSystem;
+                return UnityEngine.EventSystems.EventSystem.current;
+            }
+            set { m_eventSystem = value; }
+        }
+
         protected List<string> expandedGroupNames = new List<string>();
         protected System.Action confirmAbandonQuestHandler = null;
+        protected string mostRecentSelectedActiveQuest = null;
+        protected string mostRecentSelectedCompletedQuest = null;
         private Coroutine m_refreshCoroutine = null;
         private bool m_isAwake = false;
 
@@ -204,7 +217,7 @@ namespace PixelCrushers.DialogueSystem
         {
             // Wait until end of frame so we only refresh once in case we receive multiple
             // requests to refresh during the same frame.
-            yield return new WaitForEndOfFrame();
+            yield return CoroutineUtility.endOfFrame;
             m_refreshCoroutine = null;
             OnQuestListUpdated();
         }
@@ -216,19 +229,13 @@ namespace PixelCrushers.DialogueSystem
         {
             if (!m_isAwake) return;
             UnityEngine.UI.Selectable elementToSelect = null;
-            UnityEngine.UI.Selectable firstQuestElement = null;
             showingActiveQuestsHeading.SetActive(isShowingActiveQuests);
             showingCompletedQuestHeading.SetActive(!isShowingActiveQuests);
             selectionPanelContentManager.Clear();
-            var questTitleTemplate = isShowingActiveQuests ? 
-                activeQuestHeadingTemplate 
-                : completedQuestHeadingTemplate;
-            var selectedQuestTitleTemplate = isShowingActiveQuests ?
-                (selectedActiveQuestHeadingTemplate ?? activeQuestHeadingTemplate)
-                : (selectedCompletedQuestHeadingTemplate ?? completedQuestHeadingTemplate);
 
             // Get group names, and draw selected quest in its panel while we're at it:
             var groupNames = new List<string>();
+            var groupDisplayNames = new Dictionary<string, string>();
             int numGroupless = 0;
             var repaintedQuestDetails = false;
             if (quests.Length > 0)
@@ -241,9 +248,11 @@ namespace PixelCrushers.DialogueSystem
                         repaintedQuestDetails = true;
                     }
                     var groupName = quest.Group;
+                    var groupDisplayName = string.IsNullOrEmpty(quest.GroupDisplayName) ? quest.Group : quest.GroupDisplayName;
                     if (string.IsNullOrEmpty(groupName)) numGroupless++;
                     if (string.IsNullOrEmpty(groupName) || groupNames.Contains(groupName)) continue;
                     groupNames.Add(groupName);
+                    groupDisplayNames[groupName] = groupDisplayName;
                 }
             }
             if (!repaintedQuestDetails) RepaintSelectedQuest(null);
@@ -253,7 +262,7 @@ namespace PixelCrushers.DialogueSystem
             {
                 var groupFoldout = selectionPanelContentManager.Instantiate<StandardUIFoldoutTemplate>(questGroupTemplate);
                 selectionPanelContentManager.Add(groupFoldout, questSelectionContentContainer);
-                groupFoldout.Assign(groupName, IsGroupExpanded(groupName));
+                groupFoldout.Assign(groupDisplayNames[groupName], IsGroupExpanded(groupName));
                 var targetGroupName = groupName;
                 var targetGroupFoldout = groupFoldout;
                 if (!keepGroupsExpanded)
@@ -269,14 +278,15 @@ namespace PixelCrushers.DialogueSystem
                 {
                     if (string.Equals(quest.Group, groupName))
                     {
-                        var template = IsSelectedQuest(quest) ? selectedQuestTitleTemplate : questTitleTemplate;
+                        var template = IsSelectedQuest(quest)
+                            ? GetSelectedQuestTitleTemplate(quest)
+                            : GetQuestTitleTemplate(quest);
                         var questTitle = selectionPanelContentManager.Instantiate<StandardUIQuestTitleButtonTemplate>(template);
                         questTitle.Assign(quest.Title, quest.Heading.text, OnToggleTracking);
                         selectionPanelContentManager.Add(questTitle, groupFoldout.interiorPanel);
                         var target = quest.Title;
                         questTitle.button.onClick.AddListener(() => { OnClickQuest(target); });
                         if (showDetailsOnSelect) AddShowDetailsOnSelect(questTitle.button, target);
-                        if (firstQuestElement == null) firstQuestElement = questTitle.button;
                         if (string.Equals(quest.Title, questTitleToSelect))
                         {
                             elementToSelect = questTitle.button;
@@ -290,14 +300,15 @@ namespace PixelCrushers.DialogueSystem
             foreach (var quest in quests)
             {
                 if (!string.IsNullOrEmpty(quest.Group)) continue;
-                var template = IsSelectedQuest(quest) ? selectedQuestTitleTemplate : questTitleTemplate;
+                var template = IsSelectedQuest(quest)
+                    ? GetSelectedQuestTitleTemplate(quest)
+                    : GetQuestTitleTemplate(quest);
                 var questTitle = selectionPanelContentManager.Instantiate<StandardUIQuestTitleButtonTemplate>(template);
                 questTitle.Assign(quest.Title, quest.Heading.text, OnToggleTracking);
                 selectionPanelContentManager.Add(questTitle, questSelectionContentContainer);
                 var target = quest.Title;
                 questTitle.button.onClick.AddListener(() => { OnClickQuest(target); });
                 if (showDetailsOnSelect) AddShowDetailsOnSelect(questTitle.button, target);
-                if (firstQuestElement == null) firstQuestElement = questTitle.button;
                 if (string.Equals(quest.Title, questTitleToSelect))
                 {
                     elementToSelect = questTitle.button;
@@ -314,27 +325,45 @@ namespace PixelCrushers.DialogueSystem
                 selectionPanelContentManager.Add(questTitle, questSelectionContentContainer);
             }
 
+            // If no quest selected and Select First Quest On Open is ticked, select it:
+            if (string.IsNullOrEmpty(selectedQuest) && selectFirstQuestOnOpen && quests.Length > 0)
+            {
+                selectedQuest = quests[0].Title;
+                RepaintSelectedQuest(quests[0]);
+                QuestLog.MarkQuestViewed(selectedQuest);
+            }
+
             SetStateToggleButtons();
             mainPanel.RefreshSelectablesList();
             if (mainPanel != null) UnityEngine.UI.LayoutRebuilder.MarkLayoutForRebuild(mainPanel.GetComponent<RectTransform>());
-            if (elementToSelect == null && selectFirstQuestOnOpen)
-            {
-                elementToSelect = firstQuestElement;
-            }
             if (elementToSelect != null)
             {
                 StartCoroutine(SelectElement(elementToSelect));
             }
-            else if (UnityEngine.EventSystems.EventSystem.current.currentSelectedGameObject == null && mainPanel != null && mainPanel.firstSelected != null && InputDeviceManager.autoFocus)
+            else if (eventSystem.currentSelectedGameObject == null && mainPanel != null && mainPanel.firstSelected != null && InputDeviceManager.autoFocus)
             {
-                UITools.Select(mainPanel.firstSelected.GetComponent<UnityEngine.UI.Selectable>());
+                UITools.Select(mainPanel.firstSelected.GetComponent<UnityEngine.UI.Selectable>(), true, eventSystem);
             }
+        }
+
+        protected virtual StandardUIQuestTitleButtonTemplate GetQuestTitleTemplate(QuestInfo quest)
+        {
+            return isShowingActiveQuests
+                ? activeQuestHeadingTemplate
+                : completedQuestHeadingTemplate;
+        }
+
+        protected virtual StandardUIQuestTitleButtonTemplate GetSelectedQuestTitleTemplate(QuestInfo quest)
+        {
+            return isShowingActiveQuests
+                ? (selectedActiveQuestHeadingTemplate ?? activeQuestHeadingTemplate)
+                : (selectedCompletedQuestHeadingTemplate ?? completedQuestHeadingTemplate);
         }
 
         protected IEnumerator SelectElement(UnityEngine.UI.Selectable elementToSelect)
         {
             yield return null;
-            UITools.Select(elementToSelect);
+            UITools.Select(elementToSelect, true, eventSystem);
         }
 
         protected virtual void AddShowDetailsOnSelect(UnityEngine.UI.Button button, string target)
@@ -464,7 +493,24 @@ namespace PixelCrushers.DialogueSystem
 
         protected override void ShowQuests(QuestState questStateMask)
         {
-            if (questStateMask != currentQuestStateMask) detailsPanelContentManager.Clear();
+            if (questStateMask != currentQuestStateMask)
+            {
+                detailsPanelContentManager.Clear();
+
+                // Record most recent selected quest in category for when we return to category:
+                if (currentQuestStateMask == ActiveQuestStateMask)
+                {
+                    Debug.Log($"Changing to completed. save active={selectedQuest}, restore {mostRecentSelectedCompletedQuest}");
+                    mostRecentSelectedActiveQuest = selectedQuest;
+                    selectedQuest = mostRecentSelectedCompletedQuest;
+                }
+                else
+                {
+                    Debug.Log($"Changing to active. save completed={selectedQuest}, restore {mostRecentSelectedActiveQuest}");
+                    mostRecentSelectedCompletedQuest = selectedQuest;
+                    selectedQuest = mostRecentSelectedActiveQuest;
+                }
+            }
             base.ShowQuests(questStateMask);
         }
 
