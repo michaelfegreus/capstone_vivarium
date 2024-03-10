@@ -162,7 +162,7 @@ namespace Josh
         /// <summary>
         /// Removes all songs in the queue
         /// </summary>
-        void ClearMusicQueue()
+        public void ClearMusicQueue()
         {
             // this clears the queue of songs we had lined up
             playbackQueue.Clear();
@@ -351,6 +351,14 @@ namespace Josh
         {
             ManuallyPopulatePlaybackQueue(audioClip, maxLoops);
         }
+
+        //Trent-Added Public Functions
+
+        public void StopAllMusic()
+        {
+            targetSourceVolume = 0;
+        }
+
     }
 
     /// <summary>
@@ -411,6 +419,8 @@ namespace Josh
             this.maxLoops = maxLoops;
         }
     }
+
+
 
 
 }
