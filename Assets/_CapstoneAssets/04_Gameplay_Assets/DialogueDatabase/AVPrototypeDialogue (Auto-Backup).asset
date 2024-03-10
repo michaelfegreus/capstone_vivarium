@@ -9152,7 +9152,7 @@ MonoBehaviour:
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.7300002
+    canvasZoom: 0.8500001
   - id: 18
     fields:
     - title: Title
@@ -16785,7 +16785,8 @@ MonoBehaviour:
       conditionsString: uisGetItemAmount("Summer Salad", "PlayerInventory") == 1
         and uisGetItemAmount("Mead", "PlayerInventory") == 0
       userScript: Variable["Yulia.HasSeasonalFood"] = true; uisRemoveItem("Summer
-        Salad", 1, "PlayerInventory", "")
+        Salad", 1, "PlayerInventory", "");SetQuestEntryState("Yulia's Ceremony",
+        2, "success")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -16856,8 +16857,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: Variable["Yulia.HasNightFlowers"] = true; uisRemoveItem("Moonflower",
-        3, "PlayerInventory", "")
+      userScript: 'Variable["Yulia.HasNightFlowers"] = true; uisRemoveItem("Moonflower",
+        3, "PlayerInventory", "");
+
+        SetQuestEntryState("Yulia''s Ceremony",
+        3, "success")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -16931,14 +16935,16 @@ MonoBehaviour:
       userScript: 'uisRemoveItem("Ceremonial Dress", 1, "PlayerInventory", "");
 
         Variable["Yulia.HasCeremonialDress"]
-        = true'
+        = true;
+
+        SetQuestEntryState("Yulia''s Ceremony", 1, "success")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1253.6433
-        y: 823.04034
+        x: 1260.9604
+        y: 818.1623
         width: 320
         height: 30
     - id: 114
@@ -17004,7 +17010,7 @@ MonoBehaviour:
       conditionsString: uisGetItemAmount("Mead", "PlayerInventory") == 1 and uisGetItemAmount("Summer
         Salad", "PlayerInventory") == 0
       userScript: Variable["Yulia.HasSeasonalFood"] = true; uisRemoveItem("Mead",
-        1, "PlayerInventory", "")
+        1, "PlayerInventory", "");SetQuestEntryState("Yulia's Ceremony", 2, "success")
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -18374,9 +18380,11 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: 
-      userScript: Variable["Yulia.HasSeasonalFood"] = true; uisRemoveItem("Mead",
+      userScript: 'Variable["Yulia.HasSeasonalFood"] = true; uisRemoveItem("Mead",
         1, "PlayerInventory", ""); uisRemoveItem("Summer Salad", 1, "PlayerInventory",
-        "")
+        "");
+
+        SetQuestEntryState("Yulia''s Ceremony", 2, "success")'
       onExecute:
         m_PersistentCalls:
           m_Calls: []
@@ -21599,8 +21607,8 @@ MonoBehaviour:
         width: 1440.0717
         height: 1139.7223
       color: {r: 0.19339621, g: 0.7272636, b: 1, a: 0.5}
-    canvasScrollPosition: {x: 0, y: 2175.7197}
-    canvasZoom: 0.69999826
+    canvasScrollPosition: {x: 1263.3918, y: 1211.4845}
+    canvasZoom: 0.81999815
   - id: 19
     fields:
     - title: Title
@@ -45015,7 +45023,7 @@ MonoBehaviour:
         width: 702.12463
         height: 175.56241
       color: {r: 1, g: 0.36320752, b: 0.36320752, a: 0.5}
-    canvasScrollPosition: {x: 664.83264, y: 25.454529}
+    canvasScrollPosition: {x: 886.65076, y: 0}
     canvasZoom: 0.5500001
   - id: 29
     fields:
@@ -49936,7 +49944,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 1203.133
-        y: 185.41469
+        y: 184.2783
         width: 320
         height: 30
     - id: 8
@@ -49982,7 +49990,7 @@ MonoBehaviour:
         type: 0
         typeString: CustomFieldType_Text
       - title: Sequence
-        value: Fade(Stay,2);Continue()@2.1; MoveTo(WakeUpPlayerPosition,PlayerMovement)@2;
+        value: Fade(Stay,2);Continue()@2.1; required MoveTo(WakeUpPlayerPosition,PlayerMovement)@2;
         type: 0
         typeString: CustomFieldType_Text
       - title: Response Menu Sequence
@@ -50084,8 +50092,8 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 232.7868, y: 0}
-    canvasZoom: 0.61000025
+    canvasScrollPosition: {x: 826.7575, y: 0}
+    canvasZoom: 0.88000005
   - id: 38
     fields:
     - title: Title

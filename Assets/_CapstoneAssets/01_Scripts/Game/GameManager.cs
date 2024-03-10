@@ -75,6 +75,7 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
         }
         else
         {
+			StartCoroutine("StartDemoNotAtBeginning");
 			EnterFreeState();
 		}
 
@@ -87,6 +88,12 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
 		cookingDisplayPanel.SmartClose();
         yield return new WaitForSeconds(2.9f);
 		DialogueManager.instance.StartConversation("DemoStartDialogue");
+	}
+
+	IEnumerator StartDemoNotAtBeginning()
+    {
+		yield return new WaitForSeconds(0.1f);
+		cookingDisplayPanel.SmartClose();
 	}
 
 	void Update() {
