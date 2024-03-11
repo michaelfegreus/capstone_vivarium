@@ -126,6 +126,7 @@ public class SeedPlotLogic : MonoBehaviour
         daysTillReharvest = currentCrop.regrowthTimeInDays;
         fullGrownEXP = currentCrop.fullyGrownEXP;
         StartCoroutine("SetCrop");
+        player.SetPlayerFreeState();
     }
 
     IEnumerator ShowHole()

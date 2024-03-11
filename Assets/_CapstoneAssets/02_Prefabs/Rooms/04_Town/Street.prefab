@@ -232,6 +232,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -243,6 +246,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -255,9 +260,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -990,6 +998,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -1001,6 +1012,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -1013,9 +1026,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -1319,8 +1335,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 65.843735, y: -20.71846}
-  - {x: 55.58136, y: -21.581099}
+  - {x: 52.46161, y: -29.883987}
+  - {x: 37.99092, y: -37.58728}
+  - {x: 36.934784, y: -37.05806}
+  - {x: 36.59471, y: -34.589035}
   - {x: 36.17669, y: -33.39425}
   - {x: 32.015343, y: -29.679646}
   - {x: 28.30526, y: -25.842348}
@@ -1711,6 +1729,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -1722,6 +1743,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -1734,9 +1757,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -2515,7 +2541,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 16
+  m_RootOrder: 15
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7552055942260975924
 MonoBehaviour:
@@ -3570,7 +3596,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 14
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5787806412904774657
 MonoBehaviour:
@@ -4515,7 +4541,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 15
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4481559070521034365
 MonoBehaviour:
@@ -5094,7 +5120,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 12
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6761513371654196257
 MonoBehaviour:
@@ -5513,7 +5539,10 @@ EdgeCollider2D:
   m_Offset: {x: 0, y: 0}
   m_EdgeRadius: 0
   m_Points:
-  - {x: 16.050308, y: -44.36486}
+  - {x: 30.931381, y: -41.99601}
+  - {x: 30.632858, y: -39.94626}
+  - {x: 28.809464, y: -38.827805}
+  - {x: 17.138489, y: -45.614532}
   - {x: -6.8492584, y: -29.022566}
   - {x: -17.867142, y: -27.06761}
   - {x: -28.394897, y: -29.313522}
@@ -5593,6 +5622,8 @@ MonoBehaviour:
   day: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 0}
   evening: {r: 0.621173, g: 0.5790762, b: 0.7264151, a: 0}
   night: {r: 0.14026344, g: 0.14110236, b: 0.1509434, a: 0}
+  orderBasedOnTimeOfDay: 0
+  myTimeOfDay: 0
 --- !u!1 &5634108905674897561
 GameObject:
   m_ObjectHideFlags: 0
@@ -5705,7 +5736,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 17
+  m_RootOrder: 16
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2936008432938471466
 MonoBehaviour:
@@ -6119,7 +6150,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1445576413151764651}
-  m_RootOrder: 13
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &6101397290238058081
 MonoBehaviour:
@@ -6471,6 +6502,68 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 1
+--- !u!114 &1737770551
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063698105012144863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e46ac8d61dc065848bd5a1aa7cd8c006, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_LayerMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_WithTag: Player
+  m_WithoutTag: 
+  m_SkipFirst: 0
+  m_Repeating: 1
+  m_OnObjectEnter:
+    m_Action: 2
+    m_Target: {fileID: 0}
+    m_BoostAmount: 0
+    m_StartTime: 0
+    m_Mode: 0
+    m_Event:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 29883453}
+          m_MethodName: FadeUp
+          m_Mode: 1
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
+  m_OnObjectExit:
+    m_Action: 0
+    m_Target: {fileID: 0}
+    m_BoostAmount: 0
+    m_StartTime: 0
+    m_Mode: 0
+    m_Event:
+      m_PersistentCalls:
+        m_Calls: []
+--- !u!114 &4143891758770036082
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7063698105012144863}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e42a2e594a0c56439c85cef83bcbc23, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assignedCluster: 1
+  newTransitionFadeRate: 1
 --- !u!1 &7371052406775380146
 GameObject:
   m_ObjectHideFlags: 0
@@ -7638,68 +7731,6 @@ MonoBehaviour:
   - {x: 61.917786, y: 24.831987, z: 0}
   - {x: 66.14169, y: 22.24315, z: 0}
   - {x: 63.416626, y: 20.335598, z: 0}
---- !u!114 &1737770551
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7063698105012144863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e46ac8d61dc065848bd5a1aa7cd8c006, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_WithTag: Player
-  m_WithoutTag: 
-  m_SkipFirst: 0
-  m_Repeating: 1
-  m_OnObjectEnter:
-    m_Action: 2
-    m_Target: {fileID: 0}
-    m_BoostAmount: 0
-    m_StartTime: 0
-    m_Mode: 0
-    m_Event:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 29883453}
-          m_MethodName: FadeUp
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
-  m_OnObjectExit:
-    m_Action: 0
-    m_Target: {fileID: 0}
-    m_BoostAmount: 0
-    m_StartTime: 0
-    m_Mode: 0
-    m_Event:
-      m_PersistentCalls:
-        m_Calls: []
---- !u!114 &4143891758770036082
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7063698105012144863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6e42a2e594a0c56439c85cef83bcbc23, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  assignedCluster: 1
-  newTransitionFadeRate: 1
 --- !u!1001 &2477560961320574279
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9602,21 +9633,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1a70a1882cac7540b04a246021e843a, type: 3}
---- !u!1 &7063698105012144863 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2074811857703090905, guid: f1a70a1882cac7540b04a246021e843a,
+--- !u!4 &8425698329206787195 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 730266594274016381, guid: f1a70a1882cac7540b04a246021e843a,
     type: 3}
   m_PrefabInstance: {fileID: 9136812314344845318}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &8549157151919582858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 605962051429883532, guid: f1a70a1882cac7540b04a246021e843a,
-    type: 3}
-  m_PrefabInstance: {fileID: 9136812314344845318}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8425698329206787195 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 730266594274016381, guid: f1a70a1882cac7540b04a246021e843a,
     type: 3}
   m_PrefabInstance: {fileID: 9136812314344845318}
   m_PrefabAsset: {fileID: 0}
@@ -9644,6 +9669,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9136812314344845318}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &6258089692020607032 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2888295065314949182, guid: f1a70a1882cac7540b04a246021e843a,
+    type: 3}
+  m_PrefabInstance: {fileID: 9136812314344845318}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &521496649024627158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8786734066798629328, guid: f1a70a1882cac7540b04a246021e843a,
@@ -9656,9 +9687,9 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 9136812314344845318}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &6258089692020607032 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 2888295065314949182, guid: f1a70a1882cac7540b04a246021e843a,
+--- !u!1 &7063698105012144863 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2074811857703090905, guid: f1a70a1882cac7540b04a246021e843a,
     type: 3}
   m_PrefabInstance: {fileID: 9136812314344845318}
   m_PrefabAsset: {fileID: 0}
