@@ -9,6 +9,7 @@ public class FMVManager : MonoBehaviour
 
     private VideoPlayer videoPlayer;
     [SerializeField] GameObject cam;
+    [SerializeField] QuestTrackerCompanion qc;
 
     void Start()
     {
@@ -20,7 +21,7 @@ public class FMVManager : MonoBehaviour
     {
         videoPlayer.Play();
         PlayerManager.Instance.EnterMenuState();
-        FindObjectOfType<QuestTrackerCompanion>().HideQuests();
+        qc.HideQuests();
         StartCoroutine("ShowCam");
     }
 
@@ -36,7 +37,7 @@ public class FMVManager : MonoBehaviour
         videoPlayer.Stop();
         PlayerManager.Instance.EnterFreeState();
         cam.SetActive(false);
-        FindObjectOfType<QuestTrackerCompanion>().ShowQuests();
+        qc.ShowQuests();
     }
 
     void Update()
