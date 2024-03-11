@@ -359,6 +359,11 @@ namespace Josh
             targetSourceVolume = 0;
         }
 
+        public void StartAllMusic()
+        {
+            targetSourceVolume = 1.0f;
+        }
+
     }
 
     /// <summary>
