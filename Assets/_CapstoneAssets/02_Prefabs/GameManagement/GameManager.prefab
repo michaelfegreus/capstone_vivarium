@@ -10558,6 +10558,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 784564024}
   typewriterEffect: {fileID: 0}
+  superTextMesh: {fileID: 0}
   hideContinueButtonOnContinue: 0
   continueSubtitlePanel: 1
   continueAlertPanel: 1
@@ -11342,6 +11343,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -11364,8 +11366,11 @@ MonoBehaviour:
     m_uiInputField: {fileID: 151067959}
     m_textMeshProInputField: {fileID: 0}
   acceptKey: 13
+  acceptButton: 
   cancelKey: 27
+  cancelButton: 
   showTouchScreenKeyboard: 0
+  allowBlankInput: 1
   onAccept:
     m_PersistentCalls:
       m_Calls: []
@@ -15363,6 +15368,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -15752,8 +15758,10 @@ MonoBehaviour:
   audioClip: {fileID: 0}
   alternateAudioClips: []
   audioSource: {fileID: 0}
-  interruptAudioClip: 0
   usePlayOneShot: 0
+  interruptAudioClip: 0
+  stopAudioOnSilentCharacters: 0
+  stopAudioOnPauseCodes: 0
   silentCharacters: 
   fullPauseCharacters: 
   quarterPauseCharacters: 
@@ -18453,6 +18461,7 @@ MonoBehaviour:
   conversationUIElements:
     mainPanel: {fileID: 637090443}
     dontDeactivateMainPanel: 0
+    waitForMainPanelOpen: 0
     subtitlePanels:
     - {fileID: 1186307100}
     - {fileID: 1918035787}
@@ -18469,6 +18478,7 @@ MonoBehaviour:
     - {fileID: 1642972737}
     - {fileID: 1150515443}
   addEventSystemIfNeeded: 1
+  verifyPanelAssignments: 1
 --- !u!1 &794071672
 GameObject:
   m_ObjectHideFlags: 0
@@ -19619,6 +19629,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 2
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -24616,6 +24627,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dialogueUI: {fileID: 784564024}
   typewriterEffect: {fileID: 649826976}
+  superTextMesh: {fileID: 0}
   hideContinueButtonOnContinue: 0
   continueSubtitlePanel: 1
   continueAlertPanel: 1
@@ -26841,6 +26853,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -26867,13 +26880,17 @@ MonoBehaviour:
   addSpeakerName: 0
   addSpeakerNameFormat: '{0}: {1}'
   accumulateText: 0
+  maxLines: 100
   delayTypewriterUntilOpen: 0
   continueButton: {fileID: 385788331}
+  blockInputDuration: 0
   visibility: 3
   focusAnimationTrigger: 
   unfocusAnimationTrigger: 
-  useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  useAnimatedPortraits: 0
+  usePortraitNativeSize: 0
+  waitForOpen: 0
   waitForClose: 0
   clearTextOnClose: 1
   clearTextOnConversationStart: 0
@@ -26885,6 +26902,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_hasFocus: 0
+  m_isFocusing: 0
   m_actorOverridingPanel: {fileID: 0}
 --- !u!1 &1186920613
 GameObject:
@@ -40604,6 +40622,7 @@ MonoBehaviour:
   showAnimationTrigger: 
   hideAnimationTrigger: 
   startState: 0
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -40623,6 +40642,7 @@ MonoBehaviour:
     m_uiText: {fileID: 0}
     m_textMeshProUGUI: {fileID: 0}
     m_superTextMesh: {fileID: 0}
+  usePortraitNativeSize: 0
   timerSlider: {fileID: 563135650}
   buttonAlignment: 1
   showUnusedButtons: 0
@@ -40643,6 +40663,8 @@ MonoBehaviour:
     numpadHotkeys: 0
     format: '{0}. {1}'
   blockInputDuration: 0
+  showSelectionWhileInputBlocked: 0
+  warnOnEmptyResponseText: 0
   onContentChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -42867,6 +42889,7 @@ MonoBehaviour:
   showAnimationTrigger: Show
   hideAnimationTrigger: Hide
   startState: 0
+  waitForShowAnimationToSetOpen: 0
   m_deactivateOnHidden: 1
   onOpen:
     m_PersistentCalls:
@@ -42893,13 +42916,17 @@ MonoBehaviour:
   addSpeakerName: 0
   addSpeakerNameFormat: '{0}: {1}'
   accumulateText: 0
+  maxLines: 100
   delayTypewriterUntilOpen: 0
   continueButton: {fileID: 1100195497}
+  blockInputDuration: 0
   visibility: 1
   focusAnimationTrigger: 
   unfocusAnimationTrigger: 
-  useAnimatedPortraits: 0
   onlyShowNPCPortraits: 0
+  useAnimatedPortraits: 0
+  usePortraitNativeSize: 0
+  waitForOpen: 0
   waitForClose: 0
   clearTextOnClose: 1
   clearTextOnConversationStart: 0
@@ -42911,6 +42938,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_hasFocus: 1
+  m_isFocusing: 1
   m_actorOverridingPanel: {fileID: 0}
 --- !u!1 &1922032779
 GameObject:
@@ -46911,6 +46939,7 @@ MonoBehaviour:
   ItemHotbarManager: {fileID: 0}
   playerInventory: {fileID: 206650607}
   questHUD: {fileID: 0}
+  cookingDisplayPanel: {fileID: 0}
   currSeedPlot: {fileID: 0}
   currItemInUse: {fileID: 0}
   targetFrameRate: 30
@@ -47261,15 +47290,19 @@ MonoBehaviour:
 
       AnimatorPlay(Jenny_Store_Neutral_Idle,
       BG_cutscene_shop_jenny)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: jHappy
     value: 'AnimatorPlay(Jenny_Store_Happy_Talk, BG_cutscene_shop_jenny);
 
       AnimatorPlay(Jenny_Store_Happy_Idle,
       BG_cutscene_shop_jenny)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: jThinking
     value: AnimatorPlay(Jenny_Store_Thinking_Transition, BG_cutscene_shop_jenny);
+    subMenu: 
   - shortcut: jStopThinking
     value: AnimatorPlay(Jenny_Store_Thinking_To_Neutral_Transition, BG_cutscene_shop_jenny);
+    subMenu: 
   - shortcut: gSadTransition
     value: 'AnimatorPlayWait(Shopkeep_Sad_Transition, BG_cutscene_shop_shopkeep)->Message(TransitionEnd);
 
@@ -47278,13 +47311,16 @@ MonoBehaviour:
 
       AnimatorPlay(Shopkeep_Sad_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: gSad
     value: 'AnimatorPlay(Shopkeep_Sad_Talk, BG_cutscene_shop_shopkeep);
 
       AnimatorPlay(Shopkeep_Sadl_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: gSmile
     value: AnimatorPlay(Shopkeep_Smile_Transition, BG_cutscene_shop_shopkeep);
+    subMenu: 
   - shortcut: gHappyTransition
     value: 'AnimatorPlayWait(Shopkeep_Smile_Transition, BG_cutscene_shop_shopkeep)->Message(TransitionEnd);
 
@@ -47293,16 +47329,19 @@ MonoBehaviour:
 
       AnimatorPlay(Shopkeep_Smile_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: gHappy
     value: 'AnimatorPlay(Shopkeep_Smile_Talk, BG_cutscene_shop_shopkeep);
 
       AnimatorPlay(Shopkeep_Smile_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: gNeutral
     value: 'AnimatorPlay(Shopkeep_Neutral_Talk, BG_cutscene_shop_shopkeep);
 
       AnimatorPlay(Shopkeep_Neutral_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: gSadToNeutral
     value: 'AnimatorPlayWait(Shopkeep_Sad_To_Neutral_Transition, BG_cutscene_shop_shopkeep)->Message(TransitionEnd);
 
@@ -47311,49 +47350,63 @@ MonoBehaviour:
 
       AnimatorPlay(Shopkeep_Neutral_Idle,
       BG_cutscene_shop_shopkeep)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: cBarTalk
     value: 'AnimatorPlay(catfish_bar_talking, catfish_bar);
 
       AnimatorPlay(catfish_bar_talk_idle,
       catfish_bar)@Message(Typed); Delay({{end}});'
+    subMenu: 
   - shortcut: cBarTurn
     value: "AnimatorPlay(catfish_bar_turn_back, catfish_bar);\n Delay({{end}});"
+    subMenu: 
   - shortcut: barkeepTalkD
     value: "AnimatorPlay(barkeep_talking_straight, bartender); AnimatorPlay(barkeep_idle_straight,
       bartender)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: barkeepTalkR
     value: "AnimatorPlay(barkeep_talking_turned, bartender); AnimatorPlay(barkeep_idle_turned,
       bartender)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: rNeutral
     value: "AnimatorPlay(Rishi_Neutral_Talking, BG_cutscene_shop_rishi); AnimatorPlay(Rishi_Neutral_Idle,
       BG_cutscene_shop_rishi)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: rHappy
     value: "AnimatorPlay(Rishi_Happy_Talking, BG_cutscene_shop_rishi); AnimatorPlay(Rishi_Happy_Idle,
       BG_cutscene_shop_rishi)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: mNeutral
     value: "AnimatorPlay(marionne_neutral_talking, NPC_marionne); AnimatorPlay(marionne_neutral_idle,
       NPC_marionne)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: mHappy
     value: "AnimatorPlay(marionne_happy_talking, NPC_marionne); AnimatorPlay(marionne_happy_idle,
       NPC_marionne)@Message(Typed);\n Delay({{end}});"
+    subMenu: 
   - shortcut: cFishingTalk
     value: 'AnimatorPlay(talking, NPC_catfish_bridge); AnimatorPlay(idle, NPC_catfish_bridge)@Message(Typed);
 
       Delay({{end}});'
+    subMenu: 
   - shortcut: yNeutral
     value: 'AnimatorPlay(yulia_talking, Yulia); AnimatorPlay(yulia_idle, Yulia)@Message(Typed);
 
       Delay({{end}});'
+    subMenu: 
   - shortcut: yThink
     value: 'AnimatorPlay(yulia_talk_think, Yulia); AnimatorPlay(yulia_idle_think,
       Yulia)@Message(Typed);
 
       Delay({{end}});'
+    subMenu: 
   - shortcut: yClasp
     value: 'AnimatorPlay(yulia_talk_claspedhands, Yulia); AnimatorPlay(yulia_idle_claspedhands,
       Yulia)@Message(Typed);
 
       Delay({{end}});'
+    subMenu: 
+  referencedSubjects: []
 --- !u!114 &6925661189569928356
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47395,6 +47448,7 @@ MonoBehaviour:
             m_StringArgument: 
             m_BoolArgument: 1
           m_CallState: 2
+    runOnConversationEndEventsAtEndOfFrame: 0
     onConversationCancelled:
       m_PersistentCalls:
         m_Calls: []
@@ -47692,6 +47746,7 @@ RectTransform:
   m_Children:
   - {fileID: 8402666352494916316}
   - {fileID: 1063676644322287941}
+  - {fileID: 2183141572831145117}
   m_Father: {fileID: 2303826280486865858}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -48379,6 +48434,80 @@ MonoBehaviour:
   m_Sprite: {fileID: -4118346828941794905, guid: 12ab13dfdcd42254db7df2308b7102b1,
     type: 3}
   m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8439316383256808530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2183141572831145117}
+  - component: {fileID: 1200242263815473441}
+  - component: {fileID: 3246701084959768663}
+  m_Layer: 5
+  m_Name: ToolKey
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2183141572831145117
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439316383256808530}
+  m_LocalRotation: {x: -0, y: -0, z: 0.04863321, w: 0.9988168}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7856173574184440423}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 5.5750003}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 21.2, y: -27.399994}
+  m_SizeDelta: {x: 26.67894, y: 26.67894}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &1200242263815473441
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439316383256808530}
+  m_CullTransparentMesh: 0
+--- !u!114 &3246701084959768663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8439316383256808530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: a89246ab1ccefa3449ea5c7d7cc637f4, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -50115,6 +50244,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 905e52d3d52fc1c41a7c41f10270ed56, type: 3}
+--- !u!114 &1198776728338657400 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 520659675, guid: 905e52d3d52fc1c41a7c41f10270ed56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1198776728825746083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66082a767b1a4841927fdfa001813b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1198776729016541730 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 882962561, guid: 905e52d3d52fc1c41a7c41f10270ed56,
@@ -50127,12 +50268,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2082143720369093971 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 884864674825318384, guid: 905e52d3d52fc1c41a7c41f10270ed56,
-    type: 3}
-  m_PrefabInstance: {fileID: 1198776728825746083}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2305000769216841209 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1107860124648986458, guid: 905e52d3d52fc1c41a7c41f10270ed56,
@@ -50149,30 +50284,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b4d3da989ff1d4b4382a5c319aacb37a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1198776728249270505 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1659130442, guid: 905e52d3d52fc1c41a7c41f10270ed56,
-    type: 3}
-  m_PrefabInstance: {fileID: 1198776728825746083}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66082a767b1a4841927fdfa001813b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1198776728338657400 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 520659675, guid: 905e52d3d52fc1c41a7c41f10270ed56,
-    type: 3}
-  m_PrefabInstance: {fileID: 1198776728825746083}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b66082a767b1a4841927fdfa001813b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &2122265558139431103 stripped
@@ -50199,6 +50310,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35bbf9999c1f06348866e3deff9bdbab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1198776728249270505 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1659130442, guid: 905e52d3d52fc1c41a7c41f10270ed56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1198776728825746083}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b66082a767b1a4841927fdfa001813b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1 &2082143720369093971 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 884864674825318384, guid: 905e52d3d52fc1c41a7c41f10270ed56,
+    type: 3}
+  m_PrefabInstance: {fileID: 1198776728825746083}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &2082579680813332913
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50518,18 +50647,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfedb1020c99c8a46befbdf5724924d3, type: 3}
---- !u!114 &370205026111419879 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1857159445364886614, guid: dfedb1020c99c8a46befbdf5724924d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082579680813332913}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &5097947145750184289 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6510310348325337296, guid: dfedb1020c99c8a46befbdf5724924d3,
@@ -50548,6 +50665,18 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2082579680813332913}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &370205026111419879 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1857159445364886614, guid: dfedb1020c99c8a46befbdf5724924d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082579680813332913}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2082579680837463433
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50963,12 +51092,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 58ac37417e60e534f91138088a3e6f70, type: 3}
---- !u!1 &2082579681031123247 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 125852, guid: 58ac37417e60e534f91138088a3e6f70,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082579681031199411}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2082579681044441673 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22425850, guid: 58ac37417e60e534f91138088a3e6f70,
@@ -50984,6 +51107,12 @@ GameObject:
 --- !u!4 &2082579681030824975 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 425660, guid: 58ac37417e60e534f91138088a3e6f70,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082579681031199411}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2082579681031123247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 125852, guid: 58ac37417e60e534f91138088a3e6f70,
     type: 3}
   m_PrefabInstance: {fileID: 2082579681031199411}
   m_PrefabAsset: {fileID: 0}
@@ -51830,18 +51959,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 807e83cedc5195542b68ac5e0f4ae8a7, type: 3}
---- !u!114 &2082579682075030447 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1626413549, guid: 807e83cedc5195542b68ac5e0f4ae8a7,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082579681537043010}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: db10a6d491569a8419b6f5e1bffc5243, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2082579680957651629 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 630943983, guid: 807e83cedc5195542b68ac5e0f4ae8a7,
@@ -51872,6 +51989,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 2082579681537043010}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2082579682075030447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1626413549, guid: 807e83cedc5195542b68ac5e0f4ae8a7,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082579681537043010}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db10a6d491569a8419b6f5e1bffc5243, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2082579681798728550
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -52146,6 +52275,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfedb1020c99c8a46befbdf5724924d3, type: 3}
+--- !u!114 &5097947144899531702 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6510310348325337296, guid: dfedb1020c99c8a46befbdf5724924d3,
+    type: 3}
+  m_PrefabInstance: {fileID: 2082579681798728550}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &370205027365775152 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1857159445364886614, guid: dfedb1020c99c8a46befbdf5724924d3,
@@ -52164,18 +52305,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 2082579681798728550}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5097947144899531702 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6510310348325337296, guid: dfedb1020c99c8a46befbdf5724924d3,
-    type: 3}
-  m_PrefabInstance: {fileID: 2082579681798728550}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2082579682088266488
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -53051,9 +53180,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5668260199591023024 stripped
+--- !u!114 &5668260199591023025 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5931095235818478995, guid: 5afc97c6426c7d0409d55f5e322abb5a,
+  m_CorrespondingSourceObject: {fileID: 5931095235818478994, guid: 5afc97c6426c7d0409d55f5e322abb5a,
     type: 3}
   m_PrefabInstance: {fileID: 2082579682651491363}
   m_PrefabAsset: {fileID: 0}
@@ -53063,9 +53192,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5668260199591023025 stripped
+--- !u!114 &5668260199591023024 stripped
 MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5931095235818478994, guid: 5afc97c6426c7d0409d55f5e322abb5a,
+  m_CorrespondingSourceObject: {fileID: 5931095235818478995, guid: 5afc97c6426c7d0409d55f5e322abb5a,
     type: 3}
   m_PrefabInstance: {fileID: 2082579682651491363}
   m_PrefabAsset: {fileID: 0}
