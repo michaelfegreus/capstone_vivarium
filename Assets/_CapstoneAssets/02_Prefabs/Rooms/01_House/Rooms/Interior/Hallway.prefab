@@ -264,6 +264,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -275,6 +278,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -287,9 +292,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -876,6 +884,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -887,6 +898,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -899,9 +912,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -1122,7 +1138,9 @@ EdgeCollider2D:
   - {x: -31.518354, y: -6.1381454}
   - {x: -32.934456, y: -6.8518753}
   - {x: -33.340218, y: -7.4491158}
-  - {x: 5.24172, y: -28.823582}
+  - {x: 3.4000225, y: -27.875107}
+  - {x: 5.4891624, y: -27.726856}
+  - {x: 11.353144, y: -24.928627}
 --- !u!1 &1066039746
 GameObject:
   m_ObjectHideFlags: 0
@@ -2316,6 +2334,9 @@ MonoBehaviour:
   setQuestEntryState: 0
   questEntryNumber: 1
   questEntryState: 0
+  setAnotherQuestEntryState: 0
+  anotherQuestEntryNumber: 1
+  anotherQuestEntryState: 0
   luaCode: 
   sequence: 
   sequenceSpeaker: {fileID: 0}
@@ -2327,6 +2348,8 @@ MonoBehaviour:
   sendMessages: []
   barkSource: 0
   barkConversation: 
+  barkEntryID: -1
+  barkEntryTitle: 
   barkText: 
   barkTextSequence: 
   barker: {fileID: 0}
@@ -2339,9 +2362,12 @@ MonoBehaviour:
   conversationConversant: {fileID: 0}
   conversationActor: {fileID: 0}
   startConversationEntryID: -1
+  startConversationEntryTitle: 
   exclusive: 0
   replace: 0
+  queue: 0
   skipIfNoValidEntries: 0
+  preventRestartOnSameFrameEnded: 0
   stopConversationOnTriggerExit: 0
   stopConversationIfTooFar: 0
   maxConversationDistance: 5
@@ -3610,6 +3636,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db79b16d1bfaf27409ff9ec2edf89f4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  lightParent: {fileID: 0}
   lights:
   - {fileID: 1170788235}
   - {fileID: 1734218647}
@@ -3617,6 +3644,8 @@ MonoBehaviour:
   day: {r: 0.77254903, g: 0.77254903, b: 0.77254903, a: 0}
   evening: {r: 0.621173, g: 0.5790762, b: 0.7264151, a: 0}
   night: {r: 0.14026344, g: 0.14110236, b: 0.1509434, a: 0}
+  orderBasedOnTimeOfDay: 0
+  myTimeOfDay: 0
 --- !u!1001 &1517903842
 PrefabInstance:
   m_ObjectHideFlags: 0
