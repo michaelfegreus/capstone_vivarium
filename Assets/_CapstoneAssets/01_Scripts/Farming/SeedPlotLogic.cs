@@ -184,6 +184,9 @@ public class SeedPlotLogic : MonoBehaviour
 
         if (readyToHarvest)
         {
+            player.SetPlayerAnimationState("Item Pickup");
+            PlayerManager.Instance.EnterMenuState();
+
             if (currentCrop.removeOnHarvest)
             {
                 plotInUse = false;
