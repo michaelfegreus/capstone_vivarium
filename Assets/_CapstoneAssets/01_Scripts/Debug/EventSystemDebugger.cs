@@ -39,4 +39,31 @@ public class EventSystemDebugger : MonoBehaviour
        
 
     }
+
+    //This shit is brain-damaged but i don't care :) 
+    //love,
+    //trent
+
+    public void SetSelectedObjectOnDelay(GameObject itemToSelect)
+    {
+        StartCoroutine(WaitALittleBit(itemToSelect));
+    }
+
+    IEnumerator WaitALittleBit(GameObject go)
+    {
+        yield return new WaitForSeconds(0.5f);
+        system.SetSelectedGameObject(go);
+    }
+
+
+    public void SetSelectedObjectOnDelayShorter(GameObject itemToSelect)
+    {
+        StartCoroutine(WaitALittleBitShorter(itemToSelect));
+    }
+
+    IEnumerator WaitALittleBitShorter(GameObject go)
+    {
+        yield return new WaitForSeconds(0.1f);
+        system.SetSelectedGameObject(go);
+    }
 }

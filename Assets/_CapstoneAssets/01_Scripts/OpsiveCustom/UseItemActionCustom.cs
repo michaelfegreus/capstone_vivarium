@@ -32,7 +32,7 @@ public class UseItemActionCustom : ItemAction
             if (GameManager.Instance.notebookMenuManager.menuOpen)
             {
                 GameManager.Instance.notebookMenuManager.CloseMenu();
-                if (!itemInfo.Item.name.Equals("Folding Shovel") && !itemInfo.Item.name.Equals("Watering Can"))
+                if (!itemInfo.Item.name.Equals("Folding Shovel") && !itemInfo.Item.name.Equals("Watering Can") && itemInfo.Item.Category.name != "Seeds")
                 {
                     PlayerManager.Instance.playerAnimation.PlayAnimationState("CloseNotebookStayInMenu");
                 }
