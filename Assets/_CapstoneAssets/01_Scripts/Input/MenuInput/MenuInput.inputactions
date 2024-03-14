@@ -11,7 +11,8 @@
                     "id": "897ec0b1-750e-42b8-bd99-d2525843624a",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Look",
@@ -19,7 +20,8 @@
                     "id": "6170d19e-9cf0-4da7-b140-6038ab3a7fe5",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Fire",
@@ -27,7 +29,8 @@
                     "id": "5107f3fd-db8c-4f94-b36f-26bdc2020da5",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -318,7 +321,8 @@
                     "id": "6036f374-860b-480d-a7bf-2460257ca356",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Submit",
@@ -326,7 +330,8 @@
                     "id": "7ca8d407-fb43-4fb4-8766-6d9881bdee5b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Cancel",
@@ -334,7 +339,8 @@
                     "id": "68df98ad-e028-4f7b-a80b-178df6bba410",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Point",
@@ -342,7 +348,8 @@
                     "id": "e1fd0ffe-32da-4f36-ad88-c866f4c5d281",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Click",
@@ -350,7 +357,8 @@
                     "id": "56b45ae6-bc5f-4781-9f93-f40b9d1e431b",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "ScrollWheel",
@@ -358,7 +366,8 @@
                     "id": "cd4e077f-a1cf-47f5-ae96-281065939d45",
                     "expectedControlType": "Vector2",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "MiddleClick",
@@ -366,7 +375,8 @@
                     "id": "4a188cd8-6114-45c1-955a-3202c94d7438",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "RightClick",
@@ -374,7 +384,8 @@
                     "id": "75bdf163-0e69-4e19-bfdd-489685cff5d5",
                     "expectedControlType": "",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TrackedDevicePosition",
@@ -382,7 +393,8 @@
                     "id": "8292ca0b-2a3f-4c98-8ca4-2c90039cc543",
                     "expectedControlType": "Vector3",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "TrackedDeviceOrientation",
@@ -390,7 +402,8 @@
                     "id": "7392a445-7c43-48de-896c-3d6291e25ac9",
                     "expectedControlType": "Quaternion",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Escape",
@@ -398,7 +411,8 @@
                     "id": "406a9808-4ebc-431c-a39a-8761c2d0497f",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -746,7 +760,7 @@
                 {
                     "name": "",
                     "id": "7c2caffb-9868-45a2-82d7-3122d2b54884",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -801,7 +815,7 @@
                 {
                     "name": "",
                     "id": "ea6f637f-1546-436e-a033-71fa5dab7778",
-                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "path": "<SwitchProControllerHID>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -962,6 +976,28 @@
                     "action": "Escape",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "545fa533-8b8e-4ee4-8ea9-797578937522",
+                    "path": "<DualShockGamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e0d6d61c-3bd8-4421-80b2-bac5b2240f80",
+                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -975,7 +1011,8 @@
                     "id": "41d8940e-1805-48e0-8510-6d03e76df034",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Cancel",
@@ -983,7 +1020,8 @@
                     "id": "14c6d369-82c4-4889-9de0-a8d066dab0d0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Move",
@@ -991,7 +1029,8 @@
                     "id": "1481373d-8c93-49c6-9427-312175a94e58",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip",
@@ -999,7 +1038,8 @@
                     "id": "f21e5a5a-4f27-4b42-8523-ae3bf495a9dc",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Use",
@@ -1007,7 +1047,8 @@
                     "id": "42a4916a-6597-4f3d-8668-494db10053a0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Equip or Use",
@@ -1015,7 +1056,8 @@
                     "id": "fa9da72a-b746-4a6d-b029-003bb2cd8778",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Drop",
@@ -1023,7 +1065,8 @@
                     "id": "3e870807-39c9-4ff4-af86-056524ed4031",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Next Inv",
@@ -1031,7 +1074,8 @@
                     "id": "82c06ac9-d61e-4162-809a-4c5e9e5055a0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Prev Inv",
@@ -1039,7 +1083,8 @@
                     "id": "cfb2a553-a3c0-472a-aa29-c8b3f93e035c",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "Hotbar",
@@ -1047,7 +1092,8 @@
                     "id": "ae6de187-c013-4298-b601-cf640f843bd0",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1252,7 +1298,7 @@
                 {
                     "name": "",
                     "id": "6132ce38-b979-4177-96ad-c74a719eab4e",
-                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "path": "<SwitchProControllerHID>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1285,7 +1331,7 @@
                 {
                     "name": "",
                     "id": "2b509714-e79a-4bd3-b4a5-22dd2af30791",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1318,7 +1364,7 @@
                 {
                     "name": "",
                     "id": "8445289a-47c8-4586-8d4c-f7eda13b2970",
-                    "path": "<SwitchProControllerHID>/buttonEast",
+                    "path": "<SwitchProControllerHID>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1338,7 +1384,8 @@
                     "id": "18e4cb6a-4761-4997-a41c-cb93465148f8",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "FlipLeft",
@@ -1346,7 +1393,8 @@
                     "id": "0ed0a8eb-d83a-4e28-9c4d-7d42f00fa5d3",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OpenNotebookMenu",
@@ -1354,7 +1402,8 @@
                     "id": "3266daf7-ce89-48ae-ab19-79ee9cf6a8be",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "CloseNotebookMenu",
@@ -1362,7 +1411,8 @@
                     "id": "4fd9363b-8793-4efe-a501-263c51167532",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "OpenItemHotbar",
@@ -1370,7 +1420,8 @@
                     "id": "ee760445-8afe-44ae-8e76-a39414c536a1",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 },
                 {
                     "name": "CloseItemHotbar",
@@ -1378,7 +1429,8 @@
                     "id": "869b1929-7fab-436e-b745-79734c62f576",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1417,6 +1469,17 @@
                 },
                 {
                     "name": "",
+                    "id": "139c0d12-984d-4e5f-a7bb-a6b4d318da58",
+                    "path": "<SwitchProControllerHID>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlipRight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "c3b33db2-7744-4947-9dd0-7ec952fcd229",
                     "path": "<Keyboard>/q",
                     "interactions": "",
@@ -1441,6 +1504,17 @@
                     "name": "",
                     "id": "b58419ab-b31e-46c3-9888-cd8fa29815ff",
                     "path": "<XInputController>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "FlipLeft",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "caa3b2a6-06d9-4c4a-bef5-a9f7f4ff1688",
+                    "path": "<SwitchProControllerHID>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1615,6 +1689,17 @@
                 },
                 {
                     "name": "",
+                    "id": "007bdb86-20ca-46c7-a03c-30741da8d869",
+                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenItemHotbar",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ea20c0c4-ad9a-40d6-841c-b0fbd962304a",
                     "path": "<Keyboard>/c",
                     "interactions": "",
@@ -1659,17 +1744,6 @@
                 },
                 {
                     "name": "",
-                    "id": "937d9930-7b10-4ebe-884e-29d05a2df817",
-                    "path": "*/{Cancel}",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "CloseItemHotbar",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "7f0e3230-2bd1-4875-a84e-2a673e02d5cd",
                     "path": "<Keyboard>/x",
                     "interactions": "",
@@ -1704,7 +1778,7 @@
                 {
                     "name": "",
                     "id": "066b4a1c-48da-481f-9373-48c9c0184ce4",
-                    "path": "<SwitchProControllerHID>/buttonSouth",
+                    "path": "<SwitchProControllerHID>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -1747,6 +1821,17 @@
                 },
                 {
                     "name": "",
+                    "id": "52a579bd-f5c0-4cc3-9899-383e958e4142",
+                    "path": "<SwitchProControllerHID>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenNotebookMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "2395c390-df72-42ec-98a3-309a4442f32f",
                     "path": "<DualShockGamepad>/touchpadButton",
                     "interactions": "",
@@ -1775,6 +1860,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseNotebookMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eec0903a-6f05-46e6-a0bb-62ed34c291f5",
+                    "path": "<SwitchProControllerHID>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseNotebookMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bf0b36ca-fdd1-4ba2-afe4-3cfb573b40e3",
+                    "path": "<SwitchProControllerHID>/buttonNorth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseItemHotbar",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
