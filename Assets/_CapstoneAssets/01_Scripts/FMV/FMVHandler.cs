@@ -39,6 +39,7 @@ public class FMVHandler : MonoBehaviour
     {
         fadeAnim.Play("WhiteStay");
         SceneManager.LoadScene(sceneName);
+        videoPlayer.enabled = false;
     }
 
     IEnumerator WaitForPopIn()

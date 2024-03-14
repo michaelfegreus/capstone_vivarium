@@ -328,7 +328,7 @@ namespace Opsive.UltimateInventorySystem.UI.Panels
 
             if (selectPrevious) {
                 if (m_PreviousPanel != null && m_PreviousPanel != this) {
-                    m_PreviousPanel.OpenBack();
+                    //m_PreviousPanel.OpenBack();
                 }
 
                 if (m_PreviousSelectable != null) {
