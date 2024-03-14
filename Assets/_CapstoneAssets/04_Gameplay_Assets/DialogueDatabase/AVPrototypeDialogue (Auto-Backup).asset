@@ -1335,6 +1335,20 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 56
+    fields:
+    - title: Name
+      value: gamepadPluggedIn
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   conversations:
   - id: 2
     fields:
@@ -3038,7 +3052,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 339.06384
-        y: 177.06384
+        y: 164.86873
         width: 320
         height: 30
     - id: 2
@@ -3098,13 +3112,7 @@ MonoBehaviour:
       - originConversationID: 8
         originDialogueID: 2
         destinationConversationID: 8
-        destinationDialogueID: 5
-        isConnector: 0
-        priority: 2
-      - originConversationID: 8
-        originDialogueID: 2
-        destinationConversationID: 8
-        destinationDialogueID: 6
+        destinationDialogueID: 32
         isConnector: 0
         priority: 2
       conditionsString: Variable["Tutorials.SeenWashingMachine"] == false
@@ -3114,8 +3122,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 355
-        y: 239
+        x: 351.3415
+        y: 208.5122
         width: 320
         height: 30
     - id: 3
@@ -3189,8 +3197,8 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 338
-        y: 123
+        x: 341.6585
+        y: 116.90245
         width: 320
         height: 30
     - id: 5
@@ -3325,7 +3333,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 542
+        x: 539.561
         y: 336
         width: 320
         height: 30
@@ -4986,8 +4994,85 @@ MonoBehaviour:
         y: 1253.6382
         width: 320
         height: 30
+    - id: 32
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: Continue();
+        type: 0
+        typeString: CustomFieldType_Text
+      conversationID: 8
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks:
+      - originConversationID: 8
+        originDialogueID: 32
+        destinationConversationID: 8
+        destinationDialogueID: 5
+        isConnector: 0
+        priority: 2
+      - originConversationID: 8
+        originDialogueID: 32
+        destinationConversationID: 8
+        destinationDialogueID: 6
+        isConnector: 0
+        priority: 2
+      conditionsString: 
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 347.68298
+        y: 254.85367
+        width: 320
+        height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 0, y: 944.1981}
+    canvasScrollPosition: {x: 21.951233, y: 12.491165}
     canvasZoom: 0.82000023
   - id: 9
     fields:
@@ -5701,9 +5786,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 311.32144
+        x: 231.32144
         y: 102.5
-        width: 160
+        width: 320
         height: 30
     - id: 2
       fields:
@@ -5748,7 +5833,7 @@ MonoBehaviour:
         type: 0
         typeString: 
       - title: Sequence
-        value: MAPlaySound(PickUpPaper,,,,,PlayerAnimation,);Required SetPlayerState(Menu);Continue();
+        value: MAPlaySound(PickUpPaper,,,,,PlayerAnimation,);Required SetPlayerState(Menu);Continue()@5;
         type: 0
         typeString: 
       - title: EventGuid
@@ -5776,9 +5861,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 310.5357
-        y: 166.89291
-        width: 160
+        x: 230.5357
+        y: 165.82909
+        width: 320
         height: 30
     - id: 5
       fields:
@@ -5847,9 +5932,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 314.6072
+        x: 234.60721
         y: 239.32138
-        width: 160
+        width: 320
         height: 30
     - id: 6
       fields:
@@ -5916,9 +6001,9 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 310.14294
+        x: 230.14294
         y: 376.82138
-        width: 160
+        width: 320
         height: 30
     - id: 7
       fields:
@@ -5987,13 +6072,13 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 314.6072
+        x: 234.60721
         y: 303.6071
-        width: 160
+        width: 320
         height: 30
     entryGroups: []
     canvasScrollPosition: {x: 0, y: 0}
-    canvasZoom: 0.1
+    canvasZoom: 0.9399997
   - id: 13
     fields:
     - title: Title
@@ -16722,7 +16807,7 @@ MonoBehaviour:
         isConnector: 0
         priority: 2
       conditionsString: Variable["Yulia.HasNightFlowers"] == false and (uisGetItemAmount("Moonflower",
-        "PlayerInventory") == 3)
+        "PlayerInventory") >= 3)
       userScript: 
       onExecute:
         m_PersistentCalls:
@@ -21618,8 +21703,8 @@ MonoBehaviour:
         width: 1440.0717
         height: 1139.7223
       color: {r: 0.19339621, g: 0.7272636, b: 1, a: 0.5}
-    canvasScrollPosition: {x: 1263.3918, y: 1211.4845}
-    canvasZoom: 0.81999815
+    canvasScrollPosition: {x: 1659.7875, y: 259.88727}
+    canvasZoom: 0.819998
   - id: 19
     fields:
     - title: Title
@@ -42279,8 +42364,7 @@ MonoBehaviour:
         destinationDialogueID: 91
         isConnector: 0
         priority: 2
-      conditionsString: Variable["Bar.TalkedAboutYuliaSignature"] == true and (Variable["Bar.GotPermssionFromYulia"]
-        == true) and (Variable["Bar.GotAlcohol"] == true) and (uisGetItemAmount("Permission
+      conditionsString: Variable["Bar.GotAlcohol"] == true and (uisGetItemAmount("Permission
         Slip", "PlayerInventory") == 0)
       userScript: 
       onExecute:
@@ -45111,8 +45195,8 @@ MonoBehaviour:
         width: 702.12463
         height: 175.56241
       color: {r: 1, g: 0.36320752, b: 0.36320752, a: 0.5}
-    canvasScrollPosition: {x: 860.5999, y: 878.9738}
-    canvasZoom: 0.81999993
+    canvasScrollPosition: {x: 2548.3538, y: 0}
+    canvasZoom: 0.58000016
   - id: 29
     fields:
     - title: Title
@@ -46297,7 +46381,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 434.61154
+        x: 435.7479
         y: 417.9238
         width: 320
         height: 30
@@ -46455,7 +46539,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 93.18182, y: 84.40114}
+    canvasScrollPosition: {x: 0, y: 55.99205}
     canvasZoom: 0.88000023
   - id: 31
     fields:
@@ -50472,7 +50556,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 1205.7649
-        y: 307.78314
+        y: 306.60666
         width: 320
         height: 30
     - id: 10
@@ -50760,7 +50844,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 425.88214, y: 52.941193}
+    canvasScrollPosition: {x: 601.1763, y: 54.117645}
     canvasZoom: 0.8500001
   - id: 38
     fields:
@@ -71533,6 +71617,12 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
+      - originConversationID: 57
+        originDialogueID: 1
+        destinationConversationID: 57
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -71540,7 +71630,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 159
         y: 80
         width: 320
         height: 30
@@ -71605,20 +71695,92 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: Variable["gamepadPluggedIn"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159
-        y: 134
+        x: 1
+        y: 150.59843
+        width: 320
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: '(Open the menu with   <size=95><sprite=4></size>to equip tools.
+
+          Press
+          the   <size=95><sprite=1></size>button to use an equipped tool.)'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 6aa6181b-2431-4ec1-a299-ebd95d1fb64e
+        type: 0
+        typeString: 
+      conversationID: 57
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: Variable["gamepadPluggedIn"] == true
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 377.1103
+        y: 151.25984
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 2, y: 79}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1.2699997
   syncInfo:
     syncActors: 0
     syncItems: 0

@@ -3,6 +3,8 @@ using UnityEngine;
 using System.Collections;
 using PixelCrushers.DialogueSystem;
 using Opsive.UltimateInventorySystem.Core;
+using UnityEngine.InputSystem;
+
 
 [RequireComponent(typeof(GameInputManager))]
 [RequireComponent(typeof(ClockManager))]
@@ -32,6 +34,15 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
 	[SerializeField] private SeedPlotLogic currSeedPlot;
 
 	[SerializeField] private ItemDefinition currItemInUse;
+
+	private Gamepad currentGamepad;
+	public bool gamepadPluggedIn = false;
+
+	[SerializeField] private GameObject[] gamepadIcons;
+
+	[SerializeField] private GameObject[] keyboardIcons;
+
+	private QuestTrackerCompanion qc;
 
 	// Use this "protected override void awake" to ensure that this and the SingletonPersistant interface both prevent destruction on load.
 	// Without this, the engine might just run GAME_manager's Awake, and not the SingletonPersistent's awake that keeps it from being destroyed
@@ -79,8 +90,19 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
 			EnterFreeState();
 		}
 
+		qc = GameObject.FindObjectOfType<QuestTrackerCompanion>();
 	}
 
+	public void TryHideQuestHUD()
+    {
+		qc.HideQuests();
+    }
+
+	public void TryShowQuestHUD()
+    {
+		qc.ShowQuests();
+
+	}
 
 	IEnumerator StartDemo()
     {
@@ -96,10 +118,42 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
 		cookingDisplayPanel.SmartClose();
 	}
 
-	void Update() {
-		this.gameStateMachine.ExecuteStateUpdate();
-        
-	}
+    void Update()
+    {
+        this.gameStateMachine.ExecuteStateUpdate();
+
+        currentGamepad = Gamepad.current;
+
+		if(currentGamepad != null && gamepadPluggedIn == false)
+        {
+			gamepadPluggedIn = true;
+			DialogueLua.SetVariable("gamepadPluggedIn", true);
+			Debug.Log("Gamepad detected");
+			foreach(GameObject i in gamepadIcons)
+            {
+				i.SetActive(true);
+            }
+			foreach(GameObject b in keyboardIcons)
+            {
+				b.SetActive(false);
+            }
+
+		}
+		else if (currentGamepad == null & gamepadPluggedIn == true)
+        {
+			gamepadPluggedIn = false;
+			Debug.Log("No gamepad detected");
+			DialogueLua.SetVariable("gamepadPluggedIn", false);
+			foreach (GameObject i in gamepadIcons)
+			{
+				i.SetActive(false);
+			}
+			foreach (GameObject b in keyboardIcons)
+			{
+				b.SetActive(true);
+			}
+		}
+    }
 
 	public void EnterFreeState()
 	{
@@ -135,6 +189,7 @@ public class GameManager : Singleton/*Persistent*/<GameManager> {
     {
 		return currItemInUse;
     }
+
 
 	// Pausing functionality. Not sure if I'll use it in this way.
 	/*

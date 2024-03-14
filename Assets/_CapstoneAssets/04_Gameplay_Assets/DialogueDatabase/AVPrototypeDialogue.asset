@@ -1335,6 +1335,20 @@ MonoBehaviour:
       value: 
       type: 0
       typeString: 
+  - id: 56
+    fields:
+    - title: Name
+      value: gamepadPluggedIn
+      type: 0
+      typeString: CustomFieldType_Text
+    - title: Initial Value
+      value: False
+      type: 2
+      typeString: CustomFieldType_Boolean
+    - title: Description
+      value: 
+      type: 0
+      typeString: CustomFieldType_Text
   conversations:
   - id: 2
     fields:
@@ -29882,7 +29896,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 1541.9517
+        x: 1543.9924
         y: 950.1477
         width: 320
         height: 30
@@ -33582,8 +33596,8 @@ MonoBehaviour:
         width: 1395.1213
         height: 1327.4742
       color: {r: 1, g: 1, b: 1, a: 0.5}
-    canvasScrollPosition: {x: 1050.6476, y: 16.438385}
-    canvasZoom: 0.72999966
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 0.1
   - id: 27
     fields:
     - title: Title
@@ -37301,8 +37315,8 @@ MonoBehaviour:
         width: 863.2865
         height: 1139.5469
       color: {r: 0.3160377, g: 1, b: 0.3709239, a: 0.5}
-    canvasScrollPosition: {x: 326.86603, y: 4.4776}
-    canvasZoom: 0.6699998
+    canvasScrollPosition: {x: 621.2236, y: 171.87506}
+    canvasZoom: 0.6399998
   - id: 28
     fields:
     - title: Title
@@ -50542,7 +50556,7 @@ MonoBehaviour:
       canvasRect:
         serializedVersion: 2
         x: 1205.7649
-        y: 307.78314
+        y: 306.60666
         width: 320
         height: 30
     - id: 10
@@ -50830,7 +50844,7 @@ MonoBehaviour:
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 425.88214, y: 52.941193}
+    canvasScrollPosition: {x: 601.1763, y: 54.117645}
     canvasZoom: 0.8500001
   - id: 38
     fields:
@@ -71603,6 +71617,12 @@ MonoBehaviour:
         destinationDialogueID: 2
         isConnector: 0
         priority: 2
+      - originConversationID: 57
+        originDialogueID: 1
+        destinationConversationID: 57
+        destinationDialogueID: 3
+        isConnector: 0
+        priority: 2
       conditionsString: 
       userScript: 
       onExecute:
@@ -71610,7 +71630,7 @@ MonoBehaviour:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 160
+        x: 159
         y: 80
         width: 320
         height: 30
@@ -71675,20 +71695,92 @@ MonoBehaviour:
       falseConditionAction: Block
       conditionPriority: 2
       outgoingLinks: []
-      conditionsString: 
+      conditionsString: Variable["gamepadPluggedIn"] == false
       userScript: 
       onExecute:
         m_PersistentCalls:
           m_Calls: []
       canvasRect:
         serializedVersion: 2
-        x: 159
-        y: 134
+        x: 1
+        y: 150.59843
+        width: 320
+        height: 30
+    - id: 3
+      fields:
+      - title: Title
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Pictures
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Description
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Actor
+        value: 2
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Conversant
+        value: 1
+        type: 5
+        typeString: CustomFieldType_Actor
+      - title: Menu Text
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Dialogue Text
+        value: '(Open the menu with   <size=95><sprite=4></size>to equip tools.
+
+          Press
+          the   <size=95><sprite=1></size>button to use an equipped tool.)'
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Parenthetical
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Audio Files
+        value: '[]'
+        type: 3
+        typeString: CustomFieldType_Files
+      - title: Video File
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: Sequence
+        value: 
+        type: 0
+        typeString: CustomFieldType_Text
+      - title: EventGuid
+        value: 6aa6181b-2431-4ec1-a299-ebd95d1fb64e
+        type: 0
+        typeString: 
+      conversationID: 57
+      isRoot: 0
+      isGroup: 0
+      nodeColor: 
+      delaySimStatus: 0
+      falseConditionAction: Block
+      conditionPriority: 2
+      outgoingLinks: []
+      conditionsString: Variable["gamepadPluggedIn"] == true
+      userScript: 
+      onExecute:
+        m_PersistentCalls:
+          m_Calls: []
+      canvasRect:
+        serializedVersion: 2
+        x: 377.1103
+        y: 151.25984
         width: 320
         height: 30
     entryGroups: []
-    canvasScrollPosition: {x: 2, y: 79}
-    canvasZoom: 1
+    canvasScrollPosition: {x: 0, y: 0}
+    canvasZoom: 1.2699997
   syncInfo:
     syncActors: 0
     syncItems: 0

@@ -19,6 +19,8 @@ public class FMVManager : MonoBehaviour
 
     public void PlayVideo()
     {
+        qc = GameObject.FindObjectOfType<QuestTrackerCompanion>();
+
         videoPlayer.Play();
         PlayerManager.Instance.EnterMenuState();
         qc.HideQuests();
